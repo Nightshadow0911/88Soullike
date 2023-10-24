@@ -4,7 +4,7 @@ using System.ComponentModel;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Scriptable", menuName = "Scriptable/Item", order = 0)]
-public class ItemSO : MonoBehaviour
+public class ItemSO : ScriptableObject
 {
     public string itemName;
     public Sprite sprite;
