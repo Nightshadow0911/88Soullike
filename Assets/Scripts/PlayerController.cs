@@ -4,37 +4,64 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
-    public Vector2 inputVec;
-    public float speed;
-    public float jumpForce;
+    public Rigidbody2D rb;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
+    private float horizontal;
+    private float speed = 8f;
+    private float jumpingPower = 16f;
+    private bool isFacingRight = true;
+    private Animator animator;
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
 
-    Rigidbody2D rigid;
-    SpriteRenderer spriter;
-    Animator anim;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        rigid = GetComponent<Rigidbody2D>();
-        spriter = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
     }
-
-    private void FixedUpdate()
+    private void Update()
     {
-        Vector2 nextVec = inputVec * speed * Time.fixedDeltaTime;
-        rigid.MovePosition(rigid.position + nextVec);
-    }
-    private void LateUpdate()
-    {
-        anim.SetFloat("Speed", inputVec.magnitude);
-        if (inputVec.x != 0)
+        bool grounded = IsGrounded();
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        if (!isFacingRight && horizontal > 0f)
         {
-            spriter.flipX = inputVec.x < 0;
+            Flip();
         }
+        else if(isFacingRight && horizontal <0f)
+         {
+            Flip();
+        }
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        animator.SetBool("Jump", !grounded);// 땅에 떨어졌을때 jump를 false로 변경 
     }
-    void OnMove(InputValue value)
+
+    public void Jump(InputAction.CallbackContext context)
     {
-        inputVec = value.Get<Vector2>();
+        if (context.performed && IsGrounded())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+
+        }
+        if (context.canceled && rb.velocity.y>0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        }
+        animator.SetBool("Jump", context.performed && IsGrounded());
+
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
+    }
+    public void Move(InputAction.CallbackContext context)
+    { 
+        horizontal = context.ReadValue<Vector2>().x;
     }
 }
