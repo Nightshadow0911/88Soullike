@@ -57,7 +57,7 @@ public class Inventory : MonoBehaviour
     {
         if (index >= items.Count) return;
         items.RemoveAt(index);
-        onChangeItem.Invoke();
+        onChangeItem?.Invoke();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

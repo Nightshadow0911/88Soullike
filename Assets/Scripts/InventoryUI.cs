@@ -11,8 +11,10 @@ public class InventoryUI : MonoBehaviour
     public GameObject inventoryPanel;
     bool activeInventory = false;
 
-    public Slot[] slots;
+    public Slot[] slots; // 리스트로 바꾸면 추가하는 방식도 가능
+
     public Transform slotHolder;
+    public GameObject slotPrefab;
 
 
     private void Start()
@@ -27,10 +29,20 @@ public class InventoryUI : MonoBehaviour
 
     private void SlotChange(int val)
     {
+        /*if (inven.SlotCount > slots.Length) // 슬롯을 추가할 때 사용
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                GameObject sl = Instantiate(slotPrefab, transform.position, Quaternion.identity);
+                sl.transform.SetParent(slotHolder);
+            }
+            
+        }*/
         Debug.Log(inven.SlotCount);
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].slotnum = i;
+            Debug.Log(i);
             if (i < inven.SlotCount)
             {
                 slots[i].GetComponent<Button>().interactable = true;
@@ -59,15 +71,17 @@ public class InventoryUI : MonoBehaviour
 
     private void RedrawSlotUI()
     {
-        Debug.Log(inven.SlotCount+1);
+        Debug.Log("여기");
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].RemoveSlot();
         }
+        Debug.Log("하나");
         for (int i = 0; i < inven.items.Count; i++)
         {
             slots[i].item = inven.items[i];
             slots[i].UpdateSlotUI();
         }
+        Debug.Log("둘");
     }
 }

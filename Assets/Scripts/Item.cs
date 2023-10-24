@@ -16,15 +16,6 @@ public class Item
     public string explane;
 
 
-/*    public Item() // 생성할때 curItem을 기반으로 초기화 해주고 싶은데 왜 오류가 날까, 일단 쓸 필요 없음
-    {
-        itemName = curItem.itemName;
-        sprite = curItem.sprite;
-        type = curItem.type;
-        power = curItem.power;
-        explane = curItem.explane;
-    }*/
-
     public bool Use() //사용 아이템 사용
     {
         bool isUsed = false;

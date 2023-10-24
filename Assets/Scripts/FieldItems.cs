@@ -27,7 +27,8 @@ public class FieldItems : MonoBehaviour
 
     public void DestroyItem() // 이후 오브젝트 풀링 사용
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 
 }
