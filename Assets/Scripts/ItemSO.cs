@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ScriptableObject", menuName = "ScriptableObject/Item")]
+[CreateAssetMenu(fileName = "Scriptable", menuName = "Scriptable/Item", order = 0)]
 public class ItemSO : MonoBehaviour
 {
     public string itemName;
