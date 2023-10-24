@@ -20,17 +20,22 @@ public class InventoryUI : MonoBehaviour
         inven = Inventory.instance;
         slots = slotHolder.GetComponentsInChildren<Slot>();
         inven.onSlotCountChange += SlotChange;
+        inven.onChangeItem += RedrawSlotUI;
+        AddSlot();
         inventoryPanel.SetActive(activeInventory);
     }
 
     private void SlotChange(int val)
     {
-        for(int i = 0; i < slots.Length; i++)
+        Debug.Log(inven.SlotCount);
+        for (int i = 0; i < slots.Length; i++)
         {
-            if(i < inven.SlotCount)
+            slots[i].slotnum = i;
+            if (i < inven.SlotCount)
             {
                 slots[i].GetComponent<Button>().interactable = true;
-            } else
+            }
+            else
             {
                 slots[i].GetComponent<Button>().interactable = false;
             }
@@ -39,7 +44,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I)) // 이후 new Input System 사용
+        if (Input.GetKeyDown(KeyCode.I)) // 이후 new Input System 사용
         {
             activeInventory = !activeInventory;
             inventoryPanel.SetActive(activeInventory);
@@ -48,7 +53,21 @@ public class InventoryUI : MonoBehaviour
 
     public void AddSlot() // 이후 특정 아이템 획득 or 챕터 클리어마다 슬롯 개수를 늘려줘도 좋을듯
     {
-        inven.SlotCount++;
+        inven.SlotCount += 4;
         // inven.SlotCount += 8;
+    }
+
+    private void RedrawSlotUI()
+    {
+        Debug.Log(inven.SlotCount+1);
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i].RemoveSlot();
+        }
+        for (int i = 0; i < inven.items.Count; i++)
+        {
+            slots[i].item = inven.items[i];
+            slots[i].UpdateSlotUI();
+        }
     }
 }

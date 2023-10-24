@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d6b1342c5bc3b40adfcb26488955a4, type: 3}
   m_Name: SmallPotion
   m_EditorClassIdentifier: 
+  type: 2
   itemName: SmallPotion
   sprite: {fileID: 21300000, guid: 622e09c55e7031e4ab84f9887e031d2d, type: 3}
-  type: 2
+  efts:
+  - {fileID: 11400000, guid: af57ca3a9e3e03543a0c01db5f7c02cb, type: 2}
   power: 5
   explane: "\uC791\uC740 \uD3EC\uC158"

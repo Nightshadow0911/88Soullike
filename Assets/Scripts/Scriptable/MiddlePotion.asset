@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d6b1342c5bc3b40adfcb26488955a4, type: 3}
   m_Name: MiddlePotion
   m_EditorClassIdentifier: 
+  type: 2
   itemName: MiddlePotion
   sprite: {fileID: 21300000, guid: e38f31f59f7d98142b2bcaf78adb214a, type: 3}
-  type: 2
+  efts:
+  - {fileID: 11400000, guid: af57ca3a9e3e03543a0c01db5f7c02cb, type: 2}
   power: 10
   explane: "\uC801\uB2F9\uD55C \uD3EC\uC158"

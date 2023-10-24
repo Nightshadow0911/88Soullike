@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
     public delegate void OnChangeItem();
     public OnChangeItem onChangeItem;
 
-    [SerializeField] private List<Item> items = new List<Item>();
+    public List<Item> items = new List<Item>();
 
     private int slotCount;
     public int SlotCount
@@ -53,7 +53,12 @@ public class Inventory : MonoBehaviour
         Debug.Log("인벤토리를 비워주세요");
         return false;
     }
-
+    public void RemoveItem(int index)
+    {
+        if (index >= items.Count) return;
+        items.RemoveAt(index);
+        onChangeItem.Invoke();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("FieldItem"))

@@ -2833,22 +2833,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDB:
   - curItem: {fileID: 11400000, guid: bdc215fa920501f42a6ab7d816f1a6a5, type: 2}
+    type: 0
     itemName: 
     sprite: {fileID: 0}
-    type: 0
-    power: 0
+    efts:
+    - {fileID: 11400000, guid: af57ca3a9e3e03543a0c01db5f7c02cb, type: 2}
+    power: 5
     explane: 
   - curItem: {fileID: 11400000, guid: 2fc154dbd5dd58c4f91185d7b18c1386, type: 2}
+    type: 0
     itemName: 
     sprite: {fileID: 0}
-    type: 0
-    power: 0
+    efts:
+    - {fileID: 11400000, guid: af57ca3a9e3e03543a0c01db5f7c02cb, type: 2}
+    power: 10
     explane: 
   - curItem: {fileID: 11400000, guid: 2fa7c9d90e4fdad43955d32b16a747e9, type: 2}
+    type: 0
     itemName: 
     sprite: {fileID: 0}
-    type: 0
-    power: 0
+    efts:
+    - {fileID: 11400000, guid: e4fa3eb251bd50241b280b6ce145b1dd, type: 2}
+    power: 5
     explane: 
   fieldItemPrefab: {fileID: 8650113723680133117, guid: 3f1040c2bec25374faf0a02637e3fd37, type: 3}
   pos:
