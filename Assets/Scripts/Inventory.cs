@@ -21,6 +21,11 @@ public class Inventory : MonoBehaviour
     public delegate void OnSlotCountChange(int val);
     public OnSlotCountChange onSlotCountChange;
 
+    public delegate void OnChangeItem();
+    public OnChangeItem onChangeItem;
+
+    [SerializeField] private List<Item> items = new List<Item>();
+
     private int slotCount;
     public int SlotCount
     {
@@ -37,9 +42,27 @@ public class Inventory : MonoBehaviour
         slotCount = 4;
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool AddItem(Item item)
     {
-        
+        if(items.Count < SlotCount)
+        {
+            items.Add(item);
+            onChangeItem?.Invoke(); // if(onChangeItem != null)
+            return true;
+        }
+        Debug.Log("인벤토리를 비워주세요");
+        return false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("FieldItem"))
+        {
+            FieldItems fieldItems = collision.GetComponent<FieldItems>();
+            if(AddItem(fieldItems.GetItem()))
+            {
+                fieldItems.DestroyItem();
+            }
+        }
     }
 }

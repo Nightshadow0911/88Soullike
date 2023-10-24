@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
+[Serializable]
 [CreateAssetMenu(fileName = "Scriptable", menuName = "Scriptable/Item", order = 0)]
 public class ItemSO : ScriptableObject
 {

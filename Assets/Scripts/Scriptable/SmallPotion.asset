@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23d6b1342c5bc3b40adfcb26488955a4, type: 3}
-  m_Name: Item1
+  m_Name: SmallPotion
   m_EditorClassIdentifier: 
-  itemName: 
-  sprite: {fileID: 0}
-  type: 0
-  power: 0
-  explane: 
+  itemName: SmallPotion
+  sprite: {fileID: 21300000, guid: 622e09c55e7031e4ab84f9887e031d2d, type: 3}
+  type: 2
+  power: 5
+  explane: "\uC791\uC740 \uD3EC\uC158"

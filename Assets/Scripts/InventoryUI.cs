@@ -49,5 +49,6 @@ public class InventoryUI : MonoBehaviour
     public void AddSlot() // 이후 특정 아이템 획득 or 챕터 클리어마다 슬롯 개수를 늘려줘도 좋을듯
     {
         inven.SlotCount++;
+        // inven.SlotCount += 8;
     }
 }
