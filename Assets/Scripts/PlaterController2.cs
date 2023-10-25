@@ -16,12 +16,21 @@ public class PlaterController2 : MonoBehaviour
     {
         get
         {
-            if (IsMoving && !touchingDirections.IsOnWall)
+            if (CanMove)
             {
-                return walkSpeed;
+                if (IsMoving && !touchingDirections.IsOnWall)
+                {
+                    return walkSpeed;
+                }
+                else
+                {
+                    //idle speed 0 
+                    return 0;
+                }
             }
             else
             {
+                //움직임 잠금 
                 return 0;
             }
         }
@@ -80,6 +89,11 @@ public class PlaterController2 : MonoBehaviour
             _isFacingRight = value;
         }
     }
+    public bool CanMove { get
+        {
+            return animator.GetBool(AnimationStrings.canMove);
+        }
+    }
 
     Rigidbody2D rb;
     Animator animator;
@@ -131,10 +145,18 @@ public class PlaterController2 : MonoBehaviour
     }
     public void onJump(InputAction.CallbackContext context)
     {
-        if (context.started && touchingDirections.IsGrounded)
+        if (context.started && touchingDirections.IsGrounded && CanMove)
         {
-            animator.SetTrigger(AnimationStrings.jump);
+            animator.SetTrigger(AnimationStrings.jumpTrigger);
             rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            animator.SetTrigger(AnimationStrings.attackTrigger);
         }
     }
 }

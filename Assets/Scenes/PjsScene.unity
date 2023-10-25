@@ -276,7 +276,19 @@ MonoBehaviour:
     m_ActionId: 1d7acb65-4b17-4d03-bd37-6f0246a17a7c
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 299198244}
+        m_TargetAssemblyTypeName: PlaterController2, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a27f200b-84d6-4c3a-96f9-106f03e478d1
     m_ActionName: Player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -414,9 +426,9 @@ MonoBehaviour:
   groundDistance: 0.05
   wallDistance: 0.2
   ceilingDistance: 0.05
+  _isGrounded: 0
   _isOnWall: 0
   _isOnCeiling: 0
-  _isGrounded: 0
 --- !u!1 &723077935
 GameObject:
   m_ObjectHideFlags: 0
