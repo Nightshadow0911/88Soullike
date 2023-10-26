@@ -138,4 +138,5 @@ public class PlaterController2 : MonoBehaviour
             animator.SetTrigger(AnimationStrings.attackTrigger);
         }
     }
+
 }
