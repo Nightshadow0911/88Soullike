@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,16 +8,25 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour, IPointerClickHandler
 {
     public int slotnum;
+    public TMP_Text amountTxt;
     public Item item;
     public Image itemIcon;
 
     public void UpdateSlotUI()
     {
+        
         itemIcon.sprite = item.sprite;
-        itemIcon.transform.localScale = Vector3.one * 0.6f;
+        itemIcon.transform.localScale = Vector3.one * 0.7f;
         itemIcon.gameObject.SetActive(true);
-        GetComponentInChildren<DraggableItem>().parentPreviousDrag = transform;
-        GetComponentInChildren<DraggableItem>().parentAfterDrag = transform;
+
+        if(item.curItem.IsStackable())
+        {
+            amountTxt.gameObject.SetActive(true);
+            amountTxt.text = item.amount.ToString();
+        }
+
+        //if(GetComponentInChildren<DraggableItem>().parentPreviousDrag == null)
+        //GetComponentInChildren<DraggableItem>().parentPreviousDrag = transform;
     }
     public void RemoveSlot()
     {
@@ -43,8 +53,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     {
         if (item == null) return;
 
-        bool isUse = item.Use(); //아이템 효과 사
-        if (isUse) // 사용되면 슬롯의 정보를 초기활
+        bool isUse = item.Use(); //아이템 효과 사용
+        amountTxt.text = item.amount.ToString();
+
+        if (isUse && (item.amount <= 0)) // 모두 사용되면 슬롯의 정보를 초기활
         {
             Inventory.instance.RemoveItem(slotnum);
         }

@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Destroy(gameObject);
             return;
@@ -44,9 +44,30 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(Item item)
     {
-        if(items.Count < SlotCount)
+        if (items.Count < SlotCount)
         {
-            items.Add(item);
+            if (item.curItem.IsStackable())
+            {
+                bool itemAlreadyInInventory = false;
+                foreach(Item inventoryItem in items)
+                {
+                    if(inventoryItem.curItem.itemName == item.curItem.itemName)
+                    {
+                        inventoryItem.amount += item.curItem.amount;
+                        itemAlreadyInInventory = true;
+                    }
+                }
+                if(!itemAlreadyInInventory)
+                {
+                    items.Add(item);
+                }
+
+            }
+            else
+            {
+                items.Add(item);
+            }
+
             onChangeItem?.Invoke(); // if(onChangeItem != null)
             return true;
         }
@@ -61,10 +82,10 @@ public class Inventory : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("FieldItem"))
+        if (collision.CompareTag("FieldItem"))
         {
             FieldItems fieldItems = collision.GetComponent<FieldItems>();
-            if(AddItem(fieldItems.GetItem()))
+            if (AddItem(fieldItems.GetItem()))
             {
                 fieldItems.DestroyItem();
             }

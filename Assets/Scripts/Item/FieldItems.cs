@@ -16,6 +16,7 @@ public class FieldItems : MonoBehaviour
         item.power = fieldItem.power;
         item.explane = fieldItem.explane;
         item.efts = fieldItem.efts;
+        item.amount = fieldItem.amount;
 
         image.sprite = item.sprite;
     }

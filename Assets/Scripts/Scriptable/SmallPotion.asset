@@ -19,3 +19,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af57ca3a9e3e03543a0c01db5f7c02cb, type: 2}
   power: 5
   explane: "\uC791\uC740 \uD3EC\uC158"
+  amount: 3

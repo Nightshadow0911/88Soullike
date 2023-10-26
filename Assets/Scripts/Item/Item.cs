@@ -14,6 +14,7 @@ public class Item
     public List<ItemEffect> efts;
     public int power;
     public string explane;
+    public int amount;
 
 
     public bool Use() //사용 아이템 사용
@@ -24,8 +25,11 @@ public class Item
         {
             isUsed = eft.ExcuteRole(power);
         }
+        amount--;
         isUsed = true;
         return isUsed; // 아이템 사용 성공 여부
     }
+
+
 
 }
