@@ -40,7 +40,6 @@ public class MonsterController : MonoBehaviour
             currentState = MonsterState.Run;
 
             Vector2 moveDirection = direction.normalized;
-
             if (moveDirection.x < 0) //방향 전환 기능
             {
                 transform.localScale = new Vector3(-1, 1, 1);
