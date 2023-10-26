@@ -35,28 +35,7 @@ public class PlaterController2 : MonoBehaviour
             }
         }
     }
-    //질문
-    //[SerializeField]
-    //private bool _isMoving = false;
 
-    //public bool IsMoving
-    //{
-    //    get
-    //    {if(IsMoving && !touchingDirections.IsOnWall)
-    //      {
-    //          return _isMoving;
-    //      }
-    //        else
-    //      {
-    //          return false;
-    //      }
-    //    }
-    //    private set
-    //    {
-    //        _isMoving = value;
-    //        animator.SetBool(AnimationStrings.isMoving, value);
-    //    }
-    //}
     [SerializeField]
     private bool _isMoving = false;
 
@@ -120,7 +99,7 @@ public class PlaterController2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveInput.x * walkSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed * Time.fixedDeltaTime, rb.velocity.y);
 
         animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
     }
