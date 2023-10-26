@@ -25,12 +25,12 @@ public class ArrowControl : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // 플레이어가 어떤 형태의 체력 시스템을 가지고 있는지 가정합니다.
-            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            //PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
 
-            if (playerHealth != null)
+            //if (playerHealth != null)
             {
                 // 플레이어에게 데미지를 입힙니다.
-                playerHealth.TakeDamage(damage);
+                //playerHealth.TakeDamage(damage);
             }
 
             // 화살을 플레이어에게 명중한 후, 화살을 파괴합니다.
