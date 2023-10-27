@@ -116,12 +116,12 @@ public class PlaterController2 : MonoBehaviour
         rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed * Time.fixedDeltaTime, rb.velocity.y);
 
         animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
-        if (touchingDirections.IsGrounded)
-        {
-            IsJumping = false; // 점프가 끝난 경우 점프 중인 상태 해제
-            animator.SetBool(AnimationStrings.roll, false);
-            Debug.Log("1");
-        }
+        //if (touchingDirections.IsGrounded)
+        //{
+        //    IsJumping = false; // 점프가 끝난 경우 점프 중인 상태 해제
+        //    animator.SetBool(AnimationStrings.roll, false);
+        //    Debug.Log("1");
+        //}
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -147,7 +147,7 @@ public class PlaterController2 : MonoBehaviour
         if (context.started && touchingDirections.IsGrounded && CanMove)
         {
             animator.SetTrigger(AnimationStrings.jumpTrigger);
-            animator.SetBool(AnimationStrings.roll,true);
+            //animator.SetBool(AnimationStrings.roll,true);
             rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
             Debug.Log("3");
             IsJumping = true;
