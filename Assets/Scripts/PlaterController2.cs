@@ -136,7 +136,7 @@ public class PlaterController2 : MonoBehaviour
         if (moveInput.x>0&& !IsFacingRight)
         {
             IsFacingRight = true;
-        }
+        }//
         else if(moveInput.x<0&& IsFacingRight)
         {
             IsFacingRight = false;

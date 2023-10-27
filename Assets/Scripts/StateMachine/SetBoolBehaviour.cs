@@ -64,6 +64,6 @@ public class SetBoolBehaviour : StateMachineBehaviour
         {
             animator.SetBool(boolName, valueOnExit);
         }
-
+        //
     }
 }
