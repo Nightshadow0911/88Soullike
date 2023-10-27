@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 400
+  _isJumping: 0
   _isMoving: 0
   _isFacingRight: 1
 --- !u!70 &299198245
