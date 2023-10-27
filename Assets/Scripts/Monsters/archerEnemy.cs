@@ -76,6 +76,7 @@ public class MonsterController : MonoBehaviour
                     transform.localScale = new Vector3(1, 1, 1);
                 }
                 StartCoroutine(ShootArrowInArc());
+                
             }
         }
         else if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) < 2.0f)
@@ -93,6 +94,7 @@ public class MonsterController : MonoBehaviour
                     transform.localScale = new Vector3(1, 1, 1);
                 }
                 StartCoroutine(ShootStraightArrow());
+               
             }
         }
         else
@@ -116,8 +118,10 @@ public class MonsterController : MonoBehaviour
         GameObject arrow = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.velocity = direction.normalized * 7f;
+        animator.Play("Idle");
+        yield return new WaitForSeconds(1.5f);
         isShooting = false;
-        
+
     }
 
     IEnumerator ShootStraightArrow()
@@ -132,6 +136,8 @@ public class MonsterController : MonoBehaviour
         GameObject arrow = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(direction.normalized.x, 0) * 10f;
+        animator.Play("Idle");
+        yield return new WaitForSeconds(1.5f);
         isShooting = false;
     }
 }
