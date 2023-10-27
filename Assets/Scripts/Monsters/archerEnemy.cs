@@ -10,148 +10,128 @@ public class MonsterController : MonoBehaviour
     public float fireInterval = 2.0f;
 
     private bool isShooting = false;
-    private float distanceToPlayer;
 
     private float moveSpeed;
-    private MonsterState currentState;
 
-    private enum MonsterState
-    {
-        Idle,
-        Run,
-        AttackLongRange,
-        AttackDirect
-    }
 
     void Start()
     {
         animator = GetComponent<Animator>();
-
     }
 
     void Update()
     {
+        Animator animator = GetComponent<Animator>();
         Vector2 direction = player.position - transform.position;
 
         if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) < 10.0f && Mathf.Abs(direction.x) > 4.0f)
         {
-
-            moveSpeed = 0.5f;
-            currentState = MonsterState.Run;
-
-            Vector2 moveDirection = direction.normalized;
-            if (moveDirection.x < 0) //방향 전환 기능
+            if(isShooting)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                Vector2 moveDirection = direction.normalized;
+
+                if (moveDirection.x < 0) // 방향 전환 기능
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                moveSpeed = 0;
             }
-            else
+            if(!isShooting)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                moveSpeed = 0.5f;
+
+                Vector2 moveDirection = direction.normalized;
+
+                if (moveDirection.x < 0) // 방향 전환 기능
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+
+                animator.Play("running");
+
+                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
             }
-            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+            
         }
         else if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) >= 2.0f && Mathf.Abs(direction.x) <= 4.0f)
         {
-            currentState = MonsterState.AttackLongRange;
-
             if (!isShooting)
             {
-               
-                StartCoroutine(ShootArrowInArc());
+                Vector2 moveDirection = direction.normalized;
 
+                if (moveDirection.x < 0) // 방향 전환 기능
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                StartCoroutine(ShootArrowInArc());
             }
         }
         else if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) < 2.0f)
         {
-            currentState = MonsterState.AttackDirect;
-            Vector2 moveDirection = direction.normalized;
-
-            if (moveDirection.x < 0) //방향 전환 기능
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
-            else
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-
             if (!isShooting)
             {
-               
+                Vector2 moveDirection = direction.normalized;
+
+                if (moveDirection.x < 0) // 방향 전환 기능
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
                 StartCoroutine(ShootStraightArrow());
-
-
             }
         }
         else
         {
-            currentState = MonsterState.Idle;
+            if (!isShooting)
+            {
+                animator.Play("Idle");
+            }
         }
-        UpdateAnimationState();
     }
 
     IEnumerator ShootArrowInArc()
     {
+        animator.Play("parabolicAttack");
+
         isShooting = true;
-        yield return new WaitForSeconds(fireInterval);
+        
+        yield return new WaitForSeconds(2.0f);
         Vector2 direction = player.position - transform.position;
-
-        Vector2 spawnPosition = transform.position + new Vector3(0, 0.5f);
+        Vector2 spawnPosition = transform.position + new Vector3(0, 0.4f);
         GameObject arrow = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
-
-        // 화살의 Rigidbody2D 속도를 설정합니다
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
-        rb.velocity = direction.normalized * Mathf.Abs(direction.x) * 3f;
-
+        rb.velocity = direction.normalized * 7f;
         isShooting = false;
+        
     }
 
     IEnumerator ShootStraightArrow()
     {
+        animator.Play("DirectAttack");
+
         isShooting = true;
-        yield return new WaitForSeconds(fireInterval);
+       
+        yield return new WaitForSeconds(2.0f);
         Vector2 direction = player.position - transform.position;
-
-        Vector2 spawnPosition = transform.position + new Vector3(0, 0.5f);
+        Vector2 spawnPosition = transform.position + new Vector3(0, 0.4f);
         GameObject arrow = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
-
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
-        rb.velocity = direction.normalized * Mathf.Abs(direction.x)*3f;
-
+        rb.velocity = new Vector2(direction.normalized.x, 0) * 10f;
         isShooting = false;
-    }
-
-    void UpdateAnimationState()
-    {
-        switch (currentState)
-        {
-            case MonsterState.Idle:
-                animator.SetBool("Idle", true);
-                animator.SetBool("Run", false);
-                animator.SetBool("AttackLongRange", false);
-                animator.SetBool("AttackDirect", false);
-                break;
-
-            case MonsterState.Run:
-                animator.SetBool("Idle", false);
-                animator.SetBool("Run", true);
-                animator.SetBool("AttackLongRange", false);
-                animator.SetBool("AttackDirect", false);
-                break;
-
-            case MonsterState.AttackLongRange:
-                animator.SetBool("Idle", false);
-                animator.SetBool("Run", false);
-                animator.SetBool("AttackLongRange", true);
-                animator.SetBool("AttackDirect", false);
-                break;
-
-            case MonsterState.AttackDirect:
-                animator.SetBool("Idle", false);
-                animator.SetBool("Run", false);
-                animator.SetBool("AttackLongRange", false);
-                animator.SetBool("AttackDirect", true);
-                break;
-        }
     }
 }
