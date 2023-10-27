@@ -35,6 +35,20 @@ public class PlaterController2 : MonoBehaviour
             }
         }
     }
+    [SerializeField]
+    private bool _isJumping = false;
+
+    public bool IsJumping
+    {
+        get
+        {
+            return _isJumping;
+        }
+        private set
+        {
+            _isJumping = value;
+        }
+    }
 
     [SerializeField]
     private bool _isMoving = false;
@@ -102,31 +116,12 @@ public class PlaterController2 : MonoBehaviour
         rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed * Time.fixedDeltaTime, rb.velocity.y);
 
         animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
-        //if (touchingDirections.IsGrounded)
-        //{
-        //    animator.SetBool(AnimationStrings.roll, true);
-        //}
-        //else
-        //{
-        //    animator.SetBool(AnimationStrings.roll, false);
-        //}
         if (touchingDirections.IsGrounded)
         {
-            animator.SetFloat(AnimationStrings.roll, rb.velocity.y);
+            IsJumping = false; // 점프가 끝난 경우 점프 중인 상태 해제
+            animator.SetBool(AnimationStrings.roll, false);
+            Debug.Log("1");
         }
-        else
-        {
-            animator.SetFloat(AnimationStrings.roll, 0);
-        }
-        //if (touchingDirections.IsGrounded && (rb.velocity.y <= -10))
-        //{
-        //    animator.SetFloat(AnimationStrings.roll, rb.velocity.y);
-        //}
-        //else
-        //{
-        //    animator.SetFloat(AnimationStrings.roll, 0);
-
-        //}
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -152,10 +147,10 @@ public class PlaterController2 : MonoBehaviour
         if (context.started && touchingDirections.IsGrounded && CanMove)
         {
             animator.SetTrigger(AnimationStrings.jumpTrigger);
+            animator.SetBool(AnimationStrings.roll,true);
             rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
-            //animator.SetBool(AnimationStrings.roll, false); // 추가
-
-            animator.SetFloat(AnimationStrings.roll, 0);
+            Debug.Log("3");
+            IsJumping = true;
         }
     }
 
@@ -166,4 +161,5 @@ public class PlaterController2 : MonoBehaviour
             animator.SetTrigger(AnimationStrings.attackTrigger);
         }
     }
+
 }
