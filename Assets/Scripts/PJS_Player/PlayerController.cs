@@ -2,66 +2,164 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(Rigidbody2D),typeof(TouchingDirections))]
+
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
-    private float horizontal;
-    private float speed = 8f;
-    private float jumpingPower = 16f;
-    private bool isFacingRight = true;
-    private Animator animator;
-    private void Start()
+    public float walkSpeed = 400f;
+    private float jumpImpulse = 20f;
+    Vector2 moveInput;
+    TouchingDirections touchingDirections;
+
+    public float CurrentMoveSpeed
     {
+        get
+        {
+            if (CanMove)
+            {
+                if (IsMoving && !touchingDirections.IsOnWall)
+                {
+                    return walkSpeed;
+                }
+                else
+                {
+                    //idle speed 0 
+                    return 0;
+                }
+            }
+            else
+            {
+                //움직임 잠금 
+                return 0;
+            }
+        }
+    }
+    [SerializeField]
+    private bool _isJumping = false;
+
+    public bool IsJumping
+    {
+        get
+        {
+            return _isJumping;
+        }
+        private set
+        {
+            _isJumping = value;
+        }
+    }
+
+    [SerializeField]
+    private bool _isMoving = false;
+
+    public bool IsMoving {
+        get
+        {
+                return _isMoving;
+        }
+        private set
+        {
+            _isMoving = value;
+            animator.SetBool(AnimationStrings.isMoving, value);
+        }
+    }
+
+    public bool _isFacingRight = true;
+
+    public bool IsFacingRight
+    {
+        get
+        {
+            return _isFacingRight;
+        }
+        private set
+        {
+            if (_isFacingRight != value)
+            {
+                transform.localScale *= new Vector2(-1, 1);
+            }
+            _isFacingRight = value;
+        }
+    }
+    public bool CanMove { get
+        {
+            return animator.GetBool(AnimationStrings.canMove);
+        }
+    }
+
+    Rigidbody2D rb;
+    Animator animator;
+
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        touchingDirections = GetComponent<TouchingDirections>();
     }
-    private void Update()
+
+    // Start is called before the first frame update
+    void Start()
     {
-        bool grounded = IsGrounded();
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-        if (!isFacingRight && horizontal > 0f)
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+
+        animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
+        //if (touchingDirections.IsGrounded)
+        //{
+        //    IsJumping = false; // 점프가 끝난 경우 점프 중인 상태 해제
+        //    animator.SetBool(AnimationStrings.roll, false);
+        //    Debug.Log("1");
+        //}
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+        IsMoving = moveInput != Vector2.zero;
+
+        SetFacingDirection(moveInput);
+    }
+    private void SetFacingDirection(Vector2 moveInput)
+    {
+        if (moveInput.x>0&& !IsFacingRight)
         {
-            Flip();
+            IsFacingRight = true;
         }
-        else if(isFacingRight && horizontal <0f)
-         {
-            Flip();
-        }
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
-        animator.SetBool("Jump", !grounded);// 땅에 떨어졌을때 jump를 false로 변경 
-    }
-
-    public void Jump(InputAction.CallbackContext context)
-    {
-        if (context.performed && IsGrounded())
+        else if(moveInput.x<0&& IsFacingRight)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-
+            IsFacingRight = false;
         }
-        if (context.canceled && rb.velocity.y>0f)
+    }
+    public void onJump(InputAction.CallbackContext context)
+    {
+        if (context.started && touchingDirections.IsGrounded && CanMove)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            animator.SetTrigger(AnimationStrings.jumpTrigger);
+            //animator.SetBool(AnimationStrings.roll,true);
+            rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
+            Debug.Log("3");
+            IsJumping = true;
         }
-        animator.SetBool("Jump", context.performed && IsGrounded());
-
     }
 
-    private bool IsGrounded()
+    public void OnAttack(InputAction.CallbackContext context)
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        if (context.started)
+        {
+            animator.SetTrigger(AnimationStrings.attackTrigger);
+        }
     }
 
-    private void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
-    }
-    public void Move(InputAction.CallbackContext context)
-    { 
-        horizontal = context.ReadValue<Vector2>().x;
-    }
 }
