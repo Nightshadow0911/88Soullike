@@ -19,6 +19,7 @@ public class Boss_Archer_Animation : MonoBehaviour
     private readonly int stunning = Animator.StringToHash("Stunning");
     private readonly int death = Animator.StringToHash("Death");
     private readonly int cancel = Animator.StringToHash("Cancel");
+    private readonly int flip = Animator.StringToHash("Flip");
     
     private void Awake()
     {
@@ -67,8 +68,17 @@ public class Boss_Archer_Animation : MonoBehaviour
         anim.SetBool(tracking, false);
     }
 
-    public void OnSnapshot()
+    public void OnSnapshot(bool spriteFlip)
     {
+        if (spriteFlip)
+        {
+            anim.SetBool(flip, true);
+        }
+        else
+        {
+            anim.SetBool(flip, false);
+
+        }
         anim.SetTrigger(snapshot);
     }
 
