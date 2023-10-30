@@ -49,7 +49,7 @@ public class Boss_Archer : Boss
         };
     }
 
-    private void Update()
+    protected override void Update()
     {
         if (groggyMeter < 0)
         {
@@ -73,16 +73,31 @@ public class Boss_Archer : Boss
         switch (distance) 
         {
             case Distance.CloseRange :
-                if (CheckWall(1.5f))
+                if (CheckFrontWall(2f, sprite.flipX))
+                {
+                    if (randomPatton < 4)
+                    {
+                        anim.OnBakcstepAttack();
+                    } 
+                    else if (randomPatton < 8)
+                    {
+                        anim.OnMeleeAttack();
+                    }
+                    else
+                    {
+                        anim.OnTrakingAttack();
+                    }
+                }
+                else if (CheckBackWall(2f, sprite.flipX))
                 {
                     if (randomPatton < 1)
                     {
                         anim.OnBakcstepAttack();
-                    } 
+                    }
                     else if (randomPatton < 4)
                     {
                         anim.OnMeleeAttack();
-                    }
+                    } 
                     else if (randomPatton < 9)
                     {
                         anim.OnDodge();
@@ -94,7 +109,7 @@ public class Boss_Archer : Boss
                 }
                 else
                 {
-                    if (randomPatton < 4)
+                    if (randomPatton < 3)
                     {
                         anim.OnBakcstepAttack();
                     }
@@ -102,7 +117,7 @@ public class Boss_Archer : Boss
                     {
                         anim.OnMeleeAttack();
                     }
-                    else if (randomPatton < 9)
+                    else if (randomPatton < 8)
                     {
                         anim.OnDodge();
                     }
@@ -111,8 +126,8 @@ public class Boss_Archer : Boss
                         anim.OnTrakingAttack();
                     }
                 }
-                
                 break;
+            
             case Distance.MediumRange :
                 if (randomPatton < 1)
                 {
@@ -131,14 +146,15 @@ public class Boss_Archer : Boss
                     Move();
                 }
                 break;
+            
             case Distance.LongRange :
-                if (randomPatton < 5)
+                if (randomPatton < 4)
                 {
                     anim.OnRangedAttack();
                 }
-                else if (randomPatton < 9)
+                else if (randomPatton < 8)
                 {
-                    anim.OnSnapshot();
+                    anim.OnSnapshot(sprite.flipX);
                 }
                 else
                 {
@@ -174,13 +190,13 @@ public class Boss_Archer : Boss
         {
             Debug.Log("player hit");
         }
-        isAttackReady = true;
+        AttackReady();
     }
 
     private void RangedAttack()
     {
         ShootArrow(1, GetDirection());
-        isAttackReady = true;
+        AttackReady();
     }
     
     private void TripleShot()
@@ -229,8 +245,8 @@ public class Boss_Archer : Boss
             anim.Running(rigid.velocity);
             yield return null;
         }
-        isAttackReady = true;
-        lastAttackTime = delay + 1;
+        AttackReady();
+        NoDelay();
     }
 
     private IEnumerator DodgeMovement(Vector2 dest)
@@ -238,7 +254,7 @@ public class Boss_Archer : Boss
         yield return YieldCache.WaitForSeconds(0.1f);
         while (true)
         {
-            if ((Vector2)transform.position == dest)
+            if ((Vector2)transform.position == dest || CheckFrontWall(0.5f, sprite.flipX))
             {
                 break;
             }
@@ -248,8 +264,8 @@ public class Boss_Archer : Boss
         yield return YieldCache.WaitForSeconds(0.1f);
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"), false);
         dodging = false;
-        isAttackReady = true;
-        lastAttackTime = delay + 1;
+        AttackReady();
+        NoDelay();
     }
     
     private IEnumerator BackStepMovement(Vector2 dest)
@@ -260,13 +276,13 @@ public class Boss_Archer : Boss
         {
             transform.position = Vector3.MoveTowards(transform.position,  dest, 0.05f);
             // 목표지점에 도착하거나 벽에 닿으면 종료
-            if ((Vector2)transform.position == dest || CheckWall(0.5f))
+            if ((Vector2)transform.position == dest || CheckBackWall(0.5f, sprite.flipX))
             {
                 break;
             }
             yield return null;
         }
-        isAttackReady = true;
+        AttackReady();
     }
     
     private IEnumerator Tracking() {
@@ -305,7 +321,7 @@ public class Boss_Archer : Boss
             }
         }
         yield return YieldCache.WaitForSeconds(0.2f);
-        isAttackReady = true;
+        AttackReady();
     }
 
     private IEnumerator FireSnapshot()
@@ -315,7 +331,7 @@ public class Boss_Archer : Boss
             ShootArrow(1, GetDirection());
             yield return YieldCache.WaitForSeconds(0.05f);
         }
-        isAttackReady = true;
+        AttackReady();
     }
     
     private void ShootArrow(int numberOfArrows, Vector2 dir)
@@ -339,12 +355,40 @@ public class Boss_Archer : Boss
     }
 
     // 벽에 닿았는지 확인
-    private bool CheckWall(float dist)
+    private bool CheckFrontWall(float dist, bool flip)
     {
-        for (int i = 0; i < rays.Length; i++)
+        if (flip)
         {
-            rays[i].origin = transform.position;
-            RaycastHit2D hit = Physics2D.Raycast(rays[i].origin, rays[i].direction, dist, wallLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, dist, wallLayer);
+            if (hit.collider != null)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, dist, wallLayer);
+            if (hit.collider != null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private bool CheckBackWall(float dist, bool flip)
+    {
+        if (!flip)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, dist, wallLayer);
+            if (hit.collider != null)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, dist, wallLayer);
             if (hit.collider != null)
             {
                 return true;
@@ -366,6 +410,16 @@ public class Boss_Archer : Boss
     {
         Vector2 dest = (GetDirection() * dist) + (Vector2)transform.position;
         return dest;
+    }
+
+    private void AttackReady()
+    {
+        isAttackReady = true;
+    }
+
+    private void NoDelay()
+    {
+        lastAttackTime = delay + 1;
     }
 
     private void AllStop()
@@ -391,7 +445,7 @@ public class Boss_Archer : Boss
         if (!isGroggy || groggyMeter > 0)
             return;
         currentTime = 0f;
-        isAttackReady = true;
+        AttackReady();
         groggyMeter = baseGroggyMeter;
         anim.EndStun();
         isGroggy = false;
