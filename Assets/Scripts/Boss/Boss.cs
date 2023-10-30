@@ -43,28 +43,26 @@ public class Boss : MonoBehaviour
     
     protected virtual void Update()
     {
-        Debug.Log(lastAttackTime);
-        Debug.Log(delay);
         if (lastAttackTime < delay && isAttackReady)
             lastAttackTime += Time.deltaTime;
         else if (lastAttackTime > delay && isAttackReady)
         {
             StopAllCoroutines();
-            SetDistance(Vector2.Distance(transform.position, target.position));
-            BossPatton(targetDistance);
             isAttackReady = false;
             lastAttackTime = 0f;
+            SetDistance(Vector2.Distance(transform.position, target.position));
+            BossPatton(targetDistance);
         }
     }
 
     private void SetDistance(float distance)
     {
         distance = Mathf.Abs(distance);
-        if (distance < 2.0f)
+        if (distance < 2f)
         {
             targetDistance = Distance.CloseRange;
         }
-        else if (distance < 5.0f) 
+        else if (distance < 6f) 
         {
             targetDistance = Distance.MediumRange;
         }
