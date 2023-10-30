@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 299198243}
   - component: {fileID: 299198245}
   - component: {fileID: 299198246}
+  - component: {fileID: 299198247}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -358,7 +359,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 299198236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 759c5608bcbc3449097b1488975553da, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a99cc97a0e844c2f86c6d6aeed56092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 400
@@ -410,6 +411,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ef8a8d5218c40259ff152bcd532466, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &299198247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299198236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cedf8557c0d47038d11beb305e184e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   castFilter:
@@ -816,7 +829,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228200626}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -972,7 +985,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1302622286}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
