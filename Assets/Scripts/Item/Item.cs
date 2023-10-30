@@ -13,7 +13,7 @@ public class Item
     public Sprite sprite;
     public List<ItemEffect> efts;
     public int power;
-    public string explane;
+    public string description;
     public int amount;
 
 

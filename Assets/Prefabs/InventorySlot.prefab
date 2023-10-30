@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8808119598038788849}
   - component: {fileID: 3239751270656016199}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: InventorySlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,7 +257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3867824188346905843
 RectTransform:
   m_ObjectHideFlags: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4cdaa67cf67562544a05273781d0c104, type: 2}
   m_sharedMaterial: {fileID: -8422958274168795053, guid: 4cdaa67cf67562544a05273781d0c104, type: 2}

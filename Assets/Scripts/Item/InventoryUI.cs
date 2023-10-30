@@ -12,6 +12,7 @@ public class InventoryUI : MonoBehaviour
 
     public GameObject inventoryPanel;
     public GameObject usePanel;
+    public GameObject shopPanel;
     bool activeInventory = false;
 
     public Slot[] slots; // 리스트로 바꾸면 추가하는 방식도 가능

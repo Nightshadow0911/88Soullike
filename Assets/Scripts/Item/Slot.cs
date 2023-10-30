@@ -21,7 +21,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
         if(item.curItem.IsStackable())
         {
-            amountTxt.gameObject.SetActive(true);
             amountTxt.text = item.amount.ToString();
         }
 
@@ -31,6 +30,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public void RemoveSlot()
     {
         item = null;
+        amountTxt.text = "";
         itemIcon.gameObject.SetActive(false);
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -54,8 +54,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         if (item == null) return;
 
         bool isUse = item.Use(); //아이템 효과 사용
-        amountTxt.text = item.amount.ToString();
 
+
+        amountTxt.text = item.amount.ToString();
         if (isUse && (item.amount <= 0)) // 모두 사용되면 슬롯의 정보를 초기활
         {
             Inventory.instance.RemoveItem(slotnum);

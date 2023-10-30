@@ -18,6 +18,21 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
+    #region Player로 옮겨줄 것
+    public NPCSentence currentNPC;
+
+    private void Update()
+    {
+        if((currentNPC != null) && (currentNPC.isInteractable))
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                currentNPC.InteractWithNPC(currentNPC.npcName);
+            }
+        }
+    }
+    #endregion
+
     public delegate void OnSlotCountChange(int val);
     public OnSlotCountChange onSlotCountChange;
 
