@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4175916379546903112}
   - component: {fileID: 5319723173112268055}
   - component: {fileID: 7837225837017807856}
-  - component: {fileID: -6142508190350615545}
+  - component: {fileID: -149819156268828043}
   m_Layer: 0
   m_Name: skeletonAttackRange
   m_TagString: Untagged
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-6142508190350615545
+--- !u!114 &-149819156268828043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -359,7 +359,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 299198236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 759c5608bcbc3449097b1488975553da, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a99cc97a0e844c2f86c6d6aeed56092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 400
