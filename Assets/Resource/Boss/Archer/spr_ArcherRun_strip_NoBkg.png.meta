@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ea429eb662c6c4deca38d2cd75b9eb32
+guid: 8eadd074303fde749ad2ddbd16ec2a40
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,10 +69,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,30 +106,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: _CrouchAttack_0
+      name: spr_ArcherRun_strip_NoBkg_0
       rect:
         serializedVersion: 2
-        x: 31
-        y: 0
-        width: 36
-        height: 29
+        x: 44
+        y: 52
+        width: 42
+        height: 31
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f143558691b2c48e0a4fe857e43f57a4
-      internalID: 1920778740
+      spriteID: db6968dfc97191d42bd2859c7732aedb
+      internalID: -324106080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _CrouchAttack_1
+      name: spr_ArcherRun_strip_NoBkg_1
       rect:
         serializedVersion: 2
-        x: 139
-        y: 0
-        width: 81
-        height: 27
+        x: 172
+        y: 52
+        width: 42
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a96c82d7aa32e42ffa06fd19662780cf
-      internalID: -377694547
+      spriteID: bb6e5d9f90ec0294aaa1fbd1a22d85d8
+      internalID: -1275540754
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _CrouchAttack_2
+      name: spr_ArcherRun_strip_NoBkg_2
       rect:
         serializedVersion: 2
-        x: 260
-        y: 0
-        width: 53
-        height: 27
+        x: 300
+        y: 52
+        width: 43
+        height: 33
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 429ec886927a2475dbdd47b326836577
-      internalID: 1741519862
+      spriteID: 353069eabb2222a43ae7eb9fd38375ae
+      internalID: -1275489650
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _CrouchAttack_3
+      name: spr_ArcherRun_strip_NoBkg_3
       rect:
         serializedVersion: 2
-        x: 380
-        y: 0
-        width: 50
-        height: 27
+        x: 428
+        y: 52
+        width: 42
+        height: 33
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,8 +187,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b9bf350ae9d44a6ab5c84092d5638fa
-      internalID: 983178688
+      spriteID: 8b48e86d54e1d464f83fdc05af00483a
+      internalID: 260301316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_ArcherRun_strip_NoBkg_4
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 52
+        width: 40
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3798a841ce55b084ea311f208239e830
+      internalID: 1563657909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_ArcherRun_strip_NoBkg_5
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 52
+        width: 38
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50c58d364f0236c40b8debfdc8b1c326
+      internalID: 366788225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_ArcherRun_strip_NoBkg_6
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 52
+        width: 33
+        height: 34
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc3f9091a92ffcd4a9d1e5fc79f5e32c
+      internalID: -895067068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_ArcherRun_strip_NoBkg_7
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 52
+        width: 37
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87e1bb78b8d57da43b86e789e5fb9608
+      internalID: -1774570966
       vertices: []
       indices: 
       edges: []
@@ -217,10 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      _CrouchAttack_0: 1920778740
-      _CrouchAttack_1: -377694547
-      _CrouchAttack_2: 1741519862
-      _CrouchAttack_3: 983178688
+      spr_ArcherRun_strip_NoBkg_0: -324106080
+      spr_ArcherRun_strip_NoBkg_1: -1275540754
+      spr_ArcherRun_strip_NoBkg_2: -1275489650
+      spr_ArcherRun_strip_NoBkg_3: 260301316
+      spr_ArcherRun_strip_NoBkg_4: 1563657909
+      spr_ArcherRun_strip_NoBkg_5: 366788225
+      spr_ArcherRun_strip_NoBkg_6: -895067068
+      spr_ArcherRun_strip_NoBkg_7: -1774570966
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
