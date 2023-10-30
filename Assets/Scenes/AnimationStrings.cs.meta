@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/AnimationStrings.cs.meta
+guid: a08f3217012d3497184ed51813149b3a
+========
+guid: 6c1b492fec7cd0a41a6017b5d23ba187
+>>>>>>>> parent of f9a50bb (Merge pull request #29 from Nightshadow0911/KM_Monster):Assets/Scripts/TestAnimation.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
