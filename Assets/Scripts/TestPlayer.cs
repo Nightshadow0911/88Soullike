@@ -1,12 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPlayerMove : MonoBehaviour
+public class TestPlayer : MonoBehaviour
 {
     private Rigidbody2D rigid;
-    public float speed;
+    [SerializeField] private float speed = 5f;
     private float axisX, axisY;
 
     private void Awake()
@@ -22,7 +21,6 @@ public class TestPlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 direction = new Vector2(axisX, axisY);
-        rigid.velocity = direction * speed;
+        rigid.velocity = new Vector3(axisX, axisY, 0) * speed;
     }
 }
