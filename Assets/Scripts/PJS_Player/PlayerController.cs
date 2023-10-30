@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D),typeof(TouchingDirections))]
 
-public class PlaterController2 : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 400f;
     private float jumpImpulse = 20f;
