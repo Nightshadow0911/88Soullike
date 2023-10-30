@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class skeletonWeapon : MonoBehaviour
+public class weaponColliderRange : MonoBehaviour
 {
     public int damage = 10;
 
