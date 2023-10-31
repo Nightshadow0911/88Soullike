@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float walkSpeed = 400f;
-    private float jumpImpulse = 20f;
+    public float walkSpeed = 10f;
+    private float jumpImpulse = 4f;
     Vector2 moveInput;
     TouchingDirections touchingDirections;
 
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
     private bool canDash = true;
     private bool isDashing;
-    private float dashingPower = 24f;
+    private float dashingPower = 40f;
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
     //Dash
