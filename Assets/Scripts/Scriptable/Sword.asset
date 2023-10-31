@@ -18,5 +18,5 @@ MonoBehaviour:
   efts:
   - {fileID: 11400000, guid: e4fa3eb251bd50241b280b6ce145b1dd, type: 2}
   power: 5
-  explane: "\uAC80\uC785\uB2C8\uB2E4"
+  descriptiion: Player Atk +5
   amount: 1

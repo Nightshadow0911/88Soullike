@@ -18,5 +18,5 @@ MonoBehaviour:
   efts:
   - {fileID: 11400000, guid: af57ca3a9e3e03543a0c01db5f7c02cb, type: 2}
   power: 10
-  explane: "\uC801\uB2F9\uD55C \uD3EC\uC158"
+  descriptiion: Player HP Healing +10
   amount: 2
