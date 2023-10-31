@@ -46,7 +46,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         
 
         InventoryUI.instance.usePanel.gameObject.SetActive(true);
-        InventoryUI.instance.usePanel.GetComponent<UIPopup>().slotnum = slotnum;
+        InventoryUI.instance.usePanel.GetComponent<UsePopup>().SetPopup(item.itemName, item.description, slotnum);
     }
 
     public void ApplyUse()
