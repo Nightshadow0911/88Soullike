@@ -126,10 +126,10 @@ TextureImporter:
       name: Dash_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 195
-        width: 12
-        height: 12
+        x: 0
+        y: 128
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: Dash_1
       rect:
         serializedVersion: 2
-        x: 21
-        y: 195
-        width: 7
-        height: 8
+        x: 64
+        y: 128
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,10 +168,10 @@ TextureImporter:
       name: Dash_2
       rect:
         serializedVersion: 2
-        x: 30
-        y: 195
-        width: 6
-        height: 8
+        x: 128
+        y: 128
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,10 +189,10 @@ TextureImporter:
       name: Dash_3
       rect:
         serializedVersion: 2
-        x: 37
-        y: 195
-        width: 10
-        height: 13
+        x: 192
+        y: 128
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,10 +210,10 @@ TextureImporter:
       name: Dash_4
       rect:
         serializedVersion: 2
-        x: 22
-        y: 139
-        width: 28
-        height: 37
+        x: 256
+        y: 128
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,10 +231,10 @@ TextureImporter:
       name: Dash_5
       rect:
         serializedVersion: 2
-        x: 83
-        y: 140
-        width: 32
-        height: 31
+        x: 320
+        y: 128
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -252,10 +252,10 @@ TextureImporter:
       name: Dash_6
       rect:
         serializedVersion: 2
-        x: 147
-        y: 140
-        width: 28
-        height: 31
+        x: 384
+        y: 128
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -273,10 +273,10 @@ TextureImporter:
       name: Dash_7
       rect:
         serializedVersion: 2
-        x: 209
-        y: 140
-        width: 28
-        height: 31
+        x: 0
+        y: 0
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,10 +294,10 @@ TextureImporter:
       name: Dash_8
       rect:
         serializedVersion: 2
-        x: 273
-        y: 140
-        width: 28
-        height: 31
+        x: 64
+        y: 0
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -315,10 +315,10 @@ TextureImporter:
       name: Dash_9
       rect:
         serializedVersion: 2
-        x: 337
-        y: 140
-        width: 28
-        height: 31
+        x: 128
+        y: 0
+        width: 64
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,195 +328,6 @@ TextureImporter:
       bones: []
       spriteID: 0bfb170a3857a5845971714cfd17c828
       internalID: 1420269061
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash_10
-      rect:
-        serializedVersion: 2
-        x: 403
-        y: 140
-        width: 32
-        height: 31
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0d31698c1e9b84bfbb70ac3742f4ed75
-      internalID: -1224402710
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash_11
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 69
-        width: 9
-        height: 12
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ef8b78d4f996e441d9d0af814ec96779
-      internalID: 416591932
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash_12
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 69
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae6899c622318409684c2abb51395335
-      internalID: 795823003
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash_13
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 69
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e6740871e5c1419080a8f437b0419dc
-      internalID: 2044842790
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash_14
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 65
-        width: 9
-        height: 13
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3513ce6c01bd6419daeb98cc7b6c1e4a
-      internalID: -1596113431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash_15
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 12
-        width: 28
-        height: 31
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 57e8f81884c984c00a6096fbb81ed2a6
-      internalID: 1477161738
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash_16
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 12
-        width: 28
-        height: 31
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: af098ebe139754cf5933947390d846e3
-      internalID: 1777227523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash_17
-      rect:
-        serializedVersion: 2
-        x: 145
-        y: 12
-        width: 28
-        height: 31
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d7afcf8451b24ad7b65b627c60582e7
-      internalID: -73922217
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dash_18
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 61
-        width: 59
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 32685b04aac3d48a994b2d4421c1b5cb
-      internalID: 83751874
       vertices: []
       indices: 
       edges: []
@@ -534,15 +345,6 @@ TextureImporter:
     nameFileIdTable:
       Dash_0: 442763401
       Dash_1: -314083731
-      Dash_10: -1224402710
-      Dash_11: 416591932
-      Dash_12: 795823003
-      Dash_13: 2044842790
-      Dash_14: -1596113431
-      Dash_15: 1477161738
-      Dash_16: 1777227523
-      Dash_17: -73922217
-      Dash_18: 83751874
       Dash_2: -1622251321
       Dash_3: -1317294896
       Dash_4: 639526581
