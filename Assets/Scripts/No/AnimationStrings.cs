@@ -13,4 +13,5 @@ public class AnimationStrings : MonoBehaviour
     internal static string attackTrigger="attack";
     internal static string canMove = "canMove";
     internal static string roll = "roll";
+    internal static string isOnLadder= "isOnLadder";
 }
