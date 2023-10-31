@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseCollision:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 1024
 --- !u!61 &4859715106429479438
 BoxCollider2D:
   m_ObjectHideFlags: 0
