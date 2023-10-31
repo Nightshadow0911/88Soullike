@@ -23,13 +23,13 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if((currentNPC != null) && (currentNPC.isInteractable))
+        /*if((currentNPC != null) && (currentNPC.isInteractable))
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 currentNPC.InteractWithNPC(currentNPC.npcName);
             }
-        }
+        }*/
     }
     #endregion
 
