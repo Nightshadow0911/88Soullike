@@ -675,13 +675,11 @@ MonoBehaviour:
   speed: 5
   jumpForce: 6
   wallJumpDirection: {x: 5, y: 6}
-  groundCheck: {fileID: 0}
-  groundCheckRadious: 0
+  groundCheckDistance: 0.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
-  wallCheck: {fileID: 0}
-  wallCheckDistance: 0.1
+  wallCheckDistance: 0.85
 --- !u!95 &698478115
 Animator:
   serializedVersion: 5
@@ -826,7 +824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359414040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.96, y: 4.65, z: 0}
+  m_LocalPosition: {x: -1.53, y: 4.62, z: 0}
   m_LocalScale: {x: 0.8454331, y: 14.141409, z: 1.6452}
   m_ConstrainProportionsScale: 0
   m_Children: []

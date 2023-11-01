@@ -12,6 +12,7 @@ public class LastPlayerController : MonoBehaviour
 
     private bool canMove = true;
 
+   
     private bool canWallSlide;
     private bool isWallSliding;
 
@@ -40,33 +41,31 @@ public class LastPlayerController : MonoBehaviour
         CollisionCheck();
         FlipController();
         AnimatorController();
-    }
 
+        if (isGrounded)
+        {
+            canMove = true;
+        }
 
-
-    private void FixedUpdate()
-    {
-        if (isWallDetected && canWallSlide)
+        if (canWallSlide)
         {
             isWallSliding = true;
-            rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y * 0.1f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
-        else
-        {
-            isWallSliding = false;
-            Move();
-        }
+        Move();
     }
 
     private void CheckInput()
     {
+            movingInput = Input.GetAxis("Horizontal");
+
+        if (Input.GetAxis("Vertical") < 0)
+        {
+            canWallSlide = false;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             JumpButton();
-        }
-        if (canMove)
-        {
-            movingInput = Input.GetAxis("Horizontal");
         }
     }
 
@@ -88,6 +87,7 @@ public class LastPlayerController : MonoBehaviour
         {
             Jump();
         }
+        canWallSlide = false;
     }
 
     private void Jump()
@@ -97,10 +97,9 @@ public class LastPlayerController : MonoBehaviour
 
     private void wallJump()
     {
-
-        Vector2 direction = new Vector2(wallJumpDirection.x * -facingDirection, wallJumpDirection.y);
-        rb.AddForce(direction, ForceMode2D.Impulse);
-
+        //WallJumpDirections flozen
+        //canMove = false;
+        rb.velocity = new Vector2(wallJumpDirection.x * -facingDirection, wallJumpDirection.y);
     }
 
     private void Flip()
@@ -109,24 +108,10 @@ public class LastPlayerController : MonoBehaviour
         facingRight = !facingRight;
 
         transform.Rotate(0, 180, 0);
-            //spriteRenderer.flipX = !spriteRenderer.flipX;
-
     }
 
     private void FlipController()
     {
-        if (isGrounded && isWallDetected)
-        {
-            if (facingRight && movingInput < 0)
-            {
-                Flip();
-            }
-            else if (!facingRight && movingInput > 0)
-            {
-                Flip();
-            }
-        }
-
         if (rb.velocity.x > 0 && !facingRight)
         {
             Flip();
@@ -135,9 +120,7 @@ public class LastPlayerController : MonoBehaviour
         {
             Flip();
         }
-
     }
-
     private void AnimatorController()
     {
         bool isMoving = rb.velocity.x != 0;
@@ -146,15 +129,21 @@ public class LastPlayerController : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isWallSliding", isWallSliding);
+        anim.SetBool("isWallDectected", isWallDetected);
     }
 
     private void CollisionCheck()
     {
         isGrounded= Physics2D.Raycast(transform.position,Vector2.down, groundCheckDistance, whatIsGround);
         isWallDetected = Physics2D.Raycast(transform.position, Vector2.right*facingDirection, wallCheckDistance, whatIsGround);
-        if (!isGrounded && rb.velocity.y<0)
+        if (isWallDetected && rb.velocity.y<0)
         {
             canWallSlide = true;
+        }
+        if (!isWallDetected)
+        {
+            canWallSlide = false;
+            isWallSliding = false;
         }
     }
 
