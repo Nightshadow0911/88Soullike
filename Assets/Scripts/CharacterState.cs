@@ -45,13 +45,15 @@ public class CharacterStats : MonoBehaviour
     private double attackSpeed;
     private double moveSpeed;
     //몬스터 스텟
+    [SerializeField]
     private int monsterHp;
-    private int monsterDamage;
 
     private void Start()
     {
         subState[(int)Substate.characterHp] = 100;
         characterHp = subState[(int)Substate.characterHp];
+        subState[(int)Substate.nomallAttackDamage] = 10;
+        subState[(int)Substate.critcal] = 50;
     }
 
     private void Update()
@@ -182,6 +184,21 @@ public class CharacterStats : MonoBehaviour
                 DestroyImmediate(gameObject, true);
             }
         }
+    }
+
+    public void AttackDamage(int monsterHP)
+    {
+        int playerAttack;
+        playerAttack = subState[(int)Substate.nomallAttackDamage]*10;
+        var criDamage = 0;
+        float critChance = subState[(int)Substate.critcal];
+        float crit = UnityEngine.Random.Range(0f, 1f);
+        if (crit < critChance)
+        {
+            criDamage = playerAttack * 2;
+        }
+        int totalDamage = playerAttack + criDamage;
+        monsterHP -= totalDamage;
     }
     
     //다른 곳에서 사용하기 위한 겟셋 함수들
