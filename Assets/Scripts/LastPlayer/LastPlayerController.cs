@@ -21,15 +21,10 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private Vector2 wallJumpDirection;
 
     //Ground check
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckRadious;
+    [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
-    private bool isGrounded;
-
-    //Wall Sliding
-
-    [SerializeField] private Transform wallCheck;
     [SerializeField] private float wallCheckDistance;
+    private bool isGrounded;
     private bool isWallDetected;
 
     void Start()
@@ -38,7 +33,7 @@ public class LastPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-
+    
     void Update()
     {
         CheckInput();
@@ -155,19 +150,18 @@ public class LastPlayerController : MonoBehaviour
 
     private void CollisionCheck()
     {
-        isGrounded= Physics2D.OverlapCircle(groundCheck.position, groundCheckRadious, whatIsGround);
-        isWallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, whatIsGround);
+        isGrounded= Physics2D.Raycast(transform.position,Vector2.down, groundCheckDistance, whatIsGround);
+        isWallDetected = Physics2D.Raycast(transform.position, Vector2.right*facingDirection, wallCheckDistance, whatIsGround);
         if (!isGrounded && rb.velocity.y<0)
         {
             canWallSlide = true;
-            Debug.Log("Wall");
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadious);
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance, transform.position.y));
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x,transform.position.y-groundCheckDistance));
 
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
     }
 }
