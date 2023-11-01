@@ -7,15 +7,12 @@ public class LastPlayerController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
-
     [SerializeField] private float speed = 5;
     [SerializeField]private float jumpForce =10;
 
     private bool canMove = true;
 
     private bool canWallSlide;
-    private bool canWallJump =true;
     private bool isWallSliding;
 
     private bool facingRight = true;
@@ -39,8 +36,6 @@ public class LastPlayerController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
     }
 
 
@@ -90,7 +85,7 @@ public class LastPlayerController : MonoBehaviour
 
     private void JumpButton()
     {
-        if (isWallSliding && canWallJump)
+        if (isWallSliding)
         {
             wallJump();
         }
