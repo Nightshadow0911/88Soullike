@@ -2,25 +2,30 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DeathBringerEnemy : MonoBehaviour
 {
     public Transform player;
+    public Transform mapSpellMarker; //중간보스방의 중앙을 인식할 좌표 오브젝트
     private Animator animator;
 
     public GameObject meleeAttack;
     public GameObject spellAttack;
     public GameObject spellEffect;
+    private GameObject spellEffectObject;
+    private GameObject spellAttackObject;
 
     private float moveSpeed = 0.5f;
     private bool isAttacking = false;
 
     public GameObject MiddleBoss;
     private int spellCount; //스펠 사용 횟수
-    private int maxSpellCount = 1; //최대 스펠 사용 횟수
-
+    private int UltimatespellCount;
+    private int maxSpellCount = 3; //최대 스펠 사용 횟수
+    private int maxUltimateSpellCount = 5;
 
     void Start()
     {
@@ -78,7 +83,7 @@ public class DeathBringerEnemy : MonoBehaviour
                 }
                 else //이후 플레이어에게 순간 이동
                 {
-                    StartCoroutine(MoveToPlayerDisappear());
+                    StartCoroutine(MoveToPlayer());
                 }
 
             }
@@ -119,57 +124,103 @@ public class DeathBringerEnemy : MonoBehaviour
 
         IEnumerator UseSpell()
         {
-            Vector2 spellPoint = player.position + new Vector3(0f, 3.5f);
-            animator.Play("cast");
-            isAttacking = true;
-            yield return new WaitForSeconds(1.0f);
-            animator.Play("idle");
-            Instantiate(spellEffect, spellPoint, Quaternion.identity); //플레이어 위치에 스펠 이펙트 생성
-            GameObject spellAttackObject = Instantiate(spellAttack, spellPoint, Quaternion.identity); //플레이어 위치에 스펠 범위 생성
-            spellAttackObject.SetActive(false); //생성된 공격 범위를 비활성화
-            yield return new WaitForSeconds(1.2f);
-            spellAttackObject.SetActive(true); //시전시간 이후 활성화
-            yield return new WaitForSeconds(0.8f);
-            spellCount++;
-            Destroy(spellEffect);
-
-            isAttacking = false;
+            int rate = Random.Range(1, 10);
+            if (rate <= 8)
+            {
+                Vector2 spellPoint = player.position + new Vector3(0f, 3.5f);
+                animator.Play("cast");
+                isAttacking = true;
+                yield return new WaitForSeconds(1.0f);
+                animator.Play("idle");
+                spellEffectObject = Instantiate(spellEffect, spellPoint, Quaternion.identity); //플레이어 위치에 스펠 이펙트 생성
+                spellAttackObject = Instantiate(spellAttack, spellPoint, Quaternion.identity); //플레이어 위치에 스펠 범위 생성
+                spellAttackObject.SetActive(false); //생성된 공격 범위를 비활성화
+                yield return new WaitForSeconds(1.2f);
+                spellAttackObject.SetActive(true); //시전시간 이후 활성화
+                yield return new WaitForSeconds(0.8f);
+                spellCount++;
+                Destroy(spellEffectObject);
+                Destroy(spellAttackObject);
+                
+                isAttacking = false;
+            }
+            
+            else //20퍼센트 확률로 광역기 시전
+            {
+                StartCoroutine(WideAreaAttack());
+            }
         }
 
-        IEnumerator MoveToPlayerDisappear() //몬스터를 플레이어 근처로 순간이동
+        IEnumerator MoveToPlayer() //몬스터를 플레이어 근처로 순간이동
         {
             Vector2 moveDirection = direction.normalized;
 
-
             if (moveDirection.x < 0) // 방향 전환 기능
             {
-
-
-                moveSpeed = 0;
-                
+                moveSpeed = 0;                
                 animator.Play("disappear");
                 yield return new WaitForSeconds(1f);
-                animator.Play("appear");
-
+                
                 Vector2 playernear = player.position + new Vector3(2f, 4.5f);
                 transform.position = playernear;
 
+                animator.Play("appear");
                 spellCount = 0;
                 moveSpeed = 0.5f;
+                
             }
             else
             {
                 moveSpeed = 0;
                 animator.Play("disappear");
                 yield return new WaitForSeconds(1f);
-                animator.Play("appear");
-
+                
                 Vector2 playernear = player.position + new Vector3(-2f, 4.5f);
                 transform.position = playernear;
 
+                animator.Play("appear");
                 spellCount = 0;
                 moveSpeed = 0.5f;
             }       
+        }
+
+        IEnumerator WideAreaAttack()
+        {            
+            animator.Play("cast");
+            
+            isAttacking = true;
+            yield return new WaitForSeconds(1.0f);
+            animator.Play("idle");
+
+            List<GameObject> spellEffectObjects = new List<GameObject>();
+            List<GameObject> spellAttackObjects = new List<GameObject>();
+
+            for (int i = -5; i < 6; i++)
+            {
+                Vector2 spellPoint = mapSpellMarker.position + new Vector3(4 * i, 0);
+                spellEffectObject = Instantiate(spellEffect, spellPoint, Quaternion.identity); //광역으로 생성되도록 수정해야함
+                spellAttackObject = Instantiate(spellAttack, spellPoint, Quaternion.identity); //플레이어 위치에 스펠 범위 생성
+                spellAttackObject.SetActive(false); //생성된 공격 범위를 비활성화
+
+                spellEffectObjects.Add(spellEffectObject);
+                spellAttackObjects.Add(spellAttackObject);
+            }
+            yield return new WaitForSeconds(1.2f);
+            foreach (var spellAttackObject in spellAttackObjects)
+            {
+                spellAttackObject.SetActive(true);
+            }
+            yield return new WaitForSeconds(0.8f);
+            foreach (var spellEffectObject in spellEffectObjects)
+            {
+                Destroy(spellEffectObject);
+            }
+            foreach (var spellAttackObject in spellAttackObjects)
+            {
+                Destroy(spellAttackObject);
+            }
+            isAttacking = false;
+            UltimatespellCount++;
         }
         
 

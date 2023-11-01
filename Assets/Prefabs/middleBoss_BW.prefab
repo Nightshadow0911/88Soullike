@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2134998674751114048, guid: e8dc8513c3df24a41bdc18793f417574, type: 3}
+  mapSpellMarker: {fileID: 6982401642508524908, guid: 6cb05783ff930c14abdb988c6027f1b2, type: 3}
   meleeAttack: {fileID: 504582271903486499, guid: af7123083786b474a9cff6e05f1bb612, type: 3}
   spellAttack: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
   spellEffect: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
