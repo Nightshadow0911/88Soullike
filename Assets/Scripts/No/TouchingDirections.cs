@@ -8,6 +8,7 @@ public class TouchingDirections : MonoBehaviour
     public float groundDistance = 0.05f;
     public float wallDistance = 0.2f;
     public float ceilingDistance = 0.05f;
+    public float ladderDistance = 0.2f;
 
     CapsuleCollider2D touchingCol;
     Animator animator;
@@ -15,6 +16,7 @@ public class TouchingDirections : MonoBehaviour
     RaycastHit2D[] groundHits = new RaycastHit2D[5];
     RaycastHit2D[] wallHits = new RaycastHit2D[5];
     RaycastHit2D[] ceilingHits = new RaycastHit2D[5];
+    RaycastHit2D[] ladderHits = new RaycastHit2D[5];
 
     [SerializeField]
     private bool _isGrounded;
@@ -65,6 +67,21 @@ public class TouchingDirections : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private bool _isOnLadder;
+
+    public bool IsOnLadder
+    {
+        get
+        {
+            return _isOnLadder;
+        }
+        private set
+        {
+            _isOnLadder = value;
+            animator.SetBool(AnimationStrings.isOnLadder, value);
+        }
+    }
 
 
     // Start is called before the first frame update
@@ -78,9 +95,10 @@ public class TouchingDirections : MonoBehaviour
     void FixedUpdate()
     {
         IsGrounded =  touchingCol.Cast(Vector2.down, castFilter, groundHits, groundDistance)>0;
-        Debug.Log(touchingCol.Cast(Vector2.down, castFilter, groundHits, groundDistance));
+        //Debug.Log(touchingCol.Cast(Vector2.down, castFilter, groundHits, groundDistance));
         IsOnWall = touchingCol.Cast(wallcheckDirection, castFilter, wallHits, wallDistance) > 0;
         IsOnCeiling = touchingCol.Cast(Vector2.up, castFilter, ceilingHits, ceilingDistance) > 0;
+        IsOnLadder = touchingCol.Cast(Vector2.up, castFilter, ladderHits, ladderDistance) > 0;
 
     }
 }

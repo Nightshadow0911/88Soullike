@@ -104,8 +104,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TrailRenderer tr;
     
 
-
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
