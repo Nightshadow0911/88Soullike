@@ -162,7 +162,7 @@ public class LastPlayerController : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isWallSliding", isWallSliding);
-        anim.SetBool("isWallDectected", isWallDetected);
+        anim.SetBool("isWallDetected", isWallDetected);
     }
 
     private void CollisionCheck()
