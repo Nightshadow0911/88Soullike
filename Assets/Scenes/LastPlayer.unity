@@ -682,6 +682,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   wallCheckDistance: 0.85
+  dashDistance: 2
+  dashDuration: 0.2
+  dashCooldown: 1
 --- !u!95 &698478115
 Animator:
   serializedVersion: 5
@@ -715,7 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886cb765cbe6648bc88520b743ce4a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeOutDeley: 0.15
+  FadeOutDeley: 0.05
   fadeOut: {fileID: 1775191076}
   makeFadeOut: 0
 --- !u!1 &1359414040
