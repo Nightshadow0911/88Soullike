@@ -26,7 +26,7 @@ public class RangedAttackController : MonoBehaviour
         currentDuration += Time.deltaTime;
 
         if (currentDuration > attackData.duration) {
-            DestroyRangedObject(transform.position);
+            DestroyProjectile(transform.position);
         }
         rigid.velocity = direction * attackData.speed;
     }
@@ -43,7 +43,7 @@ public class RangedAttackController : MonoBehaviour
     {
         if (baseCollision.value == (baseCollision.value | (1 << collision.gameObject.layer)))
         {
-            DestroyRangedObject(collision.ClosestPoint(transform.position) - direction * 0.2f);
+            DestroyProjectile(collision.ClosestPoint(transform.position) - direction * 0.2f);
         }
         else if (attackData.target.value == (attackData.target.value | (1 << collision.gameObject.layer)))
         {
@@ -51,7 +51,7 @@ public class RangedAttackController : MonoBehaviour
         }
     }
 
-    private void DestroyRangedObject(Vector2 position)
+    private void DestroyProjectile(Vector2 position)
     {
         // 파티클이 있다면 position에 파티클 생성
         gameObject.SetActive(false);

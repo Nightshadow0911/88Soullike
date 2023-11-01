@@ -7,6 +7,8 @@ using UnityEditor.Callbacks;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Pool;
+using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class Boss_Archer : Boss
@@ -20,13 +22,22 @@ public class Boss_Archer : Boss
     [SerializeField] private Vector2 meleeAttackRange;
     [SerializeField] private LayerMask wallLayer;
 
-    private readonly Vector3 atkRightPos = new Vector3(0.2f, 0.2f, 0);
-    private readonly Vector3 atkLeftPos = new Vector3(-0.2f, 0.2f, 0);
+    private readonly Vector3 atkRightPos = new Vector3(0.4f, 0.4f, 0);
+    private readonly Vector3 atkLeftPos = new Vector3(-0.4f, 0.4f, 0);
 
     [Header("RangedAttack Info")] 
-    [SerializeField] private PoolManager.Pool rangedObj;
+    [SerializeField] private ObjectPool.Pool ProjectileObj;
     [SerializeField] private RangedAttackData rangedData;
 
+    [Header("Sound Info")]
+    [SerializeField] private AudioClip runSound;
+    [SerializeField] private AudioClip dodgeSound;
+    [SerializeField] private AudioClip meleeAttackSound;
+    [SerializeField] private AudioClip rangedAttackSound;
+    [SerializeField] private AudioClip spinAttackSound;
+    [SerializeField] private AudioClip snapShotSound;
+    [SerializeField] private AudioClip Warning;
+    
     private Ray2D[] rays;
     private Vector2 direction;
     private Vector2 destination;
@@ -41,7 +52,7 @@ public class Boss_Archer : Boss
 
     private void Start()
     {
-        PoolManager.instance.InsertToPool(rangedObj);
+        ProjectileManager.instance.InsertObjectPool(ProjectileObj);
         rays = new Ray2D[2]
         {
             new Ray2D(transform.position, Vector2.left),
@@ -73,7 +84,7 @@ public class Boss_Archer : Boss
         switch (distance) 
         {
             case Distance.CloseRange :
-                if (CheckFrontWall(2f, sprite.flipX))
+                if (CheckFrontWall(2.5f, sprite.flipX))
                 {
                     if (randomPatton < 4)
                     {
@@ -181,6 +192,7 @@ public class Boss_Archer : Boss
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"));
         dodging = true;
         StartCoroutine(DodgeMovement(destination));
+        SoundManager.instance.PlayClip(dodgeSound);
     }
     
     private void MeleeAttack()
@@ -190,23 +202,27 @@ public class Boss_Archer : Boss
         {
             Debug.Log("player hit");
         }
+        SoundManager.instance.PlayClip(meleeAttackSound);
         AttackReady();
     }
 
     private void RangedAttack()
     {
         ShootArrow(1, GetDirection());
+        SoundManager.instance.PlayClip(rangedAttackSound);
         AttackReady();
     }
     
     private void TripleShot()
     {
         ShootArrow(3, GetDirection());
+        SoundManager.instance.PlayClip(rangedAttackSound);
     }
     
     private void BackStep()
     {
         destination = (-GetDirection() * backstepDistance) + (Vector2)transform.position;
+        SoundManager.instance.PlayClip(dodgeSound);
         StartCoroutine(BackStepMovement(destination));
     }
     
@@ -232,17 +248,21 @@ public class Boss_Archer : Boss
 
     private IEnumerator Movement()
     {
+        SoundManager.instance.PlayClip(runSound);
         while (true) 
         {
+            
             Vector2 distance = (target.position * Vector2.right) - (Vector2)transform.position;
-            if (Mathf.Abs(distance.x) < 0.8)
+            if (Mathf.Abs(distance.x) < 1)
             {
+                SoundManager.instance.StopClip();
                 rigid.velocity = Vector2.zero;
                 anim.Running(rigid.velocity);
                 break;
             }
             rigid.velocity = GetDirection() * speed;
             anim.Running(rigid.velocity);
+            
             yield return null;
         }
         AttackReady();
@@ -254,11 +274,11 @@ public class Boss_Archer : Boss
         yield return YieldCache.WaitForSeconds(0.1f);
         while (true)
         {
-            if ((Vector2)transform.position == dest || CheckFrontWall(0.5f, sprite.flipX))
+            if ((Vector2)transform.position == dest || CheckFrontWall(1f, sprite.flipX))
             {
                 break;
             }
-            transform.position = Vector3.MoveTowards(transform.position, destination, 0.05f);
+            transform.position = Vector3.MoveTowards(transform.position, destination, 0.02f);
             yield return null;
         }
         yield return YieldCache.WaitForSeconds(0.1f);
@@ -274,9 +294,9 @@ public class Boss_Archer : Boss
         rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position,  dest, 0.05f);
+            transform.position = Vector3.MoveTowards(transform.position,  dest, 0.02f);
             // 목표지점에 도착하거나 벽에 닿으면 종료
-            if ((Vector2)transform.position == dest || CheckBackWall(0.5f, sprite.flipX))
+            if ((Vector2)transform.position == dest || CheckBackWall(1f, sprite.flipX))
             {
                 break;
             }
@@ -292,7 +312,7 @@ public class Boss_Archer : Boss
         while (true)
         {
             Vector2 distance = (target.position * Vector2.right) - (Vector2)transform.position;
-            if (Mathf.Abs(distance.x) < 0.5)
+            if (Mathf.Abs(distance.x) < 1)
             {
                 break;
             }
@@ -307,6 +327,7 @@ public class Boss_Archer : Boss
         
         // 3번 공격
         anim.EndTracking();
+        SoundManager.instance.PlayClip(spinAttackSound);
         for (int i = 0; i < 3; i++)
         {
             Collider2D collision = Physics2D.OverlapBox(attackPosition.position, meleeAttackRange, 0, targetLayer);
@@ -326,6 +347,7 @@ public class Boss_Archer : Boss
 
     private IEnumerator FireSnapshot()
     {
+        SoundManager.instance.PlayClip(snapShotSound);
         for (int i = 0; i < 3; i++)
         {
             ShootArrow(1, GetDirection());
@@ -342,7 +364,7 @@ public class Boss_Archer : Boss
         for (int i = 0; i < numberOfArrows; i++)
         {
             float angle = minAngle + dataAngle * i;
-            PoolManager.instance.CreateRangedObject(
+            ProjectileManager.instance.CreateProjectile(
                 attackPosition.position,
                 RotateVector2(dir, angle),
                 rangedData
@@ -419,7 +441,7 @@ public class Boss_Archer : Boss
 
     private void NoDelay()
     {
-        lastAttackTime = delay + 1;
+        lastAttackTime = delay - 0.2f;
     }
 
     private void AllStop()
@@ -456,10 +478,12 @@ public class Boss_Archer : Boss
         AllStop();
         anim.OnDeath();
         isDie = true;
+        ProjectileManager.instance.DeleteObjectPool(ProjectileObj.tag);
     }
     
     private void OnRedEye()
     {
+        SoundManager.instance.PlayClip(Warning);
         attackWarning.SetActive(true);
     }
     
