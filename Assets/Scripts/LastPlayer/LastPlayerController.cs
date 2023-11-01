@@ -7,6 +7,9 @@ public class LastPlayerController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
+    public FadeOut fadeOut;
+
+
     [SerializeField] private float speed = 5;
     [SerializeField]private float jumpForce =10;
 
@@ -74,6 +77,7 @@ public class LastPlayerController : MonoBehaviour
         if (canMove)
         {
          rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
+         fadeOut.makeFadeOut = true;
         }
     }
 
