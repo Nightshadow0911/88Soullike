@@ -7,6 +7,9 @@ public class LastPlayerController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
+    public FadeOut fadeOut;
+
+
     [SerializeField] private float speed = 5;
     [SerializeField]private float jumpForce =10;
 
@@ -28,13 +31,20 @@ public class LastPlayerController : MonoBehaviour
     private bool isGrounded;
     private bool isWallDetected;
 
+
+    [SerializeField] private float dashDistance = 10f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
+
+    private bool isDashing = false;
+    private float dashStartTime;
+    private float lastDashTime;
+
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
-
-    
     void Update()
     {
         CheckInput();
@@ -53,6 +63,7 @@ public class LastPlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
         Move();
+        Dash();
     }
 
     private void CheckInput()
@@ -68,15 +79,37 @@ public class LastPlayerController : MonoBehaviour
             JumpButton();
         }
     }
-
+    //Move
     private void Move()
     {
         if (canMove)
         {
          rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
+         //fadeOut.makeFadeOut = true;
         }
     }
+    //Dash
+    private void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
+        {
+            fadeOut.makeFadeOut = true;
+            isDashing = true;
+            dashStartTime = Time.time;
+            lastDashTime = Time.time;
+            canMove = false; // 대시 중에 움직임 비활성화 (선택 사항)
+        }
 
+        if (isDashing && Time.time < dashStartTime + dashDuration)
+        {
+            rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
+        }
+        else
+        {
+            isDashing = false;
+            fadeOut.makeFadeOut = false;
+        }
+    }
     private void JumpButton()
     {
         if (isWallSliding)
