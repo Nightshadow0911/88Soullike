@@ -17,6 +17,7 @@ public class MonsterController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        player = GameManager.Instance.player.transform;
     }
 
     void Update()
@@ -24,20 +25,14 @@ public class MonsterController : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         Vector2 direction = player.position - transform.position;
 
-        if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) < 10.0f && Mathf.Abs(direction.x) > 4.0f)
+        if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) < 10.0f && Mathf.Abs(direction.x) > 4.0f)
         {
             if(isShooting)
             {
                 Vector2 moveDirection = direction.normalized;
 
-                if (moveDirection.x < 0) // 방향 전환 기능
-                {
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
+                MonsterFaceWay();
+
                 moveSpeed = 0;
             }
             if(!isShooting)
@@ -46,14 +41,7 @@ public class MonsterController : MonoBehaviour
 
                 Vector2 moveDirection = direction.normalized;
 
-                if (moveDirection.x < 0) // 방향 전환 기능
-                {
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
+                MonsterFaceWay();
 
                 animator.Play("running");
 
@@ -61,38 +49,26 @@ public class MonsterController : MonoBehaviour
             }
             
         }
-        else if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) >= 2.0f && Mathf.Abs(direction.x) <= 4.0f)
+        else if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) >= 2.0f && Mathf.Abs(direction.x) <= 4.0f)
         {
             if (!isShooting)
             {
                 Vector2 moveDirection = direction.normalized;
 
-                if (moveDirection.x < 0) // 방향 전환 기능
-                {
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
+                MonsterFaceWay();
+
                 StartCoroutine(ShootArrowInArc());
                 
             }
         }
-        else if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) < 2.0f)
+        else if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) < 2.0f)
         {
             if (!isShooting)
             {
                 Vector2 moveDirection = direction.normalized;
 
-                if (moveDirection.x < 0) // 방향 전환 기능
-                {
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
+                MonsterFaceWay();
+
                 StartCoroutine(ShootStraightArrow());
                
             }
@@ -139,5 +115,19 @@ public class MonsterController : MonoBehaviour
         animator.Play("Idle");
         yield return new WaitForSeconds(1.5f);
         isShooting = false;
+    }
+    void MonsterFaceWay()
+    {
+        Vector2 direction = player.position - transform.position;
+        Vector2 moveDirection = direction.normalized;
+
+        if (moveDirection.x < 0) // 방향 전환 기능
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1f, 1f, 1);
+        }
     }
 }
