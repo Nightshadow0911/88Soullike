@@ -15,6 +15,7 @@ public class skeletonEnemy : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        player = GameManager.Instance.player.transform;
     }
 
     void Update()
@@ -22,7 +23,7 @@ public class skeletonEnemy : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         Vector2 direction = player.position - transform.position;
 
-        if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) < 10.0f && Mathf.Abs(direction.x) > 0.4f) //움직이는 로직
+        if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) < 10.0f && Mathf.Abs(direction.x) > 0.4f) //움직이는 로직
         {
             if (isAttacking)
             {
@@ -34,14 +35,7 @@ public class skeletonEnemy : MonoBehaviour
 
                 Vector2 moveDirection = direction.normalized;
 
-                if (moveDirection.x < 0) // 방향 전환 기능
-                {
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
+                MonsterFaceWay();
 
                 animator.Play("running");
 
@@ -49,7 +43,7 @@ public class skeletonEnemy : MonoBehaviour
             }
 
         }
-        else if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) <= 0.4f)
+        else if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) <= 0.4f)
         {
             if (!isAttacking)
             {
@@ -144,7 +138,20 @@ public class skeletonEnemy : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             isAttacking = false;
         }
-
     }
 
+    void MonsterFaceWay()
+    {
+        Vector2 direction = player.position - transform.position;
+        Vector2 moveDirection = direction.normalized;
+
+        if (moveDirection.x < 0) // 방향 전환 기능
+        {
+            transform.localScale = new Vector3(-1.3f, 1.3f, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1.3f, 1.3f, 1);
+        }
+    }
 }
