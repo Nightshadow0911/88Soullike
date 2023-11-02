@@ -195,16 +195,13 @@ public class LastPlayerController : MonoBehaviour
 
         if (verticalInput > 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, speed);
+            rb.velocity = new Vector2(0, speed);
         }
-        else if (verticalInput < 0)
+        else if(verticalInput < 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, -speed);
+            rb.velocity = new Vector2(0, -speed);
         }
-        else
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-        }
+
     }
 
     private void ReleaseLadder()
