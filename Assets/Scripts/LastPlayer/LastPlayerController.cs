@@ -44,6 +44,9 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
+    [SerializeField] private float attackStaminaCost = 5f;
+
+    public int attackDamage = 10;
 
     void Start()
     {
@@ -120,7 +123,6 @@ public class LastPlayerController : MonoBehaviour
                 canMove = false;
             }
         }
-
         if (isDashing && Time.time < dashStartTime + dashDuration)
         {
             rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
@@ -136,8 +138,19 @@ public class LastPlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            anim.SetTrigger("attack");
+            if (currentStamina>= attackStaminaCost)
+            {
+                currentStamina -= attackStaminaCost;
+                anim.SetTrigger("attack");
+
+                ApplyDamage();
+            }
         }
+    }
+
+    private void ApplyDamage()
+    {
+
     }
 
     private void RegenStamina()
