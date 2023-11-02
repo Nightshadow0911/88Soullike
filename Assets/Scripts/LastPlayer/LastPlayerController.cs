@@ -46,7 +46,14 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float dashStaminaCost = 20f;
     [SerializeField] private float attackStaminaCost = 5f;
 
+
+    public Transform attackPoint;
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private LayerMask enemyLayer;
     public int attackDamage = 10;
+
+
+
 
     void Start()
     {
@@ -150,8 +157,14 @@ public class LastPlayerController : MonoBehaviour
 
     private void ApplyDamage()
     {
-
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        foreach (Collider2D Enemy in hitEnemies)
+        {
+            Debug.Log("hi2");
+            Enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+        }
     }
+
 
     private void RegenStamina()
     {
@@ -255,5 +268,11 @@ public class LastPlayerController : MonoBehaviour
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
+
+        if (attackPoint == null)
+        {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
