@@ -39,6 +39,7 @@ public class LastPlayerController : MonoBehaviour
     private float dashStartTime;
     private float lastDashTime;
 
+
     [SerializeField] private float maxStamina = 100f;
     [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
@@ -78,8 +79,8 @@ public class LastPlayerController : MonoBehaviour
         {
             ReleaseLadder();
             Move();
-            Dash();
-            Attack();
+        Dash();
+        Attack();
         }
     }
 
@@ -188,6 +189,30 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
+    private void ClimbLadder()
+    {
+        float verticalInput = Input.GetAxis("Vertical");
+
+        if (verticalInput > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, speed);
+        }
+        else if (verticalInput < 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -speed);
+        }
+        else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        }
+    }
+
+    private void ReleaseLadder()
+    {
+        rb.gravityScale = 1;
+    }
+
+
     private void AnimatorController()
     {
         bool isMoving = rb.velocity.x != 0;
@@ -214,34 +239,6 @@ public class LastPlayerController : MonoBehaviour
             canWallSlide = false;
             isWallSliding = false;
         }
-
-        if (isLadderDetected)
-        {
-            rb.gravityScale = 0;
-        }
-    }
-
-    private void ClimbLadder()
-    {
-        float verticalInput = Input.GetAxis("Vertical");
-
-        if (verticalInput > 0)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, speed);
-        }
-        else if (verticalInput < 0)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, -speed);
-        }
-        else
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-        }
-    }
-
-    private void ReleaseLadder()
-    {
-        rb.gravityScale = 1;
     }
 
     private void OnDrawGizmos()
