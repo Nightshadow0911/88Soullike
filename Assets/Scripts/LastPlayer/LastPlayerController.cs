@@ -31,7 +31,7 @@ public class LastPlayerController : MonoBehaviour
     private bool isGrounded;
     private bool isWallDetected;
 
-
+    //Dash
     [SerializeField] private float dashDistance = 10f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
@@ -40,10 +40,20 @@ public class LastPlayerController : MonoBehaviour
     private float dashStartTime;
     private float lastDashTime;
 
+    //Stamina
+
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float currentStamina;
+    [SerializeField] private float staminaRegenRate = 10f;
+    [SerializeField] private float dashStaminaCost = 20f;
+
+
+
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        currentStamina = maxStamina;
     }
     void Update()
     {
@@ -55,6 +65,7 @@ public class LastPlayerController : MonoBehaviour
         if (isGrounded)
         {
             canMove = true;
+            RegenStamina(); // 땅에 있는 동안 스태미너 회복 추가
         }
 
         if (canWallSlide)
@@ -64,6 +75,7 @@ public class LastPlayerController : MonoBehaviour
         }
         Move();
         Dash();
+        Attack();
     }
 
     private void CheckInput()
@@ -93,11 +105,15 @@ public class LastPlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
         {
-            fadeOut.makeFadeOut = true;
-            isDashing = true;
-            dashStartTime = Time.time;
-            lastDashTime = Time.time;
-            canMove = false; // 대시 중에 움직임 비활성화 (선택 사항)
+            if (currentStamina >= dashStaminaCost)
+            {
+                currentStamina -= dashStaminaCost;
+                fadeOut.makeFadeOut = true;
+                isDashing = true;
+                dashStartTime = Time.time;
+                lastDashTime = Time.time;
+                canMove = false; // 대시 중에 움직임 비활성화 (선택 사항)
+            }
         }
 
         if (isDashing && Time.time < dashStartTime + dashDuration)
@@ -110,6 +126,22 @@ public class LastPlayerController : MonoBehaviour
             fadeOut.makeFadeOut = false;
         }
     }
+    private void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            anim.SetTrigger("attack");
+        }
+    }
+
+
+    private void RegenStamina()
+    {
+        currentStamina += staminaRegenRate * Time.deltaTime;
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+    }
+
+
     private void JumpButton()
     {
         if (isWallSliding)
@@ -154,6 +186,7 @@ public class LastPlayerController : MonoBehaviour
             Flip();
         }
     }
+
     private void AnimatorController()
     {
         bool isMoving = rb.velocity.x != 0;
@@ -163,6 +196,7 @@ public class LastPlayerController : MonoBehaviour
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isWallSliding", isWallSliding);
         anim.SetBool("isWallDetected", isWallDetected);
+
     }
 
     private void CollisionCheck()

@@ -685,6 +685,10 @@ MonoBehaviour:
   dashDistance: 2
   dashDuration: 0.2
   dashCooldown: 1
+  maxStamina: 100
+  currentStamina: 0
+  staminaRegenRate: 10
+  dashStaminaCost: 20
 --- !u!95 &698478115
 Animator:
   serializedVersion: 5
