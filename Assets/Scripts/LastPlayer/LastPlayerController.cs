@@ -7,15 +7,16 @@ public class LastPlayerController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
+    public FadeOut fadeOut;
+
 
     [SerializeField] private float speed = 5;
     [SerializeField]private float jumpForce =10;
 
     private bool canMove = true;
 
+   
     private bool canWallSlide;
-    private bool canWallJump =true;
     private bool isWallSliding;
 
     private bool facingRight = true;
@@ -24,73 +25,94 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private Vector2 wallJumpDirection;
 
     //Ground check
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckRadious;
+    [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
-    private bool isGrounded;
-
-    //Wall Sliding
-
-    [SerializeField] private Transform wallCheck;
     [SerializeField] private float wallCheckDistance;
+    private bool isGrounded;
     private bool isWallDetected;
+
+
+    [SerializeField] private float dashDistance = 10f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
+
+    private bool isDashing = false;
+    private float dashStartTime;
+    private float lastDashTime;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
     }
-
-
     void Update()
     {
         CheckInput();
         CollisionCheck();
         FlipController();
         AnimatorController();
-    }
 
+        if (isGrounded)
+        {
+            canMove = true;
+        }
 
-
-    private void FixedUpdate()
-    {
-        if (isWallDetected && canWallSlide)
+        if (canWallSlide)
         {
             isWallSliding = true;
-            rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y * 0.1f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
-        else
-        {
-            isWallSliding = false;
-            Move();
-        }
+        Move();
+        Dash();
     }
 
     private void CheckInput()
     {
+            movingInput = Input.GetAxis("Horizontal");
+
+        if (Input.GetAxis("Vertical") < 0)
+        {
+            canWallSlide = false;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             JumpButton();
         }
-        if (canMove)
-        {
-            movingInput = Input.GetAxis("Horizontal");
-        }
     }
-
+    //Move
     private void Move()
     {
         if (canMove)
         {
          rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
+         //fadeOut.makeFadeOut = true;
         }
     }
+    //Dash
+    private void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
+        {
+            fadeOut.makeFadeOut = true;
+            isDashing = true;
+            dashStartTime = Time.time;
+            lastDashTime = Time.time;
+            canMove = false; // 대시 중에 움직임 비활성화 (선택 사항)
+        }
 
+        if (isDashing && Time.time < dashStartTime + dashDuration)
+        {
+            rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
+        }
+        else
+        {
+            isDashing = false;
+            fadeOut.makeFadeOut = false;
+        }
+    }
     private void JumpButton()
     {
-        if (isWallSliding && canWallJump)
+        if (isWallSliding)
         {
             wallJump();
         }
@@ -98,6 +120,7 @@ public class LastPlayerController : MonoBehaviour
         {
             Jump();
         }
+        canWallSlide = false;
     }
 
     private void Jump()
@@ -107,10 +130,9 @@ public class LastPlayerController : MonoBehaviour
 
     private void wallJump()
     {
-
-        Vector2 direction = new Vector2(wallJumpDirection.x * -facingDirection, wallJumpDirection.y);
-        rb.AddForce(direction, ForceMode2D.Impulse);
-
+        //WallJumpDirections flozen
+        //canMove = false;
+        rb.velocity = new Vector2(wallJumpDirection.x * -facingDirection, wallJumpDirection.y);
     }
 
     private void Flip()
@@ -119,24 +141,10 @@ public class LastPlayerController : MonoBehaviour
         facingRight = !facingRight;
 
         transform.Rotate(0, 180, 0);
-            //spriteRenderer.flipX = !spriteRenderer.flipX;
-
     }
 
     private void FlipController()
     {
-        if (isGrounded && isWallDetected)
-        {
-            if (facingRight && movingInput < 0)
-            {
-                Flip();
-            }
-            else if (!facingRight && movingInput > 0)
-            {
-                Flip();
-            }
-        }
-
         if (rb.velocity.x > 0 && !facingRight)
         {
             Flip();
@@ -145,9 +153,7 @@ public class LastPlayerController : MonoBehaviour
         {
             Flip();
         }
-
     }
-
     private void AnimatorController()
     {
         bool isMoving = rb.velocity.x != 0;
@@ -156,23 +162,28 @@ public class LastPlayerController : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isWallSliding", isWallSliding);
+        anim.SetBool("isWallDetected", isWallDetected);
     }
 
     private void CollisionCheck()
     {
-        isGrounded= Physics2D.OverlapCircle(groundCheck.position, groundCheckRadious, whatIsGround);
-        isWallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, whatIsGround);
-        if (!isGrounded && rb.velocity.y<0)
+        isGrounded= Physics2D.Raycast(transform.position,Vector2.down, groundCheckDistance, whatIsGround);
+        isWallDetected = Physics2D.Raycast(transform.position, Vector2.right*facingDirection, wallCheckDistance, whatIsGround);
+        if (isWallDetected && rb.velocity.y<0)
         {
             canWallSlide = true;
-            Debug.Log("Wall");
+        }
+        if (!isWallDetected)
+        {
+            canWallSlide = false;
+            isWallSliding = false;
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadious);
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance*facingDirection, transform.position.y));
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x,transform.position.y-groundCheckDistance));
 
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
     }
 }
