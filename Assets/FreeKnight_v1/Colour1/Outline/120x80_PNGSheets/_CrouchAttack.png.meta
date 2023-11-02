@@ -126,10 +126,10 @@ TextureImporter:
       name: _CrouchAttack_0
       rect:
         serializedVersion: 2
-        x: 31
+        x: 0
         y: 0
-        width: 36
-        height: 29
+        width: 120
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: _CrouchAttack_1
       rect:
         serializedVersion: 2
-        x: 139
+        x: 120
         y: 0
-        width: 81
-        height: 27
+        width: 120
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,10 +168,10 @@ TextureImporter:
       name: _CrouchAttack_2
       rect:
         serializedVersion: 2
-        x: 260
+        x: 240
         y: 0
-        width: 53
-        height: 27
+        width: 120
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,10 +189,10 @@ TextureImporter:
       name: _CrouchAttack_3
       rect:
         serializedVersion: 2
-        x: 380
+        x: 360
         y: 0
-        width: 50
-        height: 27
+        width: 120
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
