@@ -157,7 +157,7 @@ public class LastPlayerController : MonoBehaviour
 
     private void ApplyDamage()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(attackRange, attackRange), 10f, enemyLayer);
         foreach (Collider2D Enemy in hitEnemies)
         {
             Debug.Log("hi2");
@@ -264,7 +264,7 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
@@ -273,6 +273,7 @@ public class LastPlayerController : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawCube(attackPoint.position, new Vector2(attackRange, attackRange));
+
     }
 }
