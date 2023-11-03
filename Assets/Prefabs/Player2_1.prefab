@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 6113475548300559220}
   - component: {fileID: 7028182834870813551}
   - component: {fileID: 7183166718667996228}
-  - component: {fileID: -3127777242836249135}
-  m_Layer: 0
+  - component: {fileID: 2491328609635162135}
+  m_Layer: 6
   m_Name: Player2_1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ Transform:
   - {fileID: 1748891494670145770}
   - {fileID: 3646084481749102177}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3823468216354946513
 SpriteRenderer:
@@ -185,8 +185,8 @@ MonoBehaviour:
   maxStamina: 100
   currentStamina: 0
   staminaRegenRate: 10
-  dashStaminaCost: 20
-  attackStaminaCost: 10
+  dashStaminaCost: 10
+  attackStaminaCost: 5
   attackPoint: {fileID: 3646084481749102177}
   attackRange: 1
   enemyLayer:
@@ -229,7 +229,7 @@ MonoBehaviour:
   FadeOutDeley: 0.05
   fadeOut: {fileID: 0}
   makeFadeOut: 0
---- !u!114 &-3127777242836249135
+--- !u!114 &2491328609635162135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,7 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3646084481749102177}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1748891494670145770}
   - component: {fileID: 7542326515970593765}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
