@@ -25,14 +25,18 @@ public class DeathBringerEnemy : MonoBehaviour
     private int spellCount; //스펠 사용 횟수
     private int maxSpellCount = 3; //최대 스펠 사용 횟수
 
+    public int maxHealth = 800;
+    private int currentHealth;
+
     void Start()
     {
         animator = GetComponent<Animator>();
-
-        player = GameManager.Instance.player.transform;
+        //player = GameManager.Instance.player.transform;
+        currentHealth = maxHealth;
+        Debug.Log(currentHealth);
     }
 
-    
+
     void Update()
     {
         Animator animator = GetComponent<Animator>();
@@ -136,7 +140,7 @@ public class DeathBringerEnemy : MonoBehaviour
                 yield return new WaitForSeconds(1.2f);
                 spellAttackObject.SetActive(true); //시전시간 이후 활성화
                 yield return new WaitForSeconds(0.8f);
-                spellCount++;
+                spellCount++;ㅁ
                 Destroy(spellEffectObject);
                 Destroy(spellAttackObject);
                 
@@ -234,5 +238,19 @@ public class DeathBringerEnemy : MonoBehaviour
                 transform.localScale = new Vector3(-8, 8, 1);
             }
         }
+    }
+    public void TakeDamage(int attackDamage)
+    {
+        currentHealth -= attackDamage;
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+    }
+    void Death()
+    {
+        // 적의 사망 처리 (예: 죽음 애니메이션 재생, 씬에서 제거 등)
+        Destroy(gameObject);
     }
 }
