@@ -7,15 +7,14 @@ public class LastPlayerController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
+    public FadeOut fadeOut;
 
     [SerializeField] private float speed = 5;
-    [SerializeField]private float jumpForce =10;
+    [SerializeField] private float jumpForce = 10;
 
     private bool canMove = true;
 
     private bool canWallSlide;
-    private bool canWallJump =true;
     private bool isWallSliding;
 
     private bool facingRight = true;
@@ -23,26 +22,45 @@ public class LastPlayerController : MonoBehaviour
     private int facingDirection = 1;
     [SerializeField] private Vector2 wallJumpDirection;
 
-    //Ground check
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckRadious;
+    [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
-    private bool isGrounded;
-
-    //Wall Sliding
-
-    [SerializeField] private Transform wallCheck;
+    [SerializeField] private LayerMask WhatIsLadder;
     [SerializeField] private float wallCheckDistance;
+    [SerializeField] private float ladderCheckdistance;
+    private bool isGrounded;
     private bool isWallDetected;
+    private bool isLadderDetected;
+
+    [SerializeField] private float dashDistance = 10f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
+
+    private bool isDashing = false;
+    private float dashStartTime;
+    private float lastDashTime;
+
+
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float currentStamina;
+    [SerializeField] private float staminaRegenRate = 10f;
+    [SerializeField] private float dashStaminaCost = 20f;
+    [SerializeField] private float attackStaminaCost = 5f;
+
+
+    public Transform attackPoint;
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private LayerMask enemyLayer;
+    public int attackDamage = 10;
+
+
+
 
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
+        currentStamina = maxStamina;
     }
-
 
     void Update()
     {
@@ -50,33 +68,43 @@ public class LastPlayerController : MonoBehaviour
         CollisionCheck();
         FlipController();
         AnimatorController();
-    }
 
+        if (isGrounded)
+        {
+            canMove = true;
+            RegenStamina();
+        }
 
-
-    private void FixedUpdate()
-    {
-        if (isWallDetected && canWallSlide)
+        if (canWallSlide)
         {
             isWallSliding = true;
-            rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y * 0.1f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
+        }
+
+        if (isLadderDetected)
+        {
+            ClimbLadder();
         }
         else
         {
-            isWallSliding = false;
+            ReleaseLadder();
             Move();
+        Dash();
+        Attack();
         }
     }
 
     private void CheckInput()
     {
+        movingInput = Input.GetAxis("Horizontal");
+
+        if (Input.GetAxis("Vertical") < 0)
+        {
+            canWallSlide = false;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             JumpButton();
-        }
-        if (canMove)
-        {
-            movingInput = Input.GetAxis("Horizontal");
         }
     }
 
@@ -84,13 +112,69 @@ public class LastPlayerController : MonoBehaviour
     {
         if (canMove)
         {
-         rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
+            rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
         }
+    }
+
+    private void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
+        {
+            if (currentStamina >= dashStaminaCost)
+            {
+                currentStamina -= dashStaminaCost;
+                fadeOut.makeFadeOut = true;
+                isDashing = true;
+                dashStartTime = Time.time;
+                lastDashTime = Time.time;
+                canMove = false;
+            }
+        }
+        if (isDashing && Time.time < dashStartTime + dashDuration)
+        {
+            rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
+        }
+        else
+        {
+            isDashing = false;
+            fadeOut.makeFadeOut = false;
+        }
+    }
+
+    private void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (currentStamina>= attackStaminaCost)
+            {
+                currentStamina -= attackStaminaCost;
+                anim.SetTrigger("attack");
+
+                ApplyDamage();
+            }
+        }
+    }
+
+    private void ApplyDamage()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        foreach (Collider2D Enemy in hitEnemies)
+        {
+            Debug.Log("hi2");
+            Enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+        }
+    }
+
+
+    private void RegenStamina()
+    {
+        currentStamina += staminaRegenRate * Time.deltaTime;
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
     }
 
     private void JumpButton()
     {
-        if (isWallSliding && canWallJump)
+        if (isWallSliding)
         {
             wallJump();
         }
@@ -98,6 +182,7 @@ public class LastPlayerController : MonoBehaviour
         {
             Jump();
         }
+        canWallSlide = false;
     }
 
     private void Jump()
@@ -107,10 +192,7 @@ public class LastPlayerController : MonoBehaviour
 
     private void wallJump()
     {
-
-        Vector2 direction = new Vector2(wallJumpDirection.x * -facingDirection, wallJumpDirection.y);
-        rb.AddForce(direction, ForceMode2D.Impulse);
-
+        rb.velocity = new Vector2(wallJumpDirection.x * -facingDirection, wallJumpDirection.y);
     }
 
     private void Flip()
@@ -119,24 +201,10 @@ public class LastPlayerController : MonoBehaviour
         facingRight = !facingRight;
 
         transform.Rotate(0, 180, 0);
-            //spriteRenderer.flipX = !spriteRenderer.flipX;
-
     }
 
     private void FlipController()
     {
-        if (isGrounded && isWallDetected)
-        {
-            if (facingRight && movingInput < 0)
-            {
-                Flip();
-            }
-            else if (!facingRight && movingInput > 0)
-            {
-                Flip();
-            }
-        }
-
         if (rb.velocity.x > 0 && !facingRight)
         {
             Flip();
@@ -145,34 +213,66 @@ public class LastPlayerController : MonoBehaviour
         {
             Flip();
         }
+    }
+
+    private void ClimbLadder()
+    {
+        float verticalInput = Input.GetAxis("Vertical");
+
+        if (verticalInput > 0)
+        {
+            rb.velocity = new Vector2(0, speed);
+        }
+        else if(verticalInput < 0)
+        {
+            rb.velocity = new Vector2(0, -speed);
+        }
 
     }
+
+    private void ReleaseLadder()
+    {
+        rb.gravityScale = 1;
+    }
+
 
     private void AnimatorController()
     {
         bool isMoving = rb.velocity.x != 0;
 
-        anim.SetFloat("yVelocity",rb.velocity.y);
+        anim.SetFloat("yVelocity", rb.velocity.y);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isWallSliding", isWallSliding);
+        anim.SetBool("isWallDetected", isWallDetected);
     }
 
     private void CollisionCheck()
     {
-        isGrounded= Physics2D.OverlapCircle(groundCheck.position, groundCheckRadious, whatIsGround);
-        isWallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, whatIsGround);
-        if (!isGrounded && rb.velocity.y<0)
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
+        isWallDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+        isLadderDetected = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckdistance, WhatIsLadder);
+
+        if (isWallDetected && rb.velocity.y < 0)
         {
             canWallSlide = true;
-            Debug.Log("Wall");
+        }
+        if (!isWallDetected)
+        {
+            canWallSlide = false;
+            isWallSliding = false;
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadious);
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
 
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+        if (attackPoint == null)
+        {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
