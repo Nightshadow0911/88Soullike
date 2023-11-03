@@ -23,9 +23,7 @@ public class DeathBringerEnemy : MonoBehaviour
 
     public GameObject MiddleBoss;
     private int spellCount; //스펠 사용 횟수
-    private int UltimatespellCount;
     private int maxSpellCount = 3; //최대 스펠 사용 횟수
-    private int maxUltimateSpellCount = 5;
 
     void Start()
     {
@@ -85,7 +83,6 @@ public class DeathBringerEnemy : MonoBehaviour
                 {
                     StartCoroutine(MoveToPlayer());
                 }
-
             }
         }
 
@@ -127,6 +124,7 @@ public class DeathBringerEnemy : MonoBehaviour
             int rate = Random.Range(1, 10);
             if (rate <= 8)
             {
+                
                 Vector2 spellPoint = player.position + new Vector3(0f, 3.5f);
                 animator.Play("cast");
                 isAttacking = true;
@@ -169,6 +167,7 @@ public class DeathBringerEnemy : MonoBehaviour
                 moveSpeed = 0.5f;
                 
             }
+
             else
             {
                 moveSpeed = 0;
@@ -220,9 +219,7 @@ public class DeathBringerEnemy : MonoBehaviour
                 Destroy(spellAttackObject);
             }
             isAttacking = false;
-            UltimatespellCount++;
         }
-        
 
         void MonsterFaceWay()
         {
