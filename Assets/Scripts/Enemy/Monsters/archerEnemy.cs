@@ -29,7 +29,7 @@ public class archerEnemy : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         Vector2 direction = player.position - transform.position;
 
-        if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) < 10.0f && Mathf.Abs(direction.x) > 4.0f)
+        if (Mathf.Abs(direction.y) < 3f && Mathf.Abs(direction.x) < 15.0f && Mathf.Abs(direction.x) > 8.0f)
         {
             if(isShooting)
             {
@@ -53,7 +53,7 @@ public class archerEnemy : MonoBehaviour
             }
             
         }
-        else if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) >= 2.0f && Mathf.Abs(direction.x) <= 4.0f)
+        else if (Mathf.Abs(direction.y) < 3f && Mathf.Abs(direction.x) >= 4.0f && Mathf.Abs(direction.x) <= 8.0f)
         {
             if (!isShooting)
             {
@@ -65,7 +65,7 @@ public class archerEnemy : MonoBehaviour
                 
             }
         }
-        else if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) < 2.0f)
+        else if (Mathf.Abs(direction.y) < 3f && Mathf.Abs(direction.x) < 4.0f)
         {
             if (!isShooting)
             {

@@ -140,7 +140,7 @@ public class DeathBringerEnemy : MonoBehaviour
                 yield return new WaitForSeconds(1.2f);
                 spellAttackObject.SetActive(true); //시전시간 이후 활성화
                 yield return new WaitForSeconds(0.8f);
-                spellCount++;ㅁ
+                spellCount++;
                 Destroy(spellEffectObject);
                 Destroy(spellAttackObject);
                 
