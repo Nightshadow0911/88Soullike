@@ -9,6 +9,7 @@ public class LastPlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public FadeOut fadeOut;
     public CharacterStats characterStats;
+    public PlayerUI playerUI;
 
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpForce = 10;
@@ -49,10 +50,6 @@ public class LastPlayerController : MonoBehaviour
     public Transform attackPoint;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask enemyLayer;
-    public int attackDamage = 10;
-
-
-
 
     void Start()
     {
@@ -161,6 +158,7 @@ public class LastPlayerController : MonoBehaviour
         characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
     }
 
+    
     private void ApplyDamage() // Add damage
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
@@ -171,8 +169,9 @@ public class LastPlayerController : MonoBehaviour
                 DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
                 if (deathBringer != null)
                 {
-                    Debug.Log("Deal " + attackDamage + " damage to DeathBringer.");
-                    deathBringer.TakeDamage(attackDamage);
+                    Debug.Log("Deal " + characterStats.characterNomallAttackDamage + " damage to DeathBringer.");
+                    deathBringer.TakeDamage(characterStats.characterNomallAttackDamage);
+                   
                 }
             }
             else if (enemyCollider.CompareTag("Boss_Archer"))
@@ -180,8 +179,9 @@ public class LastPlayerController : MonoBehaviour
                 Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
                 if (boss_archer != null)
                 {
-                    Debug.Log("Deal" + attackDamage + " damage to Boss Archer.");
-                    boss_archer.TakeDamage(attackDamage);
+                    Debug.Log("Deal" + characterStats.characterNomallAttackDamage + " damage to Boss Archer.");
+                    //boss_archer.TakeDamage(attackDamage);
+                    boss_archer.TakeDamage(characterStats.characterNomallAttackDamage);
                 }
             }
             else if (enemyCollider.CompareTag("skeleton"))
@@ -189,8 +189,8 @@ public class LastPlayerController : MonoBehaviour
                 skeletonEnemy skeleton = enemyCollider.GetComponent<skeletonEnemy>();
                 if (skeleton != null)
                 {
-                    Debug.Log("Deal" + attackDamage + " damage to Skeleton.");
-                    skeleton.TakeDamage(attackDamage);
+                    Debug.Log("Deal" + characterStats.characterNomallAttackDamage + " damage to Skeleton.");
+                    skeleton.TakeDamage(characterStats.characterNomallAttackDamage);
                 }
             }
             else if (enemyCollider.CompareTag("archer"))
@@ -198,8 +198,8 @@ public class LastPlayerController : MonoBehaviour
                 archerEnemy archer = enemyCollider.GetComponent<archerEnemy>();
                 if (archer != null)
                 {
-                    Debug.Log("Deal " + attackDamage + " damage to Archer.");
-                    archer.TakeDamage(attackDamage);
+                    Debug.Log("Deal " + characterStats.characterNomallAttackDamage + " damage to Archer.");
+                    archer.TakeDamage(characterStats.characterNomallAttackDamage);
                 }
             }
         }
