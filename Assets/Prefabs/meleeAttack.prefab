@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &504582271903486499
+--- !u!1 &8108776398137204367
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2632937510350250333}
-  - component: {fileID: 4975216977136076993}
-  - component: {fileID: 3056703805859871749}
-  - component: {fileID: 6781178758669209742}
+  - component: {fileID: 5857580539052770616}
+  - component: {fileID: 842820636816181581}
+  - component: {fileID: 5012006383919462233}
+  - component: {fileID: 8865264359417120845}
   m_Layer: 0
   m_Name: meleeAttack
   m_TagString: Untagged
@@ -19,28 +19,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2632937510350250333
+--- !u!4 &5857580539052770616
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 504582271903486499}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 8108776398137204367}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 0.5, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4975216977136076993
+--- !u!212 &842820636816181581
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 504582271903486499}
+  m_GameObject: {fileID: 8108776398137204367}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,16 +83,29 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &3056703805859871749
-BoxCollider2D:
+--- !u!114 &5012006383919462233
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 504582271903486499}
+  m_GameObject: {fileID: 8108776398137204367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e861dcdb05fe632408b5398095b47d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+--- !u!60 &8865264359417120845
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108776398137204367}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -128,19 +141,22 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &6781178758669209742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 504582271903486499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e861dcdb05fe632408b5398095b47d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
+  m_Points:
+    m_Paths:
+    - - {x: -0.7100373, y: 0.18770295}
+      - {x: -0.7106802, y: 0.26493442}
+      - {x: -0.8753652, y: 0.106663406}
+      - {x: -0.9680196, y: -0.05008021}
+      - {x: -1.0140564, y: -0.13666078}
+      - {x: -1.0403829, y: -0.3122697}
+      - {x: -1.0329183, y: -0.45812616}
+      - {x: -0.5305258, y: -0.724318}
+      - {x: -0.38264674, y: -0.4798516}
+      - {x: -0.29265743, y: -0.62031937}
+      - {x: -0.2001089, y: -0.5178643}
+      - {x: -0.23139857, y: -0.010907084}
+      - {x: 0.10123995, y: 0.18661869}
+      - {x: 0.557847, y: 0.32730854}
+      - {x: 1.1146706, y: 0.38284746}
+      - {x: 0.1151306, y: 0.47846833}
+  m_UseDelaunayMesh: 0

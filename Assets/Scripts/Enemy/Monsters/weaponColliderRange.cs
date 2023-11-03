@@ -28,13 +28,14 @@ public class weaponColliderRange : MonoBehaviour
             {
                 gameManager.playerStats.TakeDamage(damage);
                 Debug.Log("플레이어 공격받음");
+                Destroy(gameObject);
             }
             else
             {
                 Debug.LogError("GameManager 또는 playerStats를 찾을 수 없습니다.");
             }
         }
-            Destroy(gameObject);           
     }
+    
 }
 

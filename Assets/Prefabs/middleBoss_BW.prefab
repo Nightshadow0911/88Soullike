@@ -114,7 +114,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!61 &2714229474663793436
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
   mapSpellMarker: {fileID: 4902004596751578511}
-  meleeAttack: {fileID: 504582271903486499, guid: af7123083786b474a9cff6e05f1bb612, type: 3}
+  meleeAttack: {fileID: 6045820309081120241}
   spellAttack: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
   spellEffect: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
   MiddleBoss: {fileID: 6045820309081120241}
