@@ -112,6 +112,7 @@ public class LastPlayerController : MonoBehaviour
     {
         if (canMove)
         {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
             rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
         }
     }
@@ -155,7 +156,7 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
-    private void ApplyDamage() //¸ó½ºÅÍ Ãß°¡µÉ ¶§ 
+    private void ApplyDamage() //ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ 
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
@@ -165,7 +166,7 @@ public class LastPlayerController : MonoBehaviour
                 DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
                 if (deathBringer != null)
                 {
-                    Debug.Log("ÇÃ·¹ÀÌ¾î°¡ Áßº¸¿¡°Ô " + attackDamage + "¸¸Å­ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.");
+                    Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ " + attackDamage + "ï¿½ï¿½Å­ ï¿½ï¿½ï¿½Ø¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
                     deathBringer.TakeDamage(attackDamage);
                 }
             }
@@ -174,7 +175,7 @@ public class LastPlayerController : MonoBehaviour
                 Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
                 if (boss_archer != null)
                 {
-                    Debug.Log("ÇÃ·¹ÀÌ¾î°¡ º¸½º¸÷¿¡°Ô " + attackDamage + "¸¸Å­ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.");
+                    Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " + attackDamage + "ï¿½ï¿½Å­ ï¿½ï¿½ï¿½Ø¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
                     boss_archer.TakeDamage(attackDamage);
                 }
             }
@@ -183,7 +184,7 @@ public class LastPlayerController : MonoBehaviour
                 skeletonEnemy skeleton = enemyCollider.GetComponent<skeletonEnemy>();
                 if (skeleton != null)
                 {
-                    Debug.Log("ÇÃ·¹ÀÌ¾î°¡ ÇØ°ñ¸÷¿¡°Ô " + attackDamage + "¸¸Å­ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.");
+                    Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " + attackDamage + "ï¿½ï¿½Å­ ï¿½ï¿½ï¿½Ø¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
                     skeleton.TakeDamage(attackDamage);
                 }
             }
@@ -192,7 +193,7 @@ public class LastPlayerController : MonoBehaviour
                 archerEnemy archer = enemyCollider.GetComponent<archerEnemy>();
                 if (archer != null)
                 {
-                    Debug.Log("ÇÃ·¹ÀÌ¾î°¡ ±Ã¼ö¸÷¿¡°Ô " + attackDamage + "¸¸Å­ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.");
+                    Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " + attackDamage + "ï¿½ï¿½Å­ ï¿½ï¿½ï¿½Ø¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
                     archer.TakeDamage(attackDamage);
                 }
             }
