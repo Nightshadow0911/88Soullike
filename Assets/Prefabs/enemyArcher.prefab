@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2923211166423992665}
   m_Layer: 7
   m_Name: enemyArcher
-  m_TagString: Untagged
+  m_TagString: archer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!61 &8665023278266706791
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -196,3 +196,4 @@ MonoBehaviour:
   player: {fileID: 2134998674751114048, guid: e8dc8513c3df24a41bdc18793f417574, type: 3}
   arrowPrefab: {fileID: 8497631904878779402, guid: e4f23016bf0651b4f831c37c25f01912, type: 3}
   fireInterval: 2
+  maxHealth: 100

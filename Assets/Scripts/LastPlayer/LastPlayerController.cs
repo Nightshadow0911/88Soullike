@@ -44,6 +44,16 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
+    [SerializeField] private float attackStaminaCost = 5f;
+
+
+    public Transform attackPoint;
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private LayerMask enemyLayer;
+    public int attackDamage = 10;
+
+
+
 
     void Start()
     {
@@ -102,6 +112,7 @@ public class LastPlayerController : MonoBehaviour
     {
         if (canMove)
         {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
             rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
         }
     }
@@ -120,7 +131,6 @@ public class LastPlayerController : MonoBehaviour
                 canMove = false;
             }
         }
-
         if (isDashing && Time.time < dashStartTime + dashDuration)
         {
             rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
@@ -136,9 +146,60 @@ public class LastPlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            anim.SetTrigger("attack");
+            if (currentStamina>= attackStaminaCost)
+            {
+                currentStamina -= attackStaminaCost;
+                anim.SetTrigger("attack");
+
+                ApplyDamage();
+            }
         }
     }
+
+    private void ApplyDamage() //���� �߰��� �� 
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        foreach (Collider2D enemyCollider in hitEnemies)
+        {
+            if (enemyCollider.CompareTag("Boss_DB"))
+            {
+                DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
+                if (deathBringer != null)
+                {
+                    Debug.Log("�÷��̾ �ߺ����� " + attackDamage + "��ŭ ���ظ� �������ϴ�.");
+                    deathBringer.TakeDamage(attackDamage);
+                }
+            }
+            else if (enemyCollider.CompareTag("Boss_Archer"))
+            {
+                Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
+                if (boss_archer != null)
+                {
+                    Debug.Log("�÷��̾ ���������� " + attackDamage + "��ŭ ���ظ� �������ϴ�.");
+                    boss_archer.TakeDamage(attackDamage);
+                }
+            }
+            else if (enemyCollider.CompareTag("skeleton"))
+            {
+                skeletonEnemy skeleton = enemyCollider.GetComponent<skeletonEnemy>();
+                if (skeleton != null)
+                {
+                    Debug.Log("�÷��̾ �ذ������ " + attackDamage + "��ŭ ���ظ� �������ϴ�.");
+                    skeleton.TakeDamage(attackDamage);
+                }
+            }
+            else if (enemyCollider.CompareTag("archer"))
+            {
+                archerEnemy archer = enemyCollider.GetComponent<archerEnemy>();
+                if (archer != null)
+                {
+                    Debug.Log("�÷��̾ �ü������� " + attackDamage + "��ŭ ���ظ� �������ϴ�.");
+                    archer.TakeDamage(attackDamage);
+                }
+            }
+        }
+    }
+
 
     private void RegenStamina()
     {
@@ -242,5 +303,11 @@ public class LastPlayerController : MonoBehaviour
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
+
+        if (attackPoint == null)
+        {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

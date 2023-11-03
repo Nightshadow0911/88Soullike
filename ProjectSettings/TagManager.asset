@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Enemy
+  - FieldItem
+  - skeleton
+  - archer
+  - Boss_DB
+  - Boss_Archer
   layers:
   - Default
   - TransparentFX

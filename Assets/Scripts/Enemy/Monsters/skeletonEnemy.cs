@@ -8,6 +8,8 @@ public class skeletonEnemy : MonoBehaviour
     public Transform player;
     private Animator animator;
     public GameObject skeletonWeapon;
+    public int maxHealth = 100;
+    private int currentHealth;
 
     private float moveSpeed = 0.2f;
     private bool isAttacking = false;
@@ -16,6 +18,7 @@ public class skeletonEnemy : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         player = GameManager.Instance.player.transform;
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -23,7 +26,7 @@ public class skeletonEnemy : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         Vector2 direction = player.position - transform.position;
 
-        if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) < 10.0f && Mathf.Abs(direction.x) > 0.4f) //움직이는 로직
+        if (Mathf.Abs(direction.y) < 3f && Mathf.Abs(direction.x) < 15.0f && Mathf.Abs(direction.x) > 3f) //움직이는 로직
         {
             if (isAttacking)
             {
@@ -43,7 +46,7 @@ public class skeletonEnemy : MonoBehaviour
             }
 
         }
-        else if (Mathf.Abs(direction.y) < 2f && Mathf.Abs(direction.x) <= 0.4f)
+        else if (Mathf.Abs(direction.y) < 3f && Mathf.Abs(direction.x) <= 3f)
         {
             if (!isAttacking)
             {
@@ -153,5 +156,20 @@ public class skeletonEnemy : MonoBehaviour
         {
             transform.localScale = new Vector3(1.3f, 1.3f, 1);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+    }
+    void Death()
+    {
+        // 적의 사망 처리 (예: 죽음 애니메이션 재생, 씬에서 제거 등)
+        Destroy(gameObject);
     }
 }

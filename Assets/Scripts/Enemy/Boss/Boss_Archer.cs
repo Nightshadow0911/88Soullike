@@ -21,6 +21,8 @@ public class Boss_Archer : Boss
     [SerializeField] private Transform attackPosition;
     [SerializeField] private Vector2 meleeAttackRange;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] public int maxHealth = 1000;
+     private int currentHealth;
 
     private readonly Vector3 atkRightPos = new Vector3(0.4f, 0.4f, 0);
     private readonly Vector3 atkLeftPos = new Vector3(-0.4f, 0.4f, 0);
@@ -44,6 +46,8 @@ public class Boss_Archer : Boss
     private bool dodging = false;
     private Boss_Archer_Animation anim;
 
+   
+
     protected override void Awake()
     {
         base.Awake();
@@ -58,6 +62,7 @@ public class Boss_Archer : Boss
             new Ray2D(transform.position, Vector2.left),
             new Ray2D(transform.position, Vector2.right)
         };
+        currentHealth = maxHealth;
     }
 
     protected override void Update()
@@ -490,5 +495,14 @@ public class Boss_Archer : Boss
     private void OffRedEye()
     {
         attackWarning.SetActive(false);
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
     }
 }
