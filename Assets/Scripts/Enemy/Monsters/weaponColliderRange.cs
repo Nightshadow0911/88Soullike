@@ -21,20 +21,20 @@ public class weaponColliderRange : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) //데미지 공식 추가
+        if (collision.CompareTag("Player"))
 
         {
             if (gameManager != null && gameManager.playerStats != null)
             {
                 gameManager.playerStats.TakeDamage(damage);
+                Debug.Log("플레이어 공격받음");
             }
             else
             {
                 Debug.LogError("GameManager 또는 playerStats를 찾을 수 없습니다.");
             }
         }
-            Destroy(gameObject);
-            Debug.Log("플레이어 공격받음");
+            Destroy(gameObject);           
     }
 }
 

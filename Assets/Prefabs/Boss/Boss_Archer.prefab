@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 1528104152846938850}
   m_Layer: 7
   m_Name: Boss_Archer
-  m_TagString: Untagged
+  m_TagString: Boss_Archer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -248,11 +248,19 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 512
-  rangedObj:
-    tag: Boss_Arrow
-    prefab: {fileID: 5699447481153168627, guid: b87a71e404e1cce47a82728bc573d2cc, type: 3}
-    size: 10
+  maxHealth: 1000
+  ProjectileObj:
+    tag: 
+    prefab: {fileID: 0}
+    size: 0
   rangedData: {fileID: 11400000, guid: 43ca5f370f37fb646a34e66936784530, type: 2}
+  runSound: {fileID: 0}
+  dodgeSound: {fileID: 0}
+  meleeAttackSound: {fileID: 0}
+  rangedAttackSound: {fileID: 0}
+  spinAttackSound: {fileID: 0}
+  snapShotSound: {fileID: 0}
+  Warning: {fileID: 0}
 --- !u!95 &4523413591559772304
 Animator:
   serializedVersion: 5

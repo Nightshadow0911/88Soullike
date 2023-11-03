@@ -155,13 +155,47 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
-    private void ApplyDamage()
+    private void ApplyDamage() //몬스터 추가될 때 
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(attackRange, attackRange), 10f, enemyLayer);
-        foreach (Collider2D Enemy in hitEnemies)
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        foreach (Collider2D enemyCollider in hitEnemies)
         {
-            Debug.Log("hi2");
-            Enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+            if (enemyCollider.CompareTag("Boss_DB"))
+            {
+                DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
+                if (deathBringer != null)
+                {
+                    Debug.Log("플레이어가 중보에게 " + attackDamage + "만큼 피해를 입혔습니다.");
+                    deathBringer.TakeDamage(attackDamage);
+                }
+            }
+            else if (enemyCollider.CompareTag("Boss_Archer"))
+            {
+                Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
+                if (boss_archer != null)
+                {
+                    Debug.Log("플레이어가 보스몹에게 " + attackDamage + "만큼 피해를 입혔습니다.");
+                    boss_archer.TakeDamage(attackDamage);
+                }
+            }
+            else if (enemyCollider.CompareTag("skeleton"))
+            {
+                skeletonEnemy skeleton = enemyCollider.GetComponent<skeletonEnemy>();
+                if (skeleton != null)
+                {
+                    Debug.Log("플레이어가 해골몹에게 " + attackDamage + "만큼 피해를 입혔습니다.");
+                    skeleton.TakeDamage(attackDamage);
+                }
+            }
+            else if (enemyCollider.CompareTag("archer"))
+            {
+                archerEnemy archer = enemyCollider.GetComponent<archerEnemy>();
+                if (archer != null)
+                {
+                    Debug.Log("플레이어가 궁수몹에게 " + attackDamage + "만큼 피해를 입혔습니다.");
+                    archer.TakeDamage(attackDamage);
+                }
+            }
         }
     }
 
@@ -264,7 +298,7 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
@@ -273,7 +307,6 @@ public class LastPlayerController : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawCube(attackPoint.position, new Vector2(attackRange, attackRange));
-
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

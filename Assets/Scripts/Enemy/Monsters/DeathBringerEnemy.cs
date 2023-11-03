@@ -23,18 +23,20 @@ public class DeathBringerEnemy : MonoBehaviour
 
     public GameObject MiddleBoss;
     private int spellCount; //스펠 사용 횟수
-    private int UltimatespellCount;
     private int maxSpellCount = 3; //최대 스펠 사용 횟수
-    private int maxUltimateSpellCount = 5;
+
+    public int maxHealth = 800;
+    private int currentHealth;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-
-        player = GameManager.Instance.player.transform;
+        //player = GameManager.Instance.player.transform;
+        currentHealth = maxHealth;
+        Debug.Log(currentHealth);
     }
 
-    
+
     void Update()
     {
         Animator animator = GetComponent<Animator>();
@@ -85,7 +87,6 @@ public class DeathBringerEnemy : MonoBehaviour
                 {
                     StartCoroutine(MoveToPlayer());
                 }
-
             }
         }
 
@@ -127,6 +128,7 @@ public class DeathBringerEnemy : MonoBehaviour
             int rate = Random.Range(1, 10);
             if (rate <= 8)
             {
+                
                 Vector2 spellPoint = player.position + new Vector3(0f, 3.5f);
                 animator.Play("cast");
                 isAttacking = true;
@@ -138,7 +140,7 @@ public class DeathBringerEnemy : MonoBehaviour
                 yield return new WaitForSeconds(1.2f);
                 spellAttackObject.SetActive(true); //시전시간 이후 활성화
                 yield return new WaitForSeconds(0.8f);
-                spellCount++;
+                spellCount++;ㅁ
                 Destroy(spellEffectObject);
                 Destroy(spellAttackObject);
                 
@@ -169,6 +171,7 @@ public class DeathBringerEnemy : MonoBehaviour
                 moveSpeed = 0.5f;
                 
             }
+
             else
             {
                 moveSpeed = 0;
@@ -220,9 +223,7 @@ public class DeathBringerEnemy : MonoBehaviour
                 Destroy(spellAttackObject);
             }
             isAttacking = false;
-            UltimatespellCount++;
         }
-        
 
         void MonsterFaceWay()
         {
@@ -237,5 +238,19 @@ public class DeathBringerEnemy : MonoBehaviour
                 transform.localScale = new Vector3(-8, 8, 1);
             }
         }
+    }
+    public void TakeDamage(int attackDamage)
+    {
+        currentHealth -= attackDamage;
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+    }
+    void Death()
+    {
+        // 적의 사망 처리 (예: 죽음 애니메이션 재생, 씬에서 제거 등)
+        Destroy(gameObject);
     }
 }
