@@ -12,6 +12,8 @@ public class CharacterStats : MonoBehaviour
     
     [SerializeField]
     private int characterHp;
+    [SerializeField]
+    public float characterStamina;
     
     //메인 성장 스텟
     private Dictionary<GrowState, int> growthValues = new Dictionary<GrowState, int>();
@@ -19,7 +21,7 @@ public class CharacterStats : MonoBehaviour
     private enum GrowState
     {
         growthHP, 
-        growthStemina, 
+        growthStamina, 
         growthStr, 
         growthDex, 
         growthInt, 
@@ -32,7 +34,7 @@ public class CharacterStats : MonoBehaviour
         characterHp,
         characterWeight,
         characterDefense,
-        characterStemina,
+        characterStamina,
         charactermana,
         nomallAttackDamage,
         nomallSkillDamage,
@@ -52,6 +54,8 @@ public class CharacterStats : MonoBehaviour
     {
         subState[(int)Substate.characterHp] = 100;
         characterHp = subState[(int)Substate.characterHp];
+        subState[(int)Substate.characterStamina] = 100;
+        characterStamina = subState[(int)Substate.characterStamina];
         subState[(int)Substate.nomallAttackDamage] = 10;
         subState[(int)Substate.critcal] = 50;
     }
@@ -77,7 +81,7 @@ public class CharacterStats : MonoBehaviour
     {
         GrowStemina += 1;
         subState[(int)Substate.characterHp] = 1;
-        subState[(int)Substate.characterStemina] += i;
+        subState[(int)Substate.characterStamina] += i;
     }
     // 힘 증가시 일반공격력, 무게, 물리스킬데미지
     private void StrGrow(int i)
@@ -128,7 +132,7 @@ public class CharacterStats : MonoBehaviour
     public CharacterStats()
     {
         growthValues[GrowState.growthHP] = 0;
-        growthValues[GrowState.growthStemina] = 0;
+        growthValues[GrowState.growthStamina] = 0;
         growthValues[GrowState.growthStr] = 0;
         growthValues[GrowState.growthDex] = 0;
         growthValues[GrowState.growthInt] = 0;
@@ -218,11 +222,11 @@ public class CharacterStats : MonoBehaviour
     {
         get
         {
-            return growthValues[GrowState.growthStemina];
+            return growthValues[GrowState.growthStamina];
         }
         set
         {
-            growthValues[GrowState.growthStemina] = value;
+            growthValues[GrowState.growthStamina] = value;
         }
     }
 

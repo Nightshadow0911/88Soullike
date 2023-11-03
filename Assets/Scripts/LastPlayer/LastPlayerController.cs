@@ -8,6 +8,7 @@ public class LastPlayerController : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     public FadeOut fadeOut;
+    public CharacterStats characterStats;
 
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpForce = 10;
@@ -39,8 +40,6 @@ public class LastPlayerController : MonoBehaviour
     private float dashStartTime;
     private float lastDashTime;
 
-
-    [SerializeField] private float maxStamina = 100f;
     [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
@@ -59,7 +58,7 @@ public class LastPlayerController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        currentStamina = maxStamina;
+        //characterStats.characterStamina = maxStamina;
     }
 
     void Update()
@@ -112,6 +111,7 @@ public class LastPlayerController : MonoBehaviour
     {
         if (canMove)
         {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
             rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
         }
     }
@@ -120,9 +120,9 @@ public class LastPlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
         {
-            if (currentStamina >= dashStaminaCost)
+            if (characterStats.characterStamina >= dashStaminaCost)
             {
-                currentStamina -= dashStaminaCost;
+                characterStats.characterStamina -= dashStaminaCost;
                 fadeOut.makeFadeOut = true;
                 isDashing = true;
                 dashStartTime = Time.time;
@@ -145,17 +145,23 @@ public class LastPlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (currentStamina>= attackStaminaCost)
+            if (characterStats.characterStamina >= attackStaminaCost)
             {
-                currentStamina -= attackStaminaCost;
+                characterStats.characterStamina -= attackStaminaCost;
                 anim.SetTrigger("attack");
 
                 ApplyDamage();
             }
         }
     }
+    private void RegenStamina()
+    {
+        characterStats.characterStamina += staminaRegenRate * Time.deltaTime;
+        // Fix
+        characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
+    }
 
-    private void ApplyDamage() //몬스터 추가될 때 
+    private void ApplyDamage() // Add damage
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
@@ -165,7 +171,7 @@ public class LastPlayerController : MonoBehaviour
                 DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
                 if (deathBringer != null)
                 {
-                    Debug.Log("플레이어가 중보에게 " + attackDamage + "만큼 피해를 입혔습니다.");
+                    Debug.Log("Deal " + attackDamage + " damage to DeathBringer.");
                     deathBringer.TakeDamage(attackDamage);
                 }
             }
@@ -174,7 +180,7 @@ public class LastPlayerController : MonoBehaviour
                 Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
                 if (boss_archer != null)
                 {
-                    Debug.Log("플레이어가 보스몹에게 " + attackDamage + "만큼 피해를 입혔습니다.");
+                    Debug.Log("Deal" + attackDamage + " damage to Boss Archer.");
                     boss_archer.TakeDamage(attackDamage);
                 }
             }
@@ -183,7 +189,7 @@ public class LastPlayerController : MonoBehaviour
                 skeletonEnemy skeleton = enemyCollider.GetComponent<skeletonEnemy>();
                 if (skeleton != null)
                 {
-                    Debug.Log("플레이어가 해골몹에게 " + attackDamage + "만큼 피해를 입혔습니다.");
+                    Debug.Log("Deal" + attackDamage + " damage to Skeleton.");
                     skeleton.TakeDamage(attackDamage);
                 }
             }
@@ -192,7 +198,7 @@ public class LastPlayerController : MonoBehaviour
                 archerEnemy archer = enemyCollider.GetComponent<archerEnemy>();
                 if (archer != null)
                 {
-                    Debug.Log("플레이어가 궁수몹에게 " + attackDamage + "만큼 피해를 입혔습니다.");
+                    Debug.Log("Deal " + attackDamage + " damage to Archer.");
                     archer.TakeDamage(attackDamage);
                 }
             }
@@ -200,11 +206,7 @@ public class LastPlayerController : MonoBehaviour
     }
 
 
-    private void RegenStamina()
-    {
-        currentStamina += staminaRegenRate * Time.deltaTime;
-        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
-    }
+
 
     private void JumpButton()
     {

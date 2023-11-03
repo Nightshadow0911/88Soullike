@@ -32,7 +32,7 @@ public class ArrowControl : MonoBehaviour
             {
                 Debug.LogError("GameManager 또는 playerStats를 찾을 수 없습니다.");
             }
-            Destroy(gameObject);
+            
             
         }
         else if (collision.CompareTag("Ground"))
