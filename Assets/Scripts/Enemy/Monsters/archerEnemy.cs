@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour
+public class archerEnemy : MonoBehaviour
 {
     public Transform player;
     private Animator animator;
@@ -13,11 +13,15 @@ public class MonsterController : MonoBehaviour
 
     private float moveSpeed;
 
+    public int maxHealth = 100;
+    private int currentHealth;
+
 
     void Start()
     {
         animator = GetComponent<Animator>();
         player = GameManager.Instance.player.transform;
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -129,5 +133,19 @@ public class MonsterController : MonoBehaviour
         {
             transform.localScale = new Vector3(1f, 1f, 1);
         }
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+    }
+    void Death()
+    {
+        // 적의 사망 처리 (예: 죽음 애니메이션 재생, 씬에서 제거 등)
+        Destroy(gameObject);
     }
 }
