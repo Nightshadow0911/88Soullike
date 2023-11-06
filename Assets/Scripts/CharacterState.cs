@@ -11,10 +11,12 @@ public class CharacterStats : MonoBehaviour
     private int points = 5;
     
     [SerializeField]
-    private int characterHp;
+    public int characterHp;
     [SerializeField]
     public float characterStamina;
-    
+    [SerializeField]
+    public int characterNomallAttackDamage;
+
     //메인 성장 스텟
     private Dictionary<GrowState, int> growthValues = new Dictionary<GrowState, int>();
     private GrowState _currentState;
@@ -31,7 +33,7 @@ public class CharacterStats : MonoBehaviour
     private int[] subState = new int[Enum.GetNames(typeof(Substate)).Length];
     private enum Substate
     {
-        characterHp,
+        characterHp, // current
         characterWeight,
         characterDefense,
         characterStamina,
@@ -52,11 +54,12 @@ public class CharacterStats : MonoBehaviour
 
     private void Start()
     {
-        subState[(int)Substate.characterHp] = 100;
+        subState[(int)Substate.characterHp] = 100; // max
         characterHp = subState[(int)Substate.characterHp];
         subState[(int)Substate.characterStamina] = 100;
         characterStamina = subState[(int)Substate.characterStamina];
         subState[(int)Substate.nomallAttackDamage] = 10;
+        characterNomallAttackDamage = subState[(int)Substate.nomallAttackDamage];
         subState[(int)Substate.critcal] = 50;
     }
 
