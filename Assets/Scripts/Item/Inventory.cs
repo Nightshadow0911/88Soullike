@@ -23,13 +23,13 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if((currentNPC != null) && (currentNPC.isInteractable))
+        /*if((currentNPC != null) && (currentNPC.isInteractable))
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 currentNPC.InteractWithNPC(currentNPC.npcName);
             }
-        }
+        }*/
     }
     #endregion
 
@@ -54,7 +54,7 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        slotCount = 4;
+        slotCount = 6;
     }
 
     public bool AddItem(Item item)

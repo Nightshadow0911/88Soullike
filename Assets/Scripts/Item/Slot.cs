@@ -14,14 +14,22 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public void UpdateSlotUI()
     {
-        
+
         itemIcon.sprite = item.sprite;
         itemIcon.transform.localScale = Vector3.one * 0.7f;
         itemIcon.gameObject.SetActive(true);
 
-        if(item.curItem.IsStackable())
+        if (item.curItem.IsStackable())
         {
             amountTxt.text = item.amount.ToString();
+        }
+        else
+        {
+            amountTxt.text = "";
+            if ((item == Equipment.instance.equipItemList[0]) || item == Equipment.instance.equipItemList[1]) //플레이어가 현재 장착중인 아이템
+            {
+                amountTxt.text = "E";
+            }
         }
 
         //if(GetComponentInChildren<DraggableItem>().parentPreviousDrag == null)
@@ -43,10 +51,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         {
             if (item.curItem == null) return;
         }
-        
+
 
         InventoryUI.instance.usePanel.gameObject.SetActive(true);
-        InventoryUI.instance.usePanel.GetComponent<UIPopup>().slotnum = slotnum;
+        InventoryUI.instance.usePanel.GetComponent<UsePopup>().SetPopup(item.itemName, item.description, slotnum);
     }
 
     public void ApplyUse()
@@ -55,12 +63,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
         bool isUse = item.Use(); //아이템 효과 사용
 
-
-        amountTxt.text = item.amount.ToString();
         if (isUse && (item.amount <= 0)) // 모두 사용되면 슬롯의 정보를 초기활
         {
             Inventory.instance.RemoveItem(slotnum);
         }
+        UpdateSlotUI();
     }
 
 
