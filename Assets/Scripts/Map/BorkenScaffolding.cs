@@ -43,16 +43,9 @@ public class BrokenScaffolding : MonoBehaviour
     private IEnumerator ProcessCollision()
     {
         isDeactivated = true;
-        // 1. 1초 대기
         yield return new WaitForSeconds(1.0f);
-
-        // 2. ToggleSpriteAndCollider(false);
         ToggleSpriteAndCollider(false);
-
-        // 3. PlaySound();
         PlaySound();
-
-        // 4. 1초 후 스프라이트와 콜라이더2D 다시 활성화
         yield return new WaitForSeconds(3.0f);
         ToggleSpriteAndCollider(true);
         isDeactivated = false;
@@ -61,7 +54,6 @@ public class BrokenScaffolding : MonoBehaviour
 
     private void PlaySound()
     {
-        // 사운드 재생
         audioSource.Play();
     }
 

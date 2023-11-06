@@ -8,6 +8,8 @@ public class LastPlayerController : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     public FadeOut fadeOut;
+    public CharacterStats characterStats;
+    public PlayerUI playerUI;
 
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpForce = 10;
@@ -39,8 +41,6 @@ public class LastPlayerController : MonoBehaviour
     private float dashStartTime;
     private float lastDashTime;
 
-
-    [SerializeField] private float maxStamina = 100f;
     [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
@@ -50,16 +50,12 @@ public class LastPlayerController : MonoBehaviour
     public Transform attackPoint;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask enemyLayer;
-    public int attackDamage = 10;
-
-
-
 
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        currentStamina = maxStamina;
+        //characterStats.characterStamina = maxStamina;
     }
 
     void Update()
@@ -89,9 +85,10 @@ public class LastPlayerController : MonoBehaviour
         {
             ReleaseLadder();
             Move();
-        Dash();
-        Attack();
+            Dash();
+            Attack();
         }
+        Death();
     }
 
     private void CheckInput()
@@ -112,6 +109,7 @@ public class LastPlayerController : MonoBehaviour
     {
         if (canMove)
         {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
             rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
         }
     }
@@ -120,9 +118,9 @@ public class LastPlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
         {
-            if (currentStamina >= dashStaminaCost)
+            if (characterStats.characterStamina >= dashStaminaCost)
             {
-                currentStamina -= dashStaminaCost;
+                characterStats.characterStamina -= dashStaminaCost;
                 fadeOut.makeFadeOut = true;
                 isDashing = true;
                 dashStartTime = Time.time;
@@ -145,17 +143,24 @@ public class LastPlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (currentStamina>= attackStaminaCost)
+            if (characterStats.characterStamina >= attackStaminaCost)
             {
-                currentStamina -= attackStaminaCost;
+                characterStats.characterStamina -= attackStaminaCost;
                 anim.SetTrigger("attack");
 
                 ApplyDamage();
             }
         }
     }
+    private void RegenStamina()
+    {
+        characterStats.characterStamina += staminaRegenRate * Time.deltaTime;
+        // Fix
+        characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
+    }
 
-    private void ApplyDamage() //몬스터 추가될 때 
+    
+    private void ApplyDamage() // Add damage
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
@@ -165,8 +170,9 @@ public class LastPlayerController : MonoBehaviour
                 DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
                 if (deathBringer != null)
                 {
-                    Debug.Log("플레이어가 중보에게 " + attackDamage + "만큼 피해를 입혔습니다.");
-                    deathBringer.TakeDamage(attackDamage);
+                    Debug.Log("Deal " + characterStats.characterNomallAttackDamage + " damage to DeathBringer.");
+                    deathBringer.TakeDamage(characterStats.characterNomallAttackDamage);
+                    //Death();
                 }
             }
             else if (enemyCollider.CompareTag("Boss_Archer"))
@@ -174,8 +180,9 @@ public class LastPlayerController : MonoBehaviour
                 Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
                 if (boss_archer != null)
                 {
-                    Debug.Log("플레이어가 보스몹에게 " + attackDamage + "만큼 피해를 입혔습니다.");
-                    boss_archer.TakeDamage(attackDamage);
+                    Debug.Log("Deal" + characterStats.characterNomallAttackDamage + " damage to Boss Archer.");
+                    //boss_archer.TakeDamage(attackDamage);
+                    boss_archer.TakeDamage(characterStats.characterNomallAttackDamage);
                 }
             }
             else if (enemyCollider.CompareTag("skeleton"))
@@ -183,8 +190,8 @@ public class LastPlayerController : MonoBehaviour
                 skeletonEnemy skeleton = enemyCollider.GetComponent<skeletonEnemy>();
                 if (skeleton != null)
                 {
-                    Debug.Log("플레이어가 해골몹에게 " + attackDamage + "만큼 피해를 입혔습니다.");
-                    skeleton.TakeDamage(attackDamage);
+                    Debug.Log("Deal" + characterStats.characterNomallAttackDamage + " damage to Skeleton.");
+                    skeleton.TakeDamage(characterStats.characterNomallAttackDamage);
                 }
             }
             else if (enemyCollider.CompareTag("archer"))
@@ -192,19 +199,26 @@ public class LastPlayerController : MonoBehaviour
                 archerEnemy archer = enemyCollider.GetComponent<archerEnemy>();
                 if (archer != null)
                 {
-                    Debug.Log("플레이어가 궁수몹에게 " + attackDamage + "만큼 피해를 입혔습니다.");
-                    archer.TakeDamage(attackDamage);
+                    Debug.Log("Deal " + characterStats.characterNomallAttackDamage + " damage to Archer.");
+                    archer.TakeDamage(characterStats.characterNomallAttackDamage);
                 }
             }
         }
     }
 
 
-    private void RegenStamina()
+    private void Death()
     {
-        currentStamina += staminaRegenRate * Time.deltaTime;
-        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+        if (characterStats.characterHp <= 0)
+        {
+            Debug.Log("DeathAnim");
+            anim.SetBool("isDeath", true);
+            canMove = false; 
+            rb.velocity = Vector2.zero;
+        }
     }
+
+
 
     private void JumpButton()
     {
