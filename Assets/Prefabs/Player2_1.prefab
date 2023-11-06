@@ -38,7 +38,7 @@ Transform:
   - {fileID: 1748891494670145770}
   - {fileID: 3646084481749102177}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3823468216354946513
 SpriteRenderer:
@@ -184,7 +184,7 @@ MonoBehaviour:
   dashDistance: 2
   dashDuration: 0.2
   dashCooldown: 1
-  currentStamina: 0
+  currentStamina: 100
   staminaRegenRate: 10
   dashStaminaCost: 10
   attackStaminaCost: 5

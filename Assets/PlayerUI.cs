@@ -12,7 +12,6 @@ public class PlayerUI : MonoBehaviour
     public LastPlayerController lastPlayerController;
     public Text healthText;
     public Slider healthSlider;
-    public Text staminaText;
     public Slider staminaSlider;
 
     void Start()
