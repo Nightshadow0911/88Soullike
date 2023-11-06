@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8665023278266706791}
   - component: {fileID: 6719434171268988868}
   - component: {fileID: 2923211166423992665}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: enemyArcher
-  m_TagString: Untagged
+  m_TagString: archer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4098110391875240276
 SpriteRenderer:
@@ -114,7 +114,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!61 &8665023278266706791
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,18 +147,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.32}
+  m_Offset: {x: 0.054826498, y: 1.8420877}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 4, y: 4}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.44}
+  m_Size: {x: 1.1511159, y: 2.3563166}
   m_EdgeRadius: 0
 --- !u!95 &6719434171268988868
 Animator:
@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4261da1285e7d3408b9557cb07cca58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 2134998674751114048, guid: e8dc8513c3df24a41bdc18793f417574, type: 3}
   arrowPrefab: {fileID: 8497631904878779402, guid: e4f23016bf0651b4f831c37c25f01912, type: 3}
   fireInterval: 2
+  maxHealth: 100

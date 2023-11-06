@@ -11,15 +11,19 @@ public class CharacterStats : MonoBehaviour
     private int points = 5;
     
     [SerializeField]
-    private int characterHp;
-    
+    public int characterHp;
+    [SerializeField]
+    public float characterStamina;
+    [SerializeField]
+    public int characterNomallAttackDamage;
+
     //메인 성장 스텟
     private Dictionary<GrowState, int> growthValues = new Dictionary<GrowState, int>();
     private GrowState _currentState;
     private enum GrowState
     {
         growthHP, 
-        growthStemina, 
+        growthStamina, 
         growthStr, 
         growthDex, 
         growthInt, 
@@ -29,10 +33,10 @@ public class CharacterStats : MonoBehaviour
     private int[] subState = new int[Enum.GetNames(typeof(Substate)).Length];
     private enum Substate
     {
-        characterHp,
+        characterHp, // current
         characterWeight,
         characterDefense,
-        characterStemina,
+        characterStamina,
         charactermana,
         nomallAttackDamage,
         nomallSkillDamage,
@@ -45,13 +49,18 @@ public class CharacterStats : MonoBehaviour
     private double attackSpeed;
     private double moveSpeed;
     //몬스터 스텟
+    [SerializeField]
     private int monsterHp;
-    private int monsterDamage;
 
     private void Start()
     {
-        subState[(int)Substate.characterHp] = 100;
+        subState[(int)Substate.characterHp] = 100; // max
         characterHp = subState[(int)Substate.characterHp];
+        subState[(int)Substate.characterStamina] = 100;
+        characterStamina = subState[(int)Substate.characterStamina];
+        subState[(int)Substate.nomallAttackDamage] = 10;
+        characterNomallAttackDamage = subState[(int)Substate.nomallAttackDamage];
+        subState[(int)Substate.critcal] = 50;
     }
 
     private void Update()
@@ -75,7 +84,7 @@ public class CharacterStats : MonoBehaviour
     {
         GrowStemina += 1;
         subState[(int)Substate.characterHp] = 1;
-        subState[(int)Substate.characterStemina] += i;
+        subState[(int)Substate.characterStamina] += i;
     }
     // 힘 증가시 일반공격력, 무게, 물리스킬데미지
     private void StrGrow(int i)
@@ -126,7 +135,7 @@ public class CharacterStats : MonoBehaviour
     public CharacterStats()
     {
         growthValues[GrowState.growthHP] = 0;
-        growthValues[GrowState.growthStemina] = 0;
+        growthValues[GrowState.growthStamina] = 0;
         growthValues[GrowState.growthStr] = 0;
         growthValues[GrowState.growthDex] = 0;
         growthValues[GrowState.growthInt] = 0;
@@ -183,6 +192,21 @@ public class CharacterStats : MonoBehaviour
             }
         }
     }
+
+    public void AttackDamage(int monsterHP)
+    {
+        int playerAttack;
+        playerAttack = subState[(int)Substate.nomallAttackDamage]*10;
+        var criDamage = 0;
+        float critChance = subState[(int)Substate.critcal];
+        float crit = UnityEngine.Random.Range(0f, 1f);
+        if (crit < critChance)
+        {
+            criDamage = playerAttack * 2;
+        }
+        int totalDamage = playerAttack + criDamage;
+        monsterHP -= totalDamage;
+    }
     
     //다른 곳에서 사용하기 위한 겟셋 함수들
     public int GrowHP
@@ -201,11 +225,11 @@ public class CharacterStats : MonoBehaviour
     {
         get
         {
-            return growthValues[GrowState.growthStemina];
+            return growthValues[GrowState.growthStamina];
         }
         set
         {
-            growthValues[GrowState.growthStemina] = value;
+            growthValues[GrowState.growthStamina] = value;
         }
     }
 
