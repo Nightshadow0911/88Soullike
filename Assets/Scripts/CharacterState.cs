@@ -54,7 +54,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Start()
     {
-        subState[(int)Substate.characterHp] = 100;
+        subState[(int)Substate.characterHp] = 10;
         characterHp = subState[(int)Substate.characterHp];
         subState[(int)Substate.characterStamina] = 100;
         characterStamina = subState[(int)Substate.characterStamina];

@@ -85,9 +85,10 @@ public class LastPlayerController : MonoBehaviour
         {
             ReleaseLadder();
             Move();
-        Dash();
-        Attack();
+            Dash();
+            Attack();
         }
+        Death();
     }
 
     private void CheckInput()
@@ -171,7 +172,7 @@ public class LastPlayerController : MonoBehaviour
                 {
                     Debug.Log("Deal " + characterStats.characterNomallAttackDamage + " damage to DeathBringer.");
                     deathBringer.TakeDamage(characterStats.characterNomallAttackDamage);
-                   
+                    //Death();
                 }
             }
             else if (enemyCollider.CompareTag("Boss_Archer"))
@@ -205,6 +206,17 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
+
+    private void Death()
+    {
+        if (characterStats.characterHp <= 0)
+        {
+            Debug.Log("DeathAnim");
+            anim.SetBool("isDeath", true);
+            canMove = false; 
+            rb.velocity = Vector2.zero;
+        }
+    }
 
 
 
