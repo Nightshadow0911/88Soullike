@@ -10,10 +10,8 @@ public class InventoryUI : MonoBehaviour
 
     Inventory inven;
 
-    //public GameObject inventoryPanel;
     public GameObject usePanel;
     public GameObject shopPanel;
-    //bool activeInventory = false;
 
     public Slot[] slots; // 리스트로 바꾸면 추가하는 방식도 가능
 
@@ -58,18 +56,9 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-/*    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I)) // 이후 new Input System 사용
-        {
-            activeInventory = !activeInventory;
-            inventoryPanel.SetActive(activeInventory);
-        }
-    }*/
-
     public void AddSlot() // 이후 특정 아이템 획득 or 챕터 클리어마다 슬롯 개수를 늘려줘도 좋을듯
     {
-        inven.SlotCount += 4;
+        inven.SlotCount += 26;
     }
 
     private void RedrawSlotUI()

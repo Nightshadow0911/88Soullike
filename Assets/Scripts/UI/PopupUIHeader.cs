@@ -26,5 +26,4 @@ public class PopupUIHeader : MonoBehaviour, IBeginDragHandler, IDragHandler
         moveOffset = eventData.position - moveBegin;
         parentRect.anchoredPosition = rectBegin + moveOffset;
     }
-
 }

@@ -10,7 +10,8 @@ public class PopupUIManager : MonoBehaviour
     public PopupUI equipmentPopup;
     public PopupUI characterInfoPopup;
     public PopupUI shopPopup;
-    public PopupUI UsePopup;
+    public PopupUI usePopup;
+    public PopupUI mapPopup;
 
     [Space]
     public KeyCode escapeKey = KeyCode.Escape;
@@ -18,6 +19,7 @@ public class PopupUIManager : MonoBehaviour
     public KeyCode equipmentKey = KeyCode.E;
     public KeyCode charInfoKey = KeyCode.C;
     public KeyCode npcKey = KeyCode.X;
+    public KeyCode mapKey = KeyCode.M;
 
     // 실시간 팝업 관리 링크드 리스트
     private LinkedList<PopupUI> activePopupLList;
@@ -54,6 +56,7 @@ public class PopupUIManager : MonoBehaviour
         ToggleKeyDownAction(inventoryKey, inventoryPopup);
         ToggleKeyDownAction(equipmentKey, equipmentPopup);
         ToggleKeyDownAction(charInfoKey, characterInfoPopup);
+        ToggleKeyDownAction(mapKey, mapPopup);
 
         if ((Inventory.instance.currentNPC != null) && (Inventory.instance.currentNPC.isInteractable)) //inventory.instance.currentNPC는 Player.currentNPC로 변경 예정
         {
@@ -68,7 +71,7 @@ public class PopupUIManager : MonoBehaviour
     {
         allPopupList = new List<PopupUI>() // 리스트 초기화
         {
-            inventoryPopup, equipmentPopup, characterInfoPopup, shopPopup, UsePopup
+            inventoryPopup, equipmentPopup, characterInfoPopup, mapPopup, shopPopup, usePopup
         };
 
         foreach (PopupUI popup in allPopupList) // 모든 팝업에 이벤트 등록
