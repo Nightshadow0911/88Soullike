@@ -33,7 +33,7 @@ public class CharacterStats : MonoBehaviour
     private int[] subState = new int[Enum.GetNames(typeof(Substate)).Length];
     private enum Substate
     {
-        characterHp,
+        characterHp, // current
         characterWeight,
         characterDefense,
         characterStamina,
@@ -54,7 +54,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Start()
     {
-        subState[(int)Substate.characterHp] = 10;
+        subState[(int)Substate.characterHp] = 100; // max
         characterHp = subState[(int)Substate.characterHp];
         subState[(int)Substate.characterStamina] = 100;
         characterStamina = subState[(int)Substate.characterStamina];
