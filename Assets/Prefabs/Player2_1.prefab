@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeOut: {fileID: 7183166718667996228}
+  characterStats: {fileID: 2491328609635162135}
+  playerUI: {fileID: 0}
   speed: 5
   jumpForce: 6
   wallJumpDirection: {x: 5, y: 6}
@@ -182,7 +184,6 @@ MonoBehaviour:
   dashDistance: 2
   dashDuration: 0.2
   dashCooldown: 1
-  maxStamina: 100
   currentStamina: 0
   staminaRegenRate: 10
   dashStaminaCost: 10
@@ -192,7 +193,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  attackDamage: 10
 --- !u!95 &7028182834870813551
 Animator:
   serializedVersion: 5
@@ -242,6 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterHp: 100
+  characterStamina: 0
+  characterNomallAttackDamage: 0
   monsterHp: 0
 --- !u!1 &8407141843765768564
 GameObject:
@@ -290,7 +292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1748891494670145770
 Transform:
   m_ObjectHideFlags: 0
