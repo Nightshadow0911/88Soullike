@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeOutDeley: 0.05
-  fadeOut: {fileID: 0}
+  fadeOut: {fileID: 630508436241365423, guid: 0ccdd23ecd5d14d2091dd317d6bdc631, type: 3}
   makeFadeOut: 0
 --- !u!114 &2491328609635162135
 MonoBehaviour:
