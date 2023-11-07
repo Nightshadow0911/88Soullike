@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPopup : MonoBehaviour
+public class UsePopup : MonoBehaviour
 {
     [SerializeField] private TMP_Text txtTitle;
     [SerializeField] private TMP_Text txtContent;

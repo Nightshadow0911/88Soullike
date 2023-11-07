@@ -571,7 +571,7 @@ GameObject:
   - component: {fileID: 8021429577041624572}
   - component: {fileID: 752977664086163536}
   m_Layer: 5
-  m_Name: Ultimate Slider
+  m_Name: Stamina Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -663,6 +663,7 @@ GameObject:
   - component: {fileID: 5834955188923701552}
   - component: {fileID: 4510604266622539289}
   - component: {fileID: 6656273864290635368}
+  - component: {fileID: 3134455491934958831}
   m_Layer: 5
   m_Name: Ui Overlay
   m_TagString: Untagged
@@ -684,7 +685,7 @@ RectTransform:
   m_Children:
   - {fileID: 2851642479927646419}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -754,6 +755,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3134455491934958831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153891610950256528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8445ecc21deb4643aebe65923fe7cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterStats: {fileID: 0}
+  lastPlayerController: {fileID: 0}
+  healthText: {fileID: 3509723699448283038}
+  healthSlider: {fileID: 3911901761150695551}
+  staminaSlider: {fileID: 752977664086163536}
 --- !u!1 &5161109216903100965
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,7 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.06955004, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7253797, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
