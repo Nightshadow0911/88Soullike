@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Bringer-of-Death_Death_8_1
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 0
+        width: 42
+        height: 66
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f90eb6a66bd1afd4eb0e263bfc6e5519
+      internalID: -2066987236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +140,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Bringer-of-Death_Death_8_0: -527998627
+      Bringer-of-Death_Death_8_1: -2066987236
+      Bringer-of-Death_Death_8_2: 567720585
+      Bringer-of-Death_Death_8_3: -880050059
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -113,12 +113,12 @@ TextureImporter:
       name: Bringer-of-Death_Attack_7_1
       rect:
         serializedVersion: 2
-        x: 11
+        x: 3
         y: 1
-        width: 108
-        height: 81
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 127
+        height: 85
+      alignment: 9
+      pivot: {x: 0.78048193, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

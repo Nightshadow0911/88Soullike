@@ -113,12 +113,12 @@ TextureImporter:
       name: Bringer-of-Death_Attack_8_10
       rect:
         serializedVersion: 2
-        x: 4
+        x: 3
         y: 1
-        width: 114
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 127
+        height: 85
+      alignment: 9
+      pivot: {x: 0.78314644, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -143,15 +143,15 @@ TextureImporter:
     nameFileIdTable:
       Bringer-of-Death_Attack_8_0: 564120133
       Bringer-of-Death_Attack_8_1: 1161125724
-      Bringer-of-Death_Attack_8_10: 601890289
-      Bringer-of-Death_Attack_8_2: 483407238
-      Bringer-of-Death_Attack_8_3: -2027403582
-      Bringer-of-Death_Attack_8_4: 1356081820
-      Bringer-of-Death_Attack_8_5: -1750835074
-      Bringer-of-Death_Attack_8_6: -182202340
-      Bringer-of-Death_Attack_8_7: 1044545451
-      Bringer-of-Death_Attack_8_8: 1116225215
-      Bringer-of-Death_Attack_8_9: -280105403
+      Bringer-of-Death_Attack_8_10: 483407238
+      Bringer-of-Death_Attack_8_2: -2027403582
+      Bringer-of-Death_Attack_8_3: 1356081820
+      Bringer-of-Death_Attack_8_4: -1750835074
+      Bringer-of-Death_Attack_8_5: -182202340
+      Bringer-of-Death_Attack_8_6: 1044545451
+      Bringer-of-Death_Attack_8_7: 1116225215
+      Bringer-of-Death_Attack_8_8: -280105403
+      Bringer-of-Death_Attack_8_9: 601890289
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
