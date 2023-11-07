@@ -141,7 +141,7 @@ public class LastPlayerController : MonoBehaviour
 
     private void Attack()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isGrounded)
         {
             if (characterStats.characterStamina >= attackStaminaCost)
             {
