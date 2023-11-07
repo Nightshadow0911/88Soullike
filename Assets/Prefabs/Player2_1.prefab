@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 7028182834870813551}
   - component: {fileID: 7183166718667996228}
   - component: {fileID: 2491328609635162135}
+  - component: {fileID: -701612067935374897}
+  - component: {fileID: -952293426841563301}
   m_Layer: 6
   m_Name: Player2_1
   m_TagString: Player
@@ -227,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeOutDeley: 0.05
-  fadeOut: {fileID: 0}
+  fadeOut: {fileID: 630508436241365423, guid: 0ccdd23ecd5d14d2091dd317d6bdc631, type: 3}
   makeFadeOut: 0
 --- !u!114 &2491328609635162135
 MonoBehaviour:
@@ -245,6 +247,74 @@ MonoBehaviour:
   characterStamina: 0
   characterNomallAttackDamage: 0
   monsterHp: 0
+--- !u!114 &-701612067935374897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269623617930255229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86eb34e5d425298488cc592ea2baf5bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentNPC: {fileID: 0}
+  items: []
+--- !u!114 &-952293426841563301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269623617930255229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3dc2c85216b00489b2cefd29a211f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipItemList:
+  - curItem: {fileID: 0}
+    type: 0
+    itemName: 
+    sprite: {fileID: 0}
+    efts: []
+    power: 0
+    description: 
+    amount: 0
+  - curItem: {fileID: 0}
+    type: 0
+    itemName: 
+    sprite: {fileID: 0}
+    efts: []
+    power: 0
+    description: 
+    amount: 0
+  quickSlotList:
+  - curItem: {fileID: 0}
+    type: 0
+    itemName: 
+    sprite: {fileID: 0}
+    efts: []
+    power: 0
+    description: 
+    amount: 0
+  - curItem: {fileID: 0}
+    type: 0
+    itemName: 
+    sprite: {fileID: 0}
+    efts: []
+    power: 0
+    description: 
+    amount: 0
+  - curItem: {fileID: 0}
+    type: 0
+    itemName: 
+    sprite: {fileID: 0}
+    efts: []
+    power: 0
+    description: 
+    amount: 0
 --- !u!1 &8407141843765768564
 GameObject:
   m_ObjectHideFlags: 0
