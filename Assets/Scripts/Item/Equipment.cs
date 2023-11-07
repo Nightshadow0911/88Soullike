@@ -70,9 +70,4 @@ public class Equipment : MonoBehaviour
         equipItemList[equipIndex] = null;
         UpdateStatus();
     }
-
-/*    public void SetQuickSlot(int slotIndex, int invenIndex)
-    {
-        quickSlotList[slotIndex] = Inventory.instance.items[invenIndex];
-    }*/
 }

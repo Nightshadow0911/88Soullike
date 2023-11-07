@@ -19,6 +19,11 @@ public class ShopUI : MonoBehaviour
 
     void SetShop() // 첫 시작이나 챕터 깰 때 상위 아이템 열림
     {
+        foreach(Transform tr in slotHolder) // 초기화
+        {
+            Destroy(tr.gameObject);
+        }
+
         for (int i = 0; i < itmDB.itemDB.Count; i++)
         {
             //if (itmDB.itemDB[i].itemName.Equals(slots[i].itemName)) continue;

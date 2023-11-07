@@ -12,6 +12,7 @@ public class PopupUIManager : MonoBehaviour
     public PopupUI shopPopup;
     public PopupUI usePopup;
     public PopupUI mapPopup;
+    public GameObject optionPopup;
 
     [Space]
     public KeyCode escapeKey = KeyCode.Escape;
@@ -50,6 +51,9 @@ public class PopupUIManager : MonoBehaviour
             if(activePopupLList.Count > 0)
             {
                 ClosePopup(activePopupLList.First.Value);
+            } else
+            {
+                optionPopup.SetActive(true);
             }
         }
 

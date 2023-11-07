@@ -11,7 +11,7 @@ public class EquipmentSlot : MonoBehaviour
     public void UpdateSlotUI()
     {
         itemIcon.sprite = item.sprite;
-        itemIcon.transform.localScale = Vector3.one * 0.7f;
+        itemIcon.transform.localScale = Vector3.one * 0.6f;
         itemIcon.gameObject.SetActive(true);
     }
 }
