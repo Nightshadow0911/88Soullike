@@ -9,7 +9,12 @@ public class ItemHealingEft : ItemEffect
     public override bool ExcuteRole(int power) //아이템의 효과
     {
         healingPoint = power;
-        Debug.Log("PlayerHp Add : "+ healingPoint); 
+        GameManager.Instance.playerStats.characterHp += healingPoint;
+        if(GameManager.Instance.playerStats.characterHp >= GameManager.Instance.playerStats.MaxHP)
+        {
+            GameManager.Instance.playerStats.characterHp = GameManager.Instance.playerStats.MaxHP;
+        }
+
         return true;
     }
 }

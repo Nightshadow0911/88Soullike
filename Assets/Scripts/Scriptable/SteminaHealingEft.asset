@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d96b9632428743428a8ebf6c71f676b, type: 3}
-  m_Name: HealingEft
+  m_Name: SteminaHealingEft
   m_EditorClassIdentifier: 
   healingPoint: 5
