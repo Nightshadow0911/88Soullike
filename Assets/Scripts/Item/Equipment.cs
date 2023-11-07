@@ -36,6 +36,8 @@ public class Equipment : MonoBehaviour
                 else
                 {
                     equipItemList[WEAPON] = newItem;
+                    UpdateStatus(0);
+
                 }
                 break;
             case ItemType.Armor:
@@ -47,17 +49,27 @@ public class Equipment : MonoBehaviour
                 else
                 {
                     equipItemList[ARMOR] = newItem;
+                    UpdateStatus(1);
+
                 }
                 break;
             default:
                 return;
         }
-        UpdateStatus();
         EquipmentUI.instance.DrawEquipSlot();
     }
 
-    public void UpdateStatus()
+    public void UpdateStatus(int equipIndex)
     {
+        switch (equipIndex)
+        {
+            case 0:
+                GameManager.Instance.playerStats.NormalAttackDamage += equipItemList[equipIndex].power;
+                break;
+            case 1:
+                GameManager.Instance.playerStats.characterDefense += equipItemList[equipIndex].power;
+                break;
+        }
         //현재 장착중인 무기와 아머의 power를 플레이어 스탯에 반영, 아래는 예시
         // PlayerStat.instance.atk += equipItemList[WEAPON].power;
         // PlayerStat.instance.def += equipItemList[ARMOR].power;
@@ -65,9 +77,16 @@ public class Equipment : MonoBehaviour
     }
     public void UnEquipItem(int equipIndex)
     {
-        //장착아이템 능력치를 여기서 뺄지? 플레이어에서 관리할지?
-        //PlayerStat.instance.atk -= equipItemLsit[equipIndex].power;
+        if (equipItemList[equipIndex].curItem) return;
         equipItemList[equipIndex] = null;
-        UpdateStatus();
+        switch (equipIndex)
+        {
+            case 0:
+                GameManager.Instance.playerStats.NormalAttackDamage -= equipItemList[equipIndex].power;
+                break;
+            case 1:
+                GameManager.Instance.playerStats.characterDefense -= equipItemList[equipIndex].power;
+                break;
+        }
     }
 }

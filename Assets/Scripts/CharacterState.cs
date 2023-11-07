@@ -9,7 +9,9 @@ public class CharacterStats : MonoBehaviour
     //레벨 관련
     private int level = 1;
     private int points = 5;
-    
+
+
+
     [SerializeField]
     public int characterHp;
     [SerializeField]
@@ -22,32 +24,32 @@ public class CharacterStats : MonoBehaviour
     private GrowState _currentState;
     private enum GrowState
     {
-        growthHP, 
-        growthStamina, 
-        growthStr, 
-        growthDex, 
-        growthInt, 
+        growthHP,
+        growthStamina,
+        growthStr,
+        growthDex,
+        growthInt,
         growthLux
     }
     //서브 성장 스텟
     private int[] subState = new int[Enum.GetNames(typeof(Substate)).Length];
     private enum Substate
     {
-        characterHp, // current
-        characterWeight,
-        characterDefense,
-        characterStamina,
-        charactermana,
-        nomallAttackDamage,
-        nomallSkillDamage,
-        parryTime,
-        addGoods,
-        propertyDamage,
-        EquipWeight,
-        critcal
+        characterHp, // 현재체력
+        characterWeight, // 캐릭터 무게
+        characterDefense, // 캐릭터 방어력
+        characterStamina, // 캐릭터 스테미너
+        charactermana, // 현재 마나
+        nomallAttackDamage, // 기본 공격력
+        nomallSkillDamage, // 주문력
+        parryTime, // 패링 가능 시간
+        addGoods, // 재화 획득량 증가
+        propertyDamage, // 속성 데미지 
+        EquipWeight, // 장비 무게
+        critcal // 크리티컬 확률
     }
-    private double attackSpeed;
-    private double moveSpeed;
+    private double attackSpeed; // 공격 속도
+    private double moveSpeed; // 이동속도
     //몬스터 스텟
     [SerializeField]
     private int monsterHp;
@@ -66,7 +68,7 @@ public class CharacterStats : MonoBehaviour
     private void Update()
     {
         WeightSpeed();  //Update에 넣긴 했으나 장비가 변경될때 넣는게 좋아보임.
-     
+
     }
 
     // 스텟 증가시 서브스텟 증가 함수
@@ -89,7 +91,7 @@ public class CharacterStats : MonoBehaviour
     // 힘 증가시 일반공격력, 무게, 물리스킬데미지
     private void StrGrow(int i)
     {
-        GrowStr+= 1;
+        GrowStr += 1;
         subState[(int)Substate.nomallAttackDamage] += i;
         subState[(int)Substate.characterWeight] += i;
         subState[(int)Substate.nomallSkillDamage] += i;
@@ -97,7 +99,7 @@ public class CharacterStats : MonoBehaviour
     // 민첩 증가시 공속, 이속
     private void DexGrow(int i)
     {
-        GrowDex+= 1;
+        GrowDex += 1;
         attackSpeed += i;
         moveSpeed += i;
     }
@@ -116,7 +118,7 @@ public class CharacterStats : MonoBehaviour
         subState[(int)Substate.charactermana] += i;
         subState[(int)Substate.propertyDamage] += i;
     }
-    
+
     //무게에 따라 속도가 다름?
     private void WeightSpeed()
     {
@@ -182,7 +184,7 @@ public class CharacterStats : MonoBehaviour
     {
         characterHp -= damage;
         Debug.Log("HP : " + characterHp);
-    
+
         if (characterHp <= 0)
         {
             // 게임 오브젝트를 즉시 파괴
@@ -196,7 +198,7 @@ public class CharacterStats : MonoBehaviour
     public void AttackDamage(int monsterHP)
     {
         int playerAttack;
-        playerAttack = subState[(int)Substate.nomallAttackDamage]*10;
+        playerAttack = subState[(int)Substate.nomallAttackDamage] * 10;
         var criDamage = 0;
         float critChance = subState[(int)Substate.critcal];
         float crit = UnityEngine.Random.Range(0f, 1f);
@@ -207,7 +209,7 @@ public class CharacterStats : MonoBehaviour
         int totalDamage = playerAttack + criDamage;
         monsterHP -= totalDamage;
     }
-    
+
     //다른 곳에서 사용하기 위한 겟셋 함수들
     public int GrowHP
     {
@@ -279,6 +281,19 @@ public class CharacterStats : MonoBehaviour
         {
             growthValues[GrowState.growthLux] = value;
         }
+    }
+    public int MaxHP
+    {
+        get { return (int)Substate.characterHp; }
+       
+    }
+    public int NormalAttackDamage
+    {
+        get; set;
+    }
+    public int characterDefense
+    {
+        get; set;
     }
     public int Level
     {
