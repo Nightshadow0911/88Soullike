@@ -46,11 +46,13 @@ public class CharacterStats : MonoBehaviour
         parryTime, // 패링 가능 시간
         addGoods, // 재화 획득량 증가
         propertyDamage, // 속성 데미지 
+        propertyDefense, //속성 방어력
         EquipWeight, // 장비 무게
         critcal // 크리티컬 확률
     }
     private double attackSpeed; // 공격 속도
     private double moveSpeed; // 이동속도
+
     //몬스터 스텟
     [SerializeField]
     private int monsterHp;
@@ -64,6 +66,7 @@ public class CharacterStats : MonoBehaviour
         subState[(int)Substate.nomallAttackDamage] = 10;
         characterNomallAttackDamage = subState[(int)Substate.nomallAttackDamage];
         subState[(int)Substate.critcal] = 50;
+        subState[(int)Substate.propertyDefense] = 10;
     }
 
     private void Update()
@@ -204,10 +207,22 @@ public class CharacterStats : MonoBehaviour
         float crit = UnityEngine.Random.Range(0f, 1f);
         if (crit < critChance)
         {
-            criDamage = playerAttack * 2;
+            criDamage = playerAttack;
         }
         int totalDamage = playerAttack + criDamage;
         monsterHP -= totalDamage;
+    }
+
+    public void ProperyAttackDamage(int monsterHP)
+    {
+        int playerAttack;
+        playerAttack = subState[(int)Substate.propertyDamage];
+        monsterHP -= playerAttack;
+    }
+
+    public void PropertyAttack(int monsterPropertyDeffence)
+    {
+        monsterPropertyDeffence -= subState[(int)Substate.propertyDamage];
     }
 
     //다른 곳에서 사용하기 위한 겟셋 함수들
@@ -342,6 +357,152 @@ public class CharacterStats : MonoBehaviour
     public int Points
     {
         get { return points; }
+    }
+    
+    // 상태 이상
+    
+    public enum StatusEffectType
+    {
+        None,
+        Poison,
+        Bleeding,
+        // 다른 상태 이상 유형을 여기에 추가할 수 있습니다.
+    }
+    
+    private int poisonAccumulation = 0; // 독 상태 이상의 축적치
+    private int bleedingAccumulation = 0; // 출혈 상태 이상의 축적치
+    private int monsterPoisonAccumulation = 0; // 몬스터 독 상태 이상의 축적치
+    private int monsterBleedingAccumulation = 0; // 몬스터 출혈 상태 이상의 축적치
+    
+    // 독 상태 이상을 적용하는 함수
+    public void ApplyPoisonStatus(int damagePerTick, float duration, int amount)
+    {
+        IncreaseAccumulation(StatusEffectType.Poison, amount);
+        Debug.Log("축적치 : " + poisonAccumulation);
+        if (poisonAccumulation >= 100)
+        {
+            StartCoroutine(DoPoisonEffect(damagePerTick, duration));
+            poisonAccumulation = 0;
+        }
+    }
+
+    // 출혈 상태 이상을 적용하는 함수
+    public void ApplyBleedingStatus(int damagePerTick, float duration, int amount)
+    {
+        IncreaseAccumulation(StatusEffectType.Bleeding, amount);
+        if (bleedingAccumulation >= 100)
+        {
+            StartCoroutine(DoBleedingEffect(damagePerTick, duration));
+            bleedingAccumulation = 0;
+        }
+    }
+    // 몬스터의 독 상태 이상을 적용하는 함수
+ public void HitApplyPoisonStatus(int monsterHP, float duration, int monsterAmount,int monsterpropertydefense)
+    {
+        MonsterIncreaseAccumulation(StatusEffectType.Poison,monsterAmount,monsterpropertydefense);
+        if (monsterPoisonAccumulation >= 100)
+        {
+            StartCoroutine(HITDoPoisonEffect(monsterHP, duration));
+            monsterPoisonAccumulation = 0;
+        }
+    }
+    // 몬스터의 출혈 상태 이상을 적용하는 함수
+    public void HitBleedingStatus(int monsterHP, float duration, int monsterAmount,int monsterpropertydefense)
+    {
+        MonsterIncreaseAccumulation(StatusEffectType.Bleeding,monsterAmount,monsterpropertydefense);
+        if (monsterBleedingAccumulation >= 100)
+        {
+            StartCoroutine(HITDoBleedingEffect(monsterHP, duration));
+            monsterBleedingAccumulation = 0;
+        }
+    }
+   
+
+    // 축적치를 증가시키는 함수
+    public void IncreaseAccumulation(StatusEffectType type, int amount)
+    {
+        int totalamount;
+        totalamount = amount;
+        switch (type)
+        {
+            case StatusEffectType.Poison:
+                totalamount -= subState[(int)Substate.propertyDefense];
+                poisonAccumulation += totalamount;
+                break;
+            case StatusEffectType.Bleeding:
+                totalamount -= subState[(int)Substate.propertyDefense];
+                bleedingAccumulation += totalamount;
+                break;
+        }
+    }
+    public void MonsterIncreaseAccumulation(StatusEffectType type, int monsteramount, int monsterpropertydefense)
+    {
+        int totalamount;
+        totalamount = monsteramount;
+        switch (type)
+        {
+            case StatusEffectType.Poison:
+                totalamount -= monsterpropertydefense;
+                monsterPoisonAccumulation += totalamount;
+                break;
+            case StatusEffectType.Bleeding:
+                totalamount -= monsterpropertydefense;
+                monsterBleedingAccumulation += totalamount;
+                break;
+        }
+    }
+
+    // 각 상태 이상에 대한 축적치를 가져오는 함수
+    public int GetAccumulation(StatusEffectType type)
+    {
+        switch (type)
+        {
+            case StatusEffectType.Poison:
+                return poisonAccumulation;
+            case StatusEffectType.Bleeding:
+                return bleedingAccumulation;
+            default:
+                return 0;
+        }
+    }
+    
+    private IEnumerator DoPoisonEffect(int damagePerTick, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            TakeDamage(damagePerTick);
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+    
+    private IEnumerator DoBleedingEffect(int damagePerTick, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            TakeDamage(damagePerTick * 2);
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+
+    private IEnumerator HITDoPoisonEffect(int monsterHP, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            ProperyAttackDamage(monsterHP); 
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+    private IEnumerator HITDoBleedingEffect(int monsterHP, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            ProperyAttackDamage(monsterHP); 
+            yield return new WaitForSeconds(1.0f);
+        }
     }
 }
 
