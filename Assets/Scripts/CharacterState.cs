@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -149,7 +150,6 @@ public class CharacterStats : MonoBehaviour
         if (points > 0)
         {
             points--;
-            level++;
             switch (selectedStat)
             {
                 case "HP":
@@ -287,13 +287,52 @@ public class CharacterStats : MonoBehaviour
         get { return (int)Substate.characterHp; }
        
     }
+    public int MaxStemina
+    {
+        get { return (int)Substate.characterStamina; }
+
+    }
+    public int CharacterWeight
+    {
+        get { return (int)Substate.characterWeight; }
+    }
     public int NormalAttackDamage
     {
-        get; set;
+        get { return (int)Substate.nomallAttackDamage; }
     }
-    public int characterDefense
+    public int NormalSkillDamage
     {
-        get; set;
+        get { return (int)Substate.nomallSkillDamage; }
+    }
+    public int PropertyDamage
+    {
+        get { return (int)Substate.propertyDamage; }
+    }
+    public float critical
+    {
+        get { return (float)Substate.critcal; }
+    }
+    public int CharacterDefense
+    {
+        get { return (int)Substate.characterDefense; }
+    }
+    public double CharacterSpeed
+    {
+        get { return moveSpeed; }
+        set { moveSpeed = value; }
+    }
+    public double AttackSpeed
+    {
+        get { return attackSpeed; }
+        set { attackSpeed = value; }
+    }
+    public float ParryTime
+    {
+        get { return (float)Substate.parryTime; }
+    } 
+    public float AddGoods
+    {
+        get { return (float)Substate.addGoods; }
     }
     public int Level
     {
