@@ -310,5 +310,97 @@ public class CharacterStats : MonoBehaviour
     {
         get { return points; }
     }
+    
+    // 상태 이상
+    
+    public enum StatusEffectType
+    {
+        None,
+        Poison,
+        Bleeding,
+        // 다른 상태 이상 유형을 여기에 추가할 수 있습니다.
+    }
+    
+    private int poisonAccumulation = 0; // 독 상태 이상의 축적치
+    private int bleedingAccumulation = 0; // 출혈 상태 이상의 축적치
+    
+    // 독 상태 이상을 적용하는 함수
+    public void ApplyPoisonStatus(int damagePerTick, float duration, int amount)
+    {
+        IncreaseAccumulation(StatusEffectType.Poison, amount);
+        Debug.Log("축적치 : " + poisonAccumulation);
+        if (poisonAccumulation >= 100)
+        {
+            // 독 상태 이상 효과를 발동하거나 지속적으로 피해를 입히는 코드 추가
+            StartCoroutine(DoPoisonEffect(damagePerTick, duration));
+            // 독 상태 이상을 적용하면 축적치가 초기화됨
+            poisonAccumulation = 0;
+        }
+    }
+
+    // 출혈 상태 이상을 적용하는 함수
+    public void ApplyBleedingStatus(int damagePerTick, float duration)
+    {
+        // 출혈 상태 이상을 적용하면 축적치가 초기화됨
+        bleedingAccumulation = 0;
+
+        // 출혈 상태 이상 효과를 발동하거나 지속적으로 피해를 입히는 코드 추가
+        StartCoroutine(DoBleedingEffect(damagePerTick, duration));
+    }
+
+    // 축적치를 증가시키는 함수
+    public void IncreaseAccumulation(StatusEffectType type, int amount)
+    {
+        switch (type)
+        {
+            case StatusEffectType.Poison:
+                poisonAccumulation += amount;
+                break;
+            case StatusEffectType.Bleeding:
+                bleedingAccumulation += amount;
+                break;
+            // 다른 상태 이상에 대한 처리 추가
+        }
+    }
+
+    // 각 상태 이상에 대한 축적치를 가져오는 함수
+    public int GetAccumulation(StatusEffectType type)
+    {
+        switch (type)
+        {
+            case StatusEffectType.Poison:
+                return poisonAccumulation;
+            case StatusEffectType.Bleeding:
+                return bleedingAccumulation;
+            // 다른 상태 이상에 대한 처리 추가
+            default:
+                return 0;
+        }
+    }
+    
+    private IEnumerator DoPoisonEffect(int damagePerTick, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            // 지속적으로 독 피해를 입히는 코드 추가
+            TakeDamage(damagePerTick);
+
+            yield return new WaitForSeconds(1.0f); // 1초마다 피해 입힘 (예시)
+        }
+    }
+
+    // 출혈 상태 이상 효과를 지속적으로 적용하는 함수
+    private IEnumerator DoBleedingEffect(int damagePerTick, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            // 지속적으로 출혈 피해를 입히는 코드 추가
+            TakeDamage(damagePerTick * 2); // 출혈은 독의 두 배 피해 (예시)
+
+            yield return new WaitForSeconds(1.0f); // 1초마다 피해 입힘 (예시)
+        }
+    }
 }
 
