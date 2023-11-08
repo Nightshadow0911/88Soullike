@@ -64,16 +64,12 @@ public class Equipment : MonoBehaviour
         switch (equipIndex)
         {
             case 0:
-                GameManager.Instance.playerStats.NormalAttackDamage += equipItemList[equipIndex].power;
+                //GameManager.Instance.playerStats.NormalAttackDamage += equipItemList[equipIndex].power;
                 break;
             case 1:
-                GameManager.Instance.playerStats.characterDefense += equipItemList[equipIndex].power;
+                //GameManager.Instance.playerStats.CharacterDefense += equipItemList[equipIndex].power;
                 break;
         }
-        //현재 장착중인 무기와 아머의 power를 플레이어 스탯에 반영, 아래는 예시
-        // PlayerStat.instance.atk += equipItemList[WEAPON].power;
-        // PlayerStat.instance.def += equipItemList[ARMOR].power;
-        // null일경우 return or += 0;
     }
     public void UnEquipItem(int equipIndex)
     {
@@ -82,10 +78,10 @@ public class Equipment : MonoBehaviour
         switch (equipIndex)
         {
             case 0:
-                GameManager.Instance.playerStats.NormalAttackDamage -= equipItemList[equipIndex].power;
+                //GameManager.Instance.playerStats.NormalAttackDamage -= equipItemList[equipIndex].power;
                 break;
             case 1:
-                GameManager.Instance.playerStats.characterDefense -= equipItemList[equipIndex].power;
+                //GameManager.Instance.playerStats.CharacterDefense -= equipItemList[equipIndex].power;
                 break;
         }
     }
