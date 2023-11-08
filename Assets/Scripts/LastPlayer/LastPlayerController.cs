@@ -145,10 +145,12 @@ public class LastPlayerController : MonoBehaviour
         {
             if (characterStats.characterStamina >= attackStaminaCost)
             {
+
                 characterStats.characterStamina -= attackStaminaCost;
                 anim.SetTrigger("attack");
 
                 ApplyDamage();
+
             }
         }
     }
@@ -172,6 +174,7 @@ public class LastPlayerController : MonoBehaviour
                 {
                     Debug.Log("Deal " + characterStats.characterNomallAttackDamage + " damage to DeathBringer.");
                     deathBringer.TakeDamage(characterStats.characterNomallAttackDamage);
+                    PlayerEvents.playerDamaged.Invoke(gameObject, characterStats.characterNomallAttackDamage);
                     //Death();
                 }
             }
