@@ -50,6 +50,7 @@ public class CharacterStats : MonoBehaviour
     }
     private double attackSpeed; // 공격 속도
     private double moveSpeed; // 이동속도
+
     //몬스터 스텟
     [SerializeField]
     private int monsterHp;
@@ -208,6 +209,11 @@ public class CharacterStats : MonoBehaviour
         }
         int totalDamage = playerAttack + criDamage;
         monsterHP -= totalDamage;
+    }
+
+    public void PropertyAttack(int monsterPropertyDeffence)
+    {
+        monsterPropertyDeffence -= subState[(int)Substate.propertyDamage];
     }
 
     //다른 곳에서 사용하기 위한 겟셋 함수들
