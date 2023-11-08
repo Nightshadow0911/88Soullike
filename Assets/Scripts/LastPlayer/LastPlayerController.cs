@@ -51,6 +51,9 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask enemyLayer;
 
+    private float lastAttackTime = 0f;
+    public float attackRate = 1f;
+    float nextAttackTime = 0f;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -76,7 +79,10 @@ public class LastPlayerController : MonoBehaviour
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
-
+        if (Time.time > lastAttackTime + 2f)
+          {
+               attackClickCount = 0;
+          }
         if (isLadderDetected)
         {
             ClimbLadder();
@@ -86,7 +92,15 @@ public class LastPlayerController : MonoBehaviour
             ReleaseLadder();
             Move();
             Dash();
-            Attack();
+            if (Time.time >= nextAttackTime)
+            {
+                if (Input.GetMouseButtonDown(0) && isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
+                {
+                    nextAttackTime = Time.time + 1f / attackRate;
+                    Attack();
+                }
+            }
+
         }
         Death();
     }
@@ -138,21 +152,31 @@ public class LastPlayerController : MonoBehaviour
             fadeOut.makeFadeOut = false;
         }
     }
+    private int attackClickCount = 0;
 
     private void Attack()
     {
-        if (Input.GetMouseButtonDown(0) && isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
-        {
+
+        
             if (characterStats.characterStamina >= attackStaminaCost)
             {
 
                 characterStats.characterStamina -= attackStaminaCost;
                 anim.SetTrigger("attack");
-
-                ApplyDamage();
+                float modifiedAttackDamage = characterStats.characterNomallAttackDamage + (attackClickCount - 1) * 5;
+                if (attackClickCount % 2 == 0)
+                {
+                    modifiedAttackDamage += 5;
+                }
+                else if (attackClickCount % 3 == 0)
+                {
+                    modifiedAttackDamage += 10;
+                    attackClickCount = 0;
+                }
+                ApplyDamage((int)modifiedAttackDamage);
 
             }
-        }
+        
     }
     private void RegenStamina()
     {
@@ -161,21 +185,21 @@ public class LastPlayerController : MonoBehaviour
         characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
     }
 
-    
-    private void ApplyDamage() // Add damage
+
+    private void ApplyDamage(int damage) // Add damage
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
         {
             if (enemyCollider.CompareTag("Boss_DB"))
             {
+                lastAttackTime = Time.time;
+                attackClickCount++;
                 DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
                 if (deathBringer != null)
                 {
-                    Debug.Log("Deal " + characterStats.characterNomallAttackDamage + " damage to DeathBringer.");
-                    deathBringer.TakeDamage(characterStats.characterNomallAttackDamage);
-                    PlayerEvents.playerDamaged.Invoke(gameObject, characterStats.characterNomallAttackDamage);
-                    //Death();
+                    deathBringer.TakeDamage(damage);
+                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
                 }
             }
             else if (enemyCollider.CompareTag("Boss_Archer"))
@@ -216,7 +240,7 @@ public class LastPlayerController : MonoBehaviour
         {
             Debug.Log("DeathAnim");
             anim.SetBool("isDeath", true);
-            canMove = false; 
+            canMove = false;
             rb.velocity = Vector2.zero;
         }
     }
@@ -274,7 +298,7 @@ public class LastPlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(0, speed);
         }
-        else if(verticalInput < 0)
+        else if (verticalInput < 0)
         {
             rb.velocity = new Vector2(0, -speed);
         }
