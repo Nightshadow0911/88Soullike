@@ -52,6 +52,8 @@ public class CharacterStats : MonoBehaviour
     }
     private double attackSpeed; // 공격 속도
     private double moveSpeed; // 이동속도
+    public int Exp;
+    public int Gold;
 
     //몬스터 스텟
     [SerializeField]

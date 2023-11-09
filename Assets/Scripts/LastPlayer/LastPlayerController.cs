@@ -45,15 +45,16 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
     [SerializeField] private float attackStaminaCost = 5f;
-
+    [SerializeField] private float comboStaminaCost = 20f; 
 
     public Transform attackPoint;
-    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
 
     private float lastAttackTime = 0f;
     public float attackRate = 1f;
     float nextAttackTime = 0f;
+    private int attackClickCount = 1;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -79,9 +80,9 @@ public class LastPlayerController : MonoBehaviour
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
-        if (Time.time > lastAttackTime + 2f)
+        if (Time.time > lastAttackTime + 5f)
           {
-               attackClickCount = 0;
+               attackClickCount = 1;
           }
         if (isLadderDetected)
         {
@@ -92,19 +93,22 @@ public class LastPlayerController : MonoBehaviour
             ReleaseLadder();
             Move();
             Dash();
-            if (Time.time >= nextAttackTime)
-            {
-                if (Input.GetMouseButtonDown(0) && isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
-                {
-                    nextAttackTime = Time.time + 1f / attackRate;
-                    Attack();
-                }
-            }
-
+            CheckAttackTime();
         }
         Death();
     }
 
+    private void CheckAttackTime()
+    {
+        if (Time.time >= nextAttackTime)
+        {
+            if (Input.GetMouseButtonDown(0) && isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
+            {
+                nextAttackTime = Time.time + 0.5f / attackRate;
+                Attack();
+            }
+        }
+    }
     private void CheckInput()
     {
         movingInput = Input.GetAxis("Horizontal");
@@ -152,7 +156,13 @@ public class LastPlayerController : MonoBehaviour
             fadeOut.makeFadeOut = false;
         }
     }
-    private int attackClickCount = 0;
+
+    private void RegenStamina()
+    {
+        characterStats.characterStamina += staminaRegenRate * Time.deltaTime;
+        // Fix
+        characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
+    }
 
     private void Attack()
     {
@@ -160,23 +170,18 @@ public class LastPlayerController : MonoBehaviour
             {
                 characterStats.characterStamina -= attackStaminaCost;
                 anim.SetTrigger("attack");
-                float modifiedAttackDamage = characterStats.characterNomallAttackDamage;
+                Debug.Log(attackClickCount);
+                int modifiedAttackDamage = characterStats.characterNomallAttackDamage;
+
                 if (attackClickCount !=0 && attackClickCount % 3 == 0)
                 {
-                    anim.SetTrigger("attack2");
+                    characterStats.characterStamina -= comboStaminaCost;
+                    anim.SetTrigger("combo");
                     modifiedAttackDamage += 10;
                     attackClickCount = 0;
                 }
-                ApplyDamage((int)modifiedAttackDamage);
-
+                ApplyDamage(modifiedAttackDamage);
             }
-        
-    }
-    private void RegenStamina()
-    {
-        characterStats.characterStamina += staminaRegenRate * Time.deltaTime;
-        // Fix
-        characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
     }
 
 
@@ -332,7 +337,6 @@ public class LastPlayerController : MonoBehaviour
             isWallSliding = false;
         }
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
@@ -342,6 +346,7 @@ public class LastPlayerController : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireCube(attackPoint.position, new Vector3(attackRange *1, attackRange * 1, 0));
+
     }
 }
