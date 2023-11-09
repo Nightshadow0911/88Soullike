@@ -48,7 +48,7 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float comboStaminaCost = 20f; 
 
     public Transform attackPoint;
-    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
 
     private float lastAttackTime = 0f;
@@ -337,7 +337,6 @@ public class LastPlayerController : MonoBehaviour
             isWallSliding = false;
         }
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
@@ -347,6 +346,7 @@ public class LastPlayerController : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireCube(attackPoint.position, new Vector3(attackRange *1, attackRange * 1, 0));
+
     }
 }
