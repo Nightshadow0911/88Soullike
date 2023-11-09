@@ -9,6 +9,7 @@ public class UsePopup : MonoBehaviour
 {
     [SerializeField] private TMP_Text txtTitle;
     [SerializeField] private TMP_Text txtContent;
+    [SerializeField] private TMP_Text confirmTxt;
 
     //[SerializeField] private Button btnBack;
     [SerializeField] private Button btnConform;
@@ -26,10 +27,21 @@ public class UsePopup : MonoBehaviour
 
     public void SetPopup(string title, string content, int slotnum)
     {
-        txtTitle.text = title;
-        txtContent.text = content;
+        if (InventoryUI.instance.slots[slotnum].item.curItem.IsStackable())
+        {
+            txtTitle.text = title;
+            txtContent.text = $"[{content}]\n사용하시겠습니까?";
+            confirmTxt.text = "사용한다";
 
+        } else // 장착 가능 아이템
+        {
+            txtTitle.text = title;
+            txtContent.text = $"[{content}]\n장착하시겠습니까?";
+            confirmTxt.text = "장착한다";
+
+        }
         this.slotnum = slotnum;
+
     }
 
     void Confirm()
