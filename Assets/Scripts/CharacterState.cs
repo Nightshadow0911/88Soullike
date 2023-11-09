@@ -46,12 +46,12 @@ public class CharacterStats : MonoBehaviour
         parryTime, // 패링 가능 시간
         addGoods, // 재화 획득량 증가
         propertyDamage, // 속성 데미지 
-        propertyDefense = 10, //속성 방어력
-        EquipWeight = 100, // 장비 무게
-        critcal = 50 // 크리티컬 확률
+        propertyDefense, //속성 방어력
+        EquipWeight, // 장비 무게
+        critcal // 크리티컬 확률
     }
     private double attackSpeed; // 공격 속도
-    private double moveSpeed = 10; // 이동속도
+    private double moveSpeed; // 이동속도
     public int Exp;
     public int Gold;
 
