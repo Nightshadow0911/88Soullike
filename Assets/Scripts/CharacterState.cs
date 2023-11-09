@@ -185,7 +185,7 @@ public class CharacterStats : MonoBehaviour
             return false;
         }
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage)//MonsterToPlayer
     {
         characterHp -= damage;
         Debug.Log("HP : " + characterHp);
@@ -200,7 +200,7 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    public void AttackDamage(int monsterHP)
+    public void AttackDamage(int monsterHP)//PlayerToMonster
     {
         int playerAttack;
         playerAttack = subState[(int)Substate.nomallAttackDamage] * 10;
@@ -215,7 +215,7 @@ public class CharacterStats : MonoBehaviour
         monsterHP -= totalDamage;
     }
 
-    public void ProperyAttackDamage(int monsterHP)
+    public void ProperyAttackDamage(int monsterHP) //????
     {
         int playerAttack;
         playerAttack = subState[(int)Substate.propertyDamage];

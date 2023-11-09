@@ -7,8 +7,11 @@ public class LastPlayerController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
+    private GameManager gameManager;
+
     public FadeOut fadeOut;
     public CharacterStats characterStats;
+
     public PlayerUI playerUI;
 
     [SerializeField] private float speed = 5;
@@ -55,11 +58,15 @@ public class LastPlayerController : MonoBehaviour
     public float attackRate = 1f;
     float nextAttackTime = 0f;
     private int attackClickCount = 1;
+
+    public bool canTakeDamage = true;
+
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         //characterStats.characterStamina = maxStamina;
+        gameManager = GameManager.Instance;
     }
 
     void Update()
@@ -117,6 +124,16 @@ public class LastPlayerController : MonoBehaviour
         {
             canWallSlide = false;
         }
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    canTakeDamage = false;
+        //    Debug.Log("누름");
+        //}
+        //else if (Input.GetMouseButtonUp(1))
+        //{
+        //    canTakeDamage = true;
+        //    Debug.Log("땜");
+        //}
         if (Input.GetKeyDown(KeyCode.Space))
         {
             JumpButton();
@@ -184,9 +201,11 @@ public class LastPlayerController : MonoBehaviour
             }
     }
 
+    //Debug.Log(canTakeDamage);//PlayerToMonster
 
-    private void ApplyDamage(int damage) // Add damage
+    private void ApplyDamage(int damage) // Add damage To Monster
     {
+
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
         {

@@ -5,9 +5,10 @@ using UnityEngine;
 public class weaponColliderRange : MonoBehaviour
 {
     public int damage = 10;
-
+    public int test = 0;
     private GameManager gameManager;
-
+    private LastPlayerController lastPlayerController;
+    public bool mtoP = true;
 
     void Start()
     {
@@ -16,26 +17,35 @@ public class weaponColliderRange : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-
-        {
-            if (gameManager != null && gameManager.playerStats != null)
             {
-                gameManager.playerStats.TakeDamage(damage);
-                gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
-                Debug.Log("플레이어 공격받음");
-                Destroy(gameObject);
+                if (gameManager != null && gameManager.playerStats != null)
+                {
+                    if (mtoP)
+                    {
+                        Debug.Log("ffffff");
+                        gameManager.playerStats.TakeDamage(test);
+                    }
+                    if (!mtoP)
+                    {
+                        Debug.Log("3");
+                        gameManager.playerStats.TakeDamage(damage);
+                        gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
+                        Debug.Log("MonsterToPlayerAttack");
+                        Destroy(gameObject);
+                    }
+                }
+                else
+                {
+                    Debug.Log("4");
+                    Debug.LogError("GameManagerOrPlayerStatsNOFIND.");
+                }
             }
-            else
-            {
-                Debug.LogError("GameManager 또는 playerStats를 찾을 수 없습니다.");
-            }
-        }
     }
     
 }
