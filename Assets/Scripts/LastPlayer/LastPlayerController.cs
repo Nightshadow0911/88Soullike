@@ -346,7 +346,7 @@ public class LastPlayerController : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawWireCube(attackPoint.position, new Vector3(attackRange *1, attackRange * 1, 0));
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
 
     }
 }
