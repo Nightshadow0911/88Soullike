@@ -10,14 +10,16 @@ public class DeathBringerEnemy : MonoBehaviour
 {
     public Transform player;
     public Transform mapSpellMarker; //중간보스방의 중앙을 인식할 좌표 오브젝트
+    public Transform selfPosition;
     private Animator animator;
 
     public GameObject meleeAttack;
     public GameObject spellAttack;
     public GameObject spellEffect;
+    public GameObject soulDrop;
     private GameObject spellEffectObject;
     private GameObject spellAttackObject;
-
+    
     private float moveSpeed = 0.5f;
     private bool isAttacking = false;
 
@@ -250,7 +252,8 @@ public class DeathBringerEnemy : MonoBehaviour
     }
     void Death()
     {
-        // 적의 사망 처리 (예: 죽음 애니메이션 재생, 씬에서 제거 등)
+        Vector2 SelfPosition = selfPosition.position + new Vector3(0,1);
+        Instantiate(soulDrop, SelfPosition, Quaternion.identity);
         Destroy(gameObject);
     }
 }
