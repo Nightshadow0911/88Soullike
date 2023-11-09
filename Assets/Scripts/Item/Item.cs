@@ -15,7 +15,9 @@ public class Item
     public int power;
     public string description;
     public int amount;
-
+    public float attackRange;
+    public float attackSpeed;
+    public int weight;
 
     public bool Use() //사용 아이템 사용
     {
