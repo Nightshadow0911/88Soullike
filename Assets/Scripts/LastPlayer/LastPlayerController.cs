@@ -156,20 +156,14 @@ public class LastPlayerController : MonoBehaviour
 
     private void Attack()
     {
-
-        
             if (characterStats.characterStamina >= attackStaminaCost)
             {
-
                 characterStats.characterStamina -= attackStaminaCost;
                 anim.SetTrigger("attack");
-                float modifiedAttackDamage = characterStats.characterNomallAttackDamage + (attackClickCount - 1) * 5;
-                if (attackClickCount % 2 == 0)
+                float modifiedAttackDamage = characterStats.characterNomallAttackDamage;
+                if (attackClickCount !=0 && attackClickCount % 3 == 0)
                 {
-                    modifiedAttackDamage += 5;
-                }
-                else if (attackClickCount % 3 == 0)
-                {
+                    anim.SetTrigger("attack2");
                     modifiedAttackDamage += 10;
                     attackClickCount = 0;
                 }
