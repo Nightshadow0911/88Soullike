@@ -36,12 +36,12 @@ public class CharacterStats : MonoBehaviour
     private int[] subState = new int[Enum.GetNames(typeof(Substate)).Length];
     private enum Substate
     {
-        characterHp = 100, // 현재체력
-        characterWeight = 100, // 캐릭터 무게
-        characterDefense = 10, // 캐릭터 방어력
-        characterStamina = 100, // 캐릭터 스테미너
-        charactermana = 100, // 현재 마나
-        nomallAttackDamage = 10, // 기본 공격력
+        characterHp, // 현재체력
+        characterWeight, // 캐릭터 무게
+        characterDefense, // 캐릭터 방어력
+        characterStamina, // 캐릭터 스테미너
+        charactermana, // 현재 마나
+        nomallAttackDamage, // 기본 공격력
         nomallSkillDamage, // 주문력
         parryTime, // 패링 가능 시간
         addGoods, // 재화 획득량 증가
