@@ -54,7 +54,7 @@ public class LastPlayerController : MonoBehaviour
     private float lastAttackTime = 0f;
     public float attackRate = 1f;
     float nextAttackTime = 0f;
-    private int attackClickCount = 0;
+    private int attackClickCount = 1;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -80,9 +80,9 @@ public class LastPlayerController : MonoBehaviour
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
-        if (Time.time > lastAttackTime + 2f)
+        if (Time.time > lastAttackTime + 5f)
           {
-               attackClickCount = 0;
+               attackClickCount = 1;
           }
         if (isLadderDetected)
         {
@@ -170,6 +170,7 @@ public class LastPlayerController : MonoBehaviour
             {
                 characterStats.characterStamina -= attackStaminaCost;
                 anim.SetTrigger("attack");
+                Debug.Log(attackClickCount);
                 int modifiedAttackDamage = characterStats.characterNomallAttackDamage;
 
                 if (attackClickCount !=0 && attackClickCount % 3 == 0)
