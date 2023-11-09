@@ -7,6 +7,7 @@ public class ArrowControl : MonoBehaviour
     public int damage = 10;
 
     private GameManager gameManager;
+    private StatusEffectsManager playerStatusManager;
     
     void Start()
     {
@@ -16,21 +17,23 @@ public class ArrowControl : MonoBehaviour
     void Update()
     {
         transform.right = GetComponent<Rigidbody2D>().velocity;
+        playerStatusManager = FindObjectOfType<StatusEffectsManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) //µ¥¹ÌÁö °ø½Ä Ãß°¡
+        if (collision.CompareTag("Player")) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
             
         {
             if (gameManager != null && gameManager.playerStats != null)
             {
                 gameManager.playerStats.TakeDamage(damage);
-                Debug.Log("ÇÃ·¹ÀÌ¾î È° ¸ÂÀ½");
+                playerStatusManager.ApplyBleedingEffect(100);
+                Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ È° ï¿½ï¿½ï¿½ï¿½");
             }
             else
             {
-                Debug.LogError("GameManager ¶Ç´Â playerStats¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+                Debug.LogError("GameManager ï¿½Ç´ï¿½ playerStatsï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             }
             
             

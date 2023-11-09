@@ -28,6 +28,7 @@ public class DeathBringerEnemy : MonoBehaviour
     private int maxSpellCount = 3; //최대 스펠 사용 횟수
 
     public int maxHealth = 800;
+    [SerializeField]
     private int currentHealth;
 
     void Start()
@@ -35,7 +36,6 @@ public class DeathBringerEnemy : MonoBehaviour
         animator = GetComponent<Animator>();
         //player = GameManager.Instance.player.transform;
         currentHealth = maxHealth;
-        Debug.Log(currentHealth);
     }
 
 
