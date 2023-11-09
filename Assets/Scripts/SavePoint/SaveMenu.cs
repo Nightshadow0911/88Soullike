@@ -2,12 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Menu : MonoBehaviour
+public class SaveMenu : MonoBehaviour
 {
-    public GameObject menuUI;
-    public GameObject travelUI;
-    public GameObject levelUpUI;
-
     public void Rest()
     {
         // 플레이어 체력, 스테미나, 회복물약 충전
@@ -35,4 +31,8 @@ public class Menu : MonoBehaviour
         travelUI.SetActive(false);
         //levelUpUI.SetActive(false);
     }
+    
+    // ESC 누르면 꺼짐 
+    // 메뉴마다 역할 부여 
+    // 
 }

@@ -496,6 +496,77 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4555448185880261176, guid: a18f55efd66488343a3368b51b340931, type: 3}
   m_PrefabInstance: {fileID: 3194121109424107972}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1269809383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1269809386}
+  - component: {fileID: 1269809385}
+  - component: {fileID: 1269809384}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1269809384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269809383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d5b543734eaf24494d55667b31361e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPopup: {fileID: 0}
+  equipmentPopup: {fileID: 0}
+  characterInfoPopup: {fileID: 0}
+  shopPopup: {fileID: 0}
+  usePopup: {fileID: 0}
+  mapPopup: {fileID: 0}
+  optionPopup: {fileID: 0}
+  escapeKey: 27
+  inventoryKey: 105
+  equipmentKey: 101
+  charInfoKey: 99
+  npcKey: 120
+  mapKey: 109
+--- !u!114 &1269809385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269809383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38d312a5856f62d428313bccdaea1d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeButton: {fileID: 0}
+--- !u!4 &1269809386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269809383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1702269300 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3857667537527289332, guid: a18f55efd66488343a3368b51b340931, type: 3}
@@ -1008,6 +1079,10 @@ PrefabInstance:
       propertyPath: travelUI
       value: 
       objectReference: {fileID: 1702269300}
+    - target: {fileID: 8767826709262814883, guid: 1dabfc95411a00d44bb68618e290205d, type: 3}
+      propertyPath: m_Name
+      value: SaveMenuManager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
