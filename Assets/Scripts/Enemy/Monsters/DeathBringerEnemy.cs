@@ -257,9 +257,10 @@ public class DeathBringerEnemy : MonoBehaviour
     }
     IEnumerator Death()
     {
+        isAttacking = true;
         Time.timeScale = 0.4f; //보스 몬스터 사망 시 슬로우모션 작동.
         animator.Play("disappear");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         Vector2 SelfPosition = selfPosition.position + new Vector3(0,1);
         Instantiate(soulDrop, SelfPosition, Quaternion.identity);
         Destroy(gameObject);
