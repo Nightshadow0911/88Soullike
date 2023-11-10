@@ -8,16 +8,17 @@ public class weaponColliderRange : MonoBehaviour
     public int test = 0;
     private GameManager gameManager;
     private LastPlayerController lastPlayerController;
-    public bool mtoP = true;
+
 
     void Start()
     {
         gameManager = GameManager.Instance;
+        lastPlayerController = gameManager.lastPlayerController;
     }
 
     void Update()
     {
-
+      lastPlayerController.CheckInput();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,17 +27,17 @@ public class weaponColliderRange : MonoBehaviour
             {
                 if (gameManager != null && gameManager.playerStats != null)
                 {
-                    if (mtoP)
+                    if (lastPlayerController.canTakeDamage==false)
                     {
-                        Debug.Log("ffffff");
+                        Debug.Log("Block");
                         gameManager.playerStats.TakeDamage(test);
                     }
-                    if (!mtoP)
+                    else if (lastPlayerController.canTakeDamage == true)
                     {
-                        Debug.Log("3");
+                        Debug.Log("Hit");
+                        Debug.Log("MonsterToPlayerAttack");
                         gameManager.playerStats.TakeDamage(damage);
                         gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
-                        Debug.Log("MonsterToPlayerAttack");
                         Destroy(gameObject);
                     }
                 }

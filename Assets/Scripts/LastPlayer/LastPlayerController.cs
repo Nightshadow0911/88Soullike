@@ -60,6 +60,7 @@ public class LastPlayerController : MonoBehaviour
     private int attackClickCount = 1;
 
     public bool canTakeDamage = true;
+    private int damage=10;
 
     void Start()
     {
@@ -116,7 +117,7 @@ public class LastPlayerController : MonoBehaviour
             }
         }
     }
-    private void CheckInput()
+    public void CheckInput()
     {
         movingInput = Input.GetAxis("Horizontal");
 
@@ -124,16 +125,16 @@ public class LastPlayerController : MonoBehaviour
         {
             canWallSlide = false;
         }
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        //    canTakeDamage = false;
-        //    Debug.Log("누름");
-        //}
-        //else if (Input.GetMouseButtonUp(1))
-        //{
-        //    canTakeDamage = true;
-        //    Debug.Log("땜");
-        //}
+        if (Input.GetMouseButtonDown(1))
+        {
+            canTakeDamage = false;
+            Debug.Log("누름");
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            canTakeDamage = true;
+            Debug.Log("땜");
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             JumpButton();
@@ -181,24 +182,42 @@ public class LastPlayerController : MonoBehaviour
         characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
     }
 
+    //private void Attack()
+    //{
+    //        if (characterStats.characterStamina >= attackStaminaCost)
+    //        {
+    //            characterStats.characterStamina -= attackStaminaCost;
+    //            anim.SetTrigger("attack");
+    //            Debug.Log(attackClickCount);
+    //            int modifiedAttackDamage = characterStats.characterNomallAttackDamage;
+
+    //            if (attackClickCount !=0 && attackClickCount % 3 == 0)
+    //            {
+    //                characterStats.characterStamina -= comboStaminaCost;
+    //                anim.SetTrigger("combo");
+    //                modifiedAttackDamage += 10;
+    //                attackClickCount = 0;
+    //            }
+    //            ApplyDamage(modifiedAttackDamage);
+    //        }
+    //}
     private void Attack()
     {
-            if (characterStats.characterStamina >= attackStaminaCost)
+        if (gameManager.playerStats.characterStamina >= attackStaminaCost)
+        {
+            gameManager.playerStats.characterStamina -= attackStaminaCost;
+            anim.SetTrigger("attack");
+            gameManager.playerStats.AttackDamage(damage);
+            int modifiedAttackDamage =damage;
+            if (attackClickCount != 0 && attackClickCount % 3 == 0)
             {
-                characterStats.characterStamina -= attackStaminaCost;
-                anim.SetTrigger("attack");
-                Debug.Log(attackClickCount);
-                int modifiedAttackDamage = characterStats.characterNomallAttackDamage;
-
-                if (attackClickCount !=0 && attackClickCount % 3 == 0)
-                {
-                    characterStats.characterStamina -= comboStaminaCost;
-                    anim.SetTrigger("combo");
-                    modifiedAttackDamage += 10;
-                    attackClickCount = 0;
-                }
-                ApplyDamage(modifiedAttackDamage);
+                gameManager.playerStats.characterStamina -= comboStaminaCost;
+                anim.SetTrigger("combo");
+                modifiedAttackDamage += 10;
+                attackClickCount = 0;
             }
+            ApplyDamage(modifiedAttackDamage);
+        }
     }
 
     //Debug.Log(canTakeDamage);//PlayerToMonster
