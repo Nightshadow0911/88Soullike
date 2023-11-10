@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+/// <summary>
+/// 데미지 출력
+/// </summary>
 public class HealthText : MonoBehaviour
 {
     public Vector3 moveSpeed = new Vector3(0,75,0);
