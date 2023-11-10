@@ -29,14 +29,14 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateHealthUI()
     {
-        int maxHealth = 100;
+        int maxHealth = characterStats.MaxHP;
         int currentHealth = characterStats.characterHp;
         healthText.text = "HP: " + currentHealth + " / " + maxHealth;
         healthSlider.value = calculateHealthPercentage(currentHealth, maxHealth);
     }
     private void UpdateStaminaUI()
     {
-        float maxStamina = 100f;
+        float maxStamina = characterStats.MaxStemina;
         float currentStamina = characterStats.characterStamina;
         staminaSlider.value = currentStamina / maxStamina;
     }

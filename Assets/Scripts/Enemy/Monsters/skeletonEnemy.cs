@@ -68,17 +68,23 @@ public class skeletonEnemy : MonoBehaviour
 
     IEnumerator AttackPlayer() //몬스터가 공격하면 공격범위에 프리팹을 소환하고, 그 프리팹에 닿으면 플레이어에게 피해를 주도록
     {
-        animator.Play("Attack");
-        isAttacking = true;
-        yield return new WaitForSeconds(0.8f);
+        
         Vector2 direction = player.position - transform.position;
         Vector2 moveDirection = direction.normalized;
         
         if (moveDirection.x < 0) // 방향 전환 기능
         {
-            Vector2 spawnPosition = transform.position + new Vector3(-0.14f, 0f);
+            MonsterFaceWay();
+            animator.Play("Attack");
+            isAttacking = true;
+            
+
+            Vector2 spawnPosition = transform.position + new Vector3(-1.7f, 2f);
             GameObject skeletonSword = Instantiate(skeletonWeapon, spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(0.2f);
+           skeletonSword.SetActive(false); //생성된 공격 범위를 비활성화
+            yield return YieldCache.WaitForSeconds(0.8f);
+            skeletonSword.SetActive(true);
+            yield return YieldCache.WaitForSeconds(0.2f);
             Destroy(skeletonSword);
             if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) <= 0.5f) //여전히 플레이어가 공격 범위 내이면 2차 공격
             {
@@ -94,10 +100,16 @@ public class skeletonEnemy : MonoBehaviour
         }
         else
         {
-            Vector2 spawnPosition = transform.position + new Vector3(0.14f, 0f);
+            MonsterFaceWay();
+            animator.Play("Attack");
+            isAttacking = true;
+            
+            Vector2 spawnPosition = transform.position + new Vector3(1.7f, 2f);
             GameObject skeletonSword = Instantiate(skeletonWeapon, spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(0.2f);
-
+            skeletonSword.SetActive(false); //생성된 공격 범위를 비활성화
+            yield return YieldCache.WaitForSeconds(0.8f);
+            skeletonSword.SetActive(true);
+            yield return YieldCache.WaitForSeconds(0.2f);
             Destroy(skeletonSword);
             if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) <= 0.5f) //여전히 플레이어가 공격 범위 내이면 2차 공격
             {
@@ -112,8 +124,6 @@ public class skeletonEnemy : MonoBehaviour
 
             }
         }
-        
-        
     }
 
     IEnumerator SecondAttackPlayer() //연계 공격

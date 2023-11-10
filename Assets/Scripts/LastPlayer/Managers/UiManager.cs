@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+/// <summary>
+/// 데미지 출력
+/// </summary>
 public class UiManager : MonoBehaviour
 {
     public GameObject damageTextPrefab;
