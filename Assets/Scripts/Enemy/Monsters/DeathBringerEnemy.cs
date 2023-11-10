@@ -216,7 +216,7 @@ public class DeathBringerEnemy : MonoBehaviour
 
             for (int i = -5; i < 6; i++)
             {
-                Vector2 spellPoint = mapSpellMarker.position + new Vector3(4.5f * i, 0);
+                Vector2 spellPoint = mapSpellMarker.position + new Vector3(4.5f * i, -3f);
                 spellEffectObject = Instantiate(spellEffect, spellPoint, Quaternion.identity); //광역으로 생성되도록 수정해야함
                 spellAttackObject = Instantiate(spellAttack, spellPoint, Quaternion.identity); //플레이어 위치에 스펠 범위 생성
                 spellAttackObject.SetActive(false); //생성된 공격 범위를 비활성화
