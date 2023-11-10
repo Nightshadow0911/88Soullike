@@ -88,7 +88,7 @@ public class skeletonEnemy : MonoBehaviour
             else
             {
                 animator.Play("idle");
-                yield return new WaitForSeconds(1.5f);
+                yield return YieldCache.WaitForSeconds(1.5f);
                 isAttacking = false;
             }
         }
@@ -172,6 +172,7 @@ public class skeletonEnemy : MonoBehaviour
     }
     IEnumerator Death()
     {
+        isAttacking = true;
         animator.Play("death");
         yield return new WaitForSeconds(1f);
         Vector2 SelfPosition = selfPosition.position + new Vector3(0, 1);

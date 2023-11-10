@@ -103,7 +103,6 @@ public class archerEnemy : MonoBehaviour
         animator.Play("Idle");
         yield return new WaitForSeconds(1.5f);
         isShooting = false;
-
     }
 
     IEnumerator ShootStraightArrow()
