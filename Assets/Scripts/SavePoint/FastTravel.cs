@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public struct Travel
+public struct Travel // 빠른 이동 정보
 {
     public string name;
     public int sortNumber;
@@ -15,16 +15,16 @@ public struct Travel
 
 public class FastTravel : MonoBehaviour
 {
-    private List<Travel> travels;
+    private List<Travel> travels; // 빠른 이동 리스트
     [SerializeField] private Transform slotParent;
     [SerializeField] private GameObject travelSlot;
 
     private void Awake()
     {
-        travels = new List<Travel>();
+        travels = new List<Travel>(); 
     }
     
-    public void InputTravel(Travel travel)
+    public void InputTravel(Travel travel) // 빠른 이동 리스트에 추가
     {
         if (FindTravel(name) != -1)
             return;
@@ -45,7 +45,7 @@ public class FastTravel : MonoBehaviour
         return -1;
     }
 
-    public void SetTravelList()
+    public void SetTravelList() // 빠른 이동 슬롯 배치
     {
         foreach (Transform slot in slotParent)
         {

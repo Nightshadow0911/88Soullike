@@ -49,6 +49,6 @@ public class SaveMenuManager : MonoBehaviour
 
     public void AddTravel(Travel travel)
     {
-        fastTravel.InputTravel(travel);
+        fastTravel.InputTravel(travel); // FastTravel 에 정보 위임
     }
 }
