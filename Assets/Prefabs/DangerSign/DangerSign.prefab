@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2084176590654158963}
   - component: {fileID: 8587827627013215040}
   m_Layer: 0
-  m_Name: redEye
+  m_Name: DangerSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

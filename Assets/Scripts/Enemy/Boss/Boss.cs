@@ -31,7 +31,7 @@ public class Boss : MonoBehaviour
     protected bool isAttackReady = true;
     protected bool isGroggy = false;
     protected bool isDie = false;
-    [SerializeField] protected GameObject attackWarning;
+    [SerializeField] protected GameObject dangerAttack;
 
     protected Distance targetDistance;
 
@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour
             isAttackReady = false;
             lastAttackTime = 0f;
             SetDistance(Vector2.Distance(transform.position, target.position));
-            BossPatton(targetDistance);
+            BossPattern(targetDistance);
         }
     }
 
@@ -72,7 +72,7 @@ public class Boss : MonoBehaviour
         }
     }
 
-    protected virtual void BossPatton(Distance distance)
+    protected virtual void BossPattern(Distance distance)
     {
         
     }
