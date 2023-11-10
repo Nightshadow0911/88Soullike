@@ -21,6 +21,7 @@ public class UiManager : MonoBehaviour
     {
         PlayerEvents.playerDamaged+=(PlayerTookDamage);
         PlayerEvents.playerHealed += (PlayerHealed);
+        PlayerEvents.monsterDamaged += (MonsterTookDamage);
         
     }
     private void OnDisable()
@@ -28,6 +29,7 @@ public class UiManager : MonoBehaviour
 
         PlayerEvents.playerDamaged-=(PlayerTookDamage);
         PlayerEvents.playerHealed-=(PlayerHealed);
+        PlayerEvents.monsterDamaged -= (MonsterTookDamage);
     }
 
     public void PlayerTookDamage(GameObject player, int damageReceived)
@@ -47,5 +49,17 @@ public class UiManager : MonoBehaviour
             .GetComponent<TMP_Text>();
 
         tmpText.text = healthRestored.ToString();
+    }
+    public void MonsterTookDamage(GameObject[] monsters, int damageReceived)
+    {
+        foreach (GameObject monster in monsters)
+        {
+            Vector3 spawnPosition = Camera.main.WorldToScreenPoint(monster.transform.position);
+            spawnPosition.y += 100f;
+            TMP_Text tmpText = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity, gameCanvas.transform)
+                .GetComponent<TMP_Text>();
+
+            tmpText.text = damageReceived.ToString();
+        }
     }
 }

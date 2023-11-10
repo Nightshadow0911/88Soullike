@@ -426,11 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0e585488d459f4abf90f6d00b3e34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &107981466 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8760512868695778632, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
-  m_PrefabInstance: {fileID: 5751881897132180312}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &143683545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,18 +1282,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1809968613}
-    - target: {fileID: 3402879986251551315, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
-      propertyPath: dangerSign
-      value: 
-      objectReference: {fileID: 107981466}
-    - target: {fileID: 6306468767330021345, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6589463254011662000, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6964863431019259073, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1341,10 +1324,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6964863431019259073, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8760512868695778632, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
