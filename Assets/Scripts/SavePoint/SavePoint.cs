@@ -9,25 +9,26 @@ using UnityEngine.UI;
 
 public class SavePoint : MonoBehaviour
 {
-    [SerializeField] private string name;
-    [SerializeField] private int travelNumber;
-    [SerializeField] private GameObject alertUI;
-    [SerializeField] private GameObject menuUI;
+    [SerializeField] private Travel travel;
+    [SerializeField] private GameObject saveMenu;
+    [SerializeField] private GameObject alert;
     private bool awke = false;
+
+    private void Awake()
+    {
+        travel.position = transform.position;
+    }
 
     private void Update()
     {
-        if (!alertUI.activeSelf)
-            return;
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && alert.activeSelf)
         {
-            // if (!awke)
-            // {
-            //     awke = true;
-                TravelManager.instance.AddTravel(name, travelNumber, transform.position);
-                //연출
-            //}
-            menuUI.SetActive(true);
+            if (!awke)
+            {
+                SaveMenuManager.instance.AddTravel(travel);
+                awke = true;
+            }
+            SaveMenuManager.instance.ActiveMenu(saveMenu);
         }
     }
 
@@ -35,7 +36,7 @@ public class SavePoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            alertUI.SetActive(true);
+            alert.SetActive(true);
         }
     }
     
@@ -43,8 +44,7 @@ public class SavePoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            alertUI.SetActive(false);
-            menuUI.SetActive(false);
+            alert.SetActive(false);
         }
     }
 }
