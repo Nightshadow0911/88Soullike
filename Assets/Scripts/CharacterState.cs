@@ -190,7 +190,7 @@ public class CharacterStats : MonoBehaviour
         characterHp -= damage;
         Debug.Log("HP : " + characterHp);
 
-        if (characterHp <= 0)
+        if (characterHp <= 0)  //플레이어가 파괴되므로 수정해야함.
         {
             // 게임 오브젝트를 즉시 파괴
             if (gameObject != null)

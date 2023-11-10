@@ -102,9 +102,10 @@ public class DeathBringerEnemy : MonoBehaviour
 
             if (moveDirection.x < 0) // 방향 전환 기능
             {
-                Vector2 spawnPosition = transform.position + new Vector3(0f, -0.2f);
+                Vector2 spawnPosition = transform.position + new Vector3(2.8f, 3.5f);
                 GameObject meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
-                yield return new WaitForSeconds(0.7f);
+                meleeAttack.transform.localScale = new Vector3(5, 5, 1);
+                yield return new WaitForSeconds(3.7f);
                 Destroy(meleeAttackRange);
 
                 animator.Play("idle");
@@ -113,8 +114,9 @@ public class DeathBringerEnemy : MonoBehaviour
             }
             else
             {
-                Vector2 spawnPosition = transform.position + new Vector3(0f, -0.2f);
+                Vector2 spawnPosition = transform.position + new Vector3(0f, 3.5f);
                 GameObject meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
+                meleeAttack.transform.localScale = new Vector3(-5, 5, 1);
                 yield return new WaitForSeconds(0.7f);
 
                 Destroy(meleeAttackRange);
