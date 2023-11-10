@@ -193,12 +193,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec62ee560b0d9984f8f1b965f515d579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
   mapSpellMarker: {fileID: 4902004596751578511}
   selfPosition: {fileID: 4902004596751578511}
+  soulDrop: {fileID: 6670470736344860253, guid: d8e2a6ad03cba244aaaf226dc8d6af0c, type: 3}
   meleeAttack: {fileID: 8108776398137204367, guid: 958b28cdcd9e54245867576549210b52, type: 3}
   spellAttack: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
   spellEffect: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
-  soulDrop: {fileID: 6670470736344860253, guid: d8e2a6ad03cba244aaaf226dc8d6af0c, type: 3}
   MiddleBoss: {fileID: 6045820309081120241}
   maxHealth: 800
+  currentHealth: 0
+  characterStats: {fileID: 2491328609635162135, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}

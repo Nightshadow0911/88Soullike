@@ -121,7 +121,7 @@ public class LastPlayerController : MonoBehaviour
     {
         movingInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetAxis("Vertical") < 0)
+        if (Input.GetAxis("Vertical") < 0) //벽체크 
         {
             canWallSlide = false;
         }
@@ -224,7 +224,6 @@ public class LastPlayerController : MonoBehaviour
 
     private void ApplyDamage(int damage) // Add damage To Monster
     {
-
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
         {
@@ -307,14 +306,6 @@ public class LastPlayerController : MonoBehaviour
         rb.velocity = new Vector2(wallJumpDirection.x * -facingDirection, wallJumpDirection.y);
     }
 
-    private void Flip()
-    {
-        facingDirection = facingDirection * -1;
-        facingRight = !facingRight;
-
-        transform.Rotate(0, 180, 0);
-    }
-
     private void FlipController()
     {
         if (rb.velocity.x > 0 && !facingRight)
@@ -326,6 +317,14 @@ public class LastPlayerController : MonoBehaviour
             Flip();
         }
     }
+    private void Flip()
+    {
+        facingDirection = facingDirection * -1;
+        facingRight = !facingRight;
+
+        transform.Rotate(0, 180, 0);
+    }
+
 
     private void ClimbLadder()
     {

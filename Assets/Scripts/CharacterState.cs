@@ -380,7 +380,7 @@ public class CharacterStats : MonoBehaviour
     private int monsterBleedingAccumulation = 0; // 몬스터 출혈 상태 이상의 축적치
     
     // 독 상태 이상을 적용하는 함수
-    public void ApplyPoisonStatus(int damagePerTick, float duration, int amount)
+    public void ApplyPoisonStatus(int damagePerTick, float duration, int amount)// 가드 초기화 부분
     {
         IncreaseAccumulation(StatusEffectType.Poison, amount);
         Debug.Log("축적치 : " + poisonAccumulation);

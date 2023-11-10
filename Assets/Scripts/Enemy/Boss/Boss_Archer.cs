@@ -250,7 +250,6 @@ public class Boss_Archer : Boss
         SoundManager.instance.PlayClip(runSound);
         while (true) 
         {
-            
             Vector2 distance = (target.position * Vector2.right) - (Vector2)transform.position;
             if (Mathf.Abs(distance.x) < 1)
             {
@@ -449,7 +448,7 @@ public class Boss_Archer : Boss
         isAttackReady = false;
         rigid.velocity = Vector2.zero;
         anim.Running(rigid.velocity);
-        OffRedEye();
+        OffDangerSign();
     }
 
     private void OnGroggy()
@@ -480,15 +479,15 @@ public class Boss_Archer : Boss
         ProjectileManager.instance.DeleteObjectPool(ProjectileObj.tag);
     }
     
-    private void OnRedEye()
+    private void OnDangerSign()
     {
         SoundManager.instance.PlayClip(danger);
-        dangerAttack.SetActive(true);
+        dangerSign.SetActive(true);
     }
     
-    private void OffRedEye()
+    private void OffDangerSign()
     {
-        dangerAttack.SetActive(false);
+        dangerSign.SetActive(false);
     }
     public void TakeDamage(int damage)
     {
