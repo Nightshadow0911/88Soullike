@@ -38,9 +38,8 @@ public class Boss_Archer : Boss
     [SerializeField] private AudioClip rangedAttackSound;
     [SerializeField] private AudioClip spinAttackSound;
     [SerializeField] private AudioClip snapShotSound;
-    [SerializeField] private AudioClip Warning;
+    [SerializeField] private AudioClip danger;
     
-    private Ray2D[] rays;
     private Vector2 direction;
     private Vector2 destination;
     private bool dodging = false;
@@ -57,11 +56,6 @@ public class Boss_Archer : Boss
     private void Start()
     {
         ProjectileManager.instance.InsertObjectPool(ProjectileObj);
-        rays = new Ray2D[2]
-        {
-            new Ray2D(transform.position, Vector2.left),
-            new Ray2D(transform.position, Vector2.right)
-        };
         currentHealth = maxHealth;
     }
 
@@ -83,7 +77,7 @@ public class Boss_Archer : Boss
         base.Update();
     }
     
-    protected override void BossPatton(Distance distance)
+    protected override void BossPattern(Distance distance)
     {
         int randomPatton = Random.Range(1, 10);
         switch (distance) 
@@ -488,13 +482,13 @@ public class Boss_Archer : Boss
     
     private void OnRedEye()
     {
-        SoundManager.instance.PlayClip(Warning);
-        attackWarning.SetActive(true);
+        SoundManager.instance.PlayClip(danger);
+        dangerAttack.SetActive(true);
     }
     
     private void OffRedEye()
     {
-        attackWarning.SetActive(false);
+        dangerAttack.SetActive(false);
     }
     public void TakeDamage(int damage)
     {

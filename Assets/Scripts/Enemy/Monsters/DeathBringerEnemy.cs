@@ -10,14 +10,19 @@ public class DeathBringerEnemy : MonoBehaviour
 {
     public Transform player;
     public Transform mapSpellMarker; //중간보스방의 중앙을 인식할 좌표 오브젝트
+    
+    public Transform selfPosition;
+    public GameObject soulDrop;
+
     private Animator animator;
 
     public GameObject meleeAttack;
     public GameObject spellAttack;
     public GameObject spellEffect;
+    
     private GameObject spellEffectObject;
     private GameObject spellAttackObject;
-
+    
     private float moveSpeed = 0.5f;
     private bool isAttacking = false;
 
@@ -100,9 +105,10 @@ public class DeathBringerEnemy : MonoBehaviour
 
             if (moveDirection.x < 0) // 방향 전환 기능
             {
-                Vector2 spawnPosition = transform.position + new Vector3(0f, -0.2f);
+                Vector2 spawnPosition = transform.position + new Vector3(2.8f, 3.5f);
                 GameObject meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
-                yield return new WaitForSeconds(0.7f);
+                meleeAttack.transform.localScale = new Vector3(5, 5, 1);
+                yield return new WaitForSeconds(3.7f);
                 Destroy(meleeAttackRange);
 
                 animator.Play("idle");
@@ -111,8 +117,9 @@ public class DeathBringerEnemy : MonoBehaviour
             }
             else
             {
-                Vector2 spawnPosition = transform.position + new Vector3(0f, -0.2f);
+                Vector2 spawnPosition = transform.position + new Vector3(0f, 3.5f);
                 GameObject meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
+                meleeAttack.transform.localScale = new Vector3(-5, 5, 1);
                 yield return new WaitForSeconds(0.7f);
 
                 Destroy(meleeAttackRange);
@@ -245,12 +252,18 @@ public class DeathBringerEnemy : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Death();
+            StartCoroutine(Death());
         }
     }
-    void Death()
+    IEnumerator Death()
     {
-        // 적의 사망 처리 (예: 죽음 애니메이션 재생, 씬에서 제거 등)
+        isAttacking = true;
+        Time.timeScale = 0.4f; //보스 몬스터 사망 시 슬로우모션 작동.
+        animator.Play("disappear");
+        yield return new WaitForSeconds(1f);
+        Vector2 SelfPosition = selfPosition.position + new Vector3(0,1);
+        Instantiate(soulDrop, SelfPosition, Quaternion.identity);
         Destroy(gameObject);
+        Time.timeScale = 1f; //슬로우모션 해제.
     }
 }
