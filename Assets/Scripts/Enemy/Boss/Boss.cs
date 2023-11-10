@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Boss : MonoBehaviour
+public abstract class Boss : MonoBehaviour
 {
     protected enum Distance
     {
@@ -72,8 +72,5 @@ public class Boss : MonoBehaviour
         }
     }
 
-    protected virtual void BossPattern(Distance distance)
-    {
-        
-    }
+    protected abstract void BossPattern(Distance distance);
 }

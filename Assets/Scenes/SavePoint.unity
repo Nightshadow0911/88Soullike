@@ -1180,7 +1180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotParent: {fileID: 500630837874045104}
-  travelSlot: {fileID: 4561207662541420376, guid: 9d070b8aa43759748a024040113633cc, type: 3}
+  travelSlot: {fileID: 5824388531618297528, guid: e4da82488d9b670408fae9ec68d49588, type: 3}
 --- !u!114 &449613077979676144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1195,6 +1195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1809968611}
   playerStats: {fileID: 0}
+  lastPlayerController: {fileID: 0}
 --- !u!224 &464820550225228390
 RectTransform:
   m_ObjectHideFlags: 0

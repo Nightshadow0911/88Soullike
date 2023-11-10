@@ -5,8 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-//[System.Serializable]
-
 public class SavePoint : MonoBehaviour
 {
     [SerializeField] private Travel travel;

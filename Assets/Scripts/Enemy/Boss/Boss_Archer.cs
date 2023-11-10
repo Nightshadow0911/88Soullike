@@ -250,7 +250,6 @@ public class Boss_Archer : Boss
         SoundManager.instance.PlayClip(runSound);
         while (true) 
         {
-            
             Vector2 distance = (target.position * Vector2.right) - (Vector2)transform.position;
             if (Mathf.Abs(distance.x) < 1)
             {
