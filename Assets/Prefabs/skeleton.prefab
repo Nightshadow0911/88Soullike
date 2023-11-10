@@ -172,9 +172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c465a60818559342927faaa49c98aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2134998674751114048, guid: e8dc8513c3df24a41bdc18793f417574, type: 3}
+  player: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
   skeletonWeapon: {fileID: 311243272039578616, guid: fbb9b12827e78694696dc6c452ccb92d, type: 3}
   maxHealth: 100
+  selfPosition: {fileID: 5048235138083051449}
+  soulDrop: {fileID: 6670470736344860253, guid: d8e2a6ad03cba244aaaf226dc8d6af0c, type: 3}
 --- !u!95 &4538989473501866103
 Animator:
   serializedVersion: 5
