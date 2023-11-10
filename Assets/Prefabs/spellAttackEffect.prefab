@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6023699306122393440}
   - component: {fileID: 1545655811218041974}
-  - component: {fileID: 4576075979947422046}
+  - component: {fileID: -2954430728767222184}
   m_Layer: 0
   m_Name: spellAttackEffect
   m_TagString: Untagged
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4575f08dcb9810447bd59460755c84ac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dc499ba4d014ae74f9665bf19e0b5b42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4576075979947422046
+--- !u!95 &-2954430728767222184
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 1690192561225792519}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 796f113f01a0d324ba00d299f0f39182, type: 2}
+  m_Controller: {fileID: 9100000, guid: a8ca283ad650b094380e5f66e21fbfe2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

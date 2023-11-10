@@ -193,7 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4261da1285e7d3408b9557cb07cca58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2134998674751114048, guid: e8dc8513c3df24a41bdc18793f417574, type: 3}
+  player: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
   arrowPrefab: {fileID: 8497631904878779402, guid: e4f23016bf0651b4f831c37c25f01912, type: 3}
   fireInterval: 2
   maxHealth: 100
+  selfPosition: {fileID: 5362204110141033545}
+  soulDrop: {fileID: 6670470736344860253, guid: d8e2a6ad03cba244aaaf226dc8d6af0c, type: 3}

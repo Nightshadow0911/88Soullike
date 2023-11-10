@@ -224,7 +224,6 @@ public class LastPlayerController : MonoBehaviour
 
     private void ApplyDamage(int damage) // Add damage To Monster
     {
-
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
         {
