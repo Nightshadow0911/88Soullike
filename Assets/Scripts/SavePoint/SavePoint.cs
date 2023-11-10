@@ -25,8 +25,9 @@ public class SavePoint : MonoBehaviour
                 SaveMenuManager.instance.AddTravel(travel); // 빠른 이동 추가
                 awke = true;
             }
-            GameManager.Instance.playerStats.characterHp = GameManager.Instance.playerStats.MaxHP;
-            GameManager.Instance.playerStats.characterStamina = GameManager.Instance.playerStats.MaxStemina;
+            CharacterStats stats = GameManager.Instance.playerStats;
+            stats.characterHp = stats.MaxHP;
+            stats.characterStamina = stats.MaxStemina;
         }
     }
 
