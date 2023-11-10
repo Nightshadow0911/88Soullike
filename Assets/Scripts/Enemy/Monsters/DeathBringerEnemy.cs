@@ -275,5 +275,6 @@ public class DeathBringerEnemy : MonoBehaviour
         Instantiate(soulDrop, SelfPosition, Quaternion.identity);
         Destroy(gameObject);
         Time.timeScale = 1f; //슬로우모션 해제.
+        
     }
 }
