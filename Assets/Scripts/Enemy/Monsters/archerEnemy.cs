@@ -93,15 +93,15 @@ public class archerEnemy : MonoBehaviour
         animator.Play("parabolicAttack");
 
         isShooting = true;
-        
-        yield return new WaitForSeconds(2.0f);
+
+        yield return YieldCache.WaitForSeconds(2.0f);
         Vector2 direction = player.position - transform.position;
         Vector2 spawnPosition = transform.position + new Vector3(0, 0.4f);
         GameObject arrow = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.velocity = direction.normalized * 7f;
         animator.Play("Idle");
-        yield return new WaitForSeconds(1.5f);
+        yield return YieldCache.WaitForSeconds(1.5f);
         isShooting = false;
     }
 
@@ -110,15 +110,15 @@ public class archerEnemy : MonoBehaviour
         animator.Play("DirectAttack");
 
         isShooting = true;
-       
-        yield return new WaitForSeconds(2.0f);
+
+        yield return YieldCache.WaitForSeconds(2.0f);
         Vector2 direction = player.position - transform.position;
         Vector2 spawnPosition = transform.position + new Vector3(0, 0.4f);
         GameObject arrow = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(direction.normalized.x, 0) * 10f;
         animator.Play("Idle");
-        yield return new WaitForSeconds(1.5f);
+        yield return YieldCache.WaitForSeconds(1.5f);
         isShooting = false;
     }
     void MonsterFaceWay()
@@ -147,7 +147,7 @@ public class archerEnemy : MonoBehaviour
     IEnumerator Death()
     {
         animator.Play("death");
-        yield return new WaitForSeconds(1f);
+        yield return YieldCache.WaitForSeconds(1f);
         Vector2 SelfPosition = selfPosition.position + new Vector3(0, 1);
         Instantiate(soulDrop, SelfPosition, Quaternion.identity);
         Destroy(gameObject);

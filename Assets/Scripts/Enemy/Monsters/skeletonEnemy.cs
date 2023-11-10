@@ -119,7 +119,7 @@ public class skeletonEnemy : MonoBehaviour
             else
             {
                 animator.Play("idle");
-                yield return new WaitForSeconds(1.5f);
+                yield return YieldCache.WaitForSeconds(1.5f);
                 isAttacking = false;
 
             }
@@ -130,7 +130,7 @@ public class skeletonEnemy : MonoBehaviour
     {
         animator.Play("SecondAttack");
         isAttacking = true;
-        yield return new WaitForSeconds(0.8f);
+        yield return YieldCache.WaitForSeconds(0.8f);
         Vector2 direction = player.position - transform.position;
         Vector2 moveDirection = direction.normalized;
 
@@ -138,20 +138,20 @@ public class skeletonEnemy : MonoBehaviour
         {
             Vector2 spawnPosition = transform.position + new Vector3(-0.14f, 0f);
             GameObject skeletonSword = Instantiate(skeletonWeapon, spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(0.2f);
+            yield return YieldCache.WaitForSeconds(0.2f);
             Destroy(skeletonSword);
             animator.Play("idle");
-            yield return new WaitForSeconds(1.5f);
+            yield return YieldCache.WaitForSeconds(1.5f);
             isAttacking = false;
         }
         else
         {
             Vector2 spawnPosition = transform.position + new Vector3(0.14f, 0f);
             GameObject skeletonSword = Instantiate(skeletonWeapon, spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(0.2f);
+            yield return YieldCache.WaitForSeconds(0.2f);
             Destroy(skeletonSword);
             animator.Play("idle");
-            yield return new WaitForSeconds(1.5f);
+            yield return YieldCache.WaitForSeconds(1.5f);
             isAttacking = false;
         }
     }
@@ -184,7 +184,7 @@ public class skeletonEnemy : MonoBehaviour
     {
         isAttacking = true;
         animator.Play("death");
-        yield return new WaitForSeconds(1f);
+        yield return YieldCache.WaitForSeconds(1f);
         Vector2 SelfPosition = selfPosition.position + new Vector3(0, 1);
         Instantiate(soulDrop, SelfPosition, Quaternion.identity);
         Destroy(gameObject);
