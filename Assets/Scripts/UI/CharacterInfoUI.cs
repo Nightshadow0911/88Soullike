@@ -56,7 +56,7 @@ public class CharacterInfoUI : MonoBehaviour
 
     public void UpdateStatus()
     {
-        levelTxt.text = $"LV.{playerStat.Level} ()"; // ()안에 {(현재 경험치 / 경험치 통):F1}
+        levelTxt.text = $"LV.{playerStat.Level} ({(100*((float)playerStat.curExp / playerStat.maxExp)):F1}%)"; // ()안에 {(현재 경험치 / 경험치 통):F1}
         healthTxt.text = $"{playerStat.characterHp} / {playerStat.MaxHP}";
         steminaTxt.text = $"{(int)Math.Floor(playerStat.characterStamina)} / {playerStat.MaxStemina}";
         int equipWeight = 0;
@@ -71,7 +71,7 @@ public class CharacterInfoUI : MonoBehaviour
         attackTxt.text = $"{playerStat.NormalAttackDamage}";
         skillTxt.text = $"{playerStat.NormalSkillDamage}";
         propertyTxt.text = $"{playerStat.PropertyDamage}";
-        criticalTxt.text = $"{(playerStat.critical)}";
+        criticalTxt.text = $"{playerStat.critical:F1}%";
         attackSpeedTxt.text = $"{playerStat.AttackSpeed}";
 
         deffenceTxt.text = $"{playerStat.CharacterDefense}";

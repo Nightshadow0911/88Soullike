@@ -11,8 +11,6 @@ public class CharacterStats : MonoBehaviour
     private int level = 1;
     private int points = 5;
 
-
-
     [SerializeField]
     public int characterHp;
     [SerializeField]
@@ -55,6 +53,9 @@ public class CharacterStats : MonoBehaviour
     public int Exp;
     public int Gold;
 
+    public int curExp = 0;
+    public int maxExp = 100;
+
     //몬스터 스텟
     [SerializeField]
     private int monsterHp;
@@ -69,6 +70,8 @@ public class CharacterStats : MonoBehaviour
         characterNomallAttackDamage = subState[(int)Substate.nomallAttackDamage];
         subState[(int)Substate.critcal] = 50;
         subState[(int)Substate.propertyDefense] = 10;
+        curExp = 27;
+        maxExp = 100;
     }
 
     private void Update()
@@ -301,37 +304,37 @@ public class CharacterStats : MonoBehaviour
     }
     public int MaxHP
     {
-        get { return (int)Substate.characterHp; }
+        get{ return subState[(int)Substate.characterHp]; }
        
     }
     public int MaxStemina
     {
-        get { return (int)Substate.characterStamina; }
+        get { return subState[(int)Substate.characterStamina]; }
 
     }
     public int CharacterWeight
     {
-        get { return (int)Substate.characterWeight; }
+        get { return subState[(int)Substate.characterWeight]; }
     }
     public int NormalAttackDamage
     {
-        get { return (int)Substate.nomallAttackDamage; }
+        get { return subState[(int)Substate.nomallAttackDamage]; }
     }
     public int NormalSkillDamage
     {
-        get { return (int)Substate.nomallSkillDamage; }
+        get { return subState[(int)Substate.nomallSkillDamage]; }
     }
     public int PropertyDamage
     {
-        get { return (int)Substate.propertyDamage; }
+        get { return subState[(int)Substate.propertyDamage]; }
     }
-    public float critical
+    public int critical // float
     {
-        get { return (float)Substate.critcal; }
+        get { return subState[(int)Substate.critcal]; }
     }
     public int CharacterDefense
     {
-        get { return (int)Substate.characterDefense; }
+        get { return subState[(int)Substate.characterDefense]; }
     }
     public double CharacterSpeed
     {
@@ -343,13 +346,13 @@ public class CharacterStats : MonoBehaviour
         get { return attackSpeed; }
         set { attackSpeed = value; }
     }
-    public float ParryTime
+    public float ParryTime // float
     {
-        get { return (float)Substate.parryTime; }
+        get { return (int)Substate.parryTime; }
     } 
-    public float AddGoods
+    public float AddGoods // float
     {
-        get { return (float)Substate.addGoods; }
+        get { return (int)Substate.addGoods; }
     }
     public int Level
     {
