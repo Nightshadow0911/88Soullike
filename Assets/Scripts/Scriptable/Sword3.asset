@@ -20,3 +20,6 @@ MonoBehaviour:
   power: 20
   descriptiion: Player Atk + 20
   amount: 1
+  attackRange: 0
+  attackSpeed: 0
+  weight: 20
