@@ -126,7 +126,7 @@ public class archerEnemy : MonoBehaviour
         Vector2 direction = player.position - transform.position;
         Vector2 moveDirection = direction.normalized;
 
-        if (moveDirection.x < 0) // ¹æÇâ ÀüÈ¯ ±â´É
+        if (moveDirection.x < 0) // ë°©í–¥ ì „í™˜ ê¸°ëŠ¥
         {
             transform.localScale = new Vector3(-1f, 1f, 1);
         }
