@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     public GameObject player;
+    public GameObject[] monsters;
 
     public static GameManager Instance
     {
