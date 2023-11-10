@@ -10,13 +10,16 @@ public class DeathBringerEnemy : MonoBehaviour
 {
     public Transform player;
     public Transform mapSpellMarker; //중간보스방의 중앙을 인식할 좌표 오브젝트
+    
     public Transform selfPosition;
+    public GameObject soulDrop;
+
     private Animator animator;
 
     public GameObject meleeAttack;
     public GameObject spellAttack;
     public GameObject spellEffect;
-    public GameObject soulDrop;
+    
     private GameObject spellEffectObject;
     private GameObject spellAttackObject;
     
@@ -249,13 +252,17 @@ public class DeathBringerEnemy : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Death();
+            StartCoroutine(Death());
         }
     }
-    void Death()
+    IEnumerator Death()
     {
+        Time.timeScale = 0.4f; //보스 몬스터 사망 시 슬로우모션 작동.
+        animator.Play("disappear");
+        yield return new WaitForSeconds(1.5f);
         Vector2 SelfPosition = selfPosition.position + new Vector3(0,1);
         Instantiate(soulDrop, SelfPosition, Quaternion.identity);
         Destroy(gameObject);
+        Time.timeScale = 1f; //슬로우모션 해제.
     }
 }

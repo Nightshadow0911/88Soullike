@@ -14,6 +14,9 @@ public class skeletonEnemy : MonoBehaviour
     private float moveSpeed = 0.2f;
     private bool isAttacking = false;
 
+    public Transform selfPosition;
+    public GameObject soulDrop;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -158,18 +161,21 @@ public class skeletonEnemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int attackDamage)
     {
-        currentHealth -= damage;
+        currentHealth -= attackDamage;
 
         if (currentHealth <= 0)
         {
-            Death();
+            StartCoroutine(Death());
         }
     }
-    void Death()
+    IEnumerator Death()
     {
-        // 적의 사망 처리 (예: 죽음 애니메이션 재생, 씬에서 제거 등)
+        animator.Play("death");
+        yield return new WaitForSeconds(1f);
+        Vector2 SelfPosition = selfPosition.position + new Vector3(0, 1);
+        Instantiate(soulDrop, SelfPosition, Quaternion.identity);
         Destroy(gameObject);
     }
 }

@@ -29,6 +29,7 @@ public class weaponColliderRange : MonoBehaviour
                 gameManager.playerStats.TakeDamage(damage);
                 gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
                 Debug.Log("플레이어 공격받음");
+                PlayerEvents.monsterDamaged.Invoke(gameObject, damage);
                 Destroy(gameObject);
             }
             else
