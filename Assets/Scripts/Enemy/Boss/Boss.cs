@@ -31,7 +31,7 @@ public abstract class Boss : MonoBehaviour
     protected bool isAttackReady = true;
     protected bool isGroggy = false;
     protected bool isDie = false;
-    [SerializeField] protected GameObject dangerAttack;
+    [SerializeField] protected GameObject dangerSign;
 
     protected Distance targetDistance;
 
