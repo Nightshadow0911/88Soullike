@@ -143,9 +143,8 @@ public class DeathBringerEnemy : MonoBehaviour
         IEnumerator UseSpell()
         {
             int rate = Random.Range(1, 10);
-            if (rate <= 8)
+            if (rate <= 6)
             {
-                
                 Vector2 spellPoint = player.position + new Vector3(0f, 3.5f);
                 animator.Play("cast");
                 isAttacking = true;
@@ -246,6 +245,7 @@ public class DeathBringerEnemy : MonoBehaviour
                 Destroy(spellAttackObject);
             }
             isAttacking = false;
+            spellCount++;
         }
 
         void MonsterFaceWay()
