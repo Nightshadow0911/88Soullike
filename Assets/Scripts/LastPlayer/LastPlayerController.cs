@@ -7,8 +7,11 @@ public class LastPlayerController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
+    private GameManager gameManager;
+
     public FadeOut fadeOut;
     public CharacterStats characterStats;
+
     public PlayerUI playerUI;
 
     [SerializeField] private float speed = 5;
@@ -55,11 +58,16 @@ public class LastPlayerController : MonoBehaviour
     public float attackRate = 1f;
     float nextAttackTime = 0f;
     private int attackClickCount = 1;
+
+    public bool canTakeDamage = true;
+    private int damage=10;
+
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         //characterStats.characterStamina = maxStamina;
+        gameManager = GameManager.Instance;
     }
 
     void Update()
@@ -109,13 +117,23 @@ public class LastPlayerController : MonoBehaviour
             }
         }
     }
-    private void CheckInput()
+    public void CheckInput()
     {
         movingInput = Input.GetAxis("Horizontal");
 
         if (Input.GetAxis("Vertical") < 0)
         {
             canWallSlide = false;
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            canTakeDamage = false;
+            Debug.Log("누름");
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            canTakeDamage = true;
+            Debug.Log("땜");
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -164,29 +182,49 @@ public class LastPlayerController : MonoBehaviour
         characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
     }
 
+    //private void Attack()
+    //{
+    //        if (characterStats.characterStamina >= attackStaminaCost)
+    //        {
+    //            characterStats.characterStamina -= attackStaminaCost;
+    //            anim.SetTrigger("attack");
+    //            Debug.Log(attackClickCount);
+    //            int modifiedAttackDamage = characterStats.characterNomallAttackDamage;
+
+    //            if (attackClickCount !=0 && attackClickCount % 3 == 0)
+    //            {
+    //                characterStats.characterStamina -= comboStaminaCost;
+    //                anim.SetTrigger("combo");
+    //                modifiedAttackDamage += 10;
+    //                attackClickCount = 0;
+    //            }
+    //            ApplyDamage(modifiedAttackDamage);
+    //        }
+    //}
     private void Attack()
     {
-            if (characterStats.characterStamina >= attackStaminaCost)
+        if (gameManager.playerStats.characterStamina >= attackStaminaCost)
+        {
+            gameManager.playerStats.characterStamina -= attackStaminaCost;
+            anim.SetTrigger("attack");
+            gameManager.playerStats.AttackDamage(damage);
+            int modifiedAttackDamage =damage;
+            if (attackClickCount != 0 && attackClickCount % 3 == 0)
             {
-                characterStats.characterStamina -= attackStaminaCost;
-                anim.SetTrigger("attack");
-                Debug.Log(attackClickCount);
-                int modifiedAttackDamage = characterStats.characterNomallAttackDamage;
-
-                if (attackClickCount !=0 && attackClickCount % 3 == 0)
-                {
-                    characterStats.characterStamina -= comboStaminaCost;
-                    anim.SetTrigger("combo");
-                    modifiedAttackDamage += 10;
-                    attackClickCount = 0;
-                }
-                ApplyDamage(modifiedAttackDamage);
+                gameManager.playerStats.characterStamina -= comboStaminaCost;
+                anim.SetTrigger("combo");
+                modifiedAttackDamage += 10;
+                attackClickCount = 0;
             }
+            ApplyDamage(modifiedAttackDamage);
+        }
     }
 
+    //Debug.Log(canTakeDamage);//PlayerToMonster
 
-    private void ApplyDamage(int damage) // Add damage
+    private void ApplyDamage(int damage) // Add damage To Monster
     {
+
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
         {

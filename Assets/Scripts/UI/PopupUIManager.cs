@@ -54,7 +54,14 @@ public class PopupUIManager : MonoBehaviour
                 ClosePopup(activePopupLList.First.Value);
             } else
             {
-                optionPopup.SetActive(true);
+                if(optionPopup.activeSelf)
+                {
+                    optionPopup.SetActive(false);
+                }
+                else
+                {
+                    optionPopup.SetActive(true);
+                }
             }
         }
 

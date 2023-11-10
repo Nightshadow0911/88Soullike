@@ -195,8 +195,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   mapSpellMarker: {fileID: 4902004596751578511}
+  selfPosition: {fileID: 4902004596751578511}
   meleeAttack: {fileID: 8108776398137204367, guid: 958b28cdcd9e54245867576549210b52, type: 3}
   spellAttack: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
   spellEffect: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
+  soulDrop: {fileID: 6670470736344860253, guid: d8e2a6ad03cba244aaaf226dc8d6af0c, type: 3}
   MiddleBoss: {fileID: 6045820309081120241}
   maxHealth: 800
