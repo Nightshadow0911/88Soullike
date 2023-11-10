@@ -34,6 +34,8 @@ public class DeathBringerEnemy : MonoBehaviour
     [SerializeField]
     private int currentHealth;
 
+    public CharacterStats characterStats;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -47,7 +49,7 @@ public class DeathBringerEnemy : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         Vector2 direction = player.position - transform.position;
 
-        if (Mathf.Abs(direction.y) < 4f && Mathf.Abs(direction.x) > 1.5f) //비슷한 높이에 어느정도 가까운 거리면 걸어서 이동, y축값 수정 필요.
+        if (Mathf.Abs(direction.x) < 10f && Mathf.Abs(direction.x) > 1.5f) //비슷한 높이에 어느정도 가까운 거리면 걸어서 이동, y축값 수정 필요.
         {
             if (isAttacking)
             {
@@ -67,7 +69,7 @@ public class DeathBringerEnemy : MonoBehaviour
             }
         }
 
-        else if (Mathf.Abs(direction.y) < 4f && Mathf.Abs(direction.x) <= 2f) //근접 평타 액션
+        else if (Mathf.Abs(direction.x) <= 2f) //근접 평타 액션
         {
             if (!isAttacking)
             {
@@ -75,7 +77,7 @@ public class DeathBringerEnemy : MonoBehaviour
             }
         }
 
-        else if (Mathf.Abs(direction.y) >= 5f) //원거리 공격 이후 순간이동 모션
+        else if (Mathf.Abs(direction.x) >= 10f) //원거리 공격 이후 순간이동 모션
         {
 
             if (isAttacking)
@@ -97,33 +99,40 @@ public class DeathBringerEnemy : MonoBehaviour
 
         IEnumerator AttackPlayer() //몬스터가 공격하면 공격범위에 프리팹을 소환하고, 그 프리팹에 닿으면 플레이어에게 피해를 주도록
         {
-            animator.Play("attack");
-            isAttacking = true;
-            yield return new WaitForSeconds(1.5f);
+            
             Vector2 direction = player.position - transform.position;
             Vector2 moveDirection = direction.normalized;
 
             if (moveDirection.x < 0) // 방향 전환 기능
             {
-                Vector2 spawnPosition = transform.position + new Vector3(2.8f, 3.5f);
+                animator.Play("attack");
+                isAttacking = true;
+                Vector2 spawnPosition = transform.position + new Vector3(-2.6f, 3.5f); //함수로 묶음처리
+                
                 GameObject meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
                 meleeAttack.transform.localScale = new Vector3(5, 5, 1);
-                yield return new WaitForSeconds(3.7f);
+                meleeAttackRange.SetActive(false); //생성된 공격 범위를 비활성화
+                
+                yield return new WaitForSeconds(1.5f);
+                meleeAttackRange.SetActive(true); //생성된 공격 범위를 활성화
+                yield return new WaitForSeconds(0.3f);
                 Destroy(meleeAttackRange);
-
                 animator.Play("idle");
                 yield return new WaitForSeconds(1.5f);
                 isAttacking = false;
             }
-            else
+            else //반대 방향
             {
-                Vector2 spawnPosition = transform.position + new Vector3(0f, 3.5f);
+                animator.Play("attack");
+                isAttacking = true;              
+                Vector2 spawnPosition = transform.position + new Vector3(2.6f, 3.5f);
                 GameObject meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
                 meleeAttack.transform.localScale = new Vector3(-5, 5, 1);
-                yield return new WaitForSeconds(0.7f);
-
+                meleeAttackRange.SetActive(false); //생성된 공격 범위를 비활성화            
+                yield return new WaitForSeconds(1.5f);
+                meleeAttackRange.SetActive(true); //생성된 공격 범위를 활성화
+                yield return new WaitForSeconds(0.3f);
                 Destroy(meleeAttackRange);
-
                 animator.Play("idle");
                 yield return new WaitForSeconds(1.5f);
                 isAttacking = false;
@@ -207,7 +216,7 @@ public class DeathBringerEnemy : MonoBehaviour
 
             for (int i = -5; i < 6; i++)
             {
-                Vector2 spellPoint = mapSpellMarker.position + new Vector3(4 * i, 0);
+                Vector2 spellPoint = mapSpellMarker.position + new Vector3(4.5f * i, 0);
                 spellEffectObject = Instantiate(spellEffect, spellPoint, Quaternion.identity); //광역으로 생성되도록 수정해야함
                 spellAttackObject = Instantiate(spellAttack, spellPoint, Quaternion.identity); //플레이어 위치에 스펠 범위 생성
                 spellAttackObject.SetActive(false); //생성된 공격 범위를 비활성화
@@ -255,6 +264,7 @@ public class DeathBringerEnemy : MonoBehaviour
             StartCoroutine(Death());
         }
     }
+
     IEnumerator Death()
     {
         isAttacking = true;
