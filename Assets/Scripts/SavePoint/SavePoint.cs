@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class SavePoint : MonoBehaviour
 {
-    [SerializeField] private Travel travel;
-    [SerializeField] private GameObject saveMenu;
+    [SerializeField] private Travel travel; // 빠른 이동 정보
     [SerializeField] private GameObject alert;
     private bool awke = false;
 
@@ -23,10 +22,11 @@ public class SavePoint : MonoBehaviour
         {
             if (!awke)
             {
-                SaveMenuManager.instance.AddTravel(travel);
+                SaveMenuManager.instance.AddTravel(travel); // 빠른 이동 추가
                 awke = true;
             }
-            SaveMenuManager.instance.ActiveMenu(saveMenu);
+            GameManager.Instance.playerStats.characterHp = GameManager.Instance.playerStats.MaxHP;
+            GameManager.Instance.playerStats.characterStamina = GameManager.Instance.playerStats.MaxStemina;
         }
     }
 
