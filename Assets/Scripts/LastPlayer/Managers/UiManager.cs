@@ -50,13 +50,16 @@ public class UiManager : MonoBehaviour
 
         tmpText.text = healthRestored.ToString();
     }
-    public void MonsterTookDamage(GameObject monster, int damageReceived)
+    public void MonsterTookDamage(GameObject[] monsters, int damageReceived)
     {
-        Vector3 spawnPosition = Camera.main.WorldToScreenPoint(monster.transform.position);
-        spawnPosition.y += 100f;
-        TMP_Text tmpText = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity, gameCanvas.transform)
-            .GetComponent<TMP_Text>();
+        foreach (GameObject monster in monsters)
+        {
+            Vector3 spawnPosition = Camera.main.WorldToScreenPoint(monster.transform.position);
+            spawnPosition.y += 100f;
+            TMP_Text tmpText = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity, gameCanvas.transform)
+                .GetComponent<TMP_Text>();
 
-        tmpText.text = damageReceived.ToString();
+            tmpText.text = damageReceived.ToString();
+        }
     }
 }
