@@ -12,7 +12,6 @@ public class PopupUIManager : MonoBehaviour
     public PopupUI shopPopup;
     public PopupUI usePopup;
     public PopupUI mapPopup;
-    public PopupUI savePopup;
     public GameObject optionPopup;
     
 
@@ -23,7 +22,6 @@ public class PopupUIManager : MonoBehaviour
     public KeyCode charInfoKey = KeyCode.C;
     public KeyCode npcKey = KeyCode.X;
     public KeyCode mapKey = KeyCode.M;
-    public KeyCode saveKey = KeyCode.F;
 
     // 실시간 팝업 관리 링크드 리스트
     public LinkedList<PopupUI> activePopupLList;
@@ -85,7 +83,7 @@ public class PopupUIManager : MonoBehaviour
     {
         allPopupList = new List<PopupUI>() // 리스트 초기화
         {
-            inventoryPopup, equipmentPopup, characterInfoPopup, mapPopup, shopPopup, usePopup, savePopup
+            inventoryPopup, equipmentPopup, characterInfoPopup, mapPopup, shopPopup, usePopup
         };
 
         foreach (PopupUI popup in allPopupList) // 모든 팝업에 이벤트 등록

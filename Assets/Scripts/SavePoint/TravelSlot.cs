@@ -6,17 +6,18 @@ using UnityEngine;
 
 public class TravelSlot : MonoBehaviour
 {
-    private string name;
+    private Travel travel;
     [SerializeField] private TextMeshProUGUI textUI;
 
-    public void SetSlot(string name)
+    public void SetSlot(Travel travel)
     {
-        this.name = name;
-        textUI.text = name;
+        this.travel = travel;
+        textUI.text = travel.name;
     }
     
-    public void FindTravelLocation()
+    public void FastTravel()
     {
-        TravelManager.instance.FastTravel(name);
+        SaveMenuManager.instance.AllDeActiveMenu();
+        GameManager.Instance.player.transform.position = travel.position;
     }
 }
