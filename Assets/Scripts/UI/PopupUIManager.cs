@@ -75,7 +75,11 @@ public class PopupUIManager : MonoBehaviour
             if(Inventory.instance.currentNPC.npcName.Equals("Shop"))
             {
                 ToggleKeyDownAction(npcKey, shopPopup);
-            }   
+            }
+            if(Inventory.instance.currentNPC.npcName.Equals("Stat"))
+            {
+                CharacterInfoUI.instance.growPopupBtn.SetActive(true);
+            }
         }
     }
 

@@ -20,3 +20,6 @@ MonoBehaviour:
   power: 15
   descriptiion: Player Def + 15
   amount: 1
+  attackRange: 0
+  attackSpeed: 0
+  weight: 12
