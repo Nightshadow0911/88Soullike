@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterInfoUI : MonoBehaviour
 {
-    [SerializeField] private GameObject growthPopup;
+    public static CharacterInfoUI instance;
+    public GameObject growPopupBtn;
+
+    public GameObject growthPopup;
     private bool isOpen = false;
 
     [Header("General ability")]
@@ -40,12 +44,11 @@ public class CharacterInfoUI : MonoBehaviour
     [SerializeField] private TMP_Text growIntTxt;
     [SerializeField] private TMP_Text growLukTxt;
 
-
-
     private CharacterStats playerStat;
 
     private void Start()
     {
+        instance = this;
         playerStat = GameManager.Instance.playerStats;
     }
     private void Update()

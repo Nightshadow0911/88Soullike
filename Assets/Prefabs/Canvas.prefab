@@ -4616,7 +4616,7 @@ RectTransform:
   m_Children:
   - {fileID: 2825341362796517007}
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12636,7 +12636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1820377577704761371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14172,6 +14172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4bdac084cb0fe47bd53ffe766d7418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  growPopupBtn: {fileID: 7508055315377371736}
   growthPopup: {fileID: 3174822632819205196}
   levelTxt: {fileID: 5891380873359332859}
   healthTxt: {fileID: 2751440531853177816}
