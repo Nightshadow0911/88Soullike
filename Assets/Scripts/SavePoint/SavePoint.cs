@@ -7,13 +7,17 @@ using UnityEngine.UI;
 
 public class SavePoint : MonoBehaviour
 {
-    [SerializeField] private Travel travel; // 빠른 이동 정보
+    [SerializeField] private string name;
+    [SerializeField] private GameObject travelPoint;
     [SerializeField] private GameObject alert;
     private bool awke = false;
+    
+    public static event Action<bool> TravelEvent;
 
     private void Awake()
     {
-        travel.position = transform.position;
+        travelPoint.SetActive(false);
+        alert.SetActive(false);
     }
 
     private void Update()
@@ -22,7 +26,8 @@ public class SavePoint : MonoBehaviour
         {
             if (!awke)
             {
-                SaveMenuManager.instance.AddTravel(travel); // 빠른 이동 추가
+                travelPoint.GetComponent<TravelPoint>().SetTravel(name, transform.position);
+                TravelEvent?.Invoke(true);
                 awke = true;
             }
             CharacterStats stats = GameManager.Instance.playerStats;
@@ -36,6 +41,8 @@ public class SavePoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             alert.SetActive(true);
+            if (awke)
+                TravelEvent?.Invoke(true);
         }
     }
     
@@ -44,6 +51,7 @@ public class SavePoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             alert.SetActive(false);
+            TravelEvent?.Invoke(false);
         }
     }
 }

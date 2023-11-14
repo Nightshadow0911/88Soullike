@@ -940,6 +940,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1086628576}
+  - component: {fileID: 1086628577}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -964,6 +965,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1086628577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086628575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab9f786e8b825c142824b466e5e73a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1809968611}
+  monsters: []
+  playerStats: {fileID: 1809968617}
+  lastPlayerController: {fileID: 0}
 --- !u!1 &1809968611
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,6 +994,7 @@ GameObject:
   - component: {fileID: 1809968614}
   - component: {fileID: 1809968616}
   - component: {fileID: 1809968615}
+  - component: {fileID: 1809968617}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1044,7 +1062,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809968611}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0.25, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1136,6 +1154,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.19, y: 0.37}
   m_EdgeRadius: 0
+--- !u!114 &1809968617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809968611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e82ee6f6243994ca641307d1f252e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterHp: 0
+  characterStamina: 0
+  characterNomallAttackDamage: 0
+  Exp: 0
+  Gold: 0
+  curExp: 0
+  maxExp: 100
+  monsterHp: 0
 --- !u!1 &1880623049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,6 +1320,14 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1809968613}
+    - target: {fileID: 3402879986251551315, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
+      propertyPath: dodgeDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402879986251551315, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
+      propertyPath: backstepDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6964863431019259073, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1325,6 +1371,10 @@ PrefabInstance:
     - target: {fileID: 6964863431019259073, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205926751229094814, guid: f8a943bbc57167a458183819b7b84eb8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
