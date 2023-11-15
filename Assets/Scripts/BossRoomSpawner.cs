@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class BossRoomSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject deathBringer;
+    private int dBSpawnCount;
+    public GameObject Door;
+
+    private void Start()
     {
-        
+        deathBringer.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.gameObject.CompareTag("Player")&& dBSpawnCount == 0) //플레이어가 입장하면 보스 활성화
+        {
+            deathBringer.SetActive(true);
+            dBSpawnCount++;
+
+
+        }
     }
+
+
 }
