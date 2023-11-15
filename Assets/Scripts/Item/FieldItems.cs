@@ -10,13 +10,13 @@ public class FieldItems : MonoBehaviour
     public void SetItem(ItemSO fieldItem)
     {
         item.curItem = fieldItem;
-        item.itemName = fieldItem.itemName;
-        item.sprite = fieldItem.sprite;
-        item.type = fieldItem.type;
-        item.power = fieldItem.power;
-        item.description = fieldItem.descriptiion;
-        item.efts = fieldItem.efts;
-        item.amount = fieldItem.amount;
+        item.itemName = fieldItem.ItemName;
+        item.sprite = fieldItem.Sprite;
+        item.type = fieldItem.Type;
+        item.power = fieldItem.Power;
+        item.description = fieldItem.Descriptiion;
+        item.efts = fieldItem.Efts;
+        item.amount = fieldItem.Amount;
 
         image.sprite = item.sprite;
     }
