@@ -11,6 +11,7 @@ public class LastPlayerController : MonoBehaviour
 
     public FadeOut fadeOut;
     public CharacterStats characterStats;
+    public LedgeCheck ledgeCheck;
 
     public PlayerUI playerUI;
 
@@ -62,6 +63,17 @@ public class LastPlayerController : MonoBehaviour
     public bool canTakeDamage = true;
     private int damage=10;
 
+
+    [HideInInspector]public bool ledgeDetected;
+
+    [SerializeField] private Vector2 offset1;
+    [SerializeField] private Vector2 offset2;
+
+    private Vector2 climbBegunPosition;
+    private Vector2 climbOverPosition;
+
+    private bool canGrabLedge= true;
+    private bool isClimbing;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -102,9 +114,36 @@ public class LastPlayerController : MonoBehaviour
             Move();
             Dash();
             CheckAttackTime();
+            CheckForLedge();
         }
         Death();
     }
+
+    private void CheckForLedge()
+    {
+        if(ledgeDetected && canGrabLedge)
+        {
+            canGrabLedge = false;
+
+            Vector2 ledgePosition = ledgeCheck.transform.position;
+
+            climbBegunPosition = ledgePosition + offset1;
+            climbOverPosition = ledgePosition + offset2;
+            isClimbing = true;
+            anim.SetBool("isClimbing", true);
+        }
+        if (isClimbing)
+        {
+            transform.position = climbBegunPosition;
+            if (Vector2.Distance(transform.position, climbOverPosition) < 0.1f)
+            {
+                isClimbing = false;
+                anim.SetBool("isClimbing", false);
+                canGrabLedge = true;
+            }
+        }
+    }
+
 
     private void CheckAttackTime()
     {
@@ -356,12 +395,14 @@ public class LastPlayerController : MonoBehaviour
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isWallSliding", isWallSliding);
         anim.SetBool("isWallDetected", isWallDetected);
+        anim.SetBool("isClimbing", isClimbing);
     }
 
     private void CollisionCheck()
     {
+        Vector3 offset = new Vector3(0,1f,0);
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
-        isWallDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+        isWallDetected = Physics2D.Raycast(transform.position+offset, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
         isLadderDetected = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckdistance, WhatIsLadder);
 
         if (isWallDetected && rb.velocity.y < 0)
@@ -373,6 +414,7 @@ public class LastPlayerController : MonoBehaviour
             canWallSlide = false;
             isWallSliding = false;
         }
+        Debug.Log(ledgeDetected);
     }
     private void OnDrawGizmos()
     {
