@@ -199,6 +199,7 @@ public class Boss_Archer : Boss
         Collider2D collision = Physics2D.OverlapBox(attackPosition.position, meleeAttackRange, 0, targetLayer);
         if (collision != null)
         {
+            GameManager.Instance.playerStats.TakeDamage(power);
             Debug.Log("player hit");
         }
         SoundManager.instance.PlayClip(meleeAttackSound);
@@ -276,7 +277,7 @@ public class Boss_Archer : Boss
             {
                 break;
             }
-            transform.position = Vector3.MoveTowards(transform.position, destination, 0.02f);
+            transform.position = Vector3.MoveTowards(transform.position, destination, 0.05f);
             yield return null;
         }
         yield return YieldCache.WaitForSeconds(0.1f);
@@ -292,7 +293,7 @@ public class Boss_Archer : Boss
         rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position,  dest, 0.02f);
+            transform.position = Vector3.MoveTowards(transform.position,  dest, 0.05f);
             // 목표지점에 도착하거나 벽에 닿으면 종료
             if ((Vector2)transform.position == dest || CheckBackWall(1f, sprite.flipX))
             {
@@ -326,12 +327,12 @@ public class Boss_Archer : Boss
         // 3번 공격
         anim.EndTracking();
         SoundManager.instance.PlayClip(spinAttackSound);
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             Collider2D collision = Physics2D.OverlapBox(attackPosition.position, meleeAttackRange, 0, targetLayer);
             if (collision != null)
             {
-                Debug.Log("player skill hit");
+                GameManager.Instance.playerStats.TakeDamage(power);
                 yield return YieldCache.WaitForSeconds(0.1f);
             }
             else

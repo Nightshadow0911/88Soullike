@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    #region Player·Î ¿Å°ÜÁÙ °Í
+    #region Playerë¡œ ì˜®ê²¨ì¤„ ê²ƒ
     public NPCSentence currentNPC;
 
     private void Update()
@@ -86,7 +86,7 @@ public class Inventory : MonoBehaviour
             onChangeItem?.Invoke(); // if(onChangeItem != null)
             return true;
         }
-        Debug.Log("ÀÎº¥Åä¸®¸¦ ºñ¿öÁÖ¼¼¿ä");
+        Debug.Log("ì¸ë²¤í† ë¦¬ë¥¼ ë¹„ì›Œì£¼ì„¸ìš”");
         return false;
     }
     public void RemoveItem(int index)

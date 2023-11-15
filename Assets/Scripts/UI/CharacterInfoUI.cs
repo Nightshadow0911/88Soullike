@@ -4,32 +4,36 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterInfoUI : MonoBehaviour
 {
-    [SerializeField] private GameObject growthPopup;
+    public static CharacterInfoUI instance;
+    public GameObject growPopupBtn;
+
+    public GameObject growthPopup;
     private bool isOpen = false;
 
     [Header("General ability")]
     [SerializeField] private TMP_Text levelTxt;
-    //[SerializeField] private TMP_Text expTxt; // °æÇèÄ¡ %(ÇöÀç °æÇèÄ¡ / °æÇèÄ¡ Åë)
-    [SerializeField] private TMP_Text healthTxt; // ÇöÀçÃ¼·Â / ÃÖ´ëÃ¼·Â
-    [SerializeField] private TMP_Text steminaTxt; // ÇöÀç ½ºÅÛ / ÃÖ´ë ½ºÅÛ 
-    [SerializeField] private TMP_Text weightTxt; // ÇöÀç ¹«°Ô / ¹«°Ô Á¦ÇÑ
-    [SerializeField] private TMP_Text speedTxt; // ÀÌµ¿¼Óµµ
+    //[SerializeField] private TMP_Text expTxt; // ê²½í—˜ì¹˜ %(í˜„ì¬ ê²½í—˜ì¹˜ / ê²½í—˜ì¹˜ í†µ)
+    [SerializeField] private TMP_Text healthTxt; // í˜„ì¬ì²´ë ¥ / ìµœëŒ€ì²´ë ¥
+    [SerializeField] private TMP_Text steminaTxt; // í˜„ì¬ ìŠ¤í…œ / ìµœëŒ€ ìŠ¤í…œ 
+    [SerializeField] private TMP_Text weightTxt; // í˜„ì¬ ë¬´ê²Œ / ë¬´ê²Œ ì œí•œ
+    [SerializeField] private TMP_Text speedTxt; // ì´ë™ì†ë„
 
     [Header("Attack ability")]
-    [SerializeField] private TMP_Text weaponTxt; //ÀåÂø¹«±â ÀÌ¸§(°¡Áø ¹«±âÀÇ ÀÌ¸§)
-    [SerializeField] private TMP_Text attackTxt; // °ø°İ·Â
-    [SerializeField] private TMP_Text skillTxt; // ÁÖ¹®·Â
-    [SerializeField] private TMP_Text propertyTxt; // ¼Ó¼º°ø°İ·Â
-    [SerializeField] private TMP_Text criticalTxt; // Ä¡¸íÅ¸À²
-    [SerializeField] private TMP_Text attackSpeedTxt; // °ø¼Ó
+    [SerializeField] private TMP_Text weaponTxt; //ì¥ì°©ë¬´ê¸° ì´ë¦„(ê°€ì§„ ë¬´ê¸°ì˜ ì´ë¦„)
+    [SerializeField] private TMP_Text attackTxt; // ê³µê²©ë ¥
+    [SerializeField] private TMP_Text skillTxt; // ì£¼ë¬¸ë ¥
+    [SerializeField] private TMP_Text propertyTxt; // ì†ì„±ê³µê²©ë ¥
+    [SerializeField] private TMP_Text criticalTxt; // ì¹˜ëª…íƒ€ìœ¨
+    [SerializeField] private TMP_Text attackSpeedTxt; // ê³µì†
 
     [Header("Deffence / Special")]
-    [SerializeField] private TMP_Text deffenceTxt; // ¹æ¾î·Â
-    [SerializeField] private TMP_Text parryTimeTxt; // ÆĞ¸µ°¡´É½Ã°£
-    [SerializeField] private TMP_Text addGoodTxt; // ¾ÆÀÌÅÛ È¹µæ·®
+    [SerializeField] private TMP_Text deffenceTxt; // ë°©ì–´ë ¥
+    [SerializeField] private TMP_Text parryTimeTxt; // íŒ¨ë§ê°€ëŠ¥ì‹œê°„
+    [SerializeField] private TMP_Text addGoodTxt; // ì•„ì´í…œ íšë“ëŸ‰
 
     [Header("growStat")]
     [SerializeField] private TMP_Text growPoint;
@@ -40,12 +44,11 @@ public class CharacterInfoUI : MonoBehaviour
     [SerializeField] private TMP_Text growIntTxt;
     [SerializeField] private TMP_Text growLukTxt;
 
-
-
     private CharacterStats playerStat;
 
     private void Start()
     {
+        instance = this;
         playerStat = GameManager.Instance.playerStats;
     }
     private void Update()
@@ -56,18 +59,19 @@ public class CharacterInfoUI : MonoBehaviour
 
     public void UpdateStatus()
     {
-        levelTxt.text = $"LV.{playerStat.Level} ({(100*((float)playerStat.curExp / playerStat.maxExp)):F1}%)"; // ()¾È¿¡ {(ÇöÀç °æÇèÄ¡ / °æÇèÄ¡ Åë):F1}
+        levelTxt.text = $"LV.{playerStat.Level} ({(100*((float)playerStat.curExp / playerStat.maxExp)):F1}%)"; // ()ì•ˆì— {(í˜„ì¬ ê²½í—˜ì¹˜ / ê²½í—˜ì¹˜ í†µ):F1}
         healthTxt.text = $"{playerStat.characterHp} / {playerStat.MaxHP}";
         steminaTxt.text = $"{(int)Math.Floor(playerStat.characterStamina)} / {playerStat.MaxStemina}";
         int equipWeight = 0;
         foreach(Item ew in Equipment.instance.equipItemList)
         {
+            if(ew != null)
             equipWeight += ew.weight;
         }
         weightTxt.text = $"{equipWeight} / {playerStat.CharacterWeight}";
         speedTxt.text = $"{playerStat.CharacterSpeed:F1}";
 
-        weaponTxt.text = $"[E] {Equipment.instance.equipItemList[0].itemName}";
+        weaponTxt.text = $"[E] {Equipment.instance.equipItemList[0]?.itemName}";
         attackTxt.text = $"{playerStat.NormalAttackDamage}";
         skillTxt.text = $"{playerStat.NormalSkillDamage}";
         propertyTxt.text = $"{playerStat.PropertyDamage}";
@@ -78,13 +82,13 @@ public class CharacterInfoUI : MonoBehaviour
         parryTimeTxt.text = $"{playerStat.ParryTime:F2}";
         addGoodTxt.text = $"{playerStat.AddGoods}";
 
-        growPoint.text = $"Æ÷ÀÎÆ® : {playerStat.Points}";
-        growHealthTxt.text = $"Ã¼·Â {playerStat.MaxHP}({playerStat.GrowHP})";
-        growStemenaTxt.text = $"½ºÅ×¹Ì³ª {playerStat.MaxStemina}({playerStat.GrowStemina})";
-        growStrTxt.text = $"Èû ({playerStat.GrowStr})"; // ÃàÀûµÈ ÈûÀ» °¡Áú º¯¼ö ÇÊ¿ä
-        growDexTxt.text = $"¹ÎÃ¸ ({playerStat.GrowDex})";
-        growIntTxt.text = $"Áö·Â ({playerStat.GrowInt})";
-        growLukTxt.text = $"¿î ({playerStat.GrowLux})";
+        growPoint.text = $"í¬ì¸íŠ¸ : {playerStat.Points}";
+        growHealthTxt.text = $"ì²´ë ¥ {playerStat.MaxHP}({playerStat.GrowHP})";
+        growStemenaTxt.text = $"ìŠ¤í…Œë¯¸ë‚˜ {playerStat.MaxStemina}({playerStat.GrowStemina})";
+        growStrTxt.text = $"í˜ ({playerStat.GrowStr})"; // ì¶•ì ëœ í˜ì„ ê°€ì§ˆ ë³€ìˆ˜ í•„ìš”
+        growDexTxt.text = $"ë¯¼ì²© ({playerStat.GrowDex})";
+        growIntTxt.text = $"ì§€ë ¥ ({playerStat.GrowInt})";
+        growLukTxt.text = $"ìš´ ({playerStat.GrowLux})";
     }
 
     public void GrowStat(string statName)

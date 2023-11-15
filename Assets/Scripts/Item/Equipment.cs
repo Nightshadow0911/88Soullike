@@ -22,6 +22,15 @@ public class Equipment : MonoBehaviour
     public Item[] equipItemList = new Item[2];
     public Item[] quickSlotList = new Item[3];
 
+    private CharacterStats characterStats;
+
+    private void Start()
+    {
+        characterStats = GameManager.Instance.playerStats;
+    }
+
+
+
     public void ChangeEquipItem(Item newItem)
     {
 
@@ -32,6 +41,7 @@ public class Equipment : MonoBehaviour
                 {
                     UnEquipItem(0);
                     equipItemList[WEAPON] = newItem;
+                    UpdateStatus(0);
                 }
                 else
                 {
@@ -45,6 +55,7 @@ public class Equipment : MonoBehaviour
                 {
                     UnEquipItem(1);
                     equipItemList[ARMOR] = newItem;
+                    UpdateStatus(1);
                 }
                 else
                 {
@@ -64,25 +75,26 @@ public class Equipment : MonoBehaviour
         switch (equipIndex)
         {
             case 0:
-                //GameManager.Instance.playerStats.NormalAttackDamage += equipItemList[equipIndex].power;
+                characterStats.NormalAttackDamage += equipItemList[equipIndex].power;
                 break;
             case 1:
-                //GameManager.Instance.playerStats.CharacterDefense += equipItemList[equipIndex].power;
+                characterStats.CharacterDefense += equipItemList[equipIndex].power;
                 break;
         }
     }
     public void UnEquipItem(int equipIndex)
     {
-        if (equipItemList[equipIndex].curItem) return;
-        equipItemList[equipIndex] = null;
+        //if (equipItemList[equipIndex] == null) return;
+
         switch (equipIndex)
         {
             case 0:
-                //GameManager.Instance.playerStats.NormalAttackDamage -= equipItemList[equipIndex].power;
+                characterStats.NormalAttackDamage -= equipItemList[equipIndex].power;
                 break;
             case 1:
-                //GameManager.Instance.playerStats.CharacterDefense -= equipItemList[equipIndex].power;
+                characterStats.CharacterDefense -= equipItemList[equipIndex].power;
                 break;
         }
+        equipItemList[equipIndex] = null;
     }
 }

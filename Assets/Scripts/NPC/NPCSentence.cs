@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPCSentence : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class NPCSentence : MonoBehaviour
             isInteractable = true;
             collision.GetComponent<Inventory>().currentNPC = this;
             TalkNpc();
+            if(npcName.Equals("Stat")) CharacterInfoUI.instance.growPopupBtn.GetComponent<Button>().interactable = true;
+
         }
     }
 
@@ -32,6 +35,11 @@ public class NPCSentence : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isInteractable = false;
+            if (npcName.Equals("Stat"))
+            {
+                CharacterInfoUI.instance.growthPopup.SetActive(false);
+                CharacterInfoUI.instance.growPopupBtn.GetComponent<Button>().interactable = false;
+            }
         }
     }
 
@@ -41,6 +49,9 @@ public class NPCSentence : MonoBehaviour
         {
             case "Shop":
                 InventoryUI.instance.shopPanel.SetActive(true);
+                break;
+            case "Stat":
+                CharacterInfoUI.instance.growPopupBtn.SetActive(true);
                 break;
             default:
                 InventoryUI.instance.shopPanel.SetActive(true);

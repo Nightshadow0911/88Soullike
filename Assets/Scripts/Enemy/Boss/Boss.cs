@@ -19,6 +19,7 @@ public abstract class Boss : MonoBehaviour
     protected SpriteRenderer sprite;
     
     [Header("Boss Stats")]
+    [SerializeField] protected int power;
     [SerializeField] protected float speed;
     [SerializeField] protected float delay;
     [SerializeField] protected float baseGroggyMeter;

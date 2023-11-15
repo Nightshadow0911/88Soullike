@@ -7,7 +7,7 @@ public class RangedAttackData : ScriptableObject
 {
     [Header("Ranged Attack Data")] 
     public string tag;
-    public float power;
+    public int power;
     public float speed;
     public float duration;
     public float angle;

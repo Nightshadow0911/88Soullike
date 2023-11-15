@@ -319,6 +319,7 @@ public class CharacterStats : MonoBehaviour
     public int NormalAttackDamage
     {
         get { return subState[(int)Substate.nomallAttackDamage]; }
+        set { subState[(int)Substate.nomallAttackDamage] = value; }
     }
     public int NormalSkillDamage
     {
@@ -335,6 +336,7 @@ public class CharacterStats : MonoBehaviour
     public int CharacterDefense
     {
         get { return subState[(int)Substate.characterDefense]; }
+        set { subState[(int)Substate.characterDefense] = value; }
     }
     public double CharacterSpeed
     {
