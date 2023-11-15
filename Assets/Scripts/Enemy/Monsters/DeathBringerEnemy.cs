@@ -153,9 +153,9 @@ public class DeathBringerEnemy : MonoBehaviour
                 spellEffectObject = Instantiate(spellEffect, spellPoint, Quaternion.identity); //플레이어 위치에 스펠 이펙트 생성
                 spellAttackObject = Instantiate(spellAttack, spellPoint, Quaternion.identity); //플레이어 위치에 스펠 범위 생성
                 spellAttackObject.SetActive(false); //생성된 공격 범위를 비활성화
-                yield return YieldCache.WaitForSeconds(1.2f);
+                yield return YieldCache.WaitForSeconds(1.4f);
                 spellAttackObject.SetActive(true); //시전시간 이후 활성화
-                yield return YieldCache.WaitForSeconds(0.8f);
+                yield return YieldCache.WaitForSeconds(0.6f);
                 spellCount++;
                 Destroy(spellEffectObject);
                 Destroy(spellAttackObject);
@@ -230,12 +230,12 @@ public class DeathBringerEnemy : MonoBehaviour
                 spellEffectObjects.Add(spellEffectObject);
                 spellAttackObjects.Add(spellAttackObject);
             }
-            yield return YieldCache.WaitForSeconds(1.2f);
+            yield return YieldCache.WaitForSeconds(1.4f);
             foreach (var spellAttackObject in spellAttackObjects)
             {
                 spellAttackObject.SetActive(true);
             }
-            yield return YieldCache.WaitForSeconds(0.8f);
+            yield return YieldCache.WaitForSeconds(0.6f);
             foreach (var spellEffectObject in spellEffectObjects)
             {
                 Destroy(spellEffectObject);

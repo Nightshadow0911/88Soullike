@@ -7,6 +7,7 @@ public class weaponColliderRange : MonoBehaviour
     public int damage = 10;
     public int test = 0;
     private GameManager gameManager;
+    private Particle particle;
     private LastPlayerController lastPlayerController;
 
 
@@ -14,6 +15,7 @@ public class weaponColliderRange : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         lastPlayerController = gameManager.lastPlayerController;
+        particle = GameManager.Instance.GetComponent<Particle>();
     }
 
     void Update()
@@ -29,16 +31,18 @@ public class weaponColliderRange : MonoBehaviour
                 {
                     if (lastPlayerController.canTakeDamage==false)
                     {
-                        Debug.Log("Block");
-                        gameManager.playerStats.TakeDamage(test);
+                    particle.GuardEffect();
+                    Debug.Log("Block");
+                    gameManager.playerStats.TakeDamage(test);
                     }
                     else if (lastPlayerController.canTakeDamage == true)
                     {
-                        Debug.Log("Hit");
-                        Debug.Log("MonsterToPlayerAttack");
-                        gameManager.playerStats.TakeDamage(damage);
-                        gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
-                        Destroy(gameObject);
+                    particle.DamagedEffect(); //피격 이펙트 생성
+                    Debug.Log("Hit");
+                     Debug.Log("MonsterToPlayerAttack");
+                     gameManager.playerStats.TakeDamage(damage);
+                     gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
+                     Destroy(gameObject);
                     }
                 }
                 else
