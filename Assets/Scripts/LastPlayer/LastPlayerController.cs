@@ -13,6 +13,8 @@ public class LastPlayerController : MonoBehaviour
     public CharacterStats characterStats;
 
     public PlayerUI playerUI;
+    //public CameraFollow cameraStuff;
+    private float fallSpeedYDampingChangeThreshold;
 
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpForce = 10;
@@ -22,7 +24,7 @@ public class LastPlayerController : MonoBehaviour
     private bool canWallSlide;
     private bool isWallSliding;
 
-    private bool facingRight = true;
+    public bool facingRight = true;
     private float movingInput;
     private int facingDirection = 1;
     [SerializeField] private Vector2 wallJumpDirection;
@@ -68,6 +70,8 @@ public class LastPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //characterStats.characterStamina = maxStamina;
         gameManager = GameManager.Instance;
+
+        fallSpeedYDampingChangeThreshold = CameraManager.instance.fallSpeedYDampingChangeThreshold;
     }
 
     void Update()
@@ -104,6 +108,22 @@ public class LastPlayerController : MonoBehaviour
             CheckAttackTime();
         }
         Death();
+
+        // 카메라 로직
+        #region Camera
+        if (rb.velocity.y < fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping &&
+            !CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.instance.LerpYDamping(true);
+        }
+
+        if (rb.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping &&
+            CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.instance.LerpedFromPlayerFalling = false;
+            CameraManager.instance.LerpYDamping(false);
+        }
+        #endregion
     }
 
     private void CheckAttackTime()
@@ -323,6 +343,7 @@ public class LastPlayerController : MonoBehaviour
         facingRight = !facingRight;
 
         transform.Rotate(0, 180, 0);
+        //cameraStuff.CallTurn();
     }
 
 
