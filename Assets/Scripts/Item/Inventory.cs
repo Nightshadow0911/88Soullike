@@ -42,6 +42,7 @@ public class Inventory : MonoBehaviour
     public List<Item> items = new List<Item>();
 
     private int slotCount;
+    [SerializeField] private int soulCount = 10000;
     public int SlotCount
     {
         get => slotCount;
@@ -50,6 +51,11 @@ public class Inventory : MonoBehaviour
             slotCount = value;
             onSlotCountChange.Invoke(slotCount);
         }
+    }
+    public int SoulCount
+    {
+        get { return soulCount; }
+        set { soulCount = value; }
     }
     // Start is called before the first frame update
     void Start()
@@ -66,9 +72,9 @@ public class Inventory : MonoBehaviour
                 bool itemAlreadyInInventory = false;
                 foreach(Item inventoryItem in items)
                 {
-                    if(inventoryItem.curItem.itemName == item.curItem.itemName)
+                    if(inventoryItem.curItem.ItemName == item.curItem.ItemName)
                     {
-                        inventoryItem.amount += item.curItem.amount;
+                        inventoryItem.amount += item.curItem.Amount;
                         itemAlreadyInInventory = true;
                     }
                 }

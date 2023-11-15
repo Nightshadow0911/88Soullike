@@ -13,11 +13,13 @@ public class Item
     public Sprite sprite;
     public List<ItemEffect> efts;
     public int power;
-    public string description;
+    public List<String> description;
     public int amount;
     public float attackRange;
     public float attackSpeed;
+    public PropertyType weaponProperty;
     public int weight;
+    public int price;
 
     public bool Use() //사용 아이템 사용
     {

@@ -20,4 +20,6 @@ public class TravelManager : MonoBehaviour
     {
         isTravelReady = isTravelReady ? false : true;
     }
+
+
 }

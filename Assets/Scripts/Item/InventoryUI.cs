@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ public class InventoryUI : MonoBehaviour
 
     public Transform slotHolder;
     public GameObject slotPrefab;
+    [SerializeField] private TMP_Text soulTxt;
 
 
     private void Start()
@@ -27,6 +29,7 @@ public class InventoryUI : MonoBehaviour
         inven.onSlotCountChange += SlotChange;
         inven.onChangeItem += RedrawSlotUI;
         AddSlot();
+        soulTxt.text = $"{inven.SoulCount:N0}";
         //inventoryPanel.SetActive(activeInventory);
     }
 
@@ -72,5 +75,6 @@ public class InventoryUI : MonoBehaviour
             slots[i].item = inven.items[i];
             slots[i].UpdateSlotUI();
         }
+        soulTxt.text = $"{inven.SoulCount:N0}";
     }
 }
