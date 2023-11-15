@@ -14,6 +14,7 @@ public class UsePopup : MonoBehaviour
     //[SerializeField] private Button btnBack;
     [SerializeField] private Button btnConform;
     [SerializeField] private Button btnCancel;
+    [SerializeField] private Button btnDump;
 
     public int slotnum;
 
@@ -23,6 +24,7 @@ public class UsePopup : MonoBehaviour
         //btnBack.onClick.AddListener(Close);
         btnCancel.onClick.AddListener(Close);
         btnConform.onClick.AddListener(Confirm);
+        btnDump.onClick.AddListener(Dump);
     }
 
     public void SetPopup(string title, string content, int slotnum)
@@ -57,5 +59,11 @@ public class UsePopup : MonoBehaviour
     void Close()
     {
         gameObject.SetActive(false);
+    }
+
+    void Dump()
+    {
+        Inventory.instance.RemoveItem(slotnum);
+        Close();
     }
 }

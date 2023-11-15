@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: NaPlan
   productName: 88Soullike
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -765,7 +765,13 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -785,11 +791,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: ce14a0ce-e217-4f76-ba79-00b8ac83f044
+  cloudProjectId: 967e72ee-3bc2-49ab-bb0f-0a5ad3b666d1
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: 88Soullike
-  organizationId: whqudgh0911
+  organizationId: ingyeol16
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
