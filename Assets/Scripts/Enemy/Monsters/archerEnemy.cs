@@ -149,7 +149,17 @@ public class archerEnemy : MonoBehaviour
         animator.Play("death");
         yield return YieldCache.WaitForSeconds(1f);
         Vector2 SelfPosition = selfPosition.position + new Vector3(0, 1);
-        Instantiate(soulDrop, SelfPosition, Quaternion.identity);
+        SoulObjectPool objectPool = FindObjectOfType<SoulObjectPool>();
+        foreach (var pool in objectPool.pools)
+        {
+            GameObject obj = objectPool.SpawnFromPool(pool.tag);
+
+            if (obj != null)
+            {
+                obj.transform.position = SelfPosition;
+                obj.SetActive(true);
+            }
+        }
         Destroy(gameObject);
     }
 }

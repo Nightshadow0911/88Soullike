@@ -22,7 +22,8 @@ public class Boss_Archer : Boss
     [SerializeField] private Vector2 meleeAttackRange;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] public int maxHealth = 1000;
-     private int currentHealth;
+    [SerializeField] public Transform selfPosition;
+    private int currentHealth;
 
     private readonly Vector3 atkRightPos = new Vector3(0.4f, 0.4f, 0);
     private readonly Vector3 atkLeftPos = new Vector3(-0.4f, 0.4f, 0);
@@ -478,6 +479,21 @@ public class Boss_Archer : Boss
         anim.OnDeath();
         isDie = true;
         ProjectileManager.instance.DeleteObjectPool(ProjectileObj.tag);
+        Vector2 SelfPosition = selfPosition.position + new Vector3(0, 1);
+        SoulObjectPool objectPool = FindObjectOfType<SoulObjectPool>();
+        foreach (var pool in objectPool.pools)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                GameObject obj = objectPool.SpawnFromPool(pool.tag);
+
+                if (obj != null)
+                {
+                    obj.transform.position = SelfPosition;
+                    obj.SetActive(true);
+                }
+            }
+        }
     }
     
     private void OnDangerSign()
