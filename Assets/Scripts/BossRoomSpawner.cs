@@ -20,13 +20,8 @@ public class BossRoomSpawner : MonoBehaviour
         {
             deathBringer.SetActive(true);
             dBSpawnCount++;
-            StartCoroutine(CloseDoor());
+            
 
         }
-    }
-
-    IEnumerator CloseDoor()
-    {
-        
     }
 }
