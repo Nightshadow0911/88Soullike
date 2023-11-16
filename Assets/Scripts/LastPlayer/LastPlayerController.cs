@@ -121,27 +121,44 @@ public class LastPlayerController : MonoBehaviour
 
     private void CheckForLedge()
     {
-        if(ledgeDetected && canGrabLedge)
+        if (ledgeDetected && canGrabLedge)
         {
+            // 매달리기 시작 조건이 충족될 때
             canGrabLedge = false;
 
+            // 현재 매달리는 위치와 오프셋을 사용하여 매달리기 시작과 끝 지점을 계산
             Vector2 ledgePosition = ledgeCheck.transform.position;
-
             climbBegunPosition = ledgePosition + offset1;
             climbOverPosition = ledgePosition + offset2;
+
+            // 매달리기 상태를 활성화하고 애니메이션을 설정
             isClimbing = true;
             anim.SetBool("isClimbing", true);
         }
+
         if (isClimbing)
         {
+            // 매달리기 중인 경우, 플레이어의 위치를 시작 지점으로 설정
             transform.position = climbBegunPosition;
-            if (Vector2.Distance(transform.position, climbOverPosition) < 0.1f)
-            {
-                isClimbing = false;
-                anim.SetBool("isClimbing", false);
-                canGrabLedge = true;
-            }
         }
+    }
+
+    private void LedgeClimOver()
+    {
+        // 매달리기 종료 조건이 충족될 때
+        isClimbing = false;
+
+        // 플레이어의 위치를 매달리기 종료 지점으로 이동
+        transform.position = climbOverPosition;
+
+        // 일정 시간이 지난 후 다시 매달리기를 허용하는 메서드 호출
+        Invoke("AllowLedgeGrab", 1f);
+    }
+
+    private void AllowLedgeGrab()
+    {
+        // 다시 매달리기를 허용하는 메서드
+        canGrabLedge = true;
     }
 
 
