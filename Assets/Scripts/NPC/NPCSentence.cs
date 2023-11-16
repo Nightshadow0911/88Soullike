@@ -10,6 +10,15 @@ public class NPCSentence : MonoBehaviour
     public GameObject chatBoxPrefab;
     public string npcName;
     public bool isInteractable = false;
+    private CharacterInfoUI charInfoUI;
+    private InventoryUI invenUI;
+
+    private void Start()
+    {
+        charInfoUI = CharacterInfoUI.instance;
+        invenUI = InventoryUI.instance;
+    }
+
 
     public void TalkNpc()
     {
@@ -25,7 +34,7 @@ public class NPCSentence : MonoBehaviour
             isInteractable = true;
             collision.GetComponent<Inventory>().currentNPC = this;
             TalkNpc();
-            if(npcName.Equals("Stat")) CharacterInfoUI.instance.growPopupBtn.GetComponent<Button>().interactable = true;
+            if(npcName.Equals("Stat")) charInfoUI.growPopupBtn.GetComponent<Button>().interactable = true;
 
         }
     }
@@ -37,8 +46,8 @@ public class NPCSentence : MonoBehaviour
             isInteractable = false;
             if (npcName.Equals("Stat"))
             {
-                CharacterInfoUI.instance.growthPopup.SetActive(false);
-                CharacterInfoUI.instance.growPopupBtn.GetComponent<Button>().interactable = false;
+                charInfoUI.growthPopup.SetActive(false);
+                charInfoUI.growPopupBtn.GetComponent<Button>().interactable = false;
             }
         }
     }
@@ -48,13 +57,13 @@ public class NPCSentence : MonoBehaviour
         switch (npcName)
         {
             case "Shop":
-                InventoryUI.instance.shopPanel.SetActive(true);
+                invenUI.shopPanel.SetActive(true);
                 break;
             case "Stat":
-                CharacterInfoUI.instance.growPopupBtn.SetActive(true);
+                charInfoUI.growPopupBtn.SetActive(true);
                 break;
             default:
-                InventoryUI.instance.shopPanel.SetActive(true);
+                invenUI.shopPanel.SetActive(true);
                 break;
 
 

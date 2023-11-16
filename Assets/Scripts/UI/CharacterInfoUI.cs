@@ -46,11 +46,12 @@ public class CharacterInfoUI : MonoBehaviour
 
     private CharacterStats playerStat;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
         playerStat = GameManager.Instance.playerStats;
-    }
+        
+}
     private void Update()
     {
         UpdateStatus();

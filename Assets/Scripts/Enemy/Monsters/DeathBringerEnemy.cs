@@ -279,7 +279,20 @@ public class DeathBringerEnemy : MonoBehaviour
         animator.Play("disappear");
         yield return YieldCache.WaitForSeconds(1f);
         Vector2 SelfPosition = selfPosition.position + new Vector3(0,1);
-        Instantiate(soulDrop, SelfPosition, Quaternion.identity);
+        SoulObjectPool objectPool = FindObjectOfType<SoulObjectPool>();
+        foreach (var pool in objectPool.pools)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                GameObject obj = objectPool.SpawnFromPool(pool.tag);
+
+                if (obj != null)
+                {
+                    obj.transform.position = SelfPosition;
+                    obj.SetActive(true);
+                }
+            }
+        }
         Destroy(gameObject);
         Time.timeScale = 1f; //슬로우모션 해제.
         
