@@ -14,8 +14,6 @@ public class LastPlayerController : MonoBehaviour
     public LedgeCheck ledgeCheck;
 
     public PlayerUI playerUI;
-    //public CameraFollow cameraStuff;
-    private float fallSpeedYDampingChangeThreshold;
 
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpForce = 10;
@@ -51,7 +49,7 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
     [SerializeField] private float attackStaminaCost = 5f;
-    [SerializeField] private float comboStaminaCost = 20f; 
+    [SerializeField] private float comboStaminaCost = 20f;
 
     public Transform attackPoint;
     [SerializeField] private float attackRange = 1f;
@@ -63,10 +61,10 @@ public class LastPlayerController : MonoBehaviour
     private int attackClickCount = 1;
 
     public bool canTakeDamage = true;
-    private int damage=10;
+    private int damage = 10;
 
 
-    [HideInInspector]public bool ledgeDetected;
+    [HideInInspector] public bool ledgeDetected;
 
     [SerializeField] private Vector2 offset1;
     [SerializeField] private Vector2 offset2;
@@ -74,7 +72,7 @@ public class LastPlayerController : MonoBehaviour
     private Vector2 climbBegunPosition;
     private Vector2 climbOverPosition;
 
-    private bool canGrabLedge= true;
+    private bool canGrabLedge = true;
     private bool isClimbing;
     void Start()
     {
@@ -82,8 +80,6 @@ public class LastPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //characterStats.characterStamina = maxStamina;
         gameManager = GameManager.Instance;
-
-        fallSpeedYDampingChangeThreshold = CameraManager.instance.fallSpeedYDampingChangeThreshold;
     }
 
     void Update()
@@ -105,9 +101,9 @@ public class LastPlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
         if (Time.time > lastAttackTime + 5f)
-          {
-               attackClickCount = 1;
-          }
+        {
+            attackClickCount = 1;
+        }
         if (isLadderDetected)
         {
             ClimbLadder();
@@ -121,25 +117,6 @@ public class LastPlayerController : MonoBehaviour
             CheckForLedge();
         }
         Death();
-
-
-        // 카메라 로직
-        #region Camera
-        if (rb.velocity.y < fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping &&
-            !CameraManager.instance.LerpedFromPlayerFalling)
-        {
-            CameraManager.instance.LerpYDamping(true);
-        }
-
-        if (rb.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping &&
-            CameraManager.instance.LerpedFromPlayerFalling)
-        {
-            CameraManager.instance.LerpedFromPlayerFalling = false;
-            CameraManager.instance.LerpYDamping(false);
-        }
-        #endregion
-    }
-
     }
 
     private void CheckForLedge()
@@ -158,6 +135,7 @@ public class LastPlayerController : MonoBehaviour
             isClimbing = true;
             anim.SetBool("isClimbing", true);
         }
+
         if (isClimbing)
         {
             // 매달리기 중인 경우, 플레이어의 위치를 시작 지점으로 설정
@@ -165,37 +143,23 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
-    private void LedgeClimbOver()
+    private void LedgeClimOver()
     {
         // 매달리기 종료 조건이 충족될 때
         isClimbing = false;
 
         // 플레이어의 위치를 매달리기 종료 지점으로 이동
         transform.position = climbOverPosition;
+
         // 일정 시간이 지난 후 다시 매달리기를 허용하는 메서드 호출
         Invoke("AllowLedgeGrab", 1f);
     }
-    private IEnumerator LedgeClimbOverCoroutine()
-    {
-        
-        float elapsedTime = 0f;
-        float lerpDuration = 1f; 
 
-        while (elapsedTime < lerpDuration)
-        {
-            // Lerp를 사용하여 부드럽게 매달리기 시작과 끝 지점을 이동
-            transform.position = Vector3.Lerp(climbBegunPosition, climbOverPosition, elapsedTime / lerpDuration);
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
     private void AllowLedgeGrab()
     {
         // 다시 매달리기를 허용하는 메서드
         canGrabLedge = true;
     }
-
 
 
     private void CheckAttackTime()
@@ -300,7 +264,7 @@ public class LastPlayerController : MonoBehaviour
             gameManager.playerStats.characterStamina -= attackStaminaCost;
             anim.SetTrigger("attack");
             gameManager.playerStats.AttackDamage(damage);
-            int modifiedAttackDamage =damage;
+            int modifiedAttackDamage = damage;
             if (attackClickCount != 0 && attackClickCount % 3 == 0)
             {
                 gameManager.playerStats.characterStamina -= comboStaminaCost;
@@ -415,7 +379,6 @@ public class LastPlayerController : MonoBehaviour
         facingRight = !facingRight;
 
         transform.Rotate(0, 180, 0);
-        //cameraStuff.CallTurn();
     }
 
 
@@ -454,9 +417,9 @@ public class LastPlayerController : MonoBehaviour
 
     private void CollisionCheck()
     {
-        Vector3 offset = new Vector3(0,1f,0);
+        Vector3 offset = new Vector3(0, 1f, 0);
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
-        isWallDetected = Physics2D.Raycast(transform.position+offset, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+        isWallDetected = Physics2D.Raycast(transform.position + offset, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
         isLadderDetected = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckdistance, WhatIsLadder);
 
         if (isWallDetected && rb.velocity.y < 0)
