@@ -135,6 +135,7 @@ public class LastPlayerController : MonoBehaviour
             isClimbing = true;
             anim.SetBool("isClimbing", true);
         }
+
         if (isClimbing)
         {
             // 매달리기 중인 경우, 플레이어의 위치를 시작 지점으로 설정
@@ -142,31 +143,18 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
-    private void LedgeClimbOver()
+    private void LedgeClimOver()
     {
         // 매달리기 종료 조건이 충족될 때
         isClimbing = false;
 
         // 플레이어의 위치를 매달리기 종료 지점으로 이동
         transform.position = climbOverPosition;
+
         // 일정 시간이 지난 후 다시 매달리기를 허용하는 메서드 호출
         Invoke("AllowLedgeGrab", 1f);
     }
-    private IEnumerator LedgeClimbOverCoroutine()
-    {
-        
-        float elapsedTime = 0f;
-        float lerpDuration = 1f; 
 
-        while (elapsedTime < lerpDuration)
-        {
-            // Lerp를 사용하여 부드럽게 매달리기 시작과 끝 지점을 이동
-            transform.position = Vector3.Lerp(climbBegunPosition, climbOverPosition, elapsedTime / lerpDuration);
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
     private void AllowLedgeGrab()
     {
         // 다시 매달리기를 허용하는 메서드
