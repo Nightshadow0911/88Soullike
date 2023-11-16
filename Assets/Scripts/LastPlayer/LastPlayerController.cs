@@ -11,10 +11,9 @@ public class LastPlayerController : MonoBehaviour
 
     public FadeOut fadeOut;
     public CharacterStats characterStats;
+    public LedgeCheck ledgeCheck;
 
     public PlayerUI playerUI;
-    //public CameraFollow cameraStuff;
-    private float fallSpeedYDampingChangeThreshold;
 
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpForce = 10;
@@ -50,7 +49,7 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
     [SerializeField] private float attackStaminaCost = 5f;
-    [SerializeField] private float comboStaminaCost = 20f; 
+    [SerializeField] private float comboStaminaCost = 20f;
 
     public Transform attackPoint;
     [SerializeField] private float attackRange = 1f;
@@ -62,16 +61,25 @@ public class LastPlayerController : MonoBehaviour
     private int attackClickCount = 1;
 
     public bool canTakeDamage = true;
-    private int damage=10;
+    private int damage = 10;
 
+
+    [HideInInspector] public bool ledgeDetected;
+
+    [SerializeField] private Vector2 offset1;
+    [SerializeField] private Vector2 offset2;
+
+    private Vector2 climbBegunPosition;
+    private Vector2 climbOverPosition;
+
+    private bool canGrabLedge = true;
+    private bool isClimbing;
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         //characterStats.characterStamina = maxStamina;
         gameManager = GameManager.Instance;
-
-        fallSpeedYDampingChangeThreshold = CameraManager.instance.fallSpeedYDampingChangeThreshold;
     }
 
     void Update()
@@ -93,9 +101,9 @@ public class LastPlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
         if (Time.time > lastAttackTime + 5f)
-          {
-               attackClickCount = 1;
-          }
+        {
+            attackClickCount = 1;
+        }
         if (isLadderDetected)
         {
             ClimbLadder();
@@ -106,26 +114,9 @@ public class LastPlayerController : MonoBehaviour
             Move();
             Dash();
             CheckAttackTime();
+            CheckForLedge();
         }
         Death();
-
-        // 카메라 로직
-        #region Camera
-        if (rb.velocity.y < fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping &&
-            !CameraManager.instance.LerpedFromPlayerFalling)
-        {
-            CameraManager.instance.LerpYDamping(true);
-        }
-
-        if (rb.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping &&
-            CameraManager.instance.LerpedFromPlayerFalling)
-        {
-            CameraManager.instance.LerpedFromPlayerFalling = false;
-            CameraManager.instance.LerpYDamping(false);
-        }
-        #endregion
-    }
-
     }
 
     private void CheckForLedge()
@@ -273,7 +264,7 @@ public class LastPlayerController : MonoBehaviour
             gameManager.playerStats.characterStamina -= attackStaminaCost;
             anim.SetTrigger("attack");
             gameManager.playerStats.AttackDamage(damage);
-            int modifiedAttackDamage =damage;
+            int modifiedAttackDamage = damage;
             if (attackClickCount != 0 && attackClickCount % 3 == 0)
             {
                 gameManager.playerStats.characterStamina -= comboStaminaCost;
@@ -388,7 +379,6 @@ public class LastPlayerController : MonoBehaviour
         facingRight = !facingRight;
 
         transform.Rotate(0, 180, 0);
-        //cameraStuff.CallTurn();
     }
 
 
@@ -422,12 +412,14 @@ public class LastPlayerController : MonoBehaviour
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isWallSliding", isWallSliding);
         anim.SetBool("isWallDetected", isWallDetected);
+        anim.SetBool("isClimbing", isClimbing);
     }
 
     private void CollisionCheck()
     {
+        Vector3 offset = new Vector3(0, 1f, 0);
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
-        isWallDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+        isWallDetected = Physics2D.Raycast(transform.position + offset, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
         isLadderDetected = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckdistance, WhatIsLadder);
 
         if (isWallDetected && rb.velocity.y < 0)
@@ -439,6 +431,7 @@ public class LastPlayerController : MonoBehaviour
             canWallSlide = false;
             isWallSliding = false;
         }
+        Debug.Log(ledgeDetected);
     }
     private void OnDrawGizmos()
     {
