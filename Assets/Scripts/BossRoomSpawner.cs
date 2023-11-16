@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BossRoomSpawner : MonoBehaviour
 {
@@ -19,10 +20,13 @@ public class BossRoomSpawner : MonoBehaviour
         {
             deathBringer.SetActive(true);
             dBSpawnCount++;
-
+            StartCoroutine(CloseDoor());
 
         }
     }
 
-
+    IEnumerator CloseDoor()
+    {
+        
+    }
 }
