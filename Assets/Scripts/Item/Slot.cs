@@ -11,6 +11,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public TMP_Text amountTxt;
     public Item item;
     public Image itemIcon;
+    [SerializeField] private string descriptions;
 
     public void UpdateSlotUI()
     {
@@ -52,9 +53,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler
             if (item.curItem == null) return;
         }
 
-
         InventoryUI.instance.usePanel.gameObject.SetActive(true);
-        InventoryUI.instance.usePanel.GetComponent<UsePopup>().SetPopup(item.itemName, item.description, slotnum);
+
+        for (int i = 0; i < item.description.Count; i++)
+        {
+            descriptions += $"{item.description[i]}\n";
+
+        }
+        InventoryUI.instance.usePanel.GetComponent<UsePopup>().SetPopup(item.itemName, descriptions, slotnum);
     }
 
     public void ApplyUse()

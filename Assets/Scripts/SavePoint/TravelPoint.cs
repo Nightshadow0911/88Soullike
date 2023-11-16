@@ -15,7 +15,7 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     private bool isReady;
     [SerializeField] private TextMeshProUGUI textUI;
     [SerializeField] private Image imageUI;
-    
+
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void SetTravel(string name, Vector3 position)
     {
-        this.position = position  + (Vector3.left * 2);
+        this.position = position + (Vector3.left * 2);
         textUI.text = name;
         gameObject.SetActive(true);
     }
@@ -39,7 +39,7 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if (!state)
             CloseText();
     }
-    
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (isReady)
@@ -59,8 +59,11 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         CloseText();
     }
 
-    private void CloseText()
+    public void CloseText()
     {
         textUI.gameObject.SetActive(false);
     }
+
+    
+
 }

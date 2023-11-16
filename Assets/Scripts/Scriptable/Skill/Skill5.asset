@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de6f87c417638644d90868bcd6c3fa79, type: 3}
+  m_Name: Skill5
+  m_EditorClassIdentifier: 
+  type: 0
+  skillName: "\uB3C5\uAD6C\uC2AC"
+  skillIcon: {fileID: 0}
+  efts:
+  - {fileID: 11400000, guid: c2feb105f7b3d58439d28d4c10777843, type: 2}
+  power: 120
+  descriptiion:
+  - "\uC804\uBC29\uC73C\uB85C \uB3C5\uAD6C\uC2AC\uC744 \uBC1C\uC0AC\uD574 '\uACC4\uC0B0\uC2DD'
+    \uD53C\uD574\uB97C \uC785\uD78C\uB2E4."
+  - "\uD53C\uACA9\uB41C \uC801\uC740 '\uC0C1\uD0DC\uC774\uC0C1'\uC5D0 \uAC78\uB9B0\uB2E4."
+  skillProperty: 2
+  price: 1600
