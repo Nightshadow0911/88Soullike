@@ -74,6 +74,10 @@ public class LastPlayerController : MonoBehaviour
 
     private bool canGrabLedge = true;
     private bool isClimbing;
+
+    private bool isSitting;
+    private bool isCrouchWalking;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -92,6 +96,14 @@ public class LastPlayerController : MonoBehaviour
         if (isGrounded)
         {
             canMove = true;
+            if (isSitting)
+            {
+                canMove = false;
+                if (isCrouchWalking)
+                {
+                    canMove = true;
+                }
+            }
             RegenStamina();
         }
 
@@ -112,6 +124,7 @@ public class LastPlayerController : MonoBehaviour
         {
             ReleaseLadder();
             Move();
+            Sit();
             Dash();
             CheckAttackTime();
             CheckForLedge();
@@ -125,36 +138,42 @@ public class LastPlayerController : MonoBehaviour
         {
             // 매달리기 시작 조건이 충족될 때
             canGrabLedge = false;
-
             // 현재 매달리는 위치와 오프셋을 사용하여 매달리기 시작과 끝 지점을 계산
             Vector2 ledgePosition = ledgeCheck.transform.position;
             climbBegunPosition = ledgePosition + offset1;
             climbOverPosition = ledgePosition + offset2;
-
             // 매달리기 상태를 활성화하고 애니메이션을 설정
             isClimbing = true;
             anim.SetBool("isClimbing", true);
         }
-
         if (isClimbing)
         {
             // 매달리기 중인 경우, 플레이어의 위치를 시작 지점으로 설정
             transform.position = climbBegunPosition;
         }
     }
-
-    private void LedgeClimOver()
+    private void LedgeClimbOver()
     {
         // 매달리기 종료 조건이 충족될 때
         isClimbing = false;
-
         // 플레이어의 위치를 매달리기 종료 지점으로 이동
         transform.position = climbOverPosition;
-
         // 일정 시간이 지난 후 다시 매달리기를 허용하는 메서드 호출
         Invoke("AllowLedgeGrab", 1f);
     }
+    private IEnumerator LedgeClimbOverCoroutine()
+    {
 
+        float elapsedTime = 0f;
+        float lerpDuration = 1f;
+        while (elapsedTime < lerpDuration)
+        {
+            // Lerp를 사용하여 부드럽게 매달리기 시작과 끝 지점을 이동
+            transform.position = Vector3.Lerp(climbBegunPosition, climbOverPosition, elapsedTime / lerpDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
     private void AllowLedgeGrab()
     {
         // 다시 매달리기를 허용하는 메서드
@@ -206,6 +225,16 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
+    private void Sit()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            isSitting = true;
+        }
+
+    }
+
+
     private void Dash()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
@@ -217,7 +246,7 @@ public class LastPlayerController : MonoBehaviour
                 isDashing = true;
                 dashStartTime = Time.time;
                 lastDashTime = Time.time;
-                canMove = false;
+                //canMove = false;
             }
         }
         if (isDashing && Time.time < dashStartTime + dashDuration)
@@ -413,6 +442,7 @@ public class LastPlayerController : MonoBehaviour
         anim.SetBool("isWallSliding", isWallSliding);
         anim.SetBool("isWallDetected", isWallDetected);
         anim.SetBool("isClimbing", isClimbing);
+        anim.SetBool("isSitting",isSitting);
     }
 
     private void CollisionCheck()
