@@ -5,7 +5,7 @@ using UnityEngine;
 public class LedgeCheck : MonoBehaviour
 {
     [SerializeField] private float radius;
-    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private LayerMask whatIsWall;
     [SerializeField] private LastPlayerController player;
 
     private bool canDeteced;
@@ -15,13 +15,13 @@ public class LedgeCheck : MonoBehaviour
         if (canDeteced)
         {
 
-            player.ledgeDetected = Physics2D.OverlapCircle(transform.position, radius,whatIsGround);
+            player.ledgeDetected = Physics2D.OverlapCircle(transform.position, radius,whatIsWall);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ledge"))
         {
             canDeteced = false;
         }
@@ -29,13 +29,13 @@ public class LedgeCheck : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ledge"))
         {
             canDeteced = true;
         }
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(transform.position,radius);
+        Gizmos.DrawSphere(transform.position, radius);
     }
 }
