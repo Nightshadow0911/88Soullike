@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: -701612067935374897}
   - component: {fileID: -952293426841563301}
   - component: {fileID: 4454474238667929373}
+  - component: {fileID: 3629454059808967070}
   m_Layer: 6
   m_Name: Player2_1
   m_TagString: Player
@@ -202,13 +203,6 @@ MonoBehaviour:
   dashStaminaCost: 10
   attackStaminaCost: 10
   comboStaminaCost: 20
-  attackPoint: {fileID: 3646084481749102177}
-  attackRange: 1
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  attackRate: 1
-  canTakeDamage: 1
   ledgeDetected: 0
   offset1: {x: 0, y: -1.6}
   offset2: {x: 0, y: 0.2}
@@ -379,6 +373,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crouchHeight: 0.7
   LastPlayerController: {fileID: 6113475548300559220}
+--- !u!114 &3629454059808967070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269623617930255229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a77a4c81ff545d48483969bdae174a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 6113475548300559220}
+  characterStats: {fileID: 2491328609635162135}
+  attackRate: 1
+  canTakeDamage: 1
+  damage: 10
+  attackPoint: {fileID: 3646084481749102177}
+  attackRange: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &2018583826729319458
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3646084481749102177
 Transform:
   m_ObjectHideFlags: 0
