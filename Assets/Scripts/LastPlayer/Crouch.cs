@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Crouch : MonoBehaviour
 {
-
     private float yInput;
     private Vector2 normalHeight;
     public float crouchHeight;
     public LastPlayerController LastPlayerController;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +29,9 @@ public class Crouch : MonoBehaviour
             {
                 transform.localScale = new Vector2(normalHeight.x, crouchHeight);
                     Debug.Log("1");
-                    LastPlayerController.isSitting =true;
-                if (LastPlayerController.isCeilDetected)
-                {
-                    Debug.Log("2");
-                    LastPlayerController.canGrabLedge = false;
-                }
+                LastPlayerController.isSitting =true;
+                LastPlayerController.canDash = false;
+                LastPlayerController.speed = 1;
             }
         }
         else
@@ -48,8 +43,9 @@ public class Crouch : MonoBehaviour
                 {
                     Debug.Log("3");
                     LastPlayerController.isSitting = false;
+                    LastPlayerController.canDash = true;
                     transform.localScale = normalHeight;
-                    LastPlayerController.canGrabLedge = true;
+                    LastPlayerController.speed = 5;
                 }
 
             }

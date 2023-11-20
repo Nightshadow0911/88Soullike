@@ -15,7 +15,7 @@ public class LastPlayerController : MonoBehaviour
 
     public PlayerUI playerUI;
 
-    [SerializeField] private float speed = 5;
+    [SerializeField] public float speed = 5;
     [SerializeField] private float jumpForce = 10;
 
     private bool canMove = true;
@@ -39,13 +39,13 @@ public class LastPlayerController : MonoBehaviour
     public bool isGrounded;
     private bool isWallDetected;
     private bool isLadderDetected;
-    public bool isCeilDetected;
+    public bool isCeilDetected =true;
 
     [SerializeField] private float dashDistance = 10f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
 
-    private bool isDashing = false;
+    public bool isDashing = false;
     private float dashStartTime;
     private float lastDashTime;
 
@@ -80,6 +80,7 @@ public class LastPlayerController : MonoBehaviour
     private bool isClimbing;
 
     public bool isSitting;
+    public bool canDash= true;
 
     void Start()
     {
@@ -223,27 +224,31 @@ public class LastPlayerController : MonoBehaviour
 
     private void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
-        {
-            if (characterStats.characterStamina >= dashStaminaCost)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
             {
-                characterStats.characterStamina -= dashStaminaCost;
-                fadeOut.makeFadeOut = true;
-                isDashing = true;
-                dashStartTime = Time.time;
-                lastDashTime = Time.time;
-                //canMove = false;
+                if (canDash)
+                {
+                    if (characterStats.characterStamina >= dashStaminaCost)
+                    {
+                        characterStats.characterStamina -= dashStaminaCost;
+                        fadeOut.makeFadeOut = true;
+                        isDashing = true;
+                        dashStartTime = Time.time;
+                        lastDashTime = Time.time;
+                        //canMove = false;
+                    }
+                }
+
             }
-        }
-        if (isDashing && Time.time < dashStartTime + dashDuration)
-        {
-            rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
-        }
-        else
-        {
-            isDashing = false;
-            fadeOut.makeFadeOut = false;
-        }
+            if (isDashing && Time.time < dashStartTime + dashDuration)
+            {
+                rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
+            }
+            else
+            {
+                isDashing = false;
+                fadeOut.makeFadeOut = false;
+            }
     }
 
     private void RegenStamina()
