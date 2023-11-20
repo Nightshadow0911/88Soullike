@@ -15,12 +15,13 @@ public class weaponColliderRange : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         lastPlayerController = gameManager.lastPlayerController;
+        playerAttack = gameManager.playerAttack;
         particle = GameManager.Instance.GetComponent<Particle>();
     }
 
     void Update()
     {
-      lastPlayerController.CheckInput();
+      playerAttack.CheckInput();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

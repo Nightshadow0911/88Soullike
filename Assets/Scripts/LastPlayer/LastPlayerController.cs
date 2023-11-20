@@ -198,16 +198,16 @@ public class LastPlayerController : MonoBehaviour
         {
             canWallSlide = false;
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            playerAttack.canTakeDamage = false;
-            Debug.Log("누름");
-        }
-        else if (Input.GetMouseButtonUp(1))
-        {
-            playerAttack.canTakeDamage = true;
-            Debug.Log("땜");
-        }
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    playerAttack.canTakeDamage = false;
+        //    Debug.Log("누름");
+        //}
+        //else if (Input.GetMouseButtonUp(1))
+        //{
+        //    playerAttack.canTakeDamage = true;
+        //    Debug.Log("땜");
+        //}
         if (Input.GetKeyDown(KeyCode.Space))
         {
             JumpButton();
