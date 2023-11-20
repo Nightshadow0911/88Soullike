@@ -21,7 +21,7 @@ public class LedgeCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ledge"))
         {
             canDeteced = false;
         }
@@ -29,7 +29,7 @@ public class LedgeCheck : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ledge"))
         {
             canDeteced = true;
         }
