@@ -11,7 +11,6 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") && !hasEntered)
         {
-            Debug.Log("RoomTrigger OnTriggerEnter2D - Player entered!");
             RoomManager.Instance.PlayerEnteredRoom(roomNumber);
             hasEntered = true;
         }
