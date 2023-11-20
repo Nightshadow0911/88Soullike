@@ -9,7 +9,7 @@ public class weaponColliderRange : MonoBehaviour
     private GameManager gameManager;
     private Particle particle;
     private LastPlayerController lastPlayerController;
-    private PlayerAttack playerAttack;
+
 
     void Start()
     {
@@ -29,15 +29,15 @@ public class weaponColliderRange : MonoBehaviour
             {
                 if (gameManager != null && gameManager.playerStats != null)
                 {
-                    if (playerAttack.canTakeDamage==false)
+                    if (lastPlayerController.canTakeDamage==false)
                     {
                     particle.GuardEffect();
                     Debug.Log("Block");
                     gameManager.playerStats.TakeDamage(test);
                     }
-                    else if (playerAttack.canTakeDamage == true)
+                    else if (lastPlayerController.canTakeDamage == true)
                     {
-                    particle.DamagedEffect(); //ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                    particle.DamagedEffect(); //ÇÇ°Ý ÀÌÆåÆ® »ý¼º
                     Debug.Log("Hit");
                      Debug.Log("MonsterToPlayerAttack");
                      gameManager.playerStats.TakeDamage(damage);
