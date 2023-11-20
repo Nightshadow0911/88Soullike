@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     // 캐릭터 스텟
     public CharacterStats playerStats;
     public LastPlayerController lastPlayerController;
+    public PlayerAttack playerAttack;
     private void Awake()
     {
         if (instance == null)
@@ -35,5 +36,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         lastPlayerController = player.GetComponent<LastPlayerController>();
+        playerAttack = player.GetComponent<PlayerAttack>();
     }
 }
