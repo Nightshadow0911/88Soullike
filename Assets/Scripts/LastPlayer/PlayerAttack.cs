@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -30,6 +29,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckInput();
         if (Time.time > lastAttackTime + 5f)
         {
             attackClickCount = 1;
@@ -37,7 +37,19 @@ public class PlayerAttack : MonoBehaviour
         CheckAttackTime();
         //Attack();
     }
-
+    public void CheckInput()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            canTakeDamage = false;
+            Debug.Log("누름 ");
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            canTakeDamage = true;
+            Debug.Log("땜");
+        }
+    }
     private void CheckAttackTime()
     {
         if (Time.time >= nextAttackTime)
@@ -126,4 +138,6 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
 
     }
+
+
 }
