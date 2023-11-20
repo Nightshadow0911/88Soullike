@@ -30,12 +30,16 @@ public class LastPlayerController : MonoBehaviour
 
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private LayerMask WhatIsLadder;
+    [SerializeField] private LayerMask whatIsLadder;
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private float ladderCheckdistance;
-    private bool isGrounded;
+    [SerializeField] private float ceilCheckDistance;
+    [SerializeField] private LayerMask whatIsCeil;
+
+    public bool isGrounded;
     private bool isWallDetected;
     private bool isLadderDetected;
+    public bool isCeilDetected;
 
     [SerializeField] private float dashDistance = 10f;
     [SerializeField] private float dashDuration = 0.2f;
@@ -72,11 +76,10 @@ public class LastPlayerController : MonoBehaviour
     private Vector2 climbBegunPosition;
     private Vector2 climbOverPosition;
 
-    private bool canGrabLedge = true;
+    public bool canGrabLedge = true;
     private bool isClimbing;
 
-    private bool isSitting;
-    private bool isCrouchWalking;
+    public bool isSitting;
 
     void Start()
     {
@@ -84,6 +87,7 @@ public class LastPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //characterStats.characterStamina = maxStamina;
         gameManager = GameManager.Instance;
+
     }
 
     void Update()
@@ -96,14 +100,6 @@ public class LastPlayerController : MonoBehaviour
         if (isGrounded)
         {
             canMove = true;
-            if (isSitting)
-            {
-                canMove = false;
-                if (isCrouchWalking)
-                {
-                    canMove = true;
-                }
-            }
             RegenStamina();
         }
 
@@ -124,7 +120,7 @@ public class LastPlayerController : MonoBehaviour
         {
             ReleaseLadder();
             Move();
-            Sit();
+
             Dash();
             CheckAttackTime();
             CheckForLedge();
@@ -224,16 +220,6 @@ public class LastPlayerController : MonoBehaviour
             rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
         }
     }
-
-    private void Sit()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            isSitting = true;
-        }
-
-    }
-
 
     private void Dash()
     {
@@ -432,7 +418,7 @@ public class LastPlayerController : MonoBehaviour
     }
 
 
-    private void AnimatorController()
+    public void AnimatorController()
     {
         bool isMoving = rb.velocity.x != 0;
 
@@ -450,7 +436,8 @@ public class LastPlayerController : MonoBehaviour
         Vector3 offset = new Vector3(0, 1f, 0);
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
         isWallDetected = Physics2D.Raycast(transform.position + offset, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
-        isLadderDetected = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckdistance, WhatIsLadder);
+        isLadderDetected = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckdistance, whatIsLadder);
+        isCeilDetected = Physics2D.Raycast(transform.position, Vector2.up, ceilCheckDistance, whatIsCeil);
 
         if (isWallDetected && rb.velocity.y < 0)
         {
@@ -467,6 +454,7 @@ public class LastPlayerController : MonoBehaviour
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + ceilCheckDistance));
 
         if (attackPoint == null)
         {
