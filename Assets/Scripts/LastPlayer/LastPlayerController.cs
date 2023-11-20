@@ -15,7 +15,7 @@ public class LastPlayerController : MonoBehaviour
 
     public PlayerUI playerUI;
 
-    [SerializeField] private float speed = 5;
+    [SerializeField] public float speed = 5;
     [SerializeField] private float jumpForce = 10;
 
     private bool canMove = true;
@@ -30,18 +30,22 @@ public class LastPlayerController : MonoBehaviour
 
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private LayerMask WhatIsLadder;
+    [SerializeField] private LayerMask whatIsLadder;
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private float ladderCheckdistance;
-    private bool isGrounded;
+    [SerializeField] private float ceilCheckDistance;
+    [SerializeField] private LayerMask whatIsCeil;
+
+    public bool isGrounded;
     private bool isWallDetected;
     private bool isLadderDetected;
+    public bool isCeilDetected =true;
 
     [SerializeField] private float dashDistance = 10f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
 
-    private bool isDashing = false;
+    public bool isDashing = false;
     private float dashStartTime;
     private float lastDashTime;
 
@@ -72,14 +76,19 @@ public class LastPlayerController : MonoBehaviour
     private Vector2 climbBegunPosition;
     private Vector2 climbOverPosition;
 
-    private bool canGrabLedge = true;
+    public bool canGrabLedge = true;
     private bool isClimbing;
+
+    public bool isSitting;
+    public bool canDash= true;
+
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         //characterStats.characterStamina = maxStamina;
         gameManager = GameManager.Instance;
+
     }
 
     void Update()
@@ -112,6 +121,7 @@ public class LastPlayerController : MonoBehaviour
         {
             ReleaseLadder();
             Move();
+
             Dash();
             CheckAttackTime();
             CheckForLedge();
@@ -125,36 +135,42 @@ public class LastPlayerController : MonoBehaviour
         {
             // 매달리기 시작 조건이 충족될 때
             canGrabLedge = false;
-
             // 현재 매달리는 위치와 오프셋을 사용하여 매달리기 시작과 끝 지점을 계산
             Vector2 ledgePosition = ledgeCheck.transform.position;
             climbBegunPosition = ledgePosition + offset1;
             climbOverPosition = ledgePosition + offset2;
-
             // 매달리기 상태를 활성화하고 애니메이션을 설정
             isClimbing = true;
             anim.SetBool("isClimbing", true);
         }
-
         if (isClimbing)
         {
             // 매달리기 중인 경우, 플레이어의 위치를 시작 지점으로 설정
             transform.position = climbBegunPosition;
         }
     }
-
-    private void LedgeClimOver()
+    private void LedgeClimbOver()
     {
         // 매달리기 종료 조건이 충족될 때
         isClimbing = false;
-
         // 플레이어의 위치를 매달리기 종료 지점으로 이동
         transform.position = climbOverPosition;
-
         // 일정 시간이 지난 후 다시 매달리기를 허용하는 메서드 호출
         Invoke("AllowLedgeGrab", 1f);
     }
+    private IEnumerator LedgeClimbOverCoroutine()
+    {
 
+        float elapsedTime = 0f;
+        float lerpDuration = 1f;
+        while (elapsedTime < lerpDuration)
+        {
+            // Lerp를 사용하여 부드럽게 매달리기 시작과 끝 지점을 이동
+            transform.position = Vector3.Lerp(climbBegunPosition, climbOverPosition, elapsedTime / lerpDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
     private void AllowLedgeGrab()
     {
         // 다시 매달리기를 허용하는 메서드
@@ -208,27 +224,31 @@ public class LastPlayerController : MonoBehaviour
 
     private void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
-        {
-            if (characterStats.characterStamina >= dashStaminaCost)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
             {
-                characterStats.characterStamina -= dashStaminaCost;
-                fadeOut.makeFadeOut = true;
-                isDashing = true;
-                dashStartTime = Time.time;
-                lastDashTime = Time.time;
-                canMove = false;
+                if (canDash)
+                {
+                    if (characterStats.characterStamina >= dashStaminaCost)
+                    {
+                        characterStats.characterStamina -= dashStaminaCost;
+                        fadeOut.makeFadeOut = true;
+                        isDashing = true;
+                        dashStartTime = Time.time;
+                        lastDashTime = Time.time;
+                        //canMove = false;
+                    }
+                }
+
             }
-        }
-        if (isDashing && Time.time < dashStartTime + dashDuration)
-        {
-            rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
-        }
-        else
-        {
-            isDashing = false;
-            fadeOut.makeFadeOut = false;
-        }
+            if (isDashing && Time.time < dashStartTime + dashDuration)
+            {
+                rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
+            }
+            else
+            {
+                isDashing = false;
+                fadeOut.makeFadeOut = false;
+            }
     }
 
     private void RegenStamina()
@@ -403,7 +423,7 @@ public class LastPlayerController : MonoBehaviour
     }
 
 
-    private void AnimatorController()
+    public void AnimatorController()
     {
         bool isMoving = rb.velocity.x != 0;
 
@@ -413,6 +433,7 @@ public class LastPlayerController : MonoBehaviour
         anim.SetBool("isWallSliding", isWallSliding);
         anim.SetBool("isWallDetected", isWallDetected);
         anim.SetBool("isClimbing", isClimbing);
+        anim.SetBool("isSitting",isSitting);
     }
 
     private void CollisionCheck()
@@ -420,7 +441,8 @@ public class LastPlayerController : MonoBehaviour
         Vector3 offset = new Vector3(0, 1f, 0);
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
         isWallDetected = Physics2D.Raycast(transform.position + offset, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
-        isLadderDetected = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckdistance, WhatIsLadder);
+        isLadderDetected = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckdistance, whatIsLadder);
+        isCeilDetected = Physics2D.Raycast(transform.position, Vector2.up, ceilCheckDistance, whatIsCeil);
 
         if (isWallDetected && rb.velocity.y < 0)
         {
@@ -437,6 +459,7 @@ public class LastPlayerController : MonoBehaviour
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + ceilCheckDistance));
 
         if (attackPoint == null)
         {

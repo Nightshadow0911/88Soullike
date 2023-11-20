@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Player2_CrouchWalk.anim.meta
+guid: 69c02c28d6815445ca3f1923c38b9662
+NativeFormatImporter:
+========
+guid: 5d07625fe7dca70498d4d564bf3d9fc6
+PrefabImporter:
+>>>>>>>> main:Assets/Prefabs/Map/GameManagerObject.prefab.meta
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
