@@ -92,8 +92,8 @@ public class PlayerAttack : MonoBehaviour
             gameManager.playerStats.characterStamina -= player.attackStaminaCost;
             anim.SetTrigger("crouchAttack");
             gameManager.playerStats.AttackDamage(damage);
-            int crouchDamage = damage;
-            ApplyDamage(crouchDamage);
+            int modifiedAttackDamage = damage/5;
+            ApplyDamage(modifiedAttackDamage);
         }
     }
 
@@ -145,13 +145,6 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-
-    private void CrouchAttackDamage()
-    {
-
-    }
-
-
 
     private void OnDrawGizmos()
     {
