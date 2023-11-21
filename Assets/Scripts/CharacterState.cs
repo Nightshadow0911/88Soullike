@@ -55,6 +55,7 @@ public class CharacterStats : MonoBehaviour
 
     public int curExp = 0;
     public int maxExp = 100;
+    public int totalDamage;
 
     //몬스터 스텟
     [SerializeField]
@@ -214,7 +215,7 @@ public class CharacterStats : MonoBehaviour
         {
             criDamage = playerAttack;
         }
-        int totalDamage = playerAttack + criDamage;
+        totalDamage = playerAttack + criDamage;
         monsterHP -= totalDamage;
     }
 
