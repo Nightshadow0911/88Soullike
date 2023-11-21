@@ -8,8 +8,6 @@ public class Crouch : MonoBehaviour
     private Vector2 normalHeight;
     public float crouchHeight;
     public LastPlayerController LastPlayerController;
-    public PlayerAttack playerAttack;
-
     // Start is called before the first frame update
     void Start()
     {

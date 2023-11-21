@@ -35,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
             attackClickCount = 1;
         }
         CheckAttackTime();
-        //Attack();
+        //CrouchAttack();
     }
     public void CheckInput()
     {
@@ -54,15 +54,20 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Time.time >= nextAttackTime)
         {
-            if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
+            if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0&& player.isSitting==false)
             {
                 nextAttackTime = Time.time + 0.5f / attackRate;
                 Attack();
             }
+            if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0&& player.isSitting)
+            {
+                nextAttackTime = Time.time + 0.5f / attackRate;
+                CrouchAttack();
+            }
         }
     }
 
-    public void Attack()
+    public void Attack() // 다시 
     {
         if (gameManager.playerStats.characterStamina >= player.attackStaminaCost)
         {
@@ -78,6 +83,17 @@ public class PlayerAttack : MonoBehaviour
                 attackClickCount = 0;
             }
             ApplyDamage(modifiedAttackDamage);
+        }
+    }
+    public void CrouchAttack()
+    {
+        if (gameManager.playerStats.characterStamina >= player.attackStaminaCost)
+        {
+            gameManager.playerStats.characterStamina -= player.attackStaminaCost;
+            anim.SetTrigger("crouchAttack");
+            gameManager.playerStats.AttackDamage(damage);
+            int crouchDamage = damage;
+            ApplyDamage(crouchDamage);
         }
     }
 
@@ -129,6 +145,14 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
+    private void CrouchAttackDamage()
+    {
+
+    }
+
+
+
     private void OnDrawGizmos()
     {
         if (attackPoint == null)
