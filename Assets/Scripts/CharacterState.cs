@@ -216,7 +216,7 @@ public class CharacterStats : MonoBehaviour
             criDamage = playerAttack;
         }
         totalDamage = playerAttack + criDamage;
-        monsterHP -= totalDamage;
+        //monsterHP -= totalDamage;
     }
 
     public void ProperyAttackDamage(int monsterHP) //????
