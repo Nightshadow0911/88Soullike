@@ -33,6 +33,7 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsWall;
     [SerializeField] private LayerMask whatIsLadder;
+    [SerializeField] private LayerMask whatIsLedge;
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private float ladderCheckdistance;
     [SerializeField] private float ceilCheckDistance;
@@ -69,6 +70,7 @@ public class LastPlayerController : MonoBehaviour
 
     public bool isSitting;
     public bool canDash= true;
+
 
     void Start()
     {
@@ -307,7 +309,7 @@ public class LastPlayerController : MonoBehaviour
     private void CollisionCheck()
     {
         Vector3 offset = new Vector3(0, 1f, 0);
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround | whatIsWall);
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround | whatIsLedge);
 
         isWallDetected = Physics2D.Raycast(transform.position + offset, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
         isLadderDetected = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckdistance, whatIsLadder);

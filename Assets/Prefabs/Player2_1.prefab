@@ -183,9 +183,15 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 512
   whatIsLadder:
     serializedVersion: 2
     m_Bits: 256
+  whatIsLedge:
+    serializedVersion: 2
+    m_Bits: 4096
   wallCheckDistance: 0.85
   ladderCheckdistance: 0.19
   ceilCheckDistance: 2.45
@@ -442,9 +448,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
-  whatIsGround:
+  whatIsLedge:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 4096
   player: {fileID: 6113475548300559220}
 --- !u!61 &7382519667231627728
 BoxCollider2D:

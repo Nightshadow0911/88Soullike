@@ -5,7 +5,7 @@ using UnityEngine;
 public class LedgeCheck : MonoBehaviour
 {
     [SerializeField] private float radius;
-    [SerializeField] private LayerMask whatIsWall;
+    [SerializeField] private LayerMask whatIsLedge;
     [SerializeField] private LastPlayerController player;
 
     private bool canDeteced;
@@ -14,8 +14,7 @@ public class LedgeCheck : MonoBehaviour
     {
         if (canDeteced)
         {
-
-            player.ledgeDetected = Physics2D.OverlapCircle(transform.position, radius,whatIsWall);
+            player.ledgeDetected = Physics2D.OverlapCircle(transform.position, radius,whatIsLedge);
         }
     }
 
