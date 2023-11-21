@@ -13,13 +13,15 @@ public class DeathBringerEnemy : MonoBehaviour
     
     public Transform selfPosition;
     public GameObject soulDrop;
+    
 
     private Animator animator;
 
     public GameObject meleeAttack;
     public GameObject spellAttack;
     public GameObject spellEffect;
-    
+    public GameObject magicMissle;
+
     private GameObject spellEffectObject;
     private GameObject spellAttackObject;
     
@@ -246,6 +248,15 @@ public class DeathBringerEnemy : MonoBehaviour
             }
             isAttacking = false;
             spellCount++;
+        }
+
+        //IEnumerator MissleAttack()
+        {
+            int skillNumber = Random.Range(0, 2);
+            if(skillNumber == 0)
+            {
+
+            }
         }
 
         void MonsterFaceWay()
