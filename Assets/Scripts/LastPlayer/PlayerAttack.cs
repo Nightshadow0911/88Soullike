@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     float nextAttackTime = 0f;
     private int attackClickCount = 1;
     public bool canTakeDamage = true;
-    public int damage = 10;
+    //public int damage;
 
     public Transform attackPoint;
     [SerializeField] private float attackRange = 1f;
@@ -24,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         gameManager = GameManager.Instance;
+
     }
 
     // Update is called once per frame
@@ -67,19 +68,21 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    public void Attack() // 다시 
+    public void Attack()
     {
         if (gameManager.playerStats.characterStamina >= player.attackStaminaCost)
         {
             gameManager.playerStats.characterStamina -= player.attackStaminaCost;
             anim.SetTrigger("attack");
-            gameManager.playerStats.AttackDamage(damage);
-            int modifiedAttackDamage = damage;
+            gameManager.playerStats.AttackDamage();
+            int a = gameManager.playerStats.NormalAttackDamage;
+            int modifiedAttackDamage = a;
             if (attackClickCount != 0 && attackClickCount % 3 == 0)
             {
                 gameManager.playerStats.characterStamina -= player.comboStaminaCost;
                 anim.SetTrigger("combo");
-                modifiedAttackDamage += 10;
+                modifiedAttackDamage += gameManager.playerStats.NormalAttackDamage;
+                Debug.Log("combo");
                 attackClickCount = 0;
             }
             ApplyDamage(modifiedAttackDamage);
@@ -91,17 +94,19 @@ public class PlayerAttack : MonoBehaviour
         {
             gameManager.playerStats.characterStamina -= player.attackStaminaCost;
             anim.SetTrigger("crouchAttack");
-            gameManager.playerStats.AttackDamage(damage);
-            int modifiedAttackDamage = damage/5;
+            gameManager.playerStats.AttackDamage();
+            int a = gameManager.playerStats.NormalAttackDamage;
+            int modifiedAttackDamage = a/2;
             ApplyDamage(modifiedAttackDamage);
         }
     }
 
-    //Debug.Log(canTakeDamage);//PlayerToMonster
+
 
     private void ApplyDamage(int damage) // Add damage To Monster
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        //Debug.Log(message: "Damage : " + gameManager.playerStats.totalDamage);
         foreach (Collider2D enemyCollider in hitEnemies)
         {
             if (enemyCollider.CompareTag("Boss_DB"))
@@ -111,8 +116,8 @@ public class PlayerAttack : MonoBehaviour
                 DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
                 if (deathBringer != null)
                 {
-                    deathBringer.TakeDamage(damage);
-                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
+                    deathBringer.TakeDamage(gameManager.playerStats.totalDamage);
+                    //PlayerEvents.playerDamaged.Invoke(gameObject, damage);
                 }
             }
             else if (enemyCollider.CompareTag("Boss_Archer"))

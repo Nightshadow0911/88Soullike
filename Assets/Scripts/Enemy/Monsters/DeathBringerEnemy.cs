@@ -262,7 +262,8 @@ public class DeathBringerEnemy : MonoBehaviour
             }
         }
     }
-    public void TakeDamage(int attackDamage)
+
+    public void TakeDamage(int attackDamage) // playerToMonster NO Stats
     {
         currentHealth -= attackDamage;
 
