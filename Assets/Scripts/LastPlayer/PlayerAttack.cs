@@ -75,15 +75,15 @@ public class PlayerAttack : MonoBehaviour
             gameManager.playerStats.characterStamina -= player.attackStaminaCost;
             anim.SetTrigger("attack");
             gameManager.playerStats.AttackDamage();
-            int a = gameManager.playerStats.NormalAttackDamage;
-            int modifiedAttackDamage = a;
+            int modifiedAttackDamage = gameManager.playerStats.NormalAttackDamage;
             if (attackClickCount != 0 && attackClickCount % 3 == 0)
             {
                 gameManager.playerStats.characterStamina -= player.comboStaminaCost;
                 anim.SetTrigger("combo");
-                modifiedAttackDamage += gameManager.playerStats.NormalAttackDamage;
+                modifiedAttackDamage *=2;
                 Debug.Log("combo");
                 attackClickCount = 0;
+                ApplyDamage(modifiedAttackDamage);
             }
             ApplyDamage(modifiedAttackDamage);
         }
@@ -106,7 +106,6 @@ public class PlayerAttack : MonoBehaviour
     private void ApplyDamage(int damage) // Add damage To Monster
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
-        //Debug.Log(message: "Damage : " + gameManager.playerStats.totalDamage);
         foreach (Collider2D enemyCollider in hitEnemies)
         {
             if (enemyCollider.CompareTag("Boss_DB"))
@@ -117,7 +116,7 @@ public class PlayerAttack : MonoBehaviour
                 if (deathBringer != null)
                 {
                     deathBringer.TakeDamage(gameManager.playerStats.totalDamage);
-                    //PlayerEvents.playerDamaged.Invoke(gameObject, damage);
+                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
                 }
             }
             else if (enemyCollider.CompareTag("Boss_Archer"))

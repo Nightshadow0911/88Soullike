@@ -69,7 +69,7 @@ public class CharacterStats : MonoBehaviour
         characterStamina = subState[(int)Substate.characterStamina];
         subState[(int)Substate.nomallAttackDamage] = 10;
         characterNomallAttackDamage = subState[(int)Substate.nomallAttackDamage];
-        subState[(int)Substate.critcal] =50; //확률 ;
+        subState[(int)Substate.critcal] =0; //확률 ;
         subState[(int)Substate.propertyDefense] = 10;
         curExp = 27;
         maxExp = 100;
