@@ -287,7 +287,6 @@ public class LastPlayerController : MonoBehaviour
         else
         {
             rb.gravityScale = 1f;
-            isGrounded = true;
         }
     }
 
@@ -305,7 +304,6 @@ public class LastPlayerController : MonoBehaviour
         if (collision.CompareTag("Ladder"))
         {
             isLadderDetected = false;
-            isGrounded = true;
         }
     }
 
