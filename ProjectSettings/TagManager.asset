@@ -12,6 +12,7 @@ TagManager:
   - Boss_DB
   - Boss_Archer
   - MagnetField
+  - Ladder
   layers:
   - Default
   - TransparentFX

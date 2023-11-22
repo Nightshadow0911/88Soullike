@@ -86,33 +86,31 @@ public class LastPlayerController : MonoBehaviour
         CollisionCheck();
         FlipController();
         AnimatorController();
-
+        ClimbLadder();
         if (isGrounded)
         {
             canMove = true;
             RegenStamina();
         }
-
         if (canWallSlide)
         {
-            isWallSliding = true;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
-        }
-        if (isLadderDetected)
-        {
-            ClimbLadder();
+            IsWallSliding();
         }
         else
         {
-            ReleaseLadder();
             Move();
-
             Dash();
-            //CheckAttackTime();
             CheckForLedge();
         }
         Death();
     }
+
+    private void IsWallSliding()
+    {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
+    }
+
 
     private void CheckForLedge()
     {
@@ -134,6 +132,7 @@ public class LastPlayerController : MonoBehaviour
             transform.position = climbBegunPosition;
         }
     }
+
     private void LedgeClimbOver()
     {
         // 매달리기 종료 조건이 충족될 때
@@ -143,6 +142,7 @@ public class LastPlayerController : MonoBehaviour
         // 일정 시간이 지난 후 다시 매달리기를 허용하는 메서드 호출
         Invoke("AllowLedgeGrab", 1f);
     }
+
     private IEnumerator LedgeClimbOverCoroutine()
     {
 
@@ -156,11 +156,13 @@ public class LastPlayerController : MonoBehaviour
             yield return null;
         }
     }
+
     private void AllowLedgeGrab()
     {
         // 다시 매달리기를 허용하는 메서드
         canGrabLedge = true;
     }
+
     public void CheckInput()
     {
         movingInput = Input.GetAxis("Horizontal");
@@ -218,6 +220,7 @@ public class LastPlayerController : MonoBehaviour
         // Fix
         characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
     }
+
     private void Death()
     {
         if (characterStats.characterHp <= 0)
@@ -271,27 +274,40 @@ public class LastPlayerController : MonoBehaviour
         transform.Rotate(0, 180, 0);
     }
 
-
     private void ClimbLadder()
     {
-        float verticalInput = Input.GetAxis("Vertical");
-
-        if (verticalInput > 0)
+        if (isLadderDetected)
         {
-            rb.velocity = new Vector2(0, speed);
+            float verticalInput = Input.GetAxis("Vertical");
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(rb.velocity.x, verticalInput * speed);
+            isGrounded = false;
+            canWallSlide = false;
         }
-        else if (verticalInput < 0)
+        else
         {
-            rb.velocity = new Vector2(0, -speed);
+            rb.gravityScale = 1f;
+            isGrounded = true;
         }
-
     }
 
-    private void ReleaseLadder()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        rb.gravityScale = 1;
+        if (collision.CompareTag("Ladder")) 
+        {
+            isLadderDetected = true;
+            isGrounded = false;
+        }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            isLadderDetected = false;
+            isGrounded = true;
+        }
+    }
 
     public void AnimatorController()
     {
