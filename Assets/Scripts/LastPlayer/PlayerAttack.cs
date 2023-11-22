@@ -13,12 +13,13 @@ public class PlayerAttack : MonoBehaviour
     public float attackRate = 1f;
     float nextAttackTime = 0f;
     private int attackClickCount = 1;
-    public bool canTakeDamage = true;
+    [SerializeField] public bool monsterToPlayerDamage;
     //public int damage;
 
     public Transform attackPoint;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +31,8 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckInput();
+        CheckDeffense();
+
         if (Time.time > lastAttackTime + 5f)
         {
             attackClickCount = 1;
@@ -38,19 +40,55 @@ public class PlayerAttack : MonoBehaviour
         CheckAttackTime();
         //CrouchAttack();
     }
-    public void CheckInput()
+    public float parryWindowDuration = 0.5f; // 패링이 가능한 시간 간격
+    public bool isParrying = false;
+    public bool isGuarding = false;
+    private float parryWindowEndTime = 0f;
+
+    public void CheckDeffense()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (isGuarding)
         {
-            canTakeDamage = false;
-            Debug.Log("누름 ");
+            monsterToPlayerDamage = true;// 몬스터가 플레이어한테 데미지를 줌 
         }
-        else if (Input.GetMouseButtonUp(1))
+        //if (isParrying)
+        //{
+        //    monsterToPlayerDamage = false;
+        //}
+
+        // 패링 가능한 상태에서만 패링이 가능하도록 체크
+        if (Input.GetMouseButtonDown(1) && !isParrying)
         {
-            canTakeDamage = true;
-            Debug.Log("땜");
+            isParrying = true;
+            parryWindowEndTime = Time.time + parryWindowDuration;
+            Debug.Log("Parry Start");
+        }
+        else if (Input.GetMouseButtonUp(1) && isParrying)
+        {
+            isParrying = false;
+            Debug.Log("Parry Success");
+        }
+
+        // 가드가 활성화되지 않은 상태에서 가드 가능한지 체크
+        if (Input.GetMouseButtonDown(1) && !isGuarding)
+        {
+            isGuarding = true;
+            Debug.Log("Guard Start");
+        }
+        else if (Input.GetMouseButtonUp(1) && isGuarding)
+        {
+            isGuarding = false;
+            Debug.Log("Guard End");
+        }
+
+        // 패링 윈도우 종료 체크
+        if (Time.time > parryWindowEndTime)
+        {
+            isParrying = false;
+            //Debug.Log("Parry Failed");
         }
     }
+
     private void CheckAttackTime()
     {
         if (Time.time >= nextAttackTime)
