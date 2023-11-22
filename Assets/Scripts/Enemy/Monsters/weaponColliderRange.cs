@@ -9,18 +9,19 @@ public class weaponColliderRange : MonoBehaviour
     private GameManager gameManager;
     private Particle particle;
     private LastPlayerController lastPlayerController;
-
+    private PlayerAttack playerAttack;
 
     void Start()
     {
         gameManager = GameManager.Instance;
         lastPlayerController = gameManager.lastPlayerController;
+        playerAttack = gameManager.playerAttack;
         particle = GameManager.Instance.GetComponent<Particle>();
     }
 
     void Update()
     {
-      lastPlayerController.CheckInput();
+      playerAttack.CheckDeffense();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,20 +30,26 @@ public class weaponColliderRange : MonoBehaviour
             {
                 if (gameManager != null && gameManager.playerStats != null)
                 {
-                    if (lastPlayerController.canTakeDamage==false)
+                    if (playerAttack.isParrying) //íŒ¨ë§ ì¼ë•Œ 
                     {
-                    particle.GuardEffect();
-                    Debug.Log("Block");
-                    gameManager.playerStats.TakeDamage(test);
+                        particle.GuardEffect();
+                        gameManager.playerStats.TakeDamage(damage *0);
                     }
-                    else if (lastPlayerController.canTakeDamage == true)
+
+                else if (playerAttack.monsterToPlayerDamage == true) //ê°€ë“œì™€ ì¼ë°˜ ìƒíƒœ ì¼ë•Œ 
                     {
-                    particle.DamagedEffect(); //ÇÇ°İ ÀÌÆåÆ® »ı¼º
-                    Debug.Log("Hit");
-                     Debug.Log("MonsterToPlayerAttack");
-                     gameManager.playerStats.TakeDamage(damage);
-                     gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
-                     Destroy(gameObject);
+                    if (playerAttack.isGuarding)
+                        {
+                            particle.DamagedEffect();
+                            gameManager.playerStats.TakeDamage(damage/2);
+                        }
+                    else
+                        {
+                            particle.DamagedEffect();
+                            gameManager.playerStats.TakeDamage(damage);
+                            gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
+                        }
+                    Destroy(gameObject);
                     }
                 }
                 else

@@ -55,6 +55,7 @@ public class CharacterStats : MonoBehaviour
 
     public int curExp = 0;
     public int maxExp = 100;
+    public int totalDamage;
 
     //몬스터 스텟
     [SerializeField]
@@ -68,7 +69,7 @@ public class CharacterStats : MonoBehaviour
         characterStamina = subState[(int)Substate.characterStamina];
         subState[(int)Substate.nomallAttackDamage] = 10;
         characterNomallAttackDamage = subState[(int)Substate.nomallAttackDamage];
-        subState[(int)Substate.critcal] = 50;
+        subState[(int)Substate.critcal] =0; //확률 ;
         subState[(int)Substate.propertyDefense] = 10;
         curExp = 27;
         maxExp = 100;
@@ -203,10 +204,10 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    public void AttackDamage(int monsterHP)//PlayerToMonster
+    public void AttackDamage()//PlayerToMonster
     {
         int playerAttack;
-        playerAttack = subState[(int)Substate.nomallAttackDamage] * 10;
+        playerAttack = subState[(int)Substate.nomallAttackDamage] ;
         var criDamage = 0;
         float critChance = subState[(int)Substate.critcal];
         float crit = UnityEngine.Random.Range(0f, 1f);
@@ -214,8 +215,8 @@ public class CharacterStats : MonoBehaviour
         {
             criDamage = playerAttack;
         }
-        int totalDamage = playerAttack + criDamage;
-        monsterHP -= totalDamage;
+        totalDamage = playerAttack + criDamage;
+        //monsterHP -= totalDamage;
     }
 
     public void ProperyAttackDamage(int monsterHP) //????
@@ -385,7 +386,7 @@ public class CharacterStats : MonoBehaviour
     public void ApplyPoisonStatus(int damagePerTick, float duration, int amount)// 가드 초기화 부분
     {
         IncreaseAccumulation(StatusEffectType.Poison, amount);
-        Debug.Log("축적치 : " + poisonAccumulation);
+        //Debug.Log("축적치 : " + poisonAccumulation);
         if (poisonAccumulation >= 100)
         {
             StartCoroutine(DoPoisonEffect(damagePerTick, duration));
