@@ -338,7 +338,7 @@ public class LastPlayerController : MonoBehaviour
             canWallSlide = false;
             isWallSliding = false;
         }
-        Debug.Log(ledgeDetected);
+        //Debug.Log(ledgeDetected);
     }
     private void OnDrawGizmos()
     {

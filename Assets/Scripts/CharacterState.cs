@@ -386,7 +386,7 @@ public class CharacterStats : MonoBehaviour
     public void ApplyPoisonStatus(int damagePerTick, float duration, int amount)// 가드 초기화 부분
     {
         IncreaseAccumulation(StatusEffectType.Poison, amount);
-        Debug.Log("축적치 : " + poisonAccumulation);
+        //Debug.Log("축적치 : " + poisonAccumulation);
         if (poisonAccumulation >= 100)
         {
             StartCoroutine(DoPoisonEffect(damagePerTick, duration));
