@@ -24,15 +24,15 @@ public class ShopUI : MonoBehaviour
             Destroy(tr.gameObject);
         }
 
-        for (int i = 0; i < itmDB.itemDB.Count; i++)
-        {
-            //if (itmDB.itemDB[i].itemName.Equals(slots[i].itemName)) continue;
-
-            GameObject go = Instantiate(slotPrefab);
-            go.transform.SetParent(slotHolder);
-            go.GetComponent<ShopSlot>().SetItem(itmDB.itemDB[i]);
-
-        }
+        // for (int i = 0; i < itmDB.itemDB.Count; i++)
+        // {
+        //     //if (itmDB.itemDB[i].itemName.Equals(slots[i].itemName)) continue;
+        //
+        //     GameObject go = Instantiate(slotPrefab);
+        //     go.transform.SetParent(slotHolder);
+        //     go.GetComponent<ShopSlot>().SetItem(itmDB.itemDB[i]);
+        //
+        // }
     }
 
 }

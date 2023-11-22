@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss_Archer_RangedAttackData
   m_EditorClassIdentifier: 
   tag: Boss_Arrow
-  power: 5
+  damage: 10
   speed: 15
   duration: 2
   angle: 15

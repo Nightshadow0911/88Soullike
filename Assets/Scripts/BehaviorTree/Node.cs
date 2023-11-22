@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace BehaviorTree
@@ -10,10 +11,12 @@ namespace BehaviorTree
         SUCCESS,
         FAILURE
     }
-    public class Node
+    
+    public abstract class Node
     {
-        
-    } 
+        protected NodeState state;
+
+        public abstract NodeState Evaluate();
+    }
 }
-
-
+    

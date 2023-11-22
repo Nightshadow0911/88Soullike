@@ -47,7 +47,7 @@ public class RangedAttackController : MonoBehaviour
         }
         else if (attackData.target.value == (attackData.target.value | (1 << collision.gameObject.layer)))
         {
-            GameManager.Instance.playerStats.TakeDamage(attackData.power);
+            GameManager.Instance.playerStats.TakeDamage(attackData.damage);
         }
     }
 
