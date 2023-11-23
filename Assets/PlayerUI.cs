@@ -13,24 +13,28 @@ public class PlayerUI : MonoBehaviour
     public Text healthText;
     public Slider healthSlider;
     public Slider staminaSlider;
-
+    public Slider regainSlider;
     void Start()
     {
+        gameManager = GameManager.Instance;
         healthSlider.value = 1;
         staminaSlider.value = 1;
+        regainSlider.value = 1;
     }
 
     void Update()
     {
-        UpdateHealthUI();
+        UpdateHpUI();
         UpdateStaminaUI();
+        UpdateRegainHpUI();
     }
+    //gameManager.playerStats.characterStamina
 
-
-    private void UpdateHealthUI()
+    private void UpdateHpUI()
     {
         int maxHealth = characterStats.MaxHP;
         int currentHealth = characterStats.characterHp;
+
         healthText.text = "HP: " + currentHealth + " / " + maxHealth;
         healthSlider.value = calculateHealthPercentage(currentHealth, maxHealth);
     }
@@ -40,8 +44,28 @@ public class PlayerUI : MonoBehaviour
         float currentStamina = characterStats.characterStamina;
         staminaSlider.value = currentStamina / maxStamina;
     }
+
+    public void UpdateRegainHpUI()
+    {
+        int maxHealth = characterStats.MaxHP;
+        int characterRegainHp = characterStats.characterRegainHp;
+        if (gameManager.playerStats.characterRegainHp<gameManager.playerStats.characterHp)
+        {
+            gameManager.playerStats.characterRegainHp = gameManager.playerStats.characterHp;
+        }
+        if (gameManager.playerStats.characterHp<=0)
+        {
+            gameManager.playerStats.characterRegainHp =0;
+        }
+        regainSlider.value = calculateGuardPercentage(characterRegainHp,maxHealth);
+    }
+
     float calculateHealthPercentage(int currentHealth, int maxHealth)
     {
         return (float)currentHealth / maxHealth; // Convert to float for accurate percentage
+    }
+    float calculateGuardPercentage(int characterRegainHp, int maxHealth)
+    {
+        return (float)characterRegainHp / maxHealth; // Convert to float for accurate percentage
     }
 }

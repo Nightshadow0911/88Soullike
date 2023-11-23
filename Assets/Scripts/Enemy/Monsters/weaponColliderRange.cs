@@ -21,7 +21,7 @@ public class weaponColliderRange : MonoBehaviour
 
     void Update()
     {
-      playerAttack.CheckInput();
+      playerAttack.CheckDeffense();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,20 +30,26 @@ public class weaponColliderRange : MonoBehaviour
             {
                 if (gameManager != null && gameManager.playerStats != null)
                 {
-                    if (playerAttack.canTakeDamage==false)
+                    if (playerAttack.isParrying) //패링 일때 
                     {
-                    particle.GuardEffect();
-                    Debug.Log("Block");
-                    gameManager.playerStats.TakeDamage(test);
+                        particle.GuardEffect();
+                        gameManager.playerStats.TakeDamage(damage *0);
                     }
-                    else if (playerAttack.canTakeDamage == true)
+
+                else if (playerAttack.monsterToPlayerDamage == true) //가드와 일반 상태 일때 
                     {
-                    particle.DamagedEffect(); //�ǰ� ����Ʈ ����
-                    Debug.Log("Hit");
-                     Debug.Log("MonsterToPlayerAttack");
-                     gameManager.playerStats.TakeDamage(damage);
-                     gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
-                     Destroy(gameObject);
+                    if (playerAttack.isGuarding)
+                        {
+                            particle.DamagedEffect();
+                            gameManager.playerStats.TakeDamage(damage/2);
+                        }
+                    else
+                        {
+                            particle.DamagedEffect();
+                            gameManager.playerStats.TakeDamage(damage);
+                            gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
+                        }
+                    Destroy(gameObject);
                     }
                 }
                 else

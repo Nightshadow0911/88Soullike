@@ -9,16 +9,19 @@ public class PlayerAttack : MonoBehaviour
     public LastPlayerController player;
     public CharacterStats characterStats;
 
-    private float lastAttackTime = 0f;
+    private float clickCountResetTime = 1f; // 클릭 카운터를 초기화하는데 걸리는 시간
+    private float lastClickTime;
+
     public float attackRate = 1f;
     float nextAttackTime = 0f;
-    private int attackClickCount = 1;
-    public bool canTakeDamage = true;
+    [SerializeField] private int attackClickCount = 1;
+    [SerializeField] public bool monsterToPlayerDamage;
     //public int damage;
 
     public Transform attackPoint;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,40 +33,79 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckInput();
-        if (Time.time > lastAttackTime + 5f)
-        {
-            attackClickCount = 1;
-        }
+        CheckDeffense();
         CheckAttackTime();
-        //CrouchAttack();
+        ResetClickCount();
     }
-    public void CheckInput()
+    public float parryWindowDuration = 0.5f; // 패링이 가능한 시간 간격
+    public bool isParrying = false;
+    public bool isGuarding = false;
+    private float parryWindowEndTime = 0f;
+
+    public void CheckDeffense()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (isGuarding)
         {
-            canTakeDamage = false;
-            Debug.Log("누름 ");
+            monsterToPlayerDamage = true;// 몬스터가 플레이어한테 데미지를 줌 
         }
-        else if (Input.GetMouseButtonUp(1))
+
+        // 패링 가능한 상태에서만 패링이 가능하도록 체크
+        if (Input.GetMouseButtonDown(1) && !isParrying)
         {
-            canTakeDamage = true;
-            Debug.Log("땜");
+            isParrying = true;
+            parryWindowEndTime = Time.time + parryWindowDuration;
+            Debug.Log("Parry Start");
+        }
+        else if (Input.GetMouseButtonUp(1) && isParrying)
+        {
+            isParrying = false;
+            Debug.Log("Parry Success");
+        }
+
+        // 가드가 활성화되지 않은 상태에서 가드 가능한지 체크
+        if (Input.GetMouseButtonDown(1) && !isGuarding)
+        {
+            isGuarding = true;
+            Debug.Log("Guard Start");
+        }
+        else if (Input.GetMouseButtonUp(1) && isGuarding)
+        {
+            isGuarding = false;
+            Debug.Log("Guard End");
+        }
+
+        // 패링 윈도우 종료 체크
+        if (Time.time > parryWindowEndTime)
+        {
+            isParrying = false;
+            //Debug.Log("Parry Failed");
+        }
+    }
+
+
+    private void ResetClickCount()
+    {
+        // 클릭 카운터 초기화
+        if (Time.time - lastClickTime > clickCountResetTime)
+        {
+            attackClickCount = -1;
         }
     }
     private void CheckAttackTime()
     {
-        if (Time.time >= nextAttackTime)
+        if (Time.time >= nextAttackTime)//다음 공격 가능 시간 
         {
-            if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0&& player.isSitting==false)
+            if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
             {
                 nextAttackTime = Time.time + 0.5f / attackRate;
-                Attack();
-            }
-            if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0&& player.isSitting)
-            {
-                nextAttackTime = Time.time + 0.5f / attackRate;
-                CrouchAttack();
+                if (player.isSitting == false)
+                {
+                    Attack();
+                }
+                else
+                {
+                    CrouchAttack();
+                }
             }
         }
     }
@@ -76,16 +118,16 @@ public class PlayerAttack : MonoBehaviour
             anim.SetTrigger("attack");
             gameManager.playerStats.AttackDamage();
             int modifiedAttackDamage = gameManager.playerStats.NormalAttackDamage;
-            if (attackClickCount != 0 && attackClickCount % 3 == 0)
+            if (attackClickCount != 0 && attackClickCount % 2==0)
             {
                 gameManager.playerStats.characterStamina -= player.comboStaminaCost;
                 anim.SetTrigger("combo");
-                modifiedAttackDamage *=2;
-                Debug.Log("combo");
-                attackClickCount = 0;
+                modifiedAttackDamage *= 2;
                 ApplyDamage(modifiedAttackDamage);
+                attackClickCount = -1;
             }
             ApplyDamage(modifiedAttackDamage);
+
         }
     }
     public void CrouchAttack()
@@ -96,12 +138,20 @@ public class PlayerAttack : MonoBehaviour
             anim.SetTrigger("crouchAttack");
             gameManager.playerStats.AttackDamage();
             int a = gameManager.playerStats.NormalAttackDamage;
-            int modifiedAttackDamage = a/2;
+            int modifiedAttackDamage = a / 2;
             ApplyDamage(modifiedAttackDamage);
+
         }
     }
 
-
+    private void RegainAttack()
+    {
+        int heal = gameManager.playerStats.totalDamage;
+        if (gameManager.playerStats.characterHp < gameManager.playerStats.characterRegainHp)
+        {
+            gameManager.playerStats.characterHp += heal / 4;
+        }
+    }
 
     private void ApplyDamage(int damage) // Add damage To Monster
     {
@@ -110,12 +160,14 @@ public class PlayerAttack : MonoBehaviour
         {
             if (enemyCollider.CompareTag("Boss_DB"))
             {
-                lastAttackTime = Time.time;
-                attackClickCount++;
+                attackClickCount+=1;
+                Debug.Log("clickCount :" + attackClickCount);
+                lastClickTime = Time.time;
                 DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
                 if (deathBringer != null)
                 {
                     deathBringer.TakeDamage(gameManager.playerStats.totalDamage);
+                    RegainAttack();
                     PlayerEvents.playerDamaged.Invoke(gameObject, damage);
                 }
             }
