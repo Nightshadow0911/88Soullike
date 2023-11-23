@@ -46,7 +46,6 @@ public class DeathBringerEnemy : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-
     void Update()
     {
         Animator animator = GetComponent<Animator>();
