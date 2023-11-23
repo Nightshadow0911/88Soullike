@@ -7,12 +7,14 @@ using Debug = UnityEngine.Debug;
 
 public class CharacterStats : MonoBehaviour
 {
+
     //레벨 관련
     private int level = 1;
     private int points = 5;
 
     [SerializeField]
     public int characterHp;
+    public int characterRegainHp;
     [SerializeField]
     public float characterStamina;
     [SerializeField]
@@ -35,6 +37,7 @@ public class CharacterStats : MonoBehaviour
     private enum Substate
     {
         characterHp, // 현재체력
+        characterRegainHp,//재생체력
         characterWeight, // 캐릭터 무게
         characterDefense, // 캐릭터 방어력
         characterStamina, // 캐릭터 스테미너
@@ -65,6 +68,10 @@ public class CharacterStats : MonoBehaviour
     {
         subState[(int)Substate.characterHp] = 100; // max
         characterHp = subState[(int)Substate.characterHp];
+
+        subState[(int)Substate.characterRegainHp] = 100; // max
+        characterRegainHp = subState[(int)Substate.characterRegainHp];
+
         subState[(int)Substate.characterStamina] = 100;
         characterStamina = subState[(int)Substate.characterStamina];
         subState[(int)Substate.nomallAttackDamage] = 10;
@@ -120,6 +127,7 @@ public class CharacterStats : MonoBehaviour
         subState[(int)Substate.critcal] += i;
         subState[(int)Substate.parryTime] += i;
         subState[(int)Substate.addGoods] += i;
+        subState[(int)Substate.characterRegainHp] += i;
     }
     // 지능 증가시 마나, 속성 데미지
     private void IntGrow(int i)
@@ -192,8 +200,9 @@ public class CharacterStats : MonoBehaviour
     public void TakeDamage(int damage)//MonsterToPlayer
     {
         characterHp -= damage;
+        characterRegainHp -= (damage / 2);
         Debug.Log("HP : " + characterHp);
-
+        Debug.Log("RegainHP : " + characterRegainHp);
         if (characterHp <= 0)  //플레이어가 파괴되므로 수정해야함.
         {
             // 게임 오브젝트를 즉시 파괴
@@ -307,6 +316,10 @@ public class CharacterStats : MonoBehaviour
     {
         get{ return subState[(int)Substate.characterHp]; }
        
+    }
+    public int MaxRegainHp
+    {
+        get { return subState[(int)Substate.characterRegainHp]; }
     }
     public int MaxStemina
     {
