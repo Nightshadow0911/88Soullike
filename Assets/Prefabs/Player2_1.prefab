@@ -207,8 +207,8 @@ MonoBehaviour:
   currentStamina: 100
   staminaRegenRate: 10
   dashStaminaCost: 10
-  attackStaminaCost: 10
-  comboStaminaCost: 20
+  attackStaminaCost: 0
+  comboStaminaCost: 0
   ledgeDetected: 0
   offset1: {x: 0, y: -1.6}
   offset2: {x: 0, y: 0.2}
@@ -264,12 +264,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterHp: 100
+  characterRegainHp: 0
   characterStamina: 0
   characterNomallAttackDamage: 0
   Exp: 0
   Gold: 0
   curExp: 0
   maxExp: 100
+  totalDamage: 0
   monsterHp: 0
 --- !u!114 &-701612067935374897
 MonoBehaviour:
@@ -394,13 +396,16 @@ MonoBehaviour:
   player: {fileID: 6113475548300559220}
   characterStats: {fileID: 2491328609635162135}
   attackRate: 1
-  canTakeDamage: 1
-  damage: 10
+  attackClickCount: 0
+  monsterToPlayerDamage: 1
   attackPoint: {fileID: 3646084481749102177}
   attackRange: 1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  parryWindowDuration: 0.5
+  isParrying: 0
+  isGuarding: 0
 --- !u!1 &2018583826729319458
 GameObject:
   m_ObjectHideFlags: 0
