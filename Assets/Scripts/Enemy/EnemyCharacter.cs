@@ -4,25 +4,30 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
+
+
 public class EnemyCharacter : EnemyPattern
 {
+    protected enum State
+    {
+        SUCCESS,
+        RUNNING,
+        FAILURE
+    }
+    
     [Header("Base Setting")]
     [SerializeField] protected EnemyStats baseStats;
     protected EnemyStats currentStats;
     [SerializeField] protected Transform targetTransform;
     protected Rigidbody2D rigid;
     protected SoundManager soundManager;
-    private DangerSign danger;
 
-    private IEnumerator pattern;
-        
     private float currentTime = float.MaxValue;
-    protected bool isGroggy;
+    protected State state;
 
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        danger = GetComponent<DangerSign>();
         SetStats();
     }
 
@@ -33,13 +38,13 @@ public class EnemyCharacter : EnemyPattern
 
     protected virtual void Update()
     {
-        if (state == PatternState.FAILURE)
-            currentTime += currentStats.delay;
-        if (state != PatternState.RUNNING)
+        if (state == State.FAILURE)
+            currentTime += (currentStats.delay - .5f);
+        if (state != State.RUNNING)
             currentTime += Time.deltaTime;
         Debug.Log(state);
         Debug.Log((int)currentTime);
-        if (currentTime > currentStats.delay) //2
+        if (currentTime > currentStats.delay)
         {
             ActionPattern();
         }
@@ -49,30 +54,21 @@ public class EnemyCharacter : EnemyPattern
     {
         StopAllCoroutines();
         SetDistance(targetTransform.position);
-        pattern = GetPattern();
-        StartCoroutine(pattern);
-        Debug.Log("패턴실행");
-        Debug.Log("pattern");
+        StartCoroutine(GetPattern()());
     }
 
-    // private void OnGroggy()
-    // {
-    //     AllStop();
-    //     GroggyAnimation(isGroggy);
-    //     currentStats.groggyTime += Time.deltaTime;
-    //     
-    //     if (currentStats.groggyTime > baseStats.groggyTime)
-    //     {
-    //         GroggyAnimation(isGroggy);
-    //         currentStats.groggyMeter = baseStats.groggyMeter;
-    //         currentTime = 0f;
-    //     }
-    // }
-    protected void RunningPattern()
+    protected virtual void RunningPattern()
     {
-        Debug.Log("런");
-        state = PatternState.RUNNING;
+        state = State.RUNNING;
         currentTime = 0f;
+        Rotate();
+    }
+    
+    protected void Rotate()
+    {
+        transform.rotation = targetTransform.position.x < transform.position.x
+            ? Quaternion.Euler(0, 180, 0)
+            : Quaternion.Euler(0, 0, 0);
     }
     
     private void SetStats()
@@ -85,11 +81,11 @@ public class EnemyCharacter : EnemyPattern
         currentStats.groggyTime = 0f;
         currentStats.target = baseStats.target;
     }
-
+    
     private void AllStop()
     {
         StopAllCoroutines();
-        danger.OffDangerSign();
+        state = State.FAILURE;
         rigid.velocity = Vector2.zero;
     }
 }

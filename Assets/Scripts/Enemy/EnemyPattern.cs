@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,17 +15,12 @@ public class EnemyPattern : MonoBehaviour
         LongRange
     }
     
-    protected enum PatternState
-    {
-       SUCCESS,
-       RUNNING,
-       FAILURE
-    }
-
-    private Dictionary<Distance, List<IEnumerator>> patternDict = new Dictionary<Distance, List<IEnumerator>>();
+    private List<Func<IEnumerator>> defaultPattern = new ();
+    private List<Func<IEnumerator>> closeRange = new ();
+    private List<Func<IEnumerator>> mediumRange = new ();
+    private List<Func<IEnumerator>> longRange = new ();
 
     private Distance targetDistance = Distance.Default;
-    protected PatternState state;
 
     protected virtual Distance SetDistance(Vector3 targetPosition)
     {
@@ -40,39 +36,60 @@ public class EnemyPattern : MonoBehaviour
         return targetDistance;
     }
 
-    protected void SetPattern(Distance distance, List<IEnumerator> pattern)
+    protected void AddPattern(Distance distance, Func<IEnumerator> pattern)
     {
-        if (pattern != null)
-            patternDict.Add(distance, pattern);
-    }
-
-    protected IEnumerator GetPattern()
-    {
-        if (!patternDict.ContainsKey(targetDistance))
-            return null;
-    
-        List<IEnumerator> pattern = patternDict[targetDistance];
-        int ran = Random.Range(0, pattern.Count);
-        
-        ShufflePattern(pattern);
-        return pattern[ran];
-    }
-    
-    protected void ClearPattern()
-    {
-        patternDict.Clear();
-        targetDistance = Distance.Default;
-    }
-
-    private void ShufflePattern(List<IEnumerator> pattern)
-    {
-        for (int i = 0; i < pattern.Count; i++)
+        switch (distance)
         {
-            int ran = Random.Range(0, pattern.Count);
-            IEnumerator temp = pattern[i];
-            pattern[i] = pattern[ran];
-            pattern[ran] = temp;
+            case Distance.CloseRange:
+                closeRange.Add(pattern);
+                break;
+            case Distance.MediumRange:
+                mediumRange.Add(pattern);
+                break;
+            case Distance.LongRange:
+                longRange.Add(pattern);
+                break;
+            default:
+                defaultPattern.Add(pattern);
+                break;
         }
+    }
+
+    protected Func<IEnumerator> GetPattern()
+    {
+        List<Func<IEnumerator>> list = GetPatternList(targetDistance);
+        if (list.Count == 0)
+            return null;
+        for (int i = 0; i < list.Count; i++)
+        {
+            int ran = Random.Range(0, list.Count);
+            Func<IEnumerator> ranPattern = list[ran];
+            list[ran] = list[i];
+            list[i] = ranPattern;
+            return ranPattern;
+        }
+        return list[0];
+    }
+
+    private List<Func<IEnumerator>> GetPatternList(Distance distance)
+    {
+        switch (distance)
+        {
+            case Distance.CloseRange:
+                return closeRange;
+            case Distance.MediumRange:
+                return mediumRange;
+            case Distance.LongRange:
+                return longRange;
+            default:
+                return defaultPattern;
+        }
+    }
+    
+    protected void ClearPatternList(Distance distance)
+    {
+        GetPatternList(distance).Clear();
+        targetDistance = Distance.Default;
     }
 }   
 

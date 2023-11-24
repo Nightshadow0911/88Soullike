@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Shooting : MonoBehaviour
+public class RangedAttacking : MonoBehaviour
 {
     private ProjectileManager projectileManager;
     [SerializeField] private Transform attackPosition;
-    [SerializeField] private AudioClip shootClip;
+    //[SerializeField] private AudioClip shootClip;
     
     private void Start()
     {

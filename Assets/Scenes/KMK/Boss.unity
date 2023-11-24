@@ -696,7 +696,9 @@ GameObject:
   - component: {fileID: 345207594}
   - component: {fileID: 345207596}
   - component: {fileID: 345207595}
-  m_Layer: 0
+  - component: {fileID: 345207597}
+  - component: {fileID: 345207598}
+  m_Layer: 7
   m_Name: PattonTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -744,7 +746,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 1744092253, guid: 622bffb6ec36bf04cae63de6b3959b3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -763,7 +765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345207591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.91, y: 0.26, z: 0}
+  m_LocalPosition: {x: 6.91, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -785,12 +787,6 @@ MonoBehaviour:
   baseStats: {fileID: 11400000, guid: f146a69a7166434448dc659833719e47, type: 2}
   targetTransform: {fileID: 1353797583}
   attackPosition: {fileID: 345207593}
-  runSound: {fileID: 0}
-  dodgeSound: {fileID: 0}
-  meleeAttackSound: {fileID: 0}
-  rangedAttackSound: {fileID: 0}
-  spinAttackSound: {fileID: 0}
-  snapShotSound: {fileID: 0}
 --- !u!50 &345207595
 Rigidbody2D:
   serializedVersion: 4
@@ -806,7 +802,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -847,22 +843,48 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.40044022}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1.6666666, y: 2.6}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1947589, y: 1.7315474}
   m_EdgeRadius: 0
+--- !u!114 &345207597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345207591}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1551cc7c8e4c4064c8538ae0636089ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 2
+--- !u!114 &345207598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345207591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad43152f68c5484e871d3ab6f00da02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPosition: {fileID: 345207593}
 --- !u!1001 &493982535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1140,6 +1162,14 @@ PrefabInstance:
     - target: {fileID: 4153891610950256528, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
       propertyPath: m_Name
       value: Ui Overlay
+      objectReference: {fileID: 0}
+    - target: {fileID: 5753832113023864715, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5753832113023864715, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7077954847658565352, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2123,12 +2153,6 @@ MonoBehaviour:
   baseStats: {fileID: 11400000, guid: f146a69a7166434448dc659833719e47, type: 2}
   targetTransform: {fileID: 1353797583}
   attackPosition: {fileID: 7221953188538929092}
-  runSound: {fileID: 0}
-  dodgeSound: {fileID: 0}
-  meleeAttackSound: {fileID: 0}
-  rangedAttackSound: {fileID: 0}
-  spinAttackSound: {fileID: 0}
-  snapShotSound: {fileID: 0}
 --- !u!4 &7016233208154940273
 Transform:
   m_ObjectHideFlags: 0

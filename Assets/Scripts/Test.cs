@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    public float distance;
     private void Update()
     {
-        Debug.DrawRay(transform.position, Vector3.left * 2f, Color.red);
+        Debug.DrawRay(transform.position, Vector3.left * distance, Color.red);
     }
 }
