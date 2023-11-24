@@ -12,6 +12,7 @@ public class SkillSO : ScriptableObject
     [SerializeField] private Sprite skillIcon;
     [SerializeField] private List<SkillEffect> efts;
     [SerializeField] private int power; // 데미지 계산식(ex: 스킬공격력 * power) or 버프시간 등
+    [SerializeField] private int cost; // 마나 코스트
     [SerializeField] private List<String> descriptiion;
     [SerializeField] private PropertyType skillProperty; // 타입이 무기인 경우만 사용
     [SerializeField] private int price; // 가격(상점에서 살때의 가격임, 상점판매가 불가능한 경우 0)

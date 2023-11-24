@@ -184,7 +184,7 @@ public class skeletonEnemy : MonoBehaviour
     {
         isAttacking = true;
         animator.Play("death");
-        yield return YieldCache.WaitForSeconds(1f);
+        yield return YieldCache.WaitForSeconds(0.9f);
         Vector2 SelfPosition = selfPosition.position + new Vector3(0, 1);
         SoulObjectPool objectPool = FindObjectOfType<SoulObjectPool>();
         foreach (var pool in objectPool.pools)

@@ -7,19 +7,13 @@ public class FieldItems : MonoBehaviour
     public Item item;
     public SpriteRenderer image;
 
-    public void SetItem(ItemSO fieldItem)
+    public void SetItem(Item fieldItem)
     {
-        item.curItem = fieldItem;
-        item.itemName = fieldItem.ItemName;
-        item.sprite = fieldItem.Sprite;
-        item.type = fieldItem.Type;
-        item.power = fieldItem.Power;
-        item.description = fieldItem.Descriptiion;
-        item.efts = fieldItem.Efts;
-        item.amount = fieldItem.Amount;
-
-        image.sprite = item.sprite;
+        item = fieldItem;
+        item.Init();
+        image.sprite = item.Sprite;
     }
+
 
     public Item GetItem()
     {

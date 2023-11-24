@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: -952293426841563301}
   - component: {fileID: 4454474238667929373}
   - component: {fileID: 3629454059808967070}
+  - component: {fileID: 6131177484530544590}
   m_Layer: 6
   m_Name: Player2_1
   m_TagString: Player
@@ -43,7 +44,7 @@ Transform:
   - {fileID: 2253853175490137132}
   - {fileID: 1418075965340884772}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3823468216354946513
 SpriteRenderer:
@@ -207,8 +208,8 @@ MonoBehaviour:
   currentStamina: 100
   staminaRegenRate: 10
   dashStaminaCost: 10
-  attackStaminaCost: 0
-  comboStaminaCost: 0
+  attackStaminaCost: 5
+  comboStaminaCost: 20
   ledgeDetected: 0
   offset1: {x: 0, y: -1.6}
   offset2: {x: 0, y: 0.2}
@@ -267,6 +268,7 @@ MonoBehaviour:
   characterRegainHp: 0
   characterStamina: 0
   characterNomallAttackDamage: 0
+  attackSpeed: 0
   Exp: 0
   Gold: 0
   curExp: 0
@@ -395,7 +397,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 6113475548300559220}
   characterStats: {fileID: 2491328609635162135}
-  attackRate: 1
+  parryWindowDuration: 0.5
+  isParrying: 0
+  isGuarding: 0
   attackClickCount: 0
   monsterToPlayerDamage: 1
   attackPoint: {fileID: 3646084481749102177}
@@ -403,9 +407,18 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  parryWindowDuration: 0.5
-  isParrying: 0
-  isGuarding: 0
+--- !u!114 &6131177484530544590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269623617930255229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebac04d3aaa10ff49bc56ad7c0acecff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2018583826729319458
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +621,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1}
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 5
 --- !u!1 &8407141843765768564
 GameObject:
   m_ObjectHideFlags: 0

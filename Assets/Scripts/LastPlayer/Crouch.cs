@@ -8,10 +8,12 @@ public class Crouch : MonoBehaviour
     private Vector2 normalHeight;
     public float crouchHeight;
     public LastPlayerController LastPlayerController;
+    private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
         normalHeight = transform.localScale;
+        gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame
@@ -28,10 +30,9 @@ public class Crouch : MonoBehaviour
             if (transform.localScale.y != crouchHeight)
             {
                 transform.localScale = new Vector2(normalHeight.x, crouchHeight);
-                    Debug.Log("1");
                 LastPlayerController.isSitting =true;
-                LastPlayerController.canDash = false;
-                LastPlayerController.speed = 1;
+                gameManager.playerStats.ExtraCharacterSpeed=1.5f;
+                Debug.Log(" gameManager.playerStats.ExtraCharacterSpeed :" + gameManager.playerStats.ExtraCharacterSpeed);
             }
         }
         else
@@ -45,7 +46,7 @@ public class Crouch : MonoBehaviour
                     LastPlayerController.isSitting = false;
                     LastPlayerController.canDash = true;
                     transform.localScale = normalHeight;
-                    LastPlayerController.speed = 5;
+                    gameManager.playerStats.CharacterSpeed = gameManager.playerStats.CharacterSpeed;
                 }
 
             }

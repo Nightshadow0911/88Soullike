@@ -11,7 +11,7 @@ public class ShopSlot : MonoBehaviour
     public TMP_Text itemDescription;
     public GameObject buyBtn;
 
-    public Item shopItem;
+    [SerializeField] private Item shopItem;
     [SerializeField] private Inventory inven;
 
     private void Start()
@@ -19,8 +19,23 @@ public class ShopSlot : MonoBehaviour
         inven = Inventory.instance;
     }
 
-    public void SetItem(ItemSO item)
+    public void SetItem(Item newItem)
     {
+        //newItem.Init();
+        shopItem = newItem;
+        //shopItem.Init();
+
+        itemIcon.sprite = shopItem.Sprite;
+        itemName.text = shopItem.ItemName;
+        itemDescription.text = "";
+        for (int i = 0; i < shopItem.Description.Count; i++)
+        {
+            itemDescription.text += $"{shopItem.Description[i]}\n";
+        }
+    }
+/*    public void SetItem(ItemSO item)
+    {
+
         shopItem.curItem = item;
         shopItem.itemName = item.ItemName;
         shopItem.sprite = item.Sprite;
@@ -40,19 +55,19 @@ public class ShopSlot : MonoBehaviour
 
         }
 
-    }
+    }*/
 
     public void BuyItem()
     {
-        // °ñµå ÁöºÒ
-        if(shopItem.price < inven.SoulCount)
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if(shopItem.Price < inven.SoulCount)
         {
-            inven.SoulCount -= shopItem.price;
+            inven.SoulCount -= shopItem.Price;
             Inventory.instance.AddItem(shopItem);
             Debug.Log(inven.SoulCount);
         } else
         {
-            Debug.Log("¼Ò¿ïÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
+            Debug.Log("ï¿½Ò¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
         }
     }
 }

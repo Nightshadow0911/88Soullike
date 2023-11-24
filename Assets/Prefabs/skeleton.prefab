@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5048235138083051449
 Transform:
   m_ObjectHideFlags: 0
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7651277435799159720
 SpriteRenderer:
@@ -176,7 +176,7 @@ MonoBehaviour:
   skeletonWeapon: {fileID: 311243272039578616, guid: fbb9b12827e78694696dc6c452ccb92d, type: 3}
   maxHealth: 100
   selfPosition: {fileID: 5048235138083051449}
-  soulDrop: {fileID: 6670470736344860253, guid: d8e2a6ad03cba244aaaf226dc8d6af0c, type: 3}
+  soulDrop: {fileID: 7428717623223419327, guid: 9a9b3036750ae9b4fad0d4ca145d0d0c, type: 3}
 --- !u!95 &4538989473501866103
 Animator:
   serializedVersion: 5

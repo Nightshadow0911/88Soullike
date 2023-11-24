@@ -9,11 +9,15 @@ public class PlayerAttack : MonoBehaviour
     public LastPlayerController player;
     public CharacterStats characterStats;
 
-    private float clickCountResetTime = 1f; // 클릭 카운터를 초기화하는데 걸리는 시간
+    private float clickCountResetTime = 1.5f; // 클릭 카운터를 초기화하는데 걸리는 시간
     private float lastClickTime;
 
-    public float attackRate = 1f;
-    float nextAttackTime = 0f;
+    double nextAttackTime = 0f;
+    public float parryWindowDuration = 0.5f; // 패링이 가능한 시간 간격
+    public bool isParrying = false;
+    public bool isGuarding = false;
+    private float parryWindowEndTime = 0f;
+
     [SerializeField] private int attackClickCount = 1;
     [SerializeField] public bool monsterToPlayerDamage;
     //public int damage;
@@ -37,10 +41,7 @@ public class PlayerAttack : MonoBehaviour
         CheckAttackTime();
         ResetClickCount();
     }
-    public float parryWindowDuration = 0.5f; // 패링이 가능한 시간 간격
-    public bool isParrying = false;
-    public bool isGuarding = false;
-    private float parryWindowEndTime = 0f;
+
 
     public void CheckDeffense()
     {
@@ -91,13 +92,23 @@ public class PlayerAttack : MonoBehaviour
             attackClickCount = -1;
         }
     }
+
+    private void ClickCount()
+    {
+        attackClickCount += 1;
+        lastClickTime = Time.time;
+    }
+
     private void CheckAttackTime()
     {
         if (Time.time >= nextAttackTime)//다음 공격 가능 시간 
         {
             if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
             {
-                nextAttackTime = Time.time + 0.5f / attackRate;
+                double sp = gameManager.playerStats.AttackSpeed + 1f;
+                nextAttackTime = Time.time + 1f / +sp;
+
+
                 if (player.isSitting == false)
                 {
                     Attack();
@@ -160,9 +171,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (enemyCollider.CompareTag("Boss_DB"))
             {
-                attackClickCount+=1;
-                Debug.Log("clickCount :" + attackClickCount);
-                lastClickTime = Time.time;
+                ClickCount();
                 DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
                 if (deathBringer != null)
                 {
@@ -173,34 +182,42 @@ public class PlayerAttack : MonoBehaviour
             }
             else if (enemyCollider.CompareTag("Boss_Archer"))
             {
+                ClickCount();
                 Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
                 if (boss_archer != null)
                 {
-                    //Debug.Log("Deal" + characterStats.characterNomallAttackDamage + " damage to Boss Archer.");
-                    //boss_archer.TakeDamage(attackDamage);
-                    boss_archer.TakeDamage(characterStats.characterNomallAttackDamage);
+                    boss_archer.TakeDamage(gameManager.playerStats.totalDamage);
+                    RegainAttack();
+                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
                 }
             }
             else if (enemyCollider.CompareTag("skeleton"))
             {
+                ClickCount();
                 skeletonEnemy skeleton = enemyCollider.GetComponent<skeletonEnemy>();
                 if (skeleton != null)
                 {
-                    //Debug.Log("Deal" + characterStats.characterNomallAttackDamage + " damage to Skeleton.");
-                    skeleton.TakeDamage(characterStats.characterNomallAttackDamage);
+                    skeleton.TakeDamage(gameManager.playerStats.totalDamage);
+                    RegainAttack();
+                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
                 }
             }
             else if (enemyCollider.CompareTag("archer"))
             {
+                ClickCount();
                 archerEnemy archer = enemyCollider.GetComponent<archerEnemy>();
                 if (archer != null)
                 {
-                    //Debug.Log("Deal " + characterStats.characterNomallAttackDamage + " damage to Archer.");
-                    archer.TakeDamage(characterStats.characterNomallAttackDamage);
+                    archer.TakeDamage(gameManager.playerStats.totalDamage);
+                    RegainAttack();
+                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
+
                 }
             }
         }
     }
+
+
 
     private void OnDrawGizmos()
     {
