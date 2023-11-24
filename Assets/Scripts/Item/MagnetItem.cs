@@ -35,7 +35,7 @@ public class MagnetItem : MonoBehaviour
         }
         if (collision.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
