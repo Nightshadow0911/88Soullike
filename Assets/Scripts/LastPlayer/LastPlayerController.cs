@@ -15,8 +15,6 @@ public class LastPlayerController : MonoBehaviour
     public LedgeCheck ledgeCheck;
 
     public PlayerUI playerUI;
-
-    [SerializeField] public float speed = 5;
     [SerializeField] private float jumpForce = 10;
 
     private bool canMove = true;
@@ -182,7 +180,13 @@ public class LastPlayerController : MonoBehaviour
         if (canMove)
         {
             Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
-            rb.velocity = new Vector2(movingInput * speed, rb.velocity.y);
+            rb.velocity = new Vector2((float)(movingInput * gameManager.playerStats.CharacterSpeed), rb.velocity.y);
+            if (isSitting)
+            {
+                rb.velocity = new Vector2((float)(movingInput * gameManager.playerStats.ExtraCharacterSpeed), rb.velocity.y);
+            }
+            Debug.Log("movespeed:"+gameManager.playerStats.CharacterSpeed);
+
         }
     }
 
@@ -280,7 +284,7 @@ public class LastPlayerController : MonoBehaviour
         {
             float verticalInput = Input.GetAxis("Vertical");
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(rb.velocity.x, verticalInput * speed);
+            rb.velocity = new Vector2(rb.velocity.x, (float)(verticalInput * gameManager.playerStats.CharacterSpeed));
             isGrounded = false;
             canWallSlide = false;
         }

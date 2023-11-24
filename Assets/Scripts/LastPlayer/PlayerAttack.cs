@@ -12,7 +12,7 @@ public class PlayerAttack : MonoBehaviour
     private float clickCountResetTime = 1.5f; // 클릭 카운터를 초기화하는데 걸리는 시간
     private float lastClickTime;
 
-    float nextAttackTime = 0f;
+    double nextAttackTime = 0f;
     public float parryWindowDuration = 0.5f; // 패링이 가능한 시간 간격
     public bool isParrying = false;
     public bool isGuarding = false;
@@ -98,7 +98,10 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
             {
-                nextAttackTime = Time.time + 1f / 2f;//gameManager.playerStats.attackSpeed);
+                double sp = gameManager.playerStats.AttackSpeed + 1f;
+                nextAttackTime = Time.time + 1f / +sp;
+
+
                 if (player.isSitting == false)
                 {
                     Attack();
