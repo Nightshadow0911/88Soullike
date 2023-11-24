@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4902004596751578511
 Transform:
   m_ObjectHideFlags: 0
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1705715553120706534
 SpriteRenderer:
@@ -196,7 +196,7 @@ MonoBehaviour:
   player: {fileID: 0}
   mapSpellMarker: {fileID: 0}
   selfPosition: {fileID: 4902004596751578511}
-  soulDrop: {fileID: 6670470736344860253, guid: d8e2a6ad03cba244aaaf226dc8d6af0c, type: 3}
+  soulDrop: {fileID: 7428717623223419327, guid: 9a9b3036750ae9b4fad0d4ca145d0d0c, type: 3}
   meleeAttack: {fileID: 8108776398137204367, guid: 958b28cdcd9e54245867576549210b52, type: 3}
   spellAttack: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
   spellEffect: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
