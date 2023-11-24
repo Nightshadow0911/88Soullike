@@ -29,38 +29,39 @@ public class Equipment : MonoBehaviour
         characterStats = GameManager.Instance.playerStats;
     }
 
-
-
     public void ChangeEquipItem(Item newItem)
     {
 
         switch (newItem.Type)
         {
             case ItemType.Weapon:
-                if (equipItemList[WEAPON] != null)
                 {
-                    UnEquipItem(0);
-                    equipItemList[WEAPON] = newItem;
-                    UpdateStatus(0);
-                }
-                else
-                {
-                    equipItemList[WEAPON] = newItem;
-                    UpdateStatus(0);
+                    if (equipItemList[WEAPON] != null)
+                    {
+                        UnEquipItem(WEAPON);
+                        equipItemList[WEAPON] = newItem;
+                    }
+                    else
+                    {
+                        equipItemList[WEAPON] = newItem;
+                    }
+                    UpdateStatus(WEAPON);
 
                 }
                 break;
             case ItemType.Armor:
-                if (equipItemList[ARMOR] != null)
                 {
-                    UnEquipItem(1);
-                    equipItemList[ARMOR] = newItem;
-                    UpdateStatus(1);
-                }
-                else
-                {
-                    equipItemList[ARMOR] = newItem;
-                    UpdateStatus(1);
+                    if (equipItemList[ARMOR] != null)
+                    {
+                        UnEquipItem(ARMOR);
+                        equipItemList[ARMOR] = newItem;
+                    }
+                    else
+                    {
+                        equipItemList[ARMOR] = newItem;
+
+                    }
+                    UpdateStatus(ARMOR);
 
                 }
                 break;
@@ -79,8 +80,10 @@ public class Equipment : MonoBehaviour
                 break;
             case 1:
                 characterStats.CharacterDefense += equipItemList[equipIndex].Power;
+
                 break;
         }
+        //characterStats.CharacterWeight += equipItemList[equipIndex].Weight;
     }
     public void UnEquipItem(int equipIndex)
     {
