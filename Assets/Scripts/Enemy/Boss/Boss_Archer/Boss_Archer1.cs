@@ -73,6 +73,7 @@ public class Boss_Archer1 : EnemyCharacter
 
     private IEnumerator TestMeleeAttack()
     {
+        Debug.Log("근거리공격");
         RunningPattern();
         MeleeAttack();
         state = State.SUCCESS;
@@ -81,6 +82,7 @@ public class Boss_Archer1 : EnemyCharacter
     
     private IEnumerator TestRangedAttack()
     {
+        Debug.Log("원거리공격");
         RunningPattern();
         ShootArrow();
         state = State.SUCCESS;
@@ -89,6 +91,7 @@ public class Boss_Archer1 : EnemyCharacter
     
     private IEnumerator Moving()
     {
+        Debug.Log("무빙");
         RunningPattern();
         //soundManager.PlayClip();
         //애니메이션
@@ -107,31 +110,30 @@ public class Boss_Archer1 : EnemyCharacter
 
     private IEnumerator DodgeMovement()
     {
+        Debug.Log("닷지");
         RunningPattern();
         if (CheckWall(GetDirection()))
         {
             state = State.FAILURE;
             yield break;
         }
-        else
+        //soundManager.PlayClip();
+        //애니메이션
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = GetEndPosition(uniqueStats.dodgeDistance);
+        float elapsedTime = 0f;
+        while (elapsedTime < uniqueStats.dodgeTime || !CheckBothSideWall())
         {
-            //soundManager.PlayClip();
-            //애니메이션
-            Vector3 startPosition = transform.position;
-            Vector3 endPosition = GetEndPosition(uniqueStats.dodgeDistance);
-            float elapsedTime = 0f;
-            while (elapsedTime < uniqueStats.dodgeTime || !CheckBothSideWall())
-            {
-                elapsedTime += Time.deltaTime;
-                transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / uniqueStats.dodgeTime);
-                yield return null;
-            }
+            elapsedTime += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / uniqueStats.dodgeTime);
+            yield return null;
         }
         state = State.SUCCESS;
     }
     
     private IEnumerator BackStepMovement()
     {
+        Debug.Log("백스텝");
         RunningPattern();
         if (CheckWall(-GetDirection()))
         {
@@ -154,19 +156,23 @@ public class Boss_Archer1 : EnemyCharacter
     }
     
     private IEnumerator Tracking() {
+        Debug.Log("트래킹");
         RunningPattern();
         //애니메이션
         yield return YieldCache.WaitForSeconds(0.5f);
         float distance = 0f;
         float trackingDistance = 0f;
         float startPosition = transform.position.x;
+        Vector2 direction = GetDirection();
         //애니메이션
-        while (Mathf.Abs(distance) > 1f || Mathf.Abs(trackingDistance) < uniqueStats.trackingDistance)
+        while (Mathf.Abs(distance) > 1f ||
+               Mathf.Abs(trackingDistance) < uniqueStats.trackingDistance ||
+               !CheckWall(direction))
         {
             Vector3 position = transform.position;
             distance = targetTransform.position.x - position.x;
             trackingDistance = startPosition - position.x;
-            rigid.velocity = GetDirection() * uniqueStats.trackingSpeed;
+            rigid.velocity = direction * uniqueStats.trackingSpeed;
             yield return null;
         }
         yield return YieldCache.WaitForSeconds(0.1f);
@@ -178,15 +184,9 @@ public class Boss_Archer1 : EnemyCharacter
             Collider2D coll = Physics2D.OverlapBox(attackPosition.position,
                                                 uniqueStats.meleeAttackRange, 0, uniqueStats.target);
             if (coll != null)
-            {
                 // 데미지 주기
                 Debug.Log("player hit");
-                yield return YieldCache.WaitForSeconds(uniqueStats.trackingAttacksWaitTime);
-            }
-            else
-            {
-                yield return YieldCache.WaitForSeconds(uniqueStats.trackingAttacksWaitTime);
-            }
+            yield return YieldCache.WaitForSeconds(uniqueStats.trackingAttacksWaitTime);
         }
         yield return YieldCache.WaitForSeconds(0.2f);
         state = State.SUCCESS;
