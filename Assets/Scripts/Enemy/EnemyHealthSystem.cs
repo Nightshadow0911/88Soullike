@@ -12,6 +12,4 @@ public class EnemyHealthSystem : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
-    
-    private 
 }

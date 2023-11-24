@@ -10,4 +10,10 @@ public class Boss_ArcherStats : EnemyStats
     public float dodgeDistance;
     public float trackingDistance;
     public float jumpForce;
+    public Vector2 meleeAttackRange;
+    public LayerMask wallLayer;
+    
+    [Header("RanedAttack Info")] 
+    public List<ObjectPool.Pool> projectiles;
+    public RangedAttackData rangedAttackData;
 }

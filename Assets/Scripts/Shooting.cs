@@ -1,24 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Shooting : MonoBehaviour
 {
-    [SerializeField] private RangedAttackData rangedData;
+    private ProjectileManager projectileManager;
     [SerializeField] private Transform attackPosition;
+    [SerializeField] private AudioClip shootClip;
     
-    public void ShootArrow(int numberOfArrows, Vector2 dir)
+    private void Start()
     {
-        float dataAngle = rangedData.angle;
+        projectileManager = ProjectileManager.instance;
+    }
+
+    public void CreateProjectile(Vector2 dir, RangedAttackData data)
+    {
         // 각도 아래로 내림
-        float minAngle = -(numberOfArrows / 2f) * dataAngle + 0.5f * dataAngle;
-        for (int i = 0; i < numberOfArrows; i++)
+        float shotAngle = data.multipleProjectilesAngle;
+        int shotNum = data.numberofProjectilesPerShot;
+        float minAngle = -(shotNum / 2f) * shotAngle + 0.5f * shotAngle;
+        for (int i = 0; i < shotNum; i++)
         {
-            float angle = minAngle + dataAngle * i;
-            ProjectileManager.instance.CreateProjectile(
+            float angle = minAngle + shotAngle * i;
+            float randomSpread = Random.Range(-data.spread, data.spread);
+            angle += randomSpread;
+            projectileManager.ShootProjectile(
                 attackPosition.position,
                 RotateVector2(dir, angle),
-                rangedData
+                data
             );
         }
     }

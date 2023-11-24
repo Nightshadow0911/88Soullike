@@ -11,8 +11,5 @@ public class EnemyStats : ScriptableObject
     public float delay;
     public int groggyMeter;
     public float groggyTime;
-    public Vector2 meleeAttackRange;
-    
-    [Header("Projectile Info")] 
-    public List<ObjectPool.Pool> projectile;
+    public LayerMask target;
 }
