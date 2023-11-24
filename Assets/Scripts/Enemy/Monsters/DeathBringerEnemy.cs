@@ -53,7 +53,7 @@ public class DeathBringerEnemy : MonoBehaviour
     {
         Vector2 direction = player.position - transform.position;
 
-        if (direction.x < 10f)
+        if (Mathf.Abs(direction.x) < 10f)
         {
             if (isAttacking) //공격중일 때 이동 불가
             {
@@ -73,21 +73,21 @@ public class DeathBringerEnemy : MonoBehaviour
             }
         }
 
-        else if (direction.x <= 4f) //근접 평타 액션
+        if (Mathf.Abs(direction.x) <= 4f) //근접 평타 액션
         {
-            if(isAttacking)
+            if (isAttacking)
             {
                 return;
             }
+            
             if (!isTeleport)
             {
                 StartCoroutine(AttackPlayer());
             }
         }
 
-        else if (direction.x >= 10f) //원거리 주문 공격
+        else if (Mathf.Abs(direction.x) >= 10f) //원거리 주문 공격
         {
-
             if (isAttacking)
             {
                 moveSpeed = 0;
@@ -111,7 +111,7 @@ public class DeathBringerEnemy : MonoBehaviour
             isAttacking = true;
             Vector2 spawnPosition;
             
-            if (direction.x < 0)
+            if (Mathf.Abs(direction.x) < 0)
             {
                 spawnPosition = transform.position + new Vector3(2.6f, 3.5f);
                 meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);

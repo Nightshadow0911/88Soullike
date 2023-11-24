@@ -45,7 +45,7 @@ public class weaponColliderRange : MonoBehaviour
                         }
                     else
                         {
-                            //particle.DamagedEffect();
+                            particle.DamagedEffect();
                             gameManager.playerStats.TakeDamage(damage);
                             gameManager.playerStats.ApplyPoisonStatus(5, 3, 50);
                         }
