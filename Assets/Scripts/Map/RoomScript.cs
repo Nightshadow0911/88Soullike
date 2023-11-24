@@ -6,7 +6,6 @@ public class RoomScript : MonoBehaviour, IRoomObserver
 {
     public int roomNumber;
     public int[] connectedRooms;
-    private bool hasPlayerEntered = false;
     
      private Dictionary<int, int[]> roomConnections = new Dictionary<int, int[]>
     {
@@ -40,14 +39,9 @@ public class RoomScript : MonoBehaviour, IRoomObserver
 
     public void OnPlayerEnteredRoom(int playerRoom)
     {
-        if (!hasPlayerEntered && playerRoom == roomNumber)
+        if (playerRoom == roomNumber)
         {
-            hasPlayerEntered = true;
-            RoomManager.Instance.ActivateRooms(roomNumber, roomConnections[roomNumber]);
-        }
-        else if (hasPlayerEntered && playerRoom != roomNumber)
-        {
-            hasPlayerEntered = false;
+            RoomManager.Instance.ActivateRooms(roomNumber, connectedRooms);
         }
     }
    
