@@ -185,7 +185,7 @@ public class LastPlayerController : MonoBehaviour
             {
                 rb.velocity = new Vector2((float)(movingInput * gameManager.playerStats.ExtraCharacterSpeed), rb.velocity.y);
             }
-            //Debug.Log("movespeed:"+gameManager.playerStats.CharacterSpeed);
+           //Debug.Log("movespeed:"+gameManager.playerStats.CharacterSpeed);
 
         }
     }
