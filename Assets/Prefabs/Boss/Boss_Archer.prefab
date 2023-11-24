@@ -117,6 +117,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
+  power: 0
   speed: 7
   delay: 0.7
   baseGroggyMeter: 100
@@ -133,6 +134,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   maxHealth: 1000
+  selfPosition: {fileID: 6964863431019259073}
   ProjectileObj:
     tag: Boss_Arrow
     prefab: {fileID: 5699447481153168627, guid: b87a71e404e1cce47a82728bc573d2cc, type: 3}

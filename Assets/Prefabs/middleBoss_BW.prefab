@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1705715553120706534
 SpriteRenderer:
@@ -147,7 +147,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0004785359, y: 0.27223986}
+  m_Offset: {x: 0.0027236938, y: 0.27223986}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -158,7 +158,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.41124952, y: 0.5587958}
+  m_Size: {x: 0.21923828, y: 0.5587958}
   m_EdgeRadius: 0
 --- !u!95 &4933381492808349410
 Animator:
@@ -193,14 +193,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec62ee560b0d9984f8f1b965f515d579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
-  mapSpellMarker: {fileID: 4902004596751578511}
+  player: {fileID: 0}
+  mapSpellMarker: {fileID: 0}
   selfPosition: {fileID: 4902004596751578511}
   soulDrop: {fileID: 6670470736344860253, guid: d8e2a6ad03cba244aaaf226dc8d6af0c, type: 3}
   meleeAttack: {fileID: 8108776398137204367, guid: 958b28cdcd9e54245867576549210b52, type: 3}
   spellAttack: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
   spellEffect: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
   MiddleBoss: {fileID: 6045820309081120241}
-  maxHealth: 800
+  maxHealth: 100000
   currentHealth: 0
   characterStats: {fileID: 2491328609635162135, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
