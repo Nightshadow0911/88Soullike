@@ -46,8 +46,6 @@ public class Boss_Archer : Boss
     private bool dodging = false;
     private Boss_Archer_Animation anim;
 
-   
-
     protected override void Awake()
     {
         base.Awake();
@@ -358,18 +356,7 @@ public class Boss_Archer : Boss
     
     private void ShootArrow(int numberOfArrows, Vector2 dir)
     {
-        float dataAngle = rangedData.angle;
-        // 각도 아래로 내림
-        float minAngle = -(numberOfArrows / 2f) * dataAngle + 0.5f * dataAngle;
-        for (int i = 0; i < numberOfArrows; i++)
-        {
-            float angle = minAngle + dataAngle * i;
-            ProjectileManager.instance.CreateProjectile(
-                attackPosition.position,
-                RotateVector2(dir, angle),
-                rangedData
-            );
-        }
+        
     }
     
     private Vector2 RotateVector2(Vector2 v, float degree) {
