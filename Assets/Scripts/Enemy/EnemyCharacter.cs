@@ -39,10 +39,11 @@ public class EnemyCharacter : EnemyPattern
     protected virtual void Update()
     {
         if (state == State.FAILURE)
-            currentTime += (currentStats.delay - .5f);
+            currentTime += currentStats.delay - .5f;
         if (state != State.RUNNING)
             currentTime += Time.deltaTime;
         Debug.Log(state);
+        Debug.Log(currentStats.delay);
         Debug.Log((int)currentTime);
         if (currentTime > currentStats.delay)
         {

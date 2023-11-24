@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 11
+  m_text: "\uC138\uC774\uBE0C\uD3EC\uC778\uD2B8"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4cdaa67cf67562544a05273781d0c104, type: 2}
   m_sharedMaterial: {fileID: -8422958274168795053, guid: 4cdaa67cf67562544a05273781d0c104, type: 2}
@@ -263,3 +263,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textUI: {fileID: 6835434911835972019}
+  imageUI: {fileID: 0}
