@@ -30,7 +30,7 @@ public class CharacterStats : MonoBehaviour
         growthStr,
         growthDex,
         growthInt,
-        growthLux
+        growthLux,
     }
     //서브 성장 스텟
     private int[] subState = new int[Enum.GetNames(typeof(Substate)).Length];
@@ -55,11 +55,11 @@ public class CharacterStats : MonoBehaviour
         maxStr,
         maxDex,
         maxInt,
-        maxLuk
-
+        maxLuk,
     }
-    public double attackSpeed; // 공격 속도
-    private double moveSpeed; // 이동속도
+    private double attackSpeed = 1f; // 공격 속도
+    private double moveSpeed=5f; // 이동속도
+    private double extraMoveSpeed = 1.5f;
     public int Exp;
     public int Gold;
 
@@ -75,7 +75,6 @@ public class CharacterStats : MonoBehaviour
     {
         subState[(int)Substate.characterHp] = 100; // max
         characterHp = subState[(int)Substate.characterHp];
-
 
         subState[(int)Substate.characterRegainHp] = 100; // max
         characterRegainHp = subState[(int)Substate.characterRegainHp];
@@ -127,8 +126,8 @@ public class CharacterStats : MonoBehaviour
     private void DexGrow(int i)
     {
         GrowDex += 1;
-        attackSpeed += i*0.1;
-        moveSpeed += i;
+        attackSpeed += i*0.05;
+        moveSpeed += i*0.05;
         subState[(int)Substate.maxDex] += 1;
     }
     // 운 증가시 치명타율, 패리 시간, 재화획득량, 버티기(??)
@@ -342,6 +341,7 @@ public class CharacterStats : MonoBehaviour
     public int CharacterWeight
     {
         get { return subState[(int)Substate.characterWeight]; }
+        set { subState[(int)Substate.characterWeight]=value; }
     }
     public int NormalAttackDamage
     {
@@ -389,7 +389,14 @@ public class CharacterStats : MonoBehaviour
     {
         get { return moveSpeed; }
         set { moveSpeed = value; }
+
     }
+    public double ExtraCharacterSpeed
+    {
+        get { return extraMoveSpeed; }
+        set { extraMoveSpeed = value; }
+    }
+
     public double AttackSpeed
     {
         get { return attackSpeed; }
