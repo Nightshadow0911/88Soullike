@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfba037d0a4fcb542bc0c8e8860c3cc6, type: 3}
+  m_Name: Boss_ArcherStats
+  m_EditorClassIdentifier: 
+  speed: 5
+  damage: 10
+  delay: 1
+  groggyMeter: 100
+  groggyTime: 3
+  target:
+    serializedVersion: 2
+    m_Bits: 64
+  backstepDistance: 5
+  backstepTime: 1
+  dodgeDistance: 2.5
+  dodgeTime: 0.5
+  trackingDistance: 6
+  numTrackingAttacks: 4
+  trackingAttacksWaitTime: 0.1
+  trackingSpeed: 10
+  jumpForce: 6
+  meleeAttackRange: {x: 1.2, y: 1}
+  checkDistance: 1.2
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  projectiles:
+  - tag: Boss_Arrow
+    prefab: {fileID: 5699447481153168627, guid: b87a71e404e1cce47a82728bc573d2cc, type: 3}
+    size: 5
+  arrowData: {fileID: 11400000, guid: 43ca5f370f37fb646a34e66936784530, type: 2}
+  runSound: {fileID: 0}
+  dodgeSound: {fileID: 0}
+  meleeAttackSound: {fileID: 0}
+  rangedAttackSound: {fileID: 0}
+  spinAttackSound: {fileID: 0}
+  snapShotSound: {fileID: 0}

@@ -14,7 +14,7 @@ public class ProjectileManager : MonoBehaviour
         objectPool = GetComponent<ObjectPool>();
     }
 
-    public void CreateProjectile(Vector2 startPosition, Vector2 direction, RangedAttackData attackData) {
+    public void ShootProjectile(Vector2 startPosition, Vector2 direction, RangedAttackData attackData) {
         GameObject obj = objectPool.SpawnFromPool(attackData.tag);
     
         obj.transform.position = startPosition;

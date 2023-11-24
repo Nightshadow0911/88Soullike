@@ -2,14 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class BossPattern
-{
-    public string patternName;
-    public float probability;// 패턴의 확률 
-    public int maxRepeatCount; // 패턴 최대 반복 횟수
-    public int currentRepeatCount; // 현재 반복 횟수
-}
 
 public class PattonTest : MonoBehaviour
 {
@@ -75,5 +67,14 @@ public class PattonTest : MonoBehaviour
     {
         Debug.Log("Executing " + pattern.patternName);
         // 패턴 실행 로직을 여기에 추가
+    }
+    
+    [System.Serializable]
+    public class BossPattern
+    {
+        public string patternName;
+        public float probability;// 패턴의 확률 
+        public int maxRepeatCount; // 패턴 최대 반복 횟수
+        public int currentRepeatCount; // 현재 반복 횟수
     }
 }
