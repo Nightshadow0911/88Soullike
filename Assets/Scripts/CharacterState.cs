@@ -36,7 +36,7 @@ public class CharacterStats : MonoBehaviour
     private int[] subState = new int[Enum.GetNames(typeof(Substate)).Length];
     private enum Substate
     {
-        characterHp, // 현재체력
+        characterHp, // 최대체력
         characterRegainHp,//재생체력
         characterWeight, // 캐릭터 무게
         characterDefense, // 캐릭터 방어력
@@ -49,9 +49,16 @@ public class CharacterStats : MonoBehaviour
         propertyDamage, // 속성 데미지 
         propertyDefense, //속성 방어력
         EquipWeight, // 장비 무게
-        critcal // 크리티컬 확률
+        critcal, // 크리티컬 확률
+
+        //Test
+        maxStr,
+        maxDex,
+        maxInt,
+        maxLuk
+
     }
-    private double attackSpeed; // 공격 속도
+    public double attackSpeed; // 공격 속도
     private double moveSpeed; // 이동속도
     public int Exp;
     public int Gold;
@@ -69,6 +76,7 @@ public class CharacterStats : MonoBehaviour
         subState[(int)Substate.characterHp] = 100; // max
         characterHp = subState[(int)Substate.characterHp];
 
+
         subState[(int)Substate.characterRegainHp] = 100; // max
         characterRegainHp = subState[(int)Substate.characterRegainHp];
 
@@ -84,7 +92,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Update()
     {
-        WeightSpeed();  //Update에 넣긴 했으나 장비가 변경될때 넣는게 좋아보임.
+        //WeightSpeed();  //Update에 넣긴 했으나 장비가 변경될때 넣는게 좋아보임.
 
     }
 
@@ -102,23 +110,26 @@ public class CharacterStats : MonoBehaviour
     private void StGrow(int i)
     {
         GrowStemina += 1;
-        subState[(int)Substate.characterHp] = 1;
+        subState[(int)Substate.characterHp] += 1;
         subState[(int)Substate.characterStamina] += i;
     }
     // 힘 증가시 일반공격력, 무게, 물리스킬데미지
     private void StrGrow(int i)
     {
         GrowStr += 1;
+       
         subState[(int)Substate.nomallAttackDamage] += i;
         subState[(int)Substate.characterWeight] += i;
         subState[(int)Substate.nomallSkillDamage] += i;
+        subState[(int)Substate.maxStr] += i;
     }
     // 민첩 증가시 공속, 이속
     private void DexGrow(int i)
     {
         GrowDex += 1;
-        attackSpeed += i;
+        attackSpeed += i*0.1;
         moveSpeed += i;
+        subState[(int)Substate.maxDex] += 1;
     }
     // 운 증가시 치명타율, 패리 시간, 재화획득량, 버티기(??)
     private void LuxGrow(int i)
@@ -128,6 +139,7 @@ public class CharacterStats : MonoBehaviour
         subState[(int)Substate.parryTime] += i;
         subState[(int)Substate.addGoods] += i;
         subState[(int)Substate.characterRegainHp] += i;
+        subState[(int)Substate.maxLuk] += 1;
     }
     // 지능 증가시 마나, 속성 데미지
     private void IntGrow(int i)
@@ -135,6 +147,7 @@ public class CharacterStats : MonoBehaviour
         GrowInt += 1;
         subState[(int)Substate.charactermana] += i;
         subState[(int)Substate.propertyDamage] += i;
+        subState[(int)Substate.maxInt] += 1;
     }
 
     //무게에 따라 속도가 다름?
@@ -173,20 +186,20 @@ public class CharacterStats : MonoBehaviour
                     HPGrow(1); // HP를 1만큼 업데이트
                     Debug.Log("HP Increased");
                     break;
-                case "Stamina":
+                case "ST":
                     StGrow(1); // 스태미너를 1만큼 업데이트
                     Debug.Log("Stemina Increased");
                     break;
                 case "STR":
                     StrGrow(1); // 스태미너를 1만큼 업데이트
                     break;
-                case "Dex":
+                case "DEX":
                     DexGrow(1); // 스태미너를 1만큼 업데이트
                     break;
-                case "Int":
+                case "INT":
                     IntGrow(1); // 스태미너를 1만큼 업데이트
                     break;
-                case "Lux":
+                case "LUK":
                     LuxGrow(1); // 스태미너를 1만큼 업데이트
                     break;
             }
@@ -343,9 +356,29 @@ public class CharacterStats : MonoBehaviour
     {
         get { return subState[(int)Substate.propertyDamage]; }
     }
-    public int critical // float
+    public int Critical // float
     {
         get { return subState[(int)Substate.critcal]; }
+    }
+    public int MaxStr
+    {
+        get { return subState[(int)Substate.maxStr]; }
+        set { subState[(int)Substate.maxStr] = value; }
+    }
+    public int MaxDex
+    {
+        get { return subState[(int)Substate.maxDex]; }
+        set { subState[(int)Substate.maxDex] = value; }
+    }
+    public int MaxInt
+    {
+        get { return subState[(int)Substate.maxInt]; }
+        set { subState[(int)Substate.maxInt] = value; }
+    }
+    public int MaxLuk
+    {
+        get { return subState[(int)Substate.maxLuk]; }
+        set { subState[(int)Substate.maxLuk] = value; }
     }
     public int CharacterDefense
     {

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d96b9632428743428a8ebf6c71f676b, type: 3}
-  m_Name: HPHealingEft
+  m_Script: {fileID: 11500000, guid: 0d66199baed30404882b1caa83ff299c, type: 3}
+  m_Name: STRBuffEft
   m_EditorClassIdentifier: 
-  healingPoint: 5
+  buffPrefab: {fileID: 1553006849376801241, guid: bd496490ef606114ca092a45a3f15863, type: 3}

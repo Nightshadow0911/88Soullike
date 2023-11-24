@@ -61,20 +61,21 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         slotCount = 6;
+        StartItem();
     }
 
     public bool AddItem(Item item)
     {
         if (items.Count < SlotCount)
         {
-            if (item.curItem.IsStackable())
+            if (item.CurItem.IsStackable())
             {
                 bool itemAlreadyInInventory = false;
                 foreach(Item inventoryItem in items)
                 {
-                    if(inventoryItem.curItem.ItemName == item.curItem.ItemName)
+                    if(inventoryItem.CurItem.ItemName == item.CurItem.ItemName)
                     {
-                        inventoryItem.amount += item.curItem.Amount;
+                        inventoryItem.Amount += item.CurItem.Amount;
                         itemAlreadyInInventory = true;
                     }
                 }
@@ -111,5 +112,23 @@ public class Inventory : MonoBehaviour
                 fieldItems.DestroyItem();
             }
         }
+    }
+
+    private void StartItem() // 시작할때 얻을 기본 아이템
+    {
+        ItemDatabase Ib = ItemDatabase.instance;
+        Item newItem = new Item();
+
+        for (int i = 0; i < Ib.itemDB.Count; i++)
+        {
+            if(!Ib.itemDB[i].Buyable() && Ib.itemDB[i].Type == ItemType.Potion)
+            {
+                newItem.CurItem = Ib.itemDB[i];
+                newItem.Init();
+                AddItem(newItem);
+            }
+            
+        }
+
     }
 }

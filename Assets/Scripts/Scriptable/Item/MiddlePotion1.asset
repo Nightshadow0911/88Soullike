@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: MiddlePotion1
   m_EditorClassIdentifier: 
   type: 2
-  itemName: "\uC911\uAC04 \uD790\uB9C1\uD3EC\uC158"
+  itemName: "\uCDA9\uC804\uD615 \uD790\uB9C1\uD3EC\uC158"
   sprite: {fileID: 21300000, guid: 30bab59cba41e6b4ab55b7959db6d1e3, type: 3}
   efts:
   - {fileID: 11400000, guid: af57ca3a9e3e03543a0c01db5f7c02cb, type: 2}
   power: 10
   descriptiion:
-  - "\uCCB4\uB825 \uD68C\uBCF5 10"
-  amount: 2
+  - "\uCCB4\uB825 \uD68C\uBCF5 80%"
+  amount: 7
   attackRange: 0
   attackSpeed: 0
   weaponProperty: 0

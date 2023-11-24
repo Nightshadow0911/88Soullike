@@ -347,7 +347,7 @@ public class Boss_Archer : Boss
 
     private IEnumerator FireSnapshot()
     {
-        SoundManager.instance.PlayClip(snapShotSound);
+        //SoundManager.instance.PlayClip(snapShotSound);
         for (int i = 0; i < 3; i++)
         {
             ShootArrow(1, GetDirection());
@@ -496,11 +496,11 @@ public class Boss_Archer : Boss
         }
     }
     
-    private void OnDangerSign()
-    {
-        SoundManager.instance.PlayClip(danger);
-        dangerSign.SetActive(true);
-    }
+    //private void OnDangerSign()
+    //{
+    //    SoundManager.instance.PlayClip(danger);
+    //    dangerSign.SetActive(true);
+    //}
     
     private void OffDangerSign()
     {

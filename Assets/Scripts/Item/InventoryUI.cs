@@ -21,6 +21,13 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private TMP_Text soulTxt;
 
 
+    private void Awake()
+    {
+
+
+
+    }
+
     private void Start()
     {
         instance = this; // юс╫ц

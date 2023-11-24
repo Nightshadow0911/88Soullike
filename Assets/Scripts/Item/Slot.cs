@@ -16,13 +16,13 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public void UpdateSlotUI()
     {
 
-        itemIcon.sprite = item.sprite;
+        itemIcon.sprite = item.Sprite;
         itemIcon.transform.localScale = Vector3.one * 0.7f;
         itemIcon.gameObject.SetActive(true);
 
-        if (item.curItem.IsStackable())
+        if (item.CurItem.IsStackable())
         {
-            amountTxt.text = item.amount.ToString();
+            amountTxt.text = item.Amount.ToString();
         }
         else
         {
@@ -50,17 +50,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            if (item.curItem == null) return;
+            if (item.CurItem == null) return;
         }
 
         InventoryUI.instance.usePanel.gameObject.SetActive(true);
 
-        for (int i = 0; i < item.description.Count; i++)
+        for (int i = 0; i < item.Description.Count; i++)
         {
-            descriptions += $"{item.description[i]}\n";
+            descriptions += $"{item.Description[i]}\n";
 
         }
-        InventoryUI.instance.usePanel.GetComponent<UsePopup>().SetPopup(item.itemName, descriptions, slotnum);
+        InventoryUI.instance.usePanel.GetComponent<UsePopup>().SetPopup(item.ItemName, descriptions, slotnum);
     }
 
     public void ApplyUse()
@@ -69,11 +69,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
         bool isUse = item.Use(); //아이템 효과 사용
 
-        if (isUse && (item.amount <= 0)) // 모두 사용되면 슬롯의 정보를 초기활
+        if (isUse && (item.Amount <= 0)) // 모두 사용되면 슬롯의 정보를 초기활
         {
             Inventory.instance.RemoveItem(slotnum);
         }
-        UpdateSlotUI();
+        else
+        {
+            UpdateSlotUI();
+        }
     }
 
 

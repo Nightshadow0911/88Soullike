@@ -27,14 +27,20 @@ public class UsePopup : MonoBehaviour
         btnCancel.onClick.AddListener(Close);
         btnConform.onClick.AddListener(Confirm);
         btnDump.onClick.AddListener(Dump);
-
     
+    }
+
+    private void OnDisable()
+    {
+        btnCancel.onClick.RemoveAllListeners();
+        btnConform.onClick.RemoveAllListeners();
+        btnDump.onClick.RemoveAllListeners();
     }
 
     public void SetPopup(string title, string content, int slotnum)
     {
         txtTitle.text = "";
-        if (invenUI.slots[slotnum].item.curItem.IsStackable())
+        if (invenUI.slots[slotnum].item.CurItem.IsStackable())
         {
             txtTitle.text = title;
             txtContent.text = $"{content}\n사용하시겠습니까?";
@@ -69,6 +75,7 @@ public class UsePopup : MonoBehaviour
     void Dump()
     {
         Inventory.instance.RemoveItem(slotnum);
+        Debug.Log("덤프");
         Close();
     }
 }
