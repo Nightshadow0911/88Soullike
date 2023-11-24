@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour
@@ -10,16 +11,22 @@ public class ItemDatabase : MonoBehaviour
         instance = this;
     }
     public List<ItemSO> itemDB = new List<ItemSO>();
+    public List<Transform> BoxTr = new List<Transform>();
 
     public GameObject fieldItemPrefab;
     public Vector3[] pos;
 
     private void Start()
     {
-        for (int i = 0; i < 6; i++)
+        Item fieldItem = new Item();
+
+        foreach(Transform btr in BoxTr)
         {
-            GameObject go = Instantiate(fieldItemPrefab, pos[i], Quaternion.identity);
-            go.GetComponent<FieldItems>().SetItem(itemDB[Random.Range(0, itemDB.Count)]);
+            fieldItem.CurItem = itemDB[Random.Range(0, itemDB.Count)];
+            fieldItem.Init();
+
+            GameObject go = Instantiate(fieldItemPrefab, btr.position, Quaternion.identity);
+            go.GetComponent<FieldItems>().SetItem(fieldItem);
         }
     }
     // 박스와 몬스터에 아이템 정보를 세팅하는 함수

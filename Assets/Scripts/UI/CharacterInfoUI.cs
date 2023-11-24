@@ -67,12 +67,12 @@ public class CharacterInfoUI : MonoBehaviour
         foreach(Item ew in Equipment.instance.equipItemList)
         {
             if(ew != null)
-            equipWeight += ew.weight;
+            equipWeight += ew.Weight;
         }
         weightTxt.text = $"{equipWeight} / {playerStat.CharacterWeight}";
         speedTxt.text = $"{playerStat.CharacterSpeed:F1}";
 
-        weaponTxt.text = $"[E] {Equipment.instance.equipItemList[0]?.itemName}";
+        weaponTxt.text = $"[E] {Equipment.instance.equipItemList[0]?.ItemName}";
         attackTxt.text = $"{playerStat.NormalAttackDamage}";
         skillTxt.text = $"{playerStat.NormalSkillDamage}";
         propertyTxt.text = $"{playerStat.PropertyDamage}";
