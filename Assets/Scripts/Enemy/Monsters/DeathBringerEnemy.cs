@@ -20,12 +20,15 @@ public class DeathBringerEnemy : MonoBehaviour
     public GameObject meleeAttack;
     public GameObject spellAttack;
     public GameObject spellEffect;
-    public GameObject magicMissle;
+    public GameObject magicMissile;
 
     private GameObject spellEffectObject;
     private GameObject spellAttackObject;
-    
+    private GameObject meleeAttackRange;
+    private GameObject MagicMissile;
+
     private float moveSpeed = 0.5f;
+    public float missileSpeed = 5f;
     private bool isAttacking = false;
     private bool isTeleport = false;
 
@@ -33,7 +36,7 @@ public class DeathBringerEnemy : MonoBehaviour
     private int spellCount; //스펠 사용 횟수
     private int maxSpellCount = 3; //최대 스펠 사용 횟수
 
-    public int maxHealth = 800;
+    public int maxHealth;
     [SerializeField]
     private int currentHealth;
 
@@ -48,16 +51,15 @@ public class DeathBringerEnemy : MonoBehaviour
 
     void Update()
     {
-        Animator animator = GetComponent<Animator>();
         Vector2 direction = player.position - transform.position;
 
-        if (Mathf.Abs(direction.x) < 10f && Mathf.Abs(direction.x) > 1.5f) //비슷한 높이에 어느정도 가까운 거리면 걸어서 이동, y축값 수정 필요.
+        if (direction.x < 10f)
         {
-            if (isAttacking)
+            if (isAttacking) //공격중일 때 이동 불가
             {
                 moveSpeed = 0;
             }
-            if (!isAttacking && !isTeleport)
+            else if (!isTeleport) //공격, 텔레포트를 사용중이지 않을 때 이동
             {
                 Vector2 moveDirection = direction.normalized;
 
@@ -71,15 +73,19 @@ public class DeathBringerEnemy : MonoBehaviour
             }
         }
 
-        else if (Mathf.Abs(direction.x) <= 2f) //근접 평타 액션
+        else if (direction.x <= 4f) //근접 평타 액션
         {
-            if (!isAttacking && !isTeleport)
+            if(isAttacking)
+            {
+                return;
+            }
+            if (!isTeleport)
             {
                 StartCoroutine(AttackPlayer());
             }
         }
 
-        else if (Mathf.Abs(direction.x) >= 10f) //원거리 공격 이후 순간이동 모션
+        else if (direction.x >= 10f) //원거리 주문 공격
         {
 
             if (isAttacking)
@@ -101,44 +107,30 @@ public class DeathBringerEnemy : MonoBehaviour
 
         IEnumerator AttackPlayer() //몬스터가 공격하면 공격범위에 프리팹을 소환하고, 그 프리팹에 닿으면 플레이어에게 피해를 주도록
         {
+            animator.Play("attack");
+            isAttacking = true;
+            Vector2 spawnPosition;
             
-            Vector2 direction = player.position - transform.position;
-            Vector2 moveDirection = direction.normalized;
-
-            if (moveDirection.x < 0) // 방향 전환 기능
+            if (direction.x < 0)
             {
-                animator.Play("attack");
-                isAttacking = true;
-                Vector2 spawnPosition = transform.position + new Vector3(-2.6f, 3.5f); //함수로 묶음처리
-                
-                GameObject meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
+                spawnPosition = transform.position + new Vector3(2.6f, 3.5f);
+                meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
                 meleeAttack.transform.localScale = new Vector3(5, 5, 1);
-                meleeAttackRange.SetActive(false); //생성된 공격 범위를 비활성화
-
-                yield return YieldCache.WaitForSeconds(1.5f);
-                meleeAttackRange.SetActive(true); //생성된 공격 범위를 활성화
-                yield return YieldCache.WaitForSeconds(0.3f);
-                Destroy(meleeAttackRange);
-                animator.Play("idle");
-                yield return YieldCache.WaitForSeconds(1.5f);
-                isAttacking = false;
             }
-            else //반대 방향
+            else
             {
-                animator.Play("attack");
-                isAttacking = true;              
-                Vector2 spawnPosition = transform.position + new Vector3(2.6f, 3.5f);
-                GameObject meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
+                spawnPosition = transform.position + new Vector3(-2.6f, 3.5f);
+                meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
                 meleeAttack.transform.localScale = new Vector3(-5, 5, 1);
-                meleeAttackRange.SetActive(false); //생성된 공격 범위를 비활성화            
-                yield return YieldCache.WaitForSeconds(1.5f);
-                meleeAttackRange.SetActive(true); //생성된 공격 범위를 활성화
-                yield return YieldCache.WaitForSeconds(0.3f);
-                Destroy(meleeAttackRange);
-                animator.Play("idle");
-                yield return YieldCache.WaitForSeconds(1.5f);
-                isAttacking = false;
             }
+            meleeAttackRange.SetActive(false); //생성된 공격 범위를 비활성화
+            yield return YieldCache.WaitForSeconds(1.5f);
+            meleeAttackRange.SetActive(true); //생성된 공격 범위를 활성화
+            yield return YieldCache.WaitForSeconds(0.3f);
+            Destroy(meleeAttackRange);
+            animator.Play("idle");
+            yield return YieldCache.WaitForSeconds(1.5f);
+            isAttacking = false;
         }
 
         IEnumerator UseSpell()
@@ -160,7 +152,6 @@ public class DeathBringerEnemy : MonoBehaviour
                 spellCount++;
                 Destroy(spellEffectObject);
                 Destroy(spellAttackObject);
-                
                 isAttacking = false;
             }
             
@@ -173,40 +164,23 @@ public class DeathBringerEnemy : MonoBehaviour
         IEnumerator MoveToPlayer() //몬스터를 플레이어 근처로 순간이동
         {
             isTeleport = true;
-            Vector2 moveDirection = direction.normalized;
-
-            if (moveDirection.x < 0) // 방향 전환 기능
+            moveSpeed = 0;
+            animator.Play("disappear");
+            yield return YieldCache.WaitForSeconds(1f);
+            if (direction.x < 0) // 방향 전환 기능
             {
-                
-                moveSpeed = 0;                
-                animator.Play("disappear");
-                yield return YieldCache.WaitForSeconds(1f);
-                
                 Vector2 playernear = player.position + new Vector3(2f, 0f);
                 transform.position = playernear;
-
-                animator.Play("appear");
-                spellCount = 0;
-                moveSpeed = 0.5f;
-                yield return YieldCache.WaitForSeconds(1f);
-
-
             }
-
             else
-            {
-                moveSpeed = 0;
-                animator.Play("disappear");
-                yield return YieldCache.WaitForSeconds(1f);
-                
+            {  
                 Vector2 playernear = player.position + new Vector3(-2f, 0f);
                 transform.position = playernear;
-
-                animator.Play("appear");
-                spellCount = 0;
-                moveSpeed = 0.5f;
-                yield return YieldCache.WaitForSeconds(1f);
-            }      
+            }
+            animator.Play("appear");
+            spellCount = 0;
+            moveSpeed = 0.5f;
+            yield return YieldCache.WaitForSeconds(1f);
             isTeleport = false;
         }
 
@@ -249,20 +223,47 @@ public class DeathBringerEnemy : MonoBehaviour
             spellCount++;
         }
 
-        //IEnumerator MissleAttack()
+        void MissleAttack()
         {
+            
             int skillNumber = Random.Range(0, 2);
             if(skillNumber == 0)
             {
-
+                StartCoroutine(MissileAttacks(2));
             }
+            if(skillNumber == 1)
+            {
+                StartCoroutine(MissileAttacks(0));
+            }
+            if(skillNumber == 2)
+            {
+                StartCoroutine(MissileAttacks(4));
+            }
+        }
+
+        IEnumerator MissileAttacks(int firePointHeight) //미완성.
+        {
+            isAttacking = true;
+            Vector2 firePoint = selfPosition.position;
+            float moveDuration = 1f;
+            float elapsedTime = 0f;
+            GameObject MagicMissile = Instantiate(magicMissile, selfPosition.position, Quaternion.identity);
+            Vector2 targetPosition = MagicMissile.transform.position + new Vector3(0, firePointHeight, 0);
+            Vector2 initialPosition = MagicMissile.transform.position;
+            while (elapsedTime < moveDuration)
+            {
+                MagicMissile.transform.position = Vector2.Lerp(initialPosition, targetPosition, elapsedTime / moveDuration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            MagicMissile.transform.position = targetPosition;
+            isAttacking = false;
         }
 
         void MonsterFaceWay()
         {
-            Vector2 moveDirection = direction.normalized;
 
-            if (moveDirection.x < 0) // 방향 전환 기능
+            if (direction.x < 0) // 방향 전환 기능
             {
                 transform.localScale = new Vector3(8, 8, 1);
             }
@@ -286,9 +287,9 @@ public class DeathBringerEnemy : MonoBehaviour
     IEnumerator Death()
     {
         isAttacking = true;
-        Time.timeScale = 0.4f; //보스 몬스터 사망 시 슬로우모션 작동.
         animator.Play("disappear");
         yield return YieldCache.WaitForSeconds(1f);
+
         Vector2 SelfPosition = selfPosition.position + new Vector3(0,1);
         SoulObjectPool objectPool = FindObjectOfType<SoulObjectPool>();
         foreach (var pool in objectPool.pools)
@@ -304,8 +305,6 @@ public class DeathBringerEnemy : MonoBehaviour
                 }
             }
         }
-        Destroy(gameObject);
-        Time.timeScale = 1f; //슬로우모션 해제.
-        
+        gameObject.SetActive(false);        
     }
 }
