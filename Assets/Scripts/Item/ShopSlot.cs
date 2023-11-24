@@ -31,7 +31,6 @@ public class ShopSlot : MonoBehaviour
         for (int i = 0; i < shopItem.Description.Count; i++)
         {
             itemDescription.text += $"{shopItem.Description[i]}\n";
-
         }
     }
 /*    public void SetItem(ItemSO item)
@@ -60,7 +59,7 @@ public class ShopSlot : MonoBehaviour
 
     public void BuyItem()
     {
-        // °ñµå ÁöºÒ
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if(shopItem.Price < inven.SoulCount)
         {
             inven.SoulCount -= shopItem.Price;
@@ -68,7 +67,7 @@ public class ShopSlot : MonoBehaviour
             Debug.Log(inven.SoulCount);
         } else
         {
-            Debug.Log("¼Ò¿ïÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
+            Debug.Log("ï¿½Ò¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
         }
     }
 }
