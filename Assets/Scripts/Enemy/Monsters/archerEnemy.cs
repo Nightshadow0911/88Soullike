@@ -96,7 +96,7 @@ public class archerEnemy : MonoBehaviour
 
         yield return YieldCache.WaitForSeconds(2.0f);
         Vector2 direction = player.position - transform.position;
-        Vector2 spawnPosition = transform.position + new Vector3(0, 0.4f);
+        Vector2 spawnPosition = selfPosition.position + new Vector3(0, 2.2f);
         GameObject arrow = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.velocity = direction.normalized * 7f;
@@ -113,7 +113,7 @@ public class archerEnemy : MonoBehaviour
 
         yield return YieldCache.WaitForSeconds(2.0f);
         Vector2 direction = player.position - transform.position;
-        Vector2 spawnPosition = transform.position + new Vector3(0, 0.4f);
+        Vector2 spawnPosition = selfPosition.position + new Vector3(0, 2.2f);
         GameObject arrow = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(direction.normalized.x, 0) * 10f;

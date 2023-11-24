@@ -42,9 +42,6 @@ public class ArrowControl : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("Wall"))
-        {
-            Destroy(gameObject);
-        }
+        
     }
 }
