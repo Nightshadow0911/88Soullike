@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
         lastPlayerController = player.GetComponent<LastPlayerController>();
     }

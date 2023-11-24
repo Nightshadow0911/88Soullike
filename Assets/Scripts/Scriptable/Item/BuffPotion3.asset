@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: BuffPotion3
   m_EditorClassIdentifier: 
   type: 3
-  itemName: "\uC2A4\uD14C\uBBF8\uB108 \uC99D\uAC00 \uD3EC\uC158"
+  itemName: "\uACF5\uACA9\uB825 \uC99D\uAC00 \uD3EC\uC158"
   sprite: {fileID: 21300000, guid: 5038255aa695a4945ba52b3dfa674a82, type: 3}
   efts:
-  - {fileID: 11400000, guid: af57ca3a9e3e03543a0c01db5f7c02cb, type: 2}
+  - {fileID: 11400000, guid: bc3c003513ac8584186c47f4e4754bd8, type: 2}
   power: 20
   descriptiion:
-  - "\uC804\uCCB4 \uC2A4\uD14C\uBBF8\uB108 \uC99D\uAC00 : 20"
-  amount: 3
+  - "30\uCD08 \uB3D9\uC548"
+  - "\uACF5\uACA9\uB825 \uC99D\uAC00 : 20"
+  amount: 1
   attackRange: 0
   attackSpeed: 0
   weaponProperty: 0
   weight: 0
-  price: 0
+  price: 100

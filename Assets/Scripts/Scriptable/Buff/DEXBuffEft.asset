@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d66199baed30404882b1caa83ff299c, type: 3}
+  m_Name: DEXBuffEft
+  m_EditorClassIdentifier: 
+  buffPrefab: {fileID: 1553006849376801241, guid: cd1cd92f61570a5429fbbd50d61a1243, type: 3}

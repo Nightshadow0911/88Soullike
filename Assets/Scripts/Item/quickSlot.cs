@@ -18,7 +18,7 @@ public class quickSlot : MonoBehaviour
         invenIndex = slotnum;
         slotItem = InventoryUI.instance.slots[slotnum].item;
 
-        itemIcon.sprite = slotItem.sprite;
+        itemIcon.sprite = slotItem.Sprite;
         itemIcon.transform.localScale = Vector3.one * 0.4f;
         itemIcon.gameObject.SetActive(true);
 

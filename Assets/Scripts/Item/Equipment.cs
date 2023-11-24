@@ -34,7 +34,7 @@ public class Equipment : MonoBehaviour
     public void ChangeEquipItem(Item newItem)
     {
 
-        switch (newItem.type)
+        switch (newItem.Type)
         {
             case ItemType.Weapon:
                 if (equipItemList[WEAPON] != null)
@@ -75,10 +75,10 @@ public class Equipment : MonoBehaviour
         switch (equipIndex)
         {
             case 0:
-                characterStats.NormalAttackDamage += equipItemList[equipIndex].power;
+                characterStats.NormalAttackDamage += equipItemList[equipIndex].Power;
                 break;
             case 1:
-                characterStats.CharacterDefense += equipItemList[equipIndex].power;
+                characterStats.CharacterDefense += equipItemList[equipIndex].Power;
                 break;
         }
     }
@@ -89,10 +89,10 @@ public class Equipment : MonoBehaviour
         switch (equipIndex)
         {
             case 0:
-                characterStats.NormalAttackDamage -= equipItemList[equipIndex].power;
+                characterStats.NormalAttackDamage -= equipItemList[equipIndex].Power;
                 break;
             case 1:
-                characterStats.CharacterDefense -= equipItemList[equipIndex].power;
+                characterStats.CharacterDefense -= equipItemList[equipIndex].Power;
                 break;
         }
         equipItemList[equipIndex] = null;

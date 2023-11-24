@@ -6,14 +6,24 @@ using UnityEngine;
 public class ItemHealingEft : ItemEffect
 {
     public int healingPoint = 0;
+    private CharacterStats ps;
+
+    private void Awake()
+    {
+        ps = GameManager.Instance.playerStats;
+    }
     public override bool ExcuteRole(int power) //아이템의 효과
     {
-        healingPoint = power;
-        GameManager.Instance.playerStats.characterHp += healingPoint;
-        if(GameManager.Instance.playerStats.characterHp >= GameManager.Instance.playerStats.MaxHP)
+        ps = GameManager.Instance.playerStats;
+        healingPoint = (int)Mathf.Ceil(ps.MaxHP * 0.8f);
+
+        ps.characterHp += healingPoint;
+
+        if(ps.characterHp >= ps.MaxHP)
         {
-            GameManager.Instance.playerStats.characterHp = GameManager.Instance.playerStats.MaxHP;
+            ps.characterHp = ps.MaxHP;
         }
+        Debug.Log(healingPoint);
 
         return true;
     }

@@ -76,7 +76,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Update()
     {
-        WeightSpeed();  //Update에 넣긴 했으나 장비가 변경될때 넣는게 좋아보임.
+        //WeightSpeed();  //Update에 넣긴 했으나 장비가 변경될때 넣는게 좋아보임.
 
     }
 
@@ -164,20 +164,20 @@ public class CharacterStats : MonoBehaviour
                     HPGrow(1); // HP를 1만큼 업데이트
                     Debug.Log("HP Increased");
                     break;
-                case "Stamina":
+                case "ST":
                     StGrow(1); // 스태미너를 1만큼 업데이트
                     Debug.Log("Stemina Increased");
                     break;
                 case "STR":
                     StrGrow(1); // 스태미너를 1만큼 업데이트
                     break;
-                case "Dex":
+                case "DEX":
                     DexGrow(1); // 스태미너를 1만큼 업데이트
                     break;
-                case "Int":
+                case "INT":
                     IntGrow(1); // 스태미너를 1만큼 업데이트
                     break;
-                case "Lux":
+                case "LUK":
                     LuxGrow(1); // 스태미너를 1만큼 업데이트
                     break;
             }

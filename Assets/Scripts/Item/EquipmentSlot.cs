@@ -10,7 +10,7 @@ public class EquipmentSlot : MonoBehaviour
 
     public void UpdateSlotUI()
     {
-        itemIcon.sprite = item.sprite;
+        itemIcon.sprite = item.Sprite;
         itemIcon.transform.localScale = Vector3.one * 0.6f;
         itemIcon.gameObject.SetActive(true);
     }

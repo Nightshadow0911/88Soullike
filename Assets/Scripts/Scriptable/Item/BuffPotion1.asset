@@ -16,10 +16,11 @@ MonoBehaviour:
   itemName: "\uD798 \uBC84\uD504\uD3EC\uC158"
   sprite: {fileID: 21300000, guid: e280ffb51ffa1e4458346318c6780ed6, type: 3}
   efts:
-  - {fileID: 11400000, guid: af57ca3a9e3e03543a0c01db5f7c02cb, type: 2}
-  power: 5
+  - {fileID: 11400000, guid: ff5ffb8d456be4548900d0920865a353, type: 2}
+  power: 10
   descriptiion:
-  - "\uD798 \uC99D\uAC00 : 5"
+  - "20\uCD08 \uB3D9\uC548"
+  - "\uD798 \uC99D\uAC00 : 10"
   amount: 1
   attackRange: 0
   attackSpeed: 0
