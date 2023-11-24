@@ -36,7 +36,7 @@ public class CharacterStats : MonoBehaviour
     private int[] subState = new int[Enum.GetNames(typeof(Substate)).Length];
     private enum Substate
     {
-        characterHp, // 현재체력
+        characterHp, // 최대체력
         characterRegainHp,//재생체력
         characterWeight, // 캐릭터 무게
         characterDefense, // 캐릭터 방어력
@@ -50,6 +50,7 @@ public class CharacterStats : MonoBehaviour
         propertyDefense, //속성 방어력
         EquipWeight, // 장비 무게
         critcal // 크리티컬 확률
+
     }
     private double attackSpeed; // 공격 속도
     private double moveSpeed; // 이동속도
@@ -102,7 +103,7 @@ public class CharacterStats : MonoBehaviour
     private void StGrow(int i)
     {
         GrowStemina += 1;
-        subState[(int)Substate.characterHp] = 1;
+        subState[(int)Substate.characterHp] += 1;
         subState[(int)Substate.characterStamina] += i;
     }
     // 힘 증가시 일반공격력, 무게, 물리스킬데미지
