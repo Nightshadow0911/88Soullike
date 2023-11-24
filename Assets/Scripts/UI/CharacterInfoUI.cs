@@ -76,7 +76,7 @@ public class CharacterInfoUI : MonoBehaviour
         attackTxt.text = $"{playerStat.NormalAttackDamage}";
         skillTxt.text = $"{playerStat.NormalSkillDamage}";
         propertyTxt.text = $"{playerStat.PropertyDamage}";
-        criticalTxt.text = $"{playerStat.critical:F1}%";
+        criticalTxt.text = $"{playerStat.Critical:F1}%";
         attackSpeedTxt.text = $"{playerStat.AttackSpeed}";
 
         deffenceTxt.text = $"{playerStat.CharacterDefense}";
@@ -86,10 +86,10 @@ public class CharacterInfoUI : MonoBehaviour
         growPoint.text = $"포인트 : {playerStat.Points}";
         growHealthTxt.text = $"체력 {playerStat.MaxHP}({playerStat.GrowHP})";
         growStemenaTxt.text = $"스테미나 {playerStat.MaxStemina}({playerStat.GrowStemina})";
-        growStrTxt.text = $"힘 ({playerStat.GrowStr})"; // 축적된 힘을 가질 변수 필요
-        growDexTxt.text = $"민첩 ({playerStat.GrowDex})";
-        growIntTxt.text = $"지력 ({playerStat.GrowInt})";
-        growLukTxt.text = $"운 ({playerStat.GrowLux})";
+        growStrTxt.text = $"힘 {playerStat.MaxStr}({playerStat.GrowStr})"; // 축적된 힘을 가질 변수 필요
+        growDexTxt.text = $"민첩 {playerStat.MaxDex}({playerStat.GrowDex})";
+        growIntTxt.text = $"지력 {playerStat.MaxInt}({playerStat.GrowInt})";
+        growLukTxt.text = $"운 {playerStat.MaxLuk}({playerStat.GrowLux})";
     }
 
     public void GrowStat(string statName)

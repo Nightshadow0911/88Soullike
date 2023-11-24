@@ -9,11 +9,15 @@ public class PlayerAttack : MonoBehaviour
     public LastPlayerController player;
     public CharacterStats characterStats;
 
-    private float clickCountResetTime = 1f; // 클릭 카운터를 초기화하는데 걸리는 시간
+    private float clickCountResetTime = 1.5f; // 클릭 카운터를 초기화하는데 걸리는 시간
     private float lastClickTime;
 
-    public float attackRate = 1f;
     float nextAttackTime = 0f;
+    public float parryWindowDuration = 0.5f; // 패링이 가능한 시간 간격
+    public bool isParrying = false;
+    public bool isGuarding = false;
+    private float parryWindowEndTime = 0f;
+
     [SerializeField] private int attackClickCount = 1;
     [SerializeField] public bool monsterToPlayerDamage;
     //public int damage;
@@ -37,10 +41,7 @@ public class PlayerAttack : MonoBehaviour
         CheckAttackTime();
         ResetClickCount();
     }
-    public float parryWindowDuration = 0.5f; // 패링이 가능한 시간 간격
-    public bool isParrying = false;
-    public bool isGuarding = false;
-    private float parryWindowEndTime = 0f;
+
 
     public void CheckDeffense()
     {
@@ -97,7 +98,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
             {
-                nextAttackTime = Time.time + 0.5f / attackRate;
+                nextAttackTime = Time.time + 1f / 2f;//gameManager.playerStats.attackSpeed);
                 if (player.isSitting == false)
                 {
                     Attack();
@@ -186,8 +187,9 @@ public class PlayerAttack : MonoBehaviour
                 skeletonEnemy skeleton = enemyCollider.GetComponent<skeletonEnemy>();
                 if (skeleton != null)
                 {
-                    //Debug.Log("Deal" + characterStats.characterNomallAttackDamage + " damage to Skeleton.");
-                    skeleton.TakeDamage(characterStats.characterNomallAttackDamage);
+                    skeleton.TakeDamage(gameManager.playerStats.totalDamage);
+                    RegainAttack();
+                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
                 }
             }
             else if (enemyCollider.CompareTag("archer"))
