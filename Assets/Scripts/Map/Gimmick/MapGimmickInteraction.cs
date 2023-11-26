@@ -11,6 +11,7 @@ public class MapGimmickInteraction : MonoBehaviour
         {
             if (collider.CompareTag(tag)) // 태그 확인
             {
+                Debug.Log("Collision detected with tag: " + tag);
                 return true; //bool로 설정해놨기때문에 true반환
             }
         }
