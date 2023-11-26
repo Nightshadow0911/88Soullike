@@ -18,7 +18,7 @@ public class ArrowTrapArrow : BaseGimmick
     
     private void Update()
     {
-        bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player");
+        bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
         if (isCollision)
         {
             TrapArrowAction();

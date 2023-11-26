@@ -8,10 +8,6 @@ public class BrokenPlatform : BaseGimmick
     private AudioSource audioSource;
     private SpriteRenderer spriteRenderer;
     public Collider2D platformCollider;
-    private float delayTime = 1f;
-
-    [SerializeField] private MapGimmickAction MGA;
-    [SerializeField] private MapGimmickInteraction MGI;
 
     private Coroutine currentCoroutine;
     
@@ -22,26 +18,17 @@ public class BrokenPlatform : BaseGimmick
         spriteRenderer = GetComponent<SpriteRenderer>();
         platformCollider = GetComponent<Collider2D>();
         base.Start();
-        MGA = mapGimmickAction;
-        MGI = mapGimmickInteraction;
     }
 
     private void Update()
     {
-        if (mapGimmickInteraction != null && mapGimmickAction != null)
-        {
-            Debug.Log("Ani");
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0f);
-            foreach (Collider2D collider in colliders)
-            {
-                Debug.Log("Collided with11: " + collider.gameObject.name);
-            }
-            bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player");
+            bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
+            Debug.Log("Box Position: " + transform.position);
+            Debug.Log("Box Size: " + transform.localScale);
             if (isCollision && currentCoroutine == null)
             {
                 currentCoroutine = StartCoroutine(PerformCollisionAction());
             }
-        }
     }
 
     private IEnumerator PerformCollisionAction()

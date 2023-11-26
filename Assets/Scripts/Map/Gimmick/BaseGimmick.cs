@@ -10,8 +10,6 @@ public class BaseGimmick : MonoBehaviour
     protected virtual void Start()
     {
         mapGimmickAction = FindAnyObjectByType<MapGimmickAction>().GetComponent<MapGimmickAction>();
-        Debug.Log("11 :" +mapGimmickAction);
         mapGimmickInteraction = FindAnyObjectByType<MapGimmickInteraction>().GetComponent<MapGimmickInteraction>();
-        Debug.Log("11 :" +mapGimmickInteraction);
     }
 }
