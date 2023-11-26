@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MapGimmickAction : MonoBehaviour
 {
-
     public void PlaySound(AudioSource audioSource)  //사운드 픞레이
     {
         audioSource.Play();
@@ -25,4 +24,24 @@ public class MapGimmickAction : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
     }
+    
+    public void ResetPosition(Transform transform) //위치 초기화
+    {
+        transform.position = Vector2.zero; 
+    }
+
+    public void ResetPower(Rigidbody2D rb)
+    {
+        rb.velocity = Vector2.zero;
+    }
+    public void MoveInDirection(Vector2 direction, float force)
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+        }
+    }
+    
+    
 }
