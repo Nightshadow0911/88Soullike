@@ -180,17 +180,17 @@ public class PlayerAttack : MonoBehaviour
                     PlayerEvents.playerDamaged.Invoke(gameObject, damage);
                 }
             }
-            else if (enemyCollider.CompareTag("Boss_Archer"))
-            {
-                ClickCount();
-                Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
-                if (boss_archer != null)
-                {
-                    boss_archer.TakeDamage(gameManager.playerStats.totalDamage);
-                    RegainAttack();
-                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
-                }
-            }
+            // else if (enemyCollider.CompareTag("Boss_Archer"))
+            // {
+            //     ClickCount();
+            //     Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
+            //     if (boss_archer != null)
+            //     {
+            //         boss_archer.TakeDamage(gameManager.playerStats.totalDamage);
+            //         RegainAttack();
+            //         PlayerEvents.playerDamaged.Invoke(gameObject, damage);
+            //     }
+            // }
             else if (enemyCollider.CompareTag("skeleton"))
             {
                 ClickCount();

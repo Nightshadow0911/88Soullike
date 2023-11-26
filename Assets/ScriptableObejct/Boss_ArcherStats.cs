@@ -8,13 +8,15 @@ public class Boss_ArcherStats : EnemyStats
     [Header("Boss_Archer Stats")]
     public float backstepDistance;
     public float backstepTime;
+    public float jumpForce;
     public float dodgeDistance;
+    public float secondAttackDistance;
     public float dodgeTime;
+    public float secondAttackTime;
     public float trackingDistance;
     public int numTrackingAttacks;
     public float trackingAttacksWaitTime;
     public float trackingSpeed;
-    public float jumpForce;
     public Vector2 meleeAttackRange;
 
     [Header("Check Wall")] 

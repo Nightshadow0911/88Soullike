@@ -20,16 +20,18 @@ MonoBehaviour:
   target:
     serializedVersion: 2
     m_Bits: 64
-  backstepDistance: 5
+  backstepDistance: 10
   backstepTime: 1
-  dodgeDistance: 2.5
+  jumpForce: 8
+  dodgeDistance: 4
+  secondAttackDistance: 1.5
   dodgeTime: 0.5
-  trackingDistance: 6
+  secondAttackTime: 0.1
+  trackingDistance: 12
   numTrackingAttacks: 4
   trackingAttacksWaitTime: 0.1
   trackingSpeed: 10
-  jumpForce: 6
-  meleeAttackRange: {x: 1.2, y: 1}
+  meleeAttackRange: {x: 2, y: 2}
   checkDistance: 1.2
   wallLayer:
     serializedVersion: 2

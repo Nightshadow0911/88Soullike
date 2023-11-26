@@ -1,10 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-
-
 
 public class EnemyCharacter : EnemyPattern
 {
@@ -16,10 +12,11 @@ public class EnemyCharacter : EnemyPattern
     }
     
     [Header("Base Setting")]
-    [SerializeField] protected EnemyStats baseStats;
+    [SerializeField] private EnemyStats baseStats; protected EnemyStats GetBaseStats() => baseStats;
     protected EnemyStats currentStats;
     [SerializeField] protected Transform targetTransform;
     protected Rigidbody2D rigid;
+    protected EnemyAnimationController animationController;
     protected SoundManager soundManager;
 
     private float currentTime = float.MaxValue;
@@ -28,6 +25,7 @@ public class EnemyCharacter : EnemyPattern
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        animationController = GetComponent<EnemyAnimationController>();
         SetStats();
     }
 
@@ -39,12 +37,9 @@ public class EnemyCharacter : EnemyPattern
     protected virtual void Update()
     {
         if (state == State.FAILURE)
-            currentTime += currentStats.delay - .5f;
+            ActionPattern();
         if (state != State.RUNNING)
             currentTime += Time.deltaTime;
-        Debug.Log(state);
-        Debug.Log(currentStats.delay);
-        Debug.Log((int)currentTime);
         if (currentTime > currentStats.delay)
         {
             ActionPattern();
@@ -53,6 +48,7 @@ public class EnemyCharacter : EnemyPattern
     
     private void ActionPattern()
     {
+        currentTime = 0f;
         StopAllCoroutines();
         SetDistance(targetTransform.position);
         StartCoroutine(GetPattern()());
@@ -61,7 +57,6 @@ public class EnemyCharacter : EnemyPattern
     protected virtual void RunningPattern()
     {
         state = State.RUNNING;
-        currentTime = 0f;
         Rotate();
     }
     
@@ -70,7 +65,7 @@ public class EnemyCharacter : EnemyPattern
         transform.rotation = targetTransform.position.x < transform.position.x
             ? Quaternion.Euler(0, 180, 0)
             : Quaternion.Euler(0, 0, 0);
-    }
+    } 
     
     private void SetStats()
     {
@@ -82,7 +77,7 @@ public class EnemyCharacter : EnemyPattern
         currentStats.groggyTime = 0f;
         currentStats.target = baseStats.target;
     }
-    
+
     private void AllStop()
     {
         StopAllCoroutines();

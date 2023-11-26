@@ -7,10 +7,11 @@ using UnityEngine.UI;
 
 public class SavePoint : MonoBehaviour
 {
-    [SerializeField] private string name;
+    [SerializeField] private string pointName;
     [SerializeField] private GameObject travelPoint;
     [SerializeField] private GameObject alert;
-    private bool awke = false;
+    [SerializeField] private LayerMask playerLayer;
+    private bool isAwake = false;
     
     public static event Action<bool> TravelEvent;
 
@@ -24,11 +25,11 @@ public class SavePoint : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F) && alert.activeSelf)
         {
-            if (!awke)
+            if (!isAwake)
             {
                 travelPoint.GetComponent<TravelPoint>().SetTravel(name, transform.position);
                 TravelEvent?.Invoke(true);
-                awke = true;
+                isAwake = true;
             }
             CharacterStats stats = GameManager.Instance.playerStats;
             stats.characterHp = stats.MaxHP;
@@ -38,17 +39,17 @@ public class SavePoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
         {
             alert.SetActive(true);
-            if (awke)
+            if (isAwake)
                 TravelEvent?.Invoke(true);
         }
     }
     
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
         {
             alert.SetActive(false);
             TravelEvent?.Invoke(false);

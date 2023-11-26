@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -25,13 +24,14 @@ public class EnemyPattern : MonoBehaviour
     protected virtual Distance SetDistance(Vector3 targetPosition)
     {
         float distance = Mathf.Abs(targetPosition.x - transform.position.x);
-        if (distance < 2f)
+        Debug.Log("거리" + (int)distance);
+        if (distance < 5f)
         {
             targetDistance = Distance.CloseRange;
         }
         else
         {
-            targetDistance = distance < 6f ? Distance.MediumRange : Distance.LongRange;
+            targetDistance = distance < 12f ? Distance.MediumRange : Distance.LongRange;
         }
         return targetDistance;
     }
