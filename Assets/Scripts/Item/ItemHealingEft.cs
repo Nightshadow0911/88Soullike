@@ -10,9 +10,9 @@ public class ItemHealingEft : ItemEffect
 
     private void Awake()
     {
-        ps = GameManager.Instance.playerStats;
+        //ps = GameManager.Instance.playerStats;
     }
-    public override bool ExcuteRole(int power) //¾ÆÀÌÅÛÀÇ È¿°ú
+    public override bool ExcuteRole(int power) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
     {
         ps = GameManager.Instance.playerStats;
         healingPoint = (int)Mathf.Ceil(ps.MaxHP * 0.8f);
