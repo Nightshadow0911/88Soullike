@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapGimmickInteraction : MonoBehaviour
@@ -9,15 +10,26 @@ public class MapGimmickInteraction : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapBoxAll(position, transform.localScale, 0f); //콜라이더 가져옴
         foreach (Collider2D collider in colliders)
         {
-            Debug.Log("Collided with: " + collider.gameObject.name);
 
             if (collider.CompareTag(tag)) // 태그 확인
             {
-                Debug.Log("Collision detected with tag: " + tag);
                 return true; //bool로 설정해놨기때문에 true반환
             }
         }
 
+        return false;
+    }
+
+    public bool CollisionChecktoLayerBased(string layerName, Vector2 position)
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(position, transform.localScale, 0f);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.gameObject.layer == LayerMask.NameToLayer(layerName))
+            {
+                return true;
+            }
+        }
         return false;
     }
 };
