@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public bool isParrying = false;
     public bool isGuarding = false;
     private float parryWindowEndTime = 0f;
+    public bool comboAttack = false;
 
     [SerializeField] private int attackClickCount = 1;
     [SerializeField] public bool monsterToPlayerDamage;
@@ -129,12 +130,14 @@ public class PlayerAttack : MonoBehaviour
             int modifiedAttackDamage = gameManager.playerStats.NormalAttackDamage;
             if (attackClickCount != 0 && attackClickCount % 2==0)
             {
+                comboAttack = true;
                 gameManager.playerStats.characterStamina -= player.comboStaminaCost;
                 anim.SetTrigger("combo");
                 modifiedAttackDamage *= 2;
                 ApplyDamage(modifiedAttackDamage);
                 attackClickCount = -1;
             }
+            comboAttack = false;
             ApplyDamage(modifiedAttackDamage);
 
         }
