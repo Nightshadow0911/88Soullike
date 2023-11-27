@@ -11,35 +11,26 @@ public class ArrowTrap : BaseGimmick
 
     private void Start()
     {
-
+        base.Start();
     }
 
     private void Update()
     {
 
         bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
-        Debug.Log("11" + isCollision);
+        Debug.Log("check :" + isCollision);
         if (isCollision && currentCoroutine == null)
         {
             Debug.Log("22");
-            // currentCoroutine = StartCoroutine(ArrowTrapAction());
+             currentCoroutine = StartCoroutine(ArrowTrapAction());
         }
     }
 
-    // private IEnumerator ArrowTrapAction()
-    // {
-    //     GameObject trapArrow = Instantiate(trapArrowPrefab, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
-    //     mapGimmickAction.ToggleSpriteAndCollider(trapArrow.GetComponent<SpriteRenderer>(), trapArrow.GetComponent<Collider2D>(), true);
-    //     mapGimmickAction.MoveInDirection(arrowSpawnPoint.right, 10.0f);
-    //     yield return StartCoroutine(mapGimmickAction.ProcessDelay(5));
-    //     currentCoroutine = null;
-    // }
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private IEnumerator ArrowTrapAction()
     {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("22");
-        }
+        GameObject trapArrow = Instantiate(trapArrowPrefab, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
+        yield return StartCoroutine(mapGimmickAction.ProcessDelay(5));
+        currentCoroutine = null;
     }
+    
 }
