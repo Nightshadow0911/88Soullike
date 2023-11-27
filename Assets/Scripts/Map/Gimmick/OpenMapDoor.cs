@@ -10,7 +10,7 @@ public class OpenMapDoor : BaseGimmick
     
     void Start()
     {
-        DoorCollider = GetComponent<Collider2D>();
+        DoorCollider = MovedDoor.GetComponent<Collider2D>();
         base.Start();
     }
     
