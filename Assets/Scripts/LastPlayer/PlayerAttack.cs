@@ -107,8 +107,6 @@ public class PlayerAttack : MonoBehaviour
             {
                 double sp = gameManager.playerStats.AttackSpeed + 1f;
                 nextAttackTime = Time.time + 1f / +sp;
-
-
                 if (player.isSitting == false)
                 {
                     Attack();
