@@ -9,7 +9,7 @@ public class ArrowTrap : BaseGimmick
     public Transform arrowSpawnPoint;
     private Coroutine currentCoroutine;
 
-    private void Start()
+    protected override void Start()
     {
         base.Start();
     }

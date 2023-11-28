@@ -6,7 +6,7 @@ public class SpikeTrap : BaseGimmick
 {
     private Coroutine currentCoroutine;
     private GameManager gameManager;
-    void Start()
+    protected override void Start()
     {
         gameManager = GameManager.Instance;
         base.Start();
