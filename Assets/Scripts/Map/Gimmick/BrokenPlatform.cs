@@ -12,7 +12,7 @@ public class BrokenPlatform : BaseGimmick
     private Coroutine currentCoroutine;
     
 
-    void Start()
+    protected override void Start()
     {
         audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();

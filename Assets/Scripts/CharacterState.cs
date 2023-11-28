@@ -493,6 +493,7 @@ public class CharacterStats : MonoBehaviour
             monsterPoisonAccumulation = 0;
         }
     }
+ 
     // 몬스터의 출혈 상태 이상을 적용하는 함수
     public void HitBleedingStatus(int monsterHP, float duration, int monsterAmount,int monsterpropertydefense)
     {

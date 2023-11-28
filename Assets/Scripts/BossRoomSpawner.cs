@@ -17,7 +17,7 @@ public class BossRoomSpawner : BaseGimmick
     private Coroutine currentCoroutine;
 
 
-    private void Start()
+    protected override void Start()
     {
         door1sprite = door1.GetComponent<SpriteRenderer>();
         door2sprite = door2.GetComponent<SpriteRenderer>();

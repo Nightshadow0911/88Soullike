@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class SpikeTrap : BaseGimmick
 {
-    // Start is called before the first frame update
-    void Start()
+    private Coroutine currentCoroutine;
+    private GameManager gameManager;
+    protected override void Start()
     {
+        gameManager = GameManager.Instance;
         base.Start();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
+        if (isCollision && currentCoroutine == null)
+        {
+            currentCoroutine = StartCoroutine(SpikeDamage());
+        }
+    }
+
+    private IEnumerator SpikeDamage()
+    {
+        yield return StartCoroutine(mapGimmickAction.ProcessDelay(1));
+        bool isCollision2 = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
+        if (isCollision2)
+        {
+            gameManager.playerStats.TakeDamage(10);
+        }
+
+        currentCoroutine = null;
     }
 }
