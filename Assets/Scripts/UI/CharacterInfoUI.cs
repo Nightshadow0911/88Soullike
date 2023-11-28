@@ -70,7 +70,8 @@ public class CharacterInfoUI : MonoBehaviour
             equipWeight += ew.Weight;
         }
         weightTxt.text = $"{equipWeight} / {playerStat.CharacterWeight}";
-        speedTxt.text = $"{playerStat.CharacterSpeed:F1}";
+
+        speedTxt.text = $"{playerStat.moveState}";
 
         weaponTxt.text = $"[E] {Equipment.instance.equipItemList[0]?.ItemName}";
         attackTxt.text = $"{playerStat.NormalAttackDamage}";
