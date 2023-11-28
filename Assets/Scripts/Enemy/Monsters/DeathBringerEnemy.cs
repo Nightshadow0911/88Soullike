@@ -51,42 +51,21 @@ public class DeathBringerEnemy : MonoBehaviour
 
     void Update()
     {
-        Vector2 direction = player.position - transform.position;
+        Vector2 direction = player.position - selfPosition.position;
+        Vector2 moveDirection = direction.normalized;
+        // Debug.Log(direction.x);
 
-        if (Mathf.Abs(direction.x) < 10f)
-        {
-            if (isAttacking) //공격중일 때 이동 불가
-            {
-                moveSpeed = 0;
-            }
-            else if (!isTeleport) //공격, 텔레포트를 사용중이지 않을 때 이동
-            {
-                Vector2 moveDirection = direction.normalized;
-
-                moveSpeed = 0.5f;
-
-                MonsterFaceWay();
-
-                animator.Play("running");
-
-                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-            }
-        }
+        
 
         if (Mathf.Abs(direction.x) <= 4f) //근접 평타 액션
         {
-            if (isAttacking)
-            {
-                return;
-            }
-            
-            if (!isTeleport)
+            if (!isAttacking && !isTeleport)
             {
                 StartCoroutine(AttackPlayer());
             }
         }
 
-        else if (Mathf.Abs(direction.x) >= 10f) //원거리 주문 공격
+        else if (Mathf.Abs(direction.x) >= 10f && Mathf.Abs(direction.x) <= 20f) //원거리 주문 공격
         {
             if (isAttacking)
             {
@@ -105,21 +84,39 @@ public class DeathBringerEnemy : MonoBehaviour
             }
         }
 
+        else if (Mathf.Abs(direction.x) <= 30f) //이동
+        {
+            if (isAttacking) //공격중일 때 이동 불가
+            {
+                moveSpeed = 0;
+            }
+            else if (!isTeleport) //공격, 텔레포트를 사용중이지 않을 때 이동
+            {
+                moveSpeed = 0.5f;
+
+                MonsterFaceWay();
+
+                animator.Play("running");
+
+                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+            }
+        }
+
         IEnumerator AttackPlayer() //몬스터가 공격하면 공격범위에 프리팹을 소환하고, 그 프리팹에 닿으면 플레이어에게 피해를 주도록
         {
             animator.Play("attack");
             isAttacking = true;
             Vector2 spawnPosition;
             
-            if (Mathf.Abs(direction.x) < 0)
+            if (direction.x < 0)
             {
-                spawnPosition = transform.position + new Vector3(2.6f, 3.5f);
+                spawnPosition = selfPosition.position + new Vector3(-2.6f, 3.5f);
                 meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
                 meleeAttack.transform.localScale = new Vector3(5, 5, 1);
             }
             else
             {
-                spawnPosition = transform.position + new Vector3(-2.6f, 3.5f);
+                spawnPosition = selfPosition.position + new Vector3(2.6f, 3.5f);
                 meleeAttackRange = Instantiate(meleeAttack, spawnPosition, Quaternion.identity);
                 meleeAttack.transform.localScale = new Vector3(-5, 5, 1);
             }
@@ -225,7 +222,6 @@ public class DeathBringerEnemy : MonoBehaviour
 
         void MissleAttack()
         {
-            
             int skillNumber = Random.Range(0, 2);
             if(skillNumber == 0)
             {

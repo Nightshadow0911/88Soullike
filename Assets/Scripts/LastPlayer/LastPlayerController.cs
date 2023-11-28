@@ -24,7 +24,7 @@ public class LastPlayerController : MonoBehaviour
 
     public bool facingRight = true;
     private float movingInput;
-    private int facingDirection = 1;
+    public int facingDirection = 1;
     [SerializeField] private Vector2 wallJumpDirection;
 
     [SerializeField] private float groundCheckDistance;
