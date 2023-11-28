@@ -19,6 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2f4295cb8364ef541b82dbd5adebba1c, type: 2}
   - {fileID: 11400000, guid: 2f4295cb8364ef541b82dbd5adebba1c, type: 2}
   power: 5
+  cost: 1
   descriptiion:
   - "\uAE30\uBCF8 \uCCB4\uB825\uC774 5 \uC99D\uAC00"
   - "\uAE30\uBCF8 \uD798\uC774 5 \uC99D\uAC00"

@@ -23,6 +23,7 @@ public class Equipment : MonoBehaviour
     public Item[] quickSlotList = new Item[3];
 
     private CharacterStats characterStats;
+    
 
     private void Start()
     {
@@ -70,20 +71,25 @@ public class Equipment : MonoBehaviour
         }
         EquipmentUI.instance.DrawEquipSlot();
     }
-
     public void UpdateStatus(int equipIndex)
     {
         switch (equipIndex)
         {
-            case 0:
+            case WEAPON:
                 characterStats.NormalAttackDamage += equipItemList[equipIndex].Power;
+                characterStats.AttackSpeed += equipItemList[equipIndex].AttackSpeed;
+                characterStats.AttackRange += equipItemList[equipIndex].AttackRange;
+                characterStats.EquipWeight += equipItemList[equipIndex].Weight;
+                characterStats.PropertyDamage += equipItemList[equipIndex].PropertyAmount;
+                characterStats.WeightSpeed();
                 break;
-            case 1:
+            case ARMOR:
                 characterStats.CharacterDefense += equipItemList[equipIndex].Power;
-
+                characterStats.EquipWeight += equipItemList[equipIndex].Weight;
+                characterStats.PropertyDefense += equipItemList[equipIndex].PropertyAmount;
+                characterStats.WeightSpeed();
                 break;
         }
-        //characterStats.CharacterWeight += equipItemList[equipIndex].Weight;
     }
     public void UnEquipItem(int equipIndex)
     {
@@ -91,13 +97,20 @@ public class Equipment : MonoBehaviour
 
         switch (equipIndex)
         {
-            case 0:
+            case WEAPON:
                 characterStats.NormalAttackDamage -= equipItemList[equipIndex].Power;
+                characterStats.AttackSpeed -= equipItemList[equipIndex].AttackSpeed;
+                characterStats.AttackRange -= equipItemList[equipIndex].AttackRange;
+                characterStats.EquipWeight -= equipItemList[equipIndex].Weight;
+                characterStats.PropertyDamage -= equipItemList[equipIndex].PropertyAmount;
                 break;
-            case 1:
+            case ARMOR:
                 characterStats.CharacterDefense -= equipItemList[equipIndex].Power;
+                characterStats.EquipWeight -= equipItemList[equipIndex].Weight;
+                characterStats.PropertyDefense -= equipItemList[equipIndex].PropertyAmount;
                 break;
         }
+
         equipItemList[equipIndex] = null;
     }
 }

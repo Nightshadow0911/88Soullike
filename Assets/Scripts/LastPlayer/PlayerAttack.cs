@@ -23,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
     //public int damage;
 
     public Transform attackPoint;
-    [SerializeField] private float attackRange = 1f;
+    //public float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
 
     // Start is called before the first frame update
@@ -166,7 +166,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void ApplyDamage(int damage) // Add damage To Monster
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, characterStats.AttackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
         {
             if (enemyCollider.CompareTag("Boss_DB"))
@@ -225,7 +225,7 @@ public class PlayerAttack : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireSphere(attackPoint.position, characterStats.AttackRange);
 
     }
 
