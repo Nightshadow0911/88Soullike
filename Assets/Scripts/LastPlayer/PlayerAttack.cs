@@ -18,21 +18,23 @@ public class PlayerAttack : MonoBehaviour
     public bool isGuarding = false;
     private float parryWindowEndTime = 0f;
     public bool comboAttack = false;
+    private bool canAttack = true;
 
     [SerializeField] private int attackClickCount = 1;
     [SerializeField] public bool monsterToPlayerDamage;
     //public int damage;
 
     public Transform attackPoint;
-    [SerializeField] private float attackRange = 1f;
+    //public float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
 
     // Start is called before the first frame update
+
     void Start()
     {
         anim = GetComponent<Animator>();
         gameManager = GameManager.Instance;
-
+        canAttack = true;
     }
 
     // Update is called once per frame
@@ -55,31 +57,38 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && !isParrying)
         {
             isParrying = true;
+            transform.Find("Parrying").gameObject.SetActive(true);
             parryWindowEndTime = Time.time + parryWindowDuration;
             Debug.Log("Parry Start");
         }
         else if (Input.GetMouseButtonUp(1) && isParrying)
         {
             isParrying = false;
+            transform.Find("Parrying").gameObject.SetActive(false);
             Debug.Log("Parry Success");
         }
 
         // 가드가 활성화되지 않은 상태에서 가드 가능한지 체크
         if (Input.GetMouseButtonDown(1) && !isGuarding)
         {
+            canAttack = false;
             isGuarding = true;
             Debug.Log("Guard Start");
+            transform.Find("Shield").gameObject.SetActive(true);
         }
         else if (Input.GetMouseButtonUp(1) && isGuarding)
         {
+            canAttack = true;
             isGuarding = false;
             Debug.Log("Guard End");
+            transform.Find("Shield").gameObject.SetActive(false);
         }
 
         // 패링 윈도우 종료 체크
         if (Time.time > parryWindowEndTime)
         {
             isParrying = false;
+            transform.Find("Parrying").gameObject.SetActive(false);
             //Debug.Log("Parry Failed");
         }
     }
@@ -104,17 +113,20 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Time.time >= nextAttackTime)//다음 공격 가능 시간 
         {
-            if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
+            if (canAttack ==true)
             {
-                double sp = gameManager.playerStats.AttackSpeed + 1f;
-                nextAttackTime = Time.time + 1f / +sp;
-                if (player.isSitting == false)
+                if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
                 {
-                    Attack();
-                }
-                else
-                {
-                    CrouchAttack();
+                    double sp = gameManager.playerStats.AttackSpeed + 1f;
+                    nextAttackTime = Time.time + 1f / +sp;
+                    if (player.isSitting == false)
+                    {
+                        Attack();
+                    }
+                    else
+                    {
+                        CrouchAttack();
+                    }
                 }
             }
         }
@@ -167,7 +179,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void ApplyDamage(int damage) // Add damage To Monster
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, characterStats.AttackRange, enemyLayer);
         foreach (Collider2D enemyCollider in hitEnemies)
         {
             if (enemyCollider.CompareTag("Boss_DB"))
@@ -226,7 +238,7 @@ public class PlayerAttack : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireSphere(attackPoint.position, characterStats.AttackRange);
 
     }
 

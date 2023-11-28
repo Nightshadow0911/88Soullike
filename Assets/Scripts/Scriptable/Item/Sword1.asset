@@ -25,8 +25,9 @@ MonoBehaviour:
   - "\uC18D\uC131 : \uC5C6\uC74C"
   - "\uBB34\uAC8C : 10"
   amount: 1
-  attackRange: 5
+  attackRange: 0
   attackSpeed: 2
   weaponProperty: 0
+  propertyAmount: 2
   weight: 10
   price: 1200

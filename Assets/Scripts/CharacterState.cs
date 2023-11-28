@@ -58,10 +58,12 @@ public class CharacterStats : MonoBehaviour
         maxLuk,
     }
     private double attackSpeed = 1f; // 공격 속도
-    private double moveSpeed=5f; // 이동속도
+    private float attackRange = 1f; // 공격 범위
+    private double moveSpeed = 5f; // 이동속도
     private double extraMoveSpeed = 1.5f;
     public int Exp;
     public int Gold;
+    public string moveState;
 
     public int curExp = 0;
     public int maxExp = 100;
@@ -85,6 +87,7 @@ public class CharacterStats : MonoBehaviour
         characterNomallAttackDamage = subState[(int)Substate.nomallAttackDamage];
         subState[(int)Substate.critcal] =0; //확률 ;
         subState[(int)Substate.propertyDefense] = 10;
+        subState[(int)Substate.characterWeight] = 50;
         curExp = 27;
         maxExp = 100;
     }
@@ -150,18 +153,28 @@ public class CharacterStats : MonoBehaviour
     }
 
     //무게에 따라 속도가 다름?
-    private void WeightSpeed()
+    public void WeightSpeed()
     {
         if (subState[(int)Substate.EquipWeight] * 1000 <= subState[(int)Substate.characterWeight] * 1000 * 0.3)
         {
-            moveSpeed = moveSpeed * 1.2;
+            //moveSpeed = moveSpeed * 1.2;
+            moveSpeed = 7;
+            moveState = "가벼움";
             //UI표시 [가벼움]
         }
-        else if (subState[(int)Substate.EquipWeight] * 1000 <= subState[(int)Substate.characterWeight] * 1000 * 0.6)
+        else if (subState[(int)Substate.EquipWeight] * 1000 >= subState[(int)Substate.characterWeight] * 1000 * 0.6)
         {
-            moveSpeed = moveSpeed * 0.8;
+            //moveSpeed = moveSpeed * 0.8;
+            moveSpeed = 3;
+            moveState = "무거움";
             //UI표시 [무거움]
+        } else
+        {
+            moveSpeed = 5;
+            moveState = "보통";
         }
+
+
     }
 
     public CharacterStats()
@@ -211,6 +224,7 @@ public class CharacterStats : MonoBehaviour
     }
     public void TakeDamage(int damage)//MonsterToPlayer
     {
+        damage -= CharacterDefense;
         characterHp -= damage;
         characterRegainHp -= (damage / 2);
         Debug.Log("HP : " + characterHp);
@@ -247,10 +261,6 @@ public class CharacterStats : MonoBehaviour
         monsterHP -= playerAttack;
     }
 
-    public void PropertyAttack(int monsterPropertyDeffence)
-    {
-        monsterPropertyDeffence -= subState[(int)Substate.propertyDamage];
-    }
 
     //다른 곳에서 사용하기 위한 겟셋 함수들
     public int GrowHP
@@ -355,6 +365,12 @@ public class CharacterStats : MonoBehaviour
     public int PropertyDamage
     {
         get { return subState[(int)Substate.propertyDamage]; }
+        set { subState[(int)Substate.propertyDamage] = value; }
+    }
+    public int PropertyDefense
+    {
+        get { return subState[(int)Substate.propertyDefense]; }
+        set { subState[(int)Substate.propertyDefense] = value; }
     }
     public int Critical // float
     {
@@ -402,6 +418,11 @@ public class CharacterStats : MonoBehaviour
         get { return attackSpeed; }
         set { attackSpeed = value; }
     }
+    public float AttackRange
+    {
+        get { return attackRange; }
+        set { attackRange = value; }
+    }
     public float ParryTime // float
     {
         get { return (int)Substate.parryTime; }
@@ -418,6 +439,11 @@ public class CharacterStats : MonoBehaviour
     public int Points
     {
         get { return points; }
+    }
+    public int EquipWeight
+    {
+        get { return subState[(int)Substate.EquipWeight]; }
+        set { subState[(int)Substate.EquipWeight] = value; }
     }
     
     // 상태 이상

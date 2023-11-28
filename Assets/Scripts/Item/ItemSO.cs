@@ -19,6 +19,7 @@ public class ItemSO : ScriptableObject
     [SerializeField] private float attackRange; // 타입이 무기인 경우만 사용
     [SerializeField] private float attackSpeed; // 타입이 무기인 경우만 사용
     [SerializeField] private PropertyType weaponProperty; // 타입이 무기인 경우만 사용
+    [SerializeField] private int propertyAmount; // 타입이 무기인 경우만 속성 공격, 방어구일경우 속성 방어력
     [SerializeField] private int weight; //타입이 무기 or 아머인 경우만 사용(장비 아이템)
     [SerializeField] private int price; // 가격(상점에서 살때의 가격임, 팔때는 price의 몇%로 팔 예정)
     public bool IsStackable()
@@ -56,6 +57,7 @@ public class ItemSO : ScriptableObject
     public float AttackRange { get { return attackRange; } }
     public float AttackSpeed { get { return attackSpeed; } }
     public PropertyType WeaponProperty { get { return weaponProperty; } }
+    public int PropertyAmount { get { return propertyAmount; } }
     public int Weight { get { return weight; } }
     public int Price { get { return price; } }
 }
