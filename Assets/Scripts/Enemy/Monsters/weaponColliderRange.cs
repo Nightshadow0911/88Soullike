@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class weaponColliderRange : MonoBehaviour
 {
@@ -11,12 +12,14 @@ public class weaponColliderRange : MonoBehaviour
     private LastPlayerController lastPlayerController;
     private PlayerAttack playerAttack;
 
+
     void Start()
     {
         gameManager = GameManager.Instance;
         lastPlayerController = gameManager.lastPlayerController;
         playerAttack = gameManager.playerAttack;
         particle = GameManager.Instance.GetComponent<Particle>();
+        
     }
 
     void Update()
