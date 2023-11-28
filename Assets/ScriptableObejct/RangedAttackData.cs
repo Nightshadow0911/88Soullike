@@ -11,7 +11,9 @@ public class RangedAttackData : ScriptableObject
     public int speed;
     public float duration;
     public float spread;
+    public LayerMask target;
+    
+    [Header("Multiple Attack Data")] 
     public int numberofProjectilesPerShot;
     public float multipleProjectilesAngle;
-    public LayerMask target;
 }

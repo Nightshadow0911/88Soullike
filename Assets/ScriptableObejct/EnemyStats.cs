@@ -9,7 +9,5 @@ public class EnemyStats : ScriptableObject
     public int speed;
     public int damage;
     public float delay;
-    public int groggyMeter;
-    public float groggyTime;
     public LayerMask target;
 }

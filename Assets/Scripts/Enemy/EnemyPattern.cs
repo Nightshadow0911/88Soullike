@@ -24,14 +24,14 @@ public class EnemyPattern : MonoBehaviour
     protected virtual Distance SetDistance(Vector3 targetPosition)
     {
         float distance = Mathf.Abs(targetPosition.x - transform.position.x);
-        Debug.Log("거리" + (int)distance);
+        //Debug.Log("거리" + (int)distance);
         if (distance < 5f)
         {
             targetDistance = Distance.CloseRange;
         }
         else
         {
-            targetDistance = distance < 12f ? Distance.MediumRange : Distance.LongRange;
+            targetDistance = distance < 13f ? Distance.MediumRange : Distance.LongRange;
         }
         return targetDistance;
     }

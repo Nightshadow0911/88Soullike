@@ -73,8 +73,6 @@ public class EnemyCharacter : EnemyPattern
         currentStats.speed = baseStats.speed;
         currentStats.damage = baseStats.damage;
         currentStats.delay = baseStats.delay;
-        currentStats.groggyMeter = baseStats.groggyMeter;
-        currentStats.groggyTime = 0f;
         currentStats.target = baseStats.target;
     }
 

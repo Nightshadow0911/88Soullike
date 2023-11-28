@@ -17,6 +17,11 @@ public class RangedAttack : MonoBehaviour
 
     public void CreateProjectile(Vector2 dir, RangedAttackData data)
     {
+        projectileManager.ActiveProjectile(attackPosition.position, dir, data);
+    }
+    
+    public void CreateMultipleProjectile(Vector2 dir, RangedAttackData data)
+    {
         // 각도 아래로 내림
         float shotAngle = data.multipleProjectilesAngle;
         int shotNum = data.numberofProjectilesPerShot;
@@ -26,7 +31,7 @@ public class RangedAttack : MonoBehaviour
             float angle = minAngle + shotAngle * i;
             float randomSpread = Random.Range(-data.spread, data.spread);
             angle += randomSpread;
-            projectileManager.ShootProjectile(
+            projectileManager.ActiveProjectile(
                 attackPosition.position,
                 RotateVector2(dir, angle),
                 data
