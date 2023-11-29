@@ -6,9 +6,11 @@ public class SpikeTrap : BaseGimmick
 {
     private Coroutine currentCoroutine;
     private GameManager gameManager;
+    private Animator animator;
     protected override void Start()
     {
         gameManager = GameManager.Instance;
+        animator = GetComponent<Animator>();
         base.Start();
     }
 
@@ -24,13 +26,23 @@ public class SpikeTrap : BaseGimmick
 
     private IEnumerator SpikeDamage()
     {
-        yield return StartCoroutine(mapGimmickAction.ProcessDelay(1));
         bool isCollision2 = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
         if (isCollision2)
         {
-            gameManager.playerStats.TakeDamage(10);
+            PlayAnimation();
+            yield return StartCoroutine(mapGimmickAction.ProcessDelay(1));
+            bool isCollision3 = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
+            if (isCollision3)
+            {
+                gameManager.playerStats.TakeDamage(10);
+            }
+            
         }
-
+        yield return StartCoroutine(mapGimmickAction.ProcessDelay(1));
         currentCoroutine = null;
+    }
+    private void PlayAnimation()
+    {
+        animator.SetTrigger("Spike");
     }
 }

@@ -8,6 +8,8 @@ public class ArrowTrapArrow : BaseGimmick
     private SpriteRenderer spriteRenderer;
     public Collider2D arrowCollider;
     public int moveforce = 30;
+    public Vector2 direction;
+    
     
     protected override void Start()
     {

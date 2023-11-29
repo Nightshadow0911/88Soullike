@@ -18,10 +18,8 @@ public class ArrowTrap : BaseGimmick
     {
 
         bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
-        Debug.Log("check :" + isCollision);
         if (isCollision && currentCoroutine == null)
         {
-            Debug.Log("22");
              currentCoroutine = StartCoroutine(ArrowTrapAction());
         }
     }

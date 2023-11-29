@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,250 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Spike_B_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 7.5}
+        - {x: -16, y: 7.5}
+        - {x: -16, y: -7.5}
+        - {x: 16, y: -7.5}
+        - {x: 16, y: 7.5}
+        - {x: 16, y: 7.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: f43d2b74b8553d048b9e4763650d0066
+      internalID: -600463418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike_B_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 16, y: 7.5}
+        - {x: -16, y: 7.5}
+        - {x: -16, y: -7.5}
+        - {x: 16, y: -7.5}
+        - {x: 16, y: 1.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfd2a863b779ece47a8e151af3ac41ae
+      internalID: 1856528136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike_B_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 7.5}
+        - {x: -16, y: 7.5}
+        - {x: -16, y: -7.5}
+        - {x: 16, y: -7.5}
+        - {x: 16, y: 7.4598274}
+        - {x: 16, y: 7.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02e2037c1cf87db41980d3419449d68c
+      internalID: 1676775557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike_B_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 7.5}
+        - {x: -16, y: -7.5}
+        - {x: 16, y: -7.5}
+        - {x: 16, y: 7.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c0577b160bdcbc45a351956ca2f13ca
+      internalID: -1531889532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike_B_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 7.5}
+        - {x: -16, y: 7.5}
+        - {x: -16, y: -7.5}
+        - {x: 16, y: -7.5}
+        - {x: 16, y: 7.4899044}
+        - {x: 16, y: 7.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dcd2e306f950dc4fae031799f771ebd
+      internalID: -2044754243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike_B_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 7.5}
+        - {x: -16, y: 7.499481}
+        - {x: -16, y: -7.5}
+        - {x: 16, y: -7.5}
+        - {x: 16, y: 7.499483}
+        - {x: 16, y: 7.46117}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0163b4bae166a7d48b9edf63f5ac1be1
+      internalID: -1903261911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike_B_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 493b46a59557b9e4e805ef5ac25cf428
+      internalID: 431747431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike_B_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df03770b88c2b054a9a4c20dee5f8e7a
+      internalID: -509419851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike_B_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b4897fdaf2acef4e87fd7b6cce270fa
+      internalID: 597710747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike_B_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 10
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03808b4f1a6d62e46ad523b2113da248
+      internalID: 232141294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +362,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Spike_B_0: 1231877691
+      Spike_B_1: -600463418
+      Spike_B_2: 1856528136
+      Spike_B_3: 1676775557
+      Spike_B_4: -1531889532
+      Spike_B_5: -2044754243
+      Spike_B_6: -1903261911
+      Spike_B_7: 431747431
+      Spike_B_8: -509419851
+      Spike_B_9: 597710747
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
