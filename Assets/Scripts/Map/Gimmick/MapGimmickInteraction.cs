@@ -9,7 +9,7 @@ public class MapGimmickInteraction : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapBoxAll(position, transform.localScale, 0f); //콜라이더 가져옴
         foreach (Collider2D collider in colliders)
         {
-            Debug.Log("Collided with: " + collider.gameObject.name);
+            //Debug.Log("Collided with: " + collider.gameObject.name);
 
             if (collider.CompareTag(tag)) // 태그 확인
             {

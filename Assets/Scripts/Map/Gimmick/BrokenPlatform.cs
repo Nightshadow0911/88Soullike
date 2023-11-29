@@ -23,8 +23,8 @@ public class BrokenPlatform : BaseGimmick
     private void Update()
     {
             bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
-            Debug.Log("Box Position: " + transform.position);
-            Debug.Log("Box Size: " + transform.localScale);
+            //Debug.Log("Box Position: " + transform.position);
+            //Debug.Log("Box Size: " + transform.localScale);
             if (isCollision && currentCoroutine == null)
             {
                 currentCoroutine = StartCoroutine(PerformCollisionAction());
