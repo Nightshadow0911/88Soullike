@@ -20,7 +20,7 @@ public class RoomScript : MonoBehaviour, IRoomObserver
             RoomManager.Instance.ActivateRooms(roomNumber, connectedRooms);
         }
     }
+
    
-    
 }
 
