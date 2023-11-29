@@ -13,14 +13,15 @@ public class PlayerAttack : MonoBehaviour
     private float lastClickTime;
 
     double nextAttackTime = 0f;
-    public float parryWindowDuration = 0.5f; // 패링이 가능한 시간 간격
+
     public bool isParrying = false;
     public bool isGuarding = false;
     private float parryWindowEndTime = 0f;
     public bool comboAttack = false;
     private bool canAttack = true;
 
-    [SerializeField] private int attackClickCount = 1;
+    [SerializeField] private int comboAttackClickCount = 1;
+    private int manaRegainClickCount = 1;
     [SerializeField] public bool monsterToPlayerDamage;
     //public int damage;
 
@@ -58,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
         {
             isParrying = true;
             transform.Find("Parrying").gameObject.SetActive(true);
-            parryWindowEndTime = Time.time + parryWindowDuration;
+            parryWindowEndTime = Time.time + characterStats.ParryTime;
             Debug.Log("Parry Start");
         }
         else if (Input.GetMouseButtonUp(1) && isParrying)
@@ -99,14 +100,23 @@ public class PlayerAttack : MonoBehaviour
         // 클릭 카운터 초기화
         if (Time.time - lastClickTime > clickCountResetTime)
         {
-            attackClickCount = -1;
+            comboAttackClickCount = -1;
+        }
+        if (manaRegainClickCount==10)
+        {
+            if (characterStats.characterMana<characterStats.MaxMana)
+            {
+                characterStats.characterMana += 1;
+            }
+            manaRegainClickCount = 1;
         }
     }
 
     private void ClickCount()
     {
-        attackClickCount += 1;
+        comboAttackClickCount += 1;
         lastClickTime = Time.time;
+        manaRegainClickCount += 1;
     }
 
     private void CheckAttackTime()
@@ -140,14 +150,14 @@ public class PlayerAttack : MonoBehaviour
             anim.SetTrigger("attack");
             gameManager.playerStats.AttackDamage();
             int modifiedAttackDamage = gameManager.playerStats.NormalAttackDamage;
-            if (attackClickCount != 0 && attackClickCount % 2==0)
+            if (comboAttackClickCount != 0 && comboAttackClickCount % 2==0)
             {
                 comboAttack = true;
                 gameManager.playerStats.characterStamina -= player.comboStaminaCost;
                 anim.SetTrigger("combo");
                 modifiedAttackDamage *= 2;
                 ApplyDamage(modifiedAttackDamage);
-                attackClickCount = -1;
+                comboAttackClickCount = -1;
             }
             comboAttack = false;
             ApplyDamage(modifiedAttackDamage);

@@ -193,8 +193,6 @@ public class skeletonEnemy : MonoBehaviour
             knockback = true;
             knockbackStart = Time.time;
             rb.velocity = new Vector2(knockbackSpeedX * gameManager.lastPlayerController.facingDirection, knockbackSpeedY);
-            Debug.Log(knockbackSpeedX * gameManager.lastPlayerController.facingDirection);
-            Debug.Log("1:" + rb.velocity);
         }
     }
     public void CheckKnockback()
@@ -205,7 +203,6 @@ public class skeletonEnemy : MonoBehaviour
             {
                 knockback = false;
                 rb.velocity = new Vector2(0.0f, rb.velocity.y);
-                Debug.Log("2:" + rb.velocity);
             }
         }
     }
