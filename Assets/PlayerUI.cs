@@ -14,12 +14,15 @@ public class PlayerUI : MonoBehaviour
     public Slider healthSlider;
     public Slider staminaSlider;
     public Slider regainSlider;
+    public Slider manaSlider;
+    public Text manaText;
     void Start()
     {
         gameManager = GameManager.Instance;
         healthSlider.value = 1;
         staminaSlider.value = 1;
         regainSlider.value = 1;
+        manaSlider.value = 1;
     }
 
     void Update()
@@ -27,6 +30,7 @@ public class PlayerUI : MonoBehaviour
         UpdateHpUI();
         UpdateStaminaUI();
         UpdateRegainHpUI();
+        UpdateManaUI();
     }
     //gameManager.playerStats.characterStamina
 
@@ -45,19 +49,27 @@ public class PlayerUI : MonoBehaviour
         staminaSlider.value = currentStamina / maxStamina;
     }
 
+    private void UpdateManaUI()
+    {
+        int maxMana = characterStats.MaxMana;
+        int currentMana = characterStats.characterMana;
+        manaText.text = currentMana + " / " + maxMana;
+        manaSlider.value = calculaterManaPercentage(currentMana, maxMana);
+    }
+
     public void UpdateRegainHpUI()
     {
         int maxHealth = characterStats.MaxHP;
         int characterRegainHp = characterStats.characterRegainHp;
-        if (gameManager.playerStats.characterRegainHp<gameManager.playerStats.characterHp)
+        if (gameManager.playerStats.characterRegainHp < gameManager.playerStats.characterHp)
         {
             gameManager.playerStats.characterRegainHp = gameManager.playerStats.characterHp;
         }
-        if (gameManager.playerStats.characterHp<=0)
+        if (gameManager.playerStats.characterHp <= 0)
         {
-            gameManager.playerStats.characterRegainHp =0;
+            gameManager.playerStats.characterRegainHp = 0;
         }
-        regainSlider.value = calculateGuardPercentage(characterRegainHp,maxHealth);
+        regainSlider.value = calculateGuardPercentage(characterRegainHp, maxHealth);
     }
 
     float calculateHealthPercentage(int currentHealth, int maxHealth)
@@ -67,5 +79,9 @@ public class PlayerUI : MonoBehaviour
     float calculateGuardPercentage(int characterRegainHp, int maxHealth)
     {
         return (float)characterRegainHp / maxHealth; // Convert to float for accurate percentage
+    }
+    float calculaterManaPercentage(int currentMana, int maxMana)
+    {
+        return (float)currentMana / maxMana;
     }
 }

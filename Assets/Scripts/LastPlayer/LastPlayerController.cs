@@ -40,7 +40,7 @@ public class LastPlayerController : MonoBehaviour
     public bool isGrounded;
     private bool isWallDetected;
     private bool isLadderDetected;
-    public bool isCeilDetected =true;
+    public bool isCeilDetected = true;
 
     [SerializeField] private float dashDistance = 10f;
     [SerializeField] private float dashDuration = 0.2f;
@@ -67,20 +67,19 @@ public class LastPlayerController : MonoBehaviour
     private bool isClimbing;
 
     public bool isSitting;
-    public bool canDash= true;
-
+    public bool canDash = true;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameManager.Instance;
-
     }
 
     void Update()
     {
         CheckInput();
+        UseMana();
         CollisionCheck();
         FlipController();
         AnimatorController();
@@ -103,52 +102,53 @@ public class LastPlayerController : MonoBehaviour
         Death();
     }
 
-    private void IsWallSliding()
+    private void UseMana()
     {
-            isWallSliding = true;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (characterStats.characterMana >= 1)
+            {
+                characterStats.characterMana -= 1;
+            }
+        }
     }
 
+    private void IsWallSliding()
+    {
+        isWallSliding = true;
+        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
+    }
 
     private void CheckForLedge()
     {
         if (ledgeDetected && canGrabLedge)
         {
-            // 매달리기 시작 조건이 충족될 때
             canGrabLedge = false;
-            // 현재 매달리는 위치와 오프셋을 사용하여 매달리기 시작과 끝 지점을 계산
             Vector2 ledgePosition = ledgeCheck.transform.position;
             climbBegunPosition = ledgePosition + offset1;
             climbOverPosition = ledgePosition + offset2;
-            // 매달리기 상태를 활성화하고 애니메이션을 설정
             isClimbing = true;
             anim.SetBool("isClimbing", true);
         }
         if (isClimbing)
         {
-            // 매달리기 중인 경우, 플레이어의 위치를 시작 지점으로 설정
             transform.position = climbBegunPosition;
         }
     }
 
     private void LedgeClimbOver()
     {
-        // 매달리기 종료 조건이 충족될 때
         isClimbing = false;
-        // 플레이어의 위치를 매달리기 종료 지점으로 이동
         transform.position = climbOverPosition;
-        // 일정 시간이 지난 후 다시 매달리기를 허용하는 메서드 호출
         Invoke("AllowLedgeGrab", 1f);
     }
 
     private IEnumerator LedgeClimbOverCoroutine()
     {
-
         float elapsedTime = 0f;
         float lerpDuration = 1f;
         while (elapsedTime < lerpDuration)
         {
-            // Lerp를 사용하여 부드럽게 매달리기 시작과 끝 지점을 이동
             transform.position = Vector3.Lerp(climbBegunPosition, climbOverPosition, elapsedTime / lerpDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -157,7 +157,6 @@ public class LastPlayerController : MonoBehaviour
 
     private void AllowLedgeGrab()
     {
-        // 다시 매달리기를 허용하는 메서드
         canGrabLedge = true;
     }
 
@@ -165,7 +164,7 @@ public class LastPlayerController : MonoBehaviour
     {
         movingInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetAxis("Vertical") < 0) //벽체크 
+        if (Input.GetAxis("Vertical") < 0)
         {
             canWallSlide = false;
         }
@@ -185,43 +184,39 @@ public class LastPlayerController : MonoBehaviour
             {
                 rb.velocity = new Vector2((float)(movingInput * gameManager.playerStats.ExtraCharacterSpeed), rb.velocity.y);
             }
-           //Debug.Log("movespeed:"+gameManager.playerStats.CharacterSpeed);
-
         }
     }
 
     private void Dash()
     {
-            if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
+        {
+            if (canDash)
             {
-                if (canDash)
+                if (characterStats.characterStamina >= dashStaminaCost)
                 {
-                    if (characterStats.characterStamina >= dashStaminaCost)
-                    {
-                        characterStats.characterStamina -= dashStaminaCost;
-                        fadeOut.makeFadeOut = true;
-                        isDashing = true;
-                        dashStartTime = Time.time;
-                        lastDashTime = Time.time;
-                    }
+                    characterStats.characterStamina -= dashStaminaCost;
+                    fadeOut.makeFadeOut = true;
+                    isDashing = true;
+                    dashStartTime = Time.time;
+                    lastDashTime = Time.time;
                 }
-
             }
-            if (isDashing && Time.time < dashStartTime + dashDuration)
-            {
-                rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
-            }
-            else
-            {
-                isDashing = false;
-                fadeOut.makeFadeOut = false;
-            }
+        }
+        if (isDashing && Time.time < dashStartTime + dashDuration)
+        {
+            rb.velocity = new Vector2(facingDirection * dashDistance / dashDuration, rb.velocity.y);
+        }
+        else
+        {
+            isDashing = false;
+            fadeOut.makeFadeOut = false;
+        }
     }
 
     private void RegenStamina()
     {
         characterStats.characterStamina += staminaRegenRate * Time.deltaTime;
-        // Fix
         characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
     }
 
@@ -270,6 +265,7 @@ public class LastPlayerController : MonoBehaviour
             Flip();
         }
     }
+
     private void Flip()
     {
         facingDirection = facingDirection * -1;
@@ -296,7 +292,7 @@ public class LastPlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ladder")) 
+        if (collision.CompareTag("Ladder"))
         {
             isLadderDetected = true;
             isGrounded = false;
@@ -321,7 +317,7 @@ public class LastPlayerController : MonoBehaviour
         anim.SetBool("isWallSliding", isWallSliding);
         anim.SetBool("isWallDetected", isWallDetected);
         anim.SetBool("isClimbing", isClimbing);
-        anim.SetBool("isSitting",isSitting);
+        anim.SetBool("isSitting", isSitting);
     }
 
     private void CollisionCheck()
@@ -342,8 +338,8 @@ public class LastPlayerController : MonoBehaviour
             canWallSlide = false;
             isWallSliding = false;
         }
-        //Debug.Log(ledgeDetected);
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));

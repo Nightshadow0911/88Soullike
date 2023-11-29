@@ -270,6 +270,7 @@ MonoBehaviour:
   characterRegainHp: 0
   characterStamina: 0
   characterNomallAttackDamage: 0
+  characterMana: 0
   Exp: 0
   Gold: 0
   moveState: 
@@ -404,11 +405,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 6113475548300559220}
   characterStats: {fileID: 2491328609635162135}
-  parryWindowDuration: 0.5
   isParrying: 0
   isGuarding: 0
   comboAttack: 0
-  attackClickCount: 0
+  comboAttackClickCount: 1
   monsterToPlayerDamage: 1
   attackPoint: {fileID: 3646084481749102177}
   enemyLayer:
@@ -659,7 +659,7 @@ Transform:
   m_GameObject: {fileID: 5425261493602153820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6667032804102120429}
@@ -707,7 +707,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0607f822626da424e8666e4e016a1908, type: 3}
-  m_Color: {r: 1, g: 0.01747798, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
