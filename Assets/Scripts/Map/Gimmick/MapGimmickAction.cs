@@ -29,19 +29,34 @@ public class MapGimmickAction : MonoBehaviour
     {
         transform.position = Vector2.zero; 
     }
-
-    public void ResetPower(Rigidbody2D rb)
+    
+    public void MoveInDirection(Transform transform, Vector2 direction, float force) //방향으로 이동
     {
-        rb.velocity = Vector2.zero;
-    }
-    public void MoveInDirection(Vector2 direction, float force)
-    {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
         }
     }
+
+    public void MoveTransform(Transform transform, Vector2 direction, float force)
+    {
+        Vector2 movement = direction.normalized * force;
+        transform.Translate(movement*Time.deltaTime);
+    }
+
+    public void ToggleObjectSetActive(GameObject target, bool isActive)
+    {
+        if (target != null)
+        {
+            target.SetActive(isActive);
+        }
+    }
     
-    
+    public GameObject SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        GameObject newObject = Instantiate(prefab, position, rotation);
+        return newObject;
+    }
+
 }

@@ -18,6 +18,7 @@ MonoBehaviour:
   efts:
   - {fileID: 11400000, guid: c2feb105f7b3d58439d28d4c10777843, type: 2}
   power: 120
+  cost: 1
   descriptiion:
   - "\uC804\uBC29\uC73C\uB85C \uB3C5\uAD6C\uC2AC\uC744 \uBC1C\uC0AC\uD574 '\uACC4\uC0B0\uC2DD'
     \uD53C\uD574\uB97C \uC785\uD78C\uB2E4."

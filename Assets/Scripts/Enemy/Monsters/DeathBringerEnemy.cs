@@ -53,7 +53,7 @@ public class DeathBringerEnemy : MonoBehaviour
     {
         Vector2 direction = player.position - selfPosition.position;
         Vector2 moveDirection = direction.normalized;
-        Debug.Log(direction.x);
+        // Debug.Log(direction.x);
 
         
 

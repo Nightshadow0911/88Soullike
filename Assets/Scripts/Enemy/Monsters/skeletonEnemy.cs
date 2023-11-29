@@ -153,7 +153,7 @@ public class skeletonEnemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int attackDamage)
+    public void TakeDamage(int attackDamage)// PlayerToMonster
     {
         currentHealth -= attackDamage;
 
@@ -188,21 +188,25 @@ public class skeletonEnemy : MonoBehaviour
     }
     public void Knockback()
     {
-        isAttacking = true;
-        knockback = true;
-        knockbackStart = Time.time;
-        rb.velocity = new Vector2(knockbackSpeedX * gameManager.lastPlayerController.facingDirection, knockbackSpeedY);
-        Debug.Log(knockbackSpeedX * gameManager.lastPlayerController.facingDirection);
-        Debug.Log("1:" + rb.velocity);
+        if(gameManager.playerAttack.comboAttack == true)
+        {
+            knockback = true;
+            knockbackStart = Time.time;
+            rb.velocity = new Vector2(knockbackSpeedX * gameManager.lastPlayerController.facingDirection, knockbackSpeedY);
+            Debug.Log(knockbackSpeedX * gameManager.lastPlayerController.facingDirection);
+            Debug.Log("1:" + rb.velocity);
+        }
     }
     public void CheckKnockback()
     {
-        if (Time.time >= knockbackStart + knockbackDuration && knockback)
+        if (gameManager.playerAttack.comboAttack == false)
         {
-            isAttacking = false;
-            knockback = false;
-            rb.velocity = new Vector2(0.0f, rb.velocity.y);
-            Debug.Log("2:" + rb.velocity);
+            if (Time.time >= knockbackStart + knockbackDuration && knockback)
+            {
+                knockback = false;
+                rb.velocity = new Vector2(0.0f, rb.velocity.y);
+                Debug.Log("2:" + rb.velocity);
+            }
         }
     }
 
