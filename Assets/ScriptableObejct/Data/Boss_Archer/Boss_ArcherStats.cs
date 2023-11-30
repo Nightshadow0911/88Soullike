@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Boss_ArcherStats", menuName = "EnemyStats/BossStats/Boss_ArcherStats", order = 0)]
-public class Boss_ArcherStats : EnemyStats
+[CreateAssetMenu(fileName = "Boss_ArcherStats", menuName = "Stats/EnemyStat/Boss_ArcherStats", order = 2)]
+public class Boss_ArcherStats : EnemyStat
 {
     [Header("Boss_Archer Stats")]
     public Vector2 meleeAttackRange;

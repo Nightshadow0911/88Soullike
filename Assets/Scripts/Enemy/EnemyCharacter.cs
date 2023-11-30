@@ -12,8 +12,8 @@ public class EnemyCharacter : EnemyPattern
     }
     
     [Header("Base Setting")]
-    [SerializeField] private EnemyStats baseStats; protected EnemyStats GetBaseStats() => baseStats;
-    protected EnemyStats currentStats;
+    [SerializeField] private EnemyStat baseStats; protected EnemyStat GetBaseStats() => baseStats;
+    protected EnemyStat currentStats;
     [SerializeField] protected Transform targetTransform;
     protected Rigidbody2D rigid;
     protected EnemyAnimationController animationController;
@@ -71,9 +71,13 @@ public class EnemyCharacter : EnemyPattern
     
     private void SetStats()
     {
-        currentStats = ScriptableObject.CreateInstance<EnemyStats>();
+        currentStats = ScriptableObject.CreateInstance<EnemyStat>();
+        currentStats.characterMaxHP = baseStats.characterMaxHP;
+        currentStats.characterDamage = baseStats.characterDamage;
+        currentStats.characterDefense = baseStats.characterDefense;
+        currentStats.propertyDamage = baseStats.propertyDamage;
+        currentStats.propertyDefense = baseStats.propertyDefense;
         currentStats.speed = baseStats.speed;
-        currentStats.damage = baseStats.damage;
         currentStats.delay = baseStats.delay;
         currentStats.target = baseStats.target;
     }
