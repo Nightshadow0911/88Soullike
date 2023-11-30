@@ -369,6 +369,7 @@ public class Boss_Archer : EnemyCharacter
                 ShootSpecialArrow(direction, uniqueStats.scatterArrowData);
             }
         }
+        yield return YieldCache.WaitForSeconds(0.1f);
         animationController.AnimationTrigger("EndLeapShot");
         Rotate();
         rigid.gravityScale = 1f;
