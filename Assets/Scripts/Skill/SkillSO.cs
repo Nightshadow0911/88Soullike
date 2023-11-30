@@ -8,6 +8,7 @@ using UnityEngine;
 public class SkillSO : ScriptableObject
 {
     [SerializeField] private SkillType type;
+    [SerializeField] private bool activeType; //false근거리 true원거리
     [SerializeField] private string skillName;
     [SerializeField] private Sprite skillIcon;
     [SerializeField] private List<SkillEffect> efts;
@@ -20,6 +21,17 @@ public class SkillSO : ScriptableObject
     {
         return true;
     }
+
+    public SkillType Type { get { return type; }}
+    public bool ActiveType { get { return activeType; }}
+    public string SkillName { get {  return skillName; }}
+    public Sprite SkillIcon { get {  return skillIcon; }}
+    public List<SkillEffect> SkillEffects { get { return efts; }}
+    public int Power { get { return power; }}
+    public int Cost { get { return cost; }}
+    public List<String> Description { get { return descriptiion; }}
+    public PropertyType SkillProperty { get { return skillProperty; }}
+    public int Price { get { return price; }}
 }
 
 public enum SkillType
@@ -28,3 +40,5 @@ public enum SkillType
     Passive,
     Buff
 }
+
+

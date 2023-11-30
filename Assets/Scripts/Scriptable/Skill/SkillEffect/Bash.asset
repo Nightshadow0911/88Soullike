@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88d12ed000c7134f96180882553e4db, type: 3}
   m_Name: Bash
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
+  skillPrefab: {fileID: 6553771295345841304, guid: a4e444cffe3b30d43b9127f6cf4a835a, type: 3}
+  skillPosition: {x: 0, y: 0, z: 0}

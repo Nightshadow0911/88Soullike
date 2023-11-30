@@ -377,6 +377,10 @@ MonoBehaviour:
     propertyAmount: 0
     weight: 0
     price: 0
+  skillSlotList:
+  - {fileID: 9165240758897152920, guid: a4e444cffe3b30d43b9127f6cf4a835a, type: 3}
+  - {fileID: 6525689853256069183, guid: 94233447f9ef64a49b49d26c503bdd5a, type: 3}
+  - {fileID: 3082831814835967893, guid: 4b67823366f95b04e8c819c44a9c7bd0, type: 3}
 --- !u!114 &4454474238667929373
 MonoBehaviour:
   m_ObjectHideFlags: 0
