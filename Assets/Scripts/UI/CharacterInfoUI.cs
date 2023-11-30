@@ -70,7 +70,8 @@ public class CharacterInfoUI : MonoBehaviour
             equipWeight += ew.Weight;
         }
         weightTxt.text = $"{equipWeight} / {playerStat.CharacterWeight}";
-        speedTxt.text = $"{playerStat.CharacterSpeed:F1}";
+
+        speedTxt.text = $"{playerStat.moveState}";
 
         weaponTxt.text = $"[E] {Equipment.instance.equipItemList[0]?.ItemName}";
         attackTxt.text = $"{playerStat.NormalAttackDamage}";
@@ -80,7 +81,7 @@ public class CharacterInfoUI : MonoBehaviour
         attackSpeedTxt.text = $"{playerStat.AttackSpeed}";
 
         deffenceTxt.text = $"{playerStat.CharacterDefense}";
-        parryTimeTxt.text = $"{playerStat.ParryTime:F2}";
+        parryTimeTxt.text = $"{(playerStat.ParryTime):F2}";
         addGoodTxt.text = $"{playerStat.AddGoods}";
 
         growPoint.text = $"포인트 : {playerStat.Points}";

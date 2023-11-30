@@ -18,6 +18,7 @@ public class Item
     [SerializeField] private float attackRange;
     [SerializeField] private float attackSpeed;
     [SerializeField] private PropertyType weaponProperty;
+    [SerializeField] private int propertyAmount;
     [SerializeField] private int weight;
     [SerializeField] private int price;
 
@@ -35,6 +36,7 @@ public class Item
         attackRange = curItem.AttackRange;
         attackSpeed = curItem.AttackSpeed;
         weaponProperty = curItem.WeaponProperty;
+        propertyAmount = curItem.PropertyAmount;
         weight = curItem.Weight;
         price = curItem.Price;
 
@@ -85,8 +87,9 @@ public class Item
     public List<String> Description { get { return description; } }
     public int Amount { get { return amount; } set { amount = value; } }
     public float AttackRange { get { return attackRange; } }
-    public float AmountSpeed { get { return attackSpeed; } }
+    public float AttackSpeed { get { return attackSpeed; } }
     public PropertyType WeaponProperty { get { return weaponProperty; } }
+    public int PropertyAmount { get { return propertyAmount; } }
     public int Weight { get { return weight; } }
     public int Price { get { return price; } }
     #endregion

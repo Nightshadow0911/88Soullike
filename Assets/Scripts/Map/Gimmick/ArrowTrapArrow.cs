@@ -7,10 +7,11 @@ public class ArrowTrapArrow : BaseGimmick
     private GameManager gameManager;
     private SpriteRenderer spriteRenderer;
     public Collider2D arrowCollider;
-    private int moveforce = 30;
-    private bool isshooting = false;
+    public int moveforce = 30;
+    public Vector2 direction;
     
-    private void Start()
+    
+    protected override void Start()
     {
         gameManager = GameManager.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();

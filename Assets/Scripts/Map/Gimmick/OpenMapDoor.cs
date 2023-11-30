@@ -8,9 +8,9 @@ public class OpenMapDoor : BaseGimmick
     private Coroutine currentCoroutine;
     public Collider2D DoorCollider;
     
-    void Start()
+    protected override void Start()
     {
-        DoorCollider = GetComponent<Collider2D>();
+        DoorCollider = MovedDoor.GetComponent<Collider2D>();
         base.Start();
     }
     
