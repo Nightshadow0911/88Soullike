@@ -6,7 +6,6 @@ using UnityEngine;
 public class PositionAttack : MonoBehaviour
 {
     private ProjectileManager projectileManager;
-    private Coroutine currentRoutine;
  
     private void Start()
     {
@@ -20,9 +19,7 @@ public class PositionAttack : MonoBehaviour
 
     public void CreateMultipleProjectile(Vector2 position, PositionAttackData data)
     {
-        if (currentRoutine != null)
-            StopCoroutine(currentRoutine);
-        currentRoutine = StartCoroutine(MultipleProjectile(position, data));
+        StartCoroutine(MultipleProjectile(position, data));
     }
 
     private IEnumerator MultipleProjectile(Vector2 position, PositionAttackData data)

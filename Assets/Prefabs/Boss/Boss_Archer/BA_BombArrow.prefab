@@ -90,7 +90,7 @@ Transform:
   m_Children:
   - {fileID: 5317490568131537808}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2401133687877368879
 SpriteRenderer:
@@ -161,7 +161,7 @@ MonoBehaviour:
     m_Bits: 1536
   bombExplosionData: {fileID: 11400000, guid: 6624d391ea005484ea6341fdd2ee73fa, type: 2}
   rayBoxSize: {x: 0.5, y: 0.5}
-  extinctionTime: 0.7
+  extinctionTime: 0.8
 --- !u!114 &7112586458913640628
 MonoBehaviour:
   m_ObjectHideFlags: 0

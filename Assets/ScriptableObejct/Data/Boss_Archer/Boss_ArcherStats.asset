@@ -41,19 +41,19 @@ MonoBehaviour:
   projectiles:
   - tag: BA_Arrow
     prefab: {fileID: 913579387397932168, guid: 29bb8d684145c6740b97f0344e7e15b0, type: 3}
-    size: 4
+    size: 3
   - tag: BombArrow
     prefab: {fileID: 1541699905658841087, guid: 2aaeceab9d0cc04498f9d53c1e267b79, type: 3}
     size: 3
   - tag: PoisonArrow
     prefab: {fileID: 7968759150108742984, guid: cb81f6f9a3da5c34cbda89e625a43a82, type: 3}
-    size: 4
+    size: 3
   - tag: ScatterArrow
     prefab: {fileID: 16419201612604955, guid: c4dd58311da2b90459946a91725caf16, type: 3}
-    size: 3
+    size: 2
   - tag: PoisonFlask
     prefab: {fileID: 473537946730957710, guid: bbe8525482f6b3243b72abae4f677bae, type: 3}
-    size: 4
+    size: 3
   - tag: SmallArrow
     prefab: {fileID: 335960726170392620, guid: 36a39b83fa57a18419ae7811ac15b408, type: 3}
     size: 6
@@ -62,7 +62,7 @@ MonoBehaviour:
     size: 3
   - tag: PoisonAoE
     prefab: {fileID: 4358163393702817439, guid: 2a8b5a9f30619104ab972e218bf9e7d6, type: 3}
-    size: 5
+    size: 4
   - tag: BombExplosion
     prefab: {fileID: 169576513809505338, guid: b1c9aab4cd60d8547acd094aafa78e9a, type: 3}
     size: 6
