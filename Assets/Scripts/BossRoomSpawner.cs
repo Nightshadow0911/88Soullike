@@ -17,7 +17,7 @@ public class BossRoomSpawner : BaseGimmick
     private Coroutine currentCoroutine;
 
 
-    private void Start()
+    protected override void Start()
     {
         door1sprite = door1.GetComponent<SpriteRenderer>();
         door2sprite = door2.GetComponent<SpriteRenderer>();
@@ -30,7 +30,7 @@ public class BossRoomSpawner : BaseGimmick
     {
         if (collision.gameObject.CompareTag("Player")&& dBSpawnCount == 0) //플레이어가 입장하면 보스 활성화
         {
-            //deathBringer.SetActive(true);
+            deathBringer.SetActive(true);
             dBSpawnCount++;
             DoorClose();
         }

@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5048235138083051449
 Transform:
   m_ObjectHideFlags: 0
@@ -177,6 +177,10 @@ MonoBehaviour:
   maxHealth: 100
   selfPosition: {fileID: 5048235138083051449}
   soulDrop: {fileID: 7428717623223419327, guid: 9a9b3036750ae9b4fad0d4ca145d0d0c, type: 3}
+  applyKnockback: 0
+  knockbackSpeedX: 0
+  knockbackSpeedY: 0
+  knockbackDuration: 0
 --- !u!95 &4538989473501866103
 Animator:
   serializedVersion: 5

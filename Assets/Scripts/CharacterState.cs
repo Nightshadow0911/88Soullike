@@ -10,7 +10,7 @@ public class CharacterStats : MonoBehaviour
 
     //레벨 관련
     private int level = 1;
-    private int points = 5;
+    private int points;
 
     [SerializeField]
     public int characterHp;
@@ -20,6 +20,7 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
     public int characterNomallAttackDamage;
 
+    public int characterMana;
     //메인 성장 스텟
     private Dictionary<GrowState, int> growthValues = new Dictionary<GrowState, int>();
     private GrowState _currentState;
@@ -41,10 +42,10 @@ public class CharacterStats : MonoBehaviour
         characterWeight, // 캐릭터 무게
         characterDefense, // 캐릭터 방어력
         characterStamina, // 캐릭터 스테미너
-        charactermana, // 현재 마나
+        characterMana, // 현재 마나
         nomallAttackDamage, // 기본 공격력
         nomallSkillDamage, // 주문력
-        parryTime, // 패링 가능 시간
+        //parryTime, // 패링 가능 시간
         addGoods, // 재화 획득량 증가
         propertyDamage, // 속성 데미지 
         propertyDefense, //속성 방어력
@@ -61,6 +62,7 @@ public class CharacterStats : MonoBehaviour
     private float attackRange = 1f; // 공격 범위
     private double moveSpeed = 5f; // 이동속도
     private double extraMoveSpeed = 1.5f;
+    private float parryTime = 0.05f;
     public int Exp;
     public int Gold;
     public string moveState;
@@ -81,15 +83,20 @@ public class CharacterStats : MonoBehaviour
         subState[(int)Substate.characterRegainHp] = 100; // max
         characterRegainHp = subState[(int)Substate.characterRegainHp];
 
+        subState[(int)Substate.characterMana] = 4; //max
+        characterMana = subState[(int)Substate.characterMana];
+
         subState[(int)Substate.characterStamina] = 100;
         characterStamina = subState[(int)Substate.characterStamina];
         subState[(int)Substate.nomallAttackDamage] = 10;
         characterNomallAttackDamage = subState[(int)Substate.nomallAttackDamage];
-        subState[(int)Substate.critcal] =0; //확률 ;
+        subState[(int)Substate.critcal] = 0; //확률 ;
         subState[(int)Substate.propertyDefense] = 10;
         subState[(int)Substate.characterWeight] = 50;
         curExp = 27;
         maxExp = 100;
+        points = 50;
+
     }
 
     private void Update()
@@ -119,7 +126,7 @@ public class CharacterStats : MonoBehaviour
     private void StrGrow(int i)
     {
         GrowStr += 1;
-       
+
         subState[(int)Substate.nomallAttackDamage] += i;
         subState[(int)Substate.characterWeight] += i;
         subState[(int)Substate.nomallSkillDamage] += i;
@@ -129,8 +136,8 @@ public class CharacterStats : MonoBehaviour
     private void DexGrow(int i)
     {
         GrowDex += 1;
-        attackSpeed += i*0.05;
-        moveSpeed += i*0.05;
+        attackSpeed += i * 0.05;
+        moveSpeed += i * 0.05;
         subState[(int)Substate.maxDex] += 1;
     }
     // 운 증가시 치명타율, 패리 시간, 재화획득량, 버티기(??)
@@ -138,7 +145,8 @@ public class CharacterStats : MonoBehaviour
     {
         GrowLux += 1;
         subState[(int)Substate.critcal] += i;
-        subState[(int)Substate.parryTime] += i;
+        //subState[(int)Substate.parryTime] += i;
+        parryTime += i*0.025f;
         subState[(int)Substate.addGoods] += i;
         subState[(int)Substate.characterRegainHp] += i;
         subState[(int)Substate.maxLuk] += 1;
@@ -147,7 +155,7 @@ public class CharacterStats : MonoBehaviour
     private void IntGrow(int i)
     {
         GrowInt += 1;
-        subState[(int)Substate.charactermana] += i;
+        subState[(int)Substate.characterMana] += i;
         subState[(int)Substate.propertyDamage] += i;
         subState[(int)Substate.maxInt] += 1;
     }
@@ -168,7 +176,8 @@ public class CharacterStats : MonoBehaviour
             moveSpeed = 3;
             moveState = "무거움";
             //UI표시 [무거움]
-        } else
+        }
+        else
         {
             moveSpeed = 5;
             moveState = "보통";
@@ -227,8 +236,6 @@ public class CharacterStats : MonoBehaviour
         damage -= CharacterDefense;
         characterHp -= damage;
         characterRegainHp -= (damage / 2);
-        Debug.Log("HP : " + characterHp);
-        Debug.Log("RegainHP : " + characterRegainHp);
         if (characterHp <= 0)  //플레이어가 파괴되므로 수정해야함.
         {
             // 게임 오브젝트를 즉시 파괴
@@ -242,7 +249,7 @@ public class CharacterStats : MonoBehaviour
     public void AttackDamage()//PlayerToMonster
     {
         int playerAttack;
-        playerAttack = subState[(int)Substate.nomallAttackDamage] ;
+        playerAttack = subState[(int)Substate.nomallAttackDamage];
         var criDamage = 0;
         float critChance = subState[(int)Substate.critcal];
         float crit = UnityEngine.Random.Range(0f, 1f);
@@ -336,9 +343,15 @@ public class CharacterStats : MonoBehaviour
     }
     public int MaxHP
     {
-        get{ return subState[(int)Substate.characterHp]; }
-       
+        get { return subState[(int)Substate.characterHp]; }
+
     }
+    public int MaxMana
+    {
+        get { return subState[(int)Substate.characterMana]; }
+        set { subState[(int)Substate.characterMana] = value; }
+    }
+
     public int MaxRegainHp
     {
         get { return subState[(int)Substate.characterRegainHp]; }
@@ -351,7 +364,7 @@ public class CharacterStats : MonoBehaviour
     public int CharacterWeight
     {
         get { return subState[(int)Substate.characterWeight]; }
-        set { subState[(int)Substate.characterWeight]=value; }
+        set { subState[(int)Substate.characterWeight] = value; }
     }
     public int NormalAttackDamage
     {
@@ -423,13 +436,13 @@ public class CharacterStats : MonoBehaviour
         get { return attackRange; }
         set { attackRange = value; }
     }
-    public float ParryTime // float
+    public float ParryTime 
     {
-        get { return (int)Substate.parryTime; }
-    } 
+        get { return parryTime; }
+    }
     public float AddGoods // float
     {
-        get { return (int)Substate.addGoods; }
+        get { return subState[(int)Substate.addGoods]; }
     }
     public int Level
     {
@@ -445,8 +458,10 @@ public class CharacterStats : MonoBehaviour
         get { return subState[(int)Substate.EquipWeight]; }
         set { subState[(int)Substate.EquipWeight] = value; }
     }
-    
+
+
     // 상태 이상
+
     public enum StatusEffectType
     {
         None,
@@ -454,12 +469,12 @@ public class CharacterStats : MonoBehaviour
         Bleeding,
         // 다른 상태 이상 유형을 여기에 추가할 수 있습니다.
     }
-    
+
     private int poisonAccumulation = 0; // 독 상태 이상의 축적치
     private int bleedingAccumulation = 0; // 출혈 상태 이상의 축적치
     private int monsterPoisonAccumulation = 0; // 몬스터 독 상태 이상의 축적치
     private int monsterBleedingAccumulation = 0; // 몬스터 출혈 상태 이상의 축적치
-    
+
     // 독 상태 이상을 적용하는 함수
     public void ApplyPoisonStatus(int damagePerTick, float duration, int amount)// 가드 초기화 부분
     {
@@ -483,26 +498,27 @@ public class CharacterStats : MonoBehaviour
         }
     }
     // 몬스터의 독 상태 이상을 적용하는 함수
- public void HitApplyPoisonStatus(int monsterHP, float duration, int monsterAmount,int monsterpropertydefense)
+    public void HitApplyPoisonStatus(int monsterHP, float duration, int monsterAmount, int monsterpropertydefense)
     {
-        MonsterIncreaseAccumulation(StatusEffectType.Poison,monsterAmount,monsterpropertydefense);
+        MonsterIncreaseAccumulation(StatusEffectType.Poison, monsterAmount, monsterpropertydefense);
         if (monsterPoisonAccumulation >= 100)
         {
             StartCoroutine(HITDoPoisonEffect(monsterHP, duration));
             monsterPoisonAccumulation = 0;
         }
     }
+
     // 몬스터의 출혈 상태 이상을 적용하는 함수
-    public void HitBleedingStatus(int monsterHP, float duration, int monsterAmount,int monsterpropertydefense)
+    public void HitBleedingStatus(int monsterHP, float duration, int monsterAmount, int monsterpropertydefense)
     {
-        MonsterIncreaseAccumulation(StatusEffectType.Bleeding,monsterAmount,monsterpropertydefense);
+        MonsterIncreaseAccumulation(StatusEffectType.Bleeding, monsterAmount, monsterpropertydefense);
         if (monsterBleedingAccumulation >= 100)
         {
             StartCoroutine(HITDoBleedingEffect(monsterHP, duration));
             monsterBleedingAccumulation = 0;
         }
     }
-   
+
 
     // 축적치를 증가시키는 함수
     public void IncreaseAccumulation(StatusEffectType type, int amount)
@@ -551,7 +567,7 @@ public class CharacterStats : MonoBehaviour
                 return 0;
         }
     }
-    
+
     private IEnumerator DoPoisonEffect(int damagePerTick, float duration)
     {
         float startTime = Time.time;
@@ -561,7 +577,7 @@ public class CharacterStats : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
     }
-    
+
     private IEnumerator DoBleedingEffect(int damagePerTick, float duration)
     {
         float startTime = Time.time;
@@ -577,7 +593,7 @@ public class CharacterStats : MonoBehaviour
         float startTime = Time.time;
         while (Time.time - startTime < duration)
         {
-            ProperyAttackDamage(monsterHP); 
+            ProperyAttackDamage(monsterHP);
             yield return new WaitForSeconds(1.0f);
         }
     }
@@ -586,7 +602,7 @@ public class CharacterStats : MonoBehaviour
         float startTime = Time.time;
         while (Time.time - startTime < duration)
         {
-            ProperyAttackDamage(monsterHP); 
+            ProperyAttackDamage(monsterHP);
             yield return new WaitForSeconds(1.0f);
         }
     }

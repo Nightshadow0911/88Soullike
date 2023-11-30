@@ -36,8 +36,9 @@ public class skeletonEnemy : MonoBehaviour
     {
         Animator animator = GetComponent<Animator>();
         Vector2 direction = player.position - transform.position;
+        MonsterFaceWay();
 
-        if (Mathf.Abs(direction.y) < 3f && Mathf.Abs(direction.x) < 15.0f && Mathf.Abs(direction.x) > 3f) //�����̴� ����
+        if (Mathf.Abs(direction.y) < 5f && Mathf.Abs(direction.x) < 20 && Mathf.Abs(direction.x) > 3f) //�����̴� ����
         {
             if (isAttacking)
             {
@@ -46,18 +47,13 @@ public class skeletonEnemy : MonoBehaviour
             if (!isAttacking)
             {
                 moveSpeed = 0.5f;
-
                 Vector2 moveDirection = direction.normalized;
-
-                MonsterFaceWay();
-
                 animator.Play("running");
-
                 transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
             }
 
         }
-        else if (Mathf.Abs(direction.y) < 3f && Mathf.Abs(direction.x) <= 3f)
+        else if (Mathf.Abs(direction.y) < 5f && Mathf.Abs(direction.x) <= 3f)
         {
             if (!isAttacking)
             {
@@ -75,77 +71,55 @@ public class skeletonEnemy : MonoBehaviour
         CheckKnockback();
     }
 
-    IEnumerator AttackPlayer() //���Ͱ� �����ϸ� ���ݹ����� �������� ��ȯ�ϰ�, �� �����տ� ������ �÷��̾�� ���ظ� �ֵ���
+    IEnumerator AttackPlayer() //플레이어 근접 공격
     {
 
         Vector2 direction = player.position - transform.position;
-        Vector2 moveDirection = direction.normalized;
+        animator.Play("Attack");
+        isAttacking = true;
 
-        if (moveDirection.x < 0) // ���� ��ȯ ���
+        if (direction.x < 0)
         {
-            MonsterFaceWay();
-            animator.Play("Attack");
-            isAttacking = true;
-
-
             Vector2 spawnPosition = transform.position + new Vector3(-1.7f, 2f);
             GameObject skeletonSword = Instantiate(skeletonWeapon, spawnPosition, Quaternion.identity);
-            skeletonSword.SetActive(false); //������ ���� ������ ��Ȱ��ȭ
+            skeletonSword.SetActive(false);
             yield return YieldCache.WaitForSeconds(0.8f);
             skeletonSword.SetActive(true);
             yield return YieldCache.WaitForSeconds(0.2f);
             Destroy(skeletonSword);
-            if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) <= 0.5f) //������ �÷��̾ ���� ���� ���̸� 2�� ����
-            {
-                StartCoroutine(SecondAttackPlayer());
-
-            }
-            else
-            {
-                animator.Play("idle");
-                yield return YieldCache.WaitForSeconds(1.5f);
-                isAttacking = false;
-            }
         }
         else
         {
-            MonsterFaceWay();
-            animator.Play("Attack");
-            isAttacking = true;
-
             Vector2 spawnPosition = transform.position + new Vector3(1.7f, 2f);
             GameObject skeletonSword = Instantiate(skeletonWeapon, spawnPosition, Quaternion.identity);
-            skeletonSword.SetActive(false); //������ ���� ������ ��Ȱ��ȭ
+            skeletonSword.SetActive(false);
             yield return YieldCache.WaitForSeconds(0.8f);
             skeletonSword.SetActive(true);
             yield return YieldCache.WaitForSeconds(0.2f);
             Destroy(skeletonSword);
-            if (Mathf.Abs(direction.y) < 0.5f && Mathf.Abs(direction.x) <= 0.5f) //������ �÷��̾ ���� ���� ���̸� 2�� ����
-            {
-                StartCoroutine(SecondAttackPlayer());
-
-            }
-            else
-            {
-                animator.Play("idle");
-                yield return YieldCache.WaitForSeconds(1.5f);
-                isAttacking = false;
-
-            }
+        }
+        if (Mathf.Abs(direction.y) < 5 && Mathf.Abs(direction.x) <= 4)
+        {
+            StartCoroutine(SecondAttackPlayer());
+        }
+        else
+        {
+            animator.Play("idle");
+            yield return YieldCache.WaitForSeconds(1.5f);
+            isAttacking = false;
         }
     }
 
-    IEnumerator SecondAttackPlayer() //���� ����
+    IEnumerator SecondAttackPlayer()
     {
         animator.Play("SecondAttack");
         isAttacking = true;
         yield return YieldCache.WaitForSeconds(0.8f);
         Vector2 direction = player.position - transform.position;
-        Vector2 moveDirection = direction.normalized;
 
-        if (moveDirection.x < 0) // ���� ��ȯ ���
+        if (direction.x < 0)
         {
-            Vector2 spawnPosition = transform.position + new Vector3(-0.14f, 0f);
+            Vector2 spawnPosition = transform.position + new Vector3(-1.7f, 2f);
             GameObject skeletonSword = Instantiate(skeletonWeapon, spawnPosition, Quaternion.identity);
             yield return YieldCache.WaitForSeconds(0.2f);
             Destroy(skeletonSword);
@@ -155,7 +129,7 @@ public class skeletonEnemy : MonoBehaviour
         }
         else
         {
-            Vector2 spawnPosition = transform.position + new Vector3(0.14f, 0f);
+            Vector2 spawnPosition = transform.position + new Vector3(1.7f, 2f);
             GameObject skeletonSword = Instantiate(skeletonWeapon, spawnPosition, Quaternion.identity);
             yield return YieldCache.WaitForSeconds(0.2f);
             Destroy(skeletonSword);
@@ -168,9 +142,8 @@ public class skeletonEnemy : MonoBehaviour
     void MonsterFaceWay()
     {
         Vector2 direction = player.position - transform.position;
-        Vector2 moveDirection = direction.normalized;
 
-        if (moveDirection.x < 0) // ���� ��ȯ ���
+        if (direction.x < 0)
         {
             transform.localScale = new Vector3(-1.3f, 1.3f, 1);
         }
@@ -220,8 +193,6 @@ public class skeletonEnemy : MonoBehaviour
             knockback = true;
             knockbackStart = Time.time;
             rb.velocity = new Vector2(knockbackSpeedX * gameManager.lastPlayerController.facingDirection, knockbackSpeedY);
-            Debug.Log(knockbackSpeedX * gameManager.lastPlayerController.facingDirection);
-            Debug.Log("1:" + rb.velocity);
         }
     }
     public void CheckKnockback()
@@ -232,7 +203,6 @@ public class skeletonEnemy : MonoBehaviour
             {
                 knockback = false;
                 rb.velocity = new Vector2(0.0f, rb.velocity.y);
-                Debug.Log("2:" + rb.velocity);
             }
         }
     }
