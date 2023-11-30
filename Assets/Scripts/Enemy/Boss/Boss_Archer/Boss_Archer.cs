@@ -334,11 +334,11 @@ public class Boss_Archer : EnemyCharacter
             transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / uniqueStats.leapTime);
             yield return null;
         }
-        yield return YieldCache.WaitForSeconds(0.2f);
         Vector3 direction;
         for (int i = 0; i < uniqueStats.numberOfLeapShot; i++)
         {
             float ran = Random.Range(0, 10);
+            yield return YieldCache.WaitForSeconds(0.2f);
             //soundManager.PlayClip();
             if (ran < 5)
                 SpecialArrowEffect(bomb);
