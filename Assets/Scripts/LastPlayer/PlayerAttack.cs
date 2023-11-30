@@ -39,7 +39,7 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         CheckDeffense();
-        CheckAttackTime();
+        //CheckAttackTime();
         ResetClickCount();
     }
 
@@ -100,25 +100,25 @@ public class PlayerAttack : MonoBehaviour
         lastClickTime = Time.time;
     }
 
-    private void CheckAttackTime()
-    {
-        if (Time.time >= nextAttackTime)//다음 공격 가능 시간 
-        {
-            if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
-            {
-                double sp = gameManager.playerStats.AttackSpeed + 1f;
-                nextAttackTime = Time.time + 1f / +sp;
-                if (player.isSitting == false)
-                {
-                    Attack();
-                }
-                else
-                {
-                    CrouchAttack();
-                }
-            }
-        }
-    }
+    // private void CheckAttackTime()
+    // {
+    //     if (Time.time >= nextAttackTime)//다음 공격 가능 시간 
+    //     {
+    //         if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
+    //         {
+    //             double sp = gameManager.playerStats.AttackSpeed + 1f;
+    //             nextAttackTime = Time.time + 1f / +sp;
+    //             if (player.isSitting == false)
+    //             {
+    //                 Attack();
+    //             }
+    //             else
+    //             {
+    //                 CrouchAttack();
+    //             }
+    //         }
+    //     }
+    // }
 
     public void Attack()
     {

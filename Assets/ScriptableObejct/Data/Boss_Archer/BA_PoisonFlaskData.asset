@@ -9,16 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00de8c94dc0226f429d38b9ac2a77b38, type: 3}
+  m_Script: {fileID: 11500000, guid: cee177f0c643ef44db242df03fd38f6d, type: 3}
   m_Name: BA_PoisonFlaskData
   m_EditorClassIdentifier: 
   tag: PoisonFlask
   damage: 15
-  speed: 3
-  duration: 5
+  duration: 3
   target:
     serializedVersion: 2
-    m_Bits: 64
-  spread: 0
-  numberofProjectilesPerShot: 0
-  multipleProjectilesAngle: 0
+    m_Bits: 1024
+  position: {fileID: 0}
+  numberofPositionAttack: 0
+  followUpDirection: {x: 0, y: 0}
+  delayTime: 0
+  bothSide: 0
+  AoE: 0

@@ -19,6 +19,7 @@ public class EnemyCharacter : EnemyPattern
     protected EnemyAnimationController animationController;
     protected SoundManager soundManager;
 
+    private Coroutine currentPattern;
     private float currentTime = float.MaxValue;
     protected State state;
 
@@ -49,9 +50,10 @@ public class EnemyCharacter : EnemyPattern
     private void ActionPattern()
     {
         currentTime = 0f;
-        StopAllCoroutines();
+        if (currentPattern != null)
+            StopCoroutine(currentPattern);
         SetDistance(targetTransform.position);
-        StartCoroutine(GetPattern()());
+        currentPattern = StartCoroutine(GetPattern()());
     }
 
     protected virtual void RunningPattern()

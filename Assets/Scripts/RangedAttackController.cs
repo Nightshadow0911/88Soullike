@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class RangedAttackController : MonoBehaviour
 {
-    [SerializeField] private LayerMask baseCollision;
+    [SerializeField] protected LayerMask baseCollision;
     protected RangedAttackData attackData;
     protected Vector2 direction;
-    protected float currentDuration;
+    private float currentDuration;
     private bool isReady;
 
     protected Rigidbody2D rigid;
@@ -22,18 +22,15 @@ public class RangedAttackController : MonoBehaviour
     {
         if (!isReady)
             return;
-    }
+        currentDuration += Time.deltaTime;
 
-    public void InitializeAttack(Vector2 direction, RangedAttackData attackData)
-    {
-        this.attackData = attackData;
-        this.direction = direction;
-        currentDuration = 0;
-        transform.right = direction;
-        isReady = true;
+        if (currentDuration > attackData.duration) {
+            DestroyProjectile(transform.position);
+        }
+        rigid.velocity = direction * attackData.speed;
     }
     
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (baseCollision.value == (baseCollision.value | (1 << collision.gameObject.layer)))
         {
@@ -47,9 +44,17 @@ public class RangedAttackController : MonoBehaviour
         }
     }
 
-    protected virtual void DestroyProjectile(Vector2 position)
+    public void InitializeAttack(Vector2 direction, RangedAttackData attackData)
     {
-        // 파티클이 있다면 position에 파티클 생성
+        this.attackData = attackData;
+        this.direction = direction;
+        currentDuration = 0;
+        transform.right = direction;
+        isReady = true;
+    }
+    protected void DestroyProjectile(Vector2 position)
+    {
+        //파티클
         gameObject.SetActive(false);
     }
 }

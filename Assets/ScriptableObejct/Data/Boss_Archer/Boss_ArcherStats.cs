@@ -41,14 +41,15 @@ public class Boss_ArcherStats : EnemyStats
     public int numberOfLeapShot;
     public float aimingTime;
     
-    [Header("RanedAttack Setting")] 
+    [Header("Projectile Setting")] 
     public List<ObjectPool.Pool> projectiles;
+    
+    [Header("ArrowData")]
     public RangedAttackData arrowData;
     public RangedAttackData bombArrowData;
     public RangedAttackData poisonArrowData;
     public RangedAttackData scatterArrowData;
-    public RangedAttackData bombMineData;
-    public RangedAttackData poisonFlaskData;
+    public PositionAttackData poisonFlaskData;
     
     [Header("Sound Setting")]
     public AudioClip runSound;
@@ -59,7 +60,6 @@ public class Boss_ArcherStats : EnemyStats
     public AudioClip ScatterArroSound;
     public AudioClip spinAttackSound;
     public AudioClip bombSound;
-    public AudioClip countdownSound;
     public AudioClip aimingSound;
     public AudioClip flaskSound;
 }

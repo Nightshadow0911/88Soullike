@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: BA_ScatterArrowData
   m_EditorClassIdentifier: 
   tag: ScatterArrow
-  damage: 10
-  speed: 40
-  duration: 1
+  damage: 15
+  speed: 30
+  duration: 2
+  spread: 0
   target:
     serializedVersion: 2
     m_Bits: 64
-  spread: 0
-  numberofProjectilesPerShot: 3
-  multipleProjectilesAngle: 15
+  numberofProjectilesPerShot: 0
+  multipleProjectilesAngle: 0

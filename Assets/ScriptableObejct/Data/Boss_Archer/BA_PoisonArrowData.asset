@@ -16,9 +16,9 @@ MonoBehaviour:
   damage: 15
   speed: 30
   duration: 2
+  spread: 0
   target:
     serializedVersion: 2
     m_Bits: 64
-  spread: 0
   numberofProjectilesPerShot: 0
   multipleProjectilesAngle: 0

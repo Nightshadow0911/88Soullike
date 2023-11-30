@@ -8,7 +8,6 @@ public class RangedAttack : MonoBehaviour
 {
     private ProjectileManager projectileManager;
     [SerializeField] private Transform attackPosition;
-    //[SerializeField] private AudioClip shootClip;
     
     private void Start()
     {

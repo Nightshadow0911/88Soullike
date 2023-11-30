@@ -23,6 +23,17 @@ public class ProjectileManager : MonoBehaviour
     
         obj.SetActive(true);
     }
+
+    public void ActivePositionAttack(Vector2 activePosition, PositionAttackData attackData)
+    {
+        GameObject obj = objectPool.SpawnFromPool(attackData.tag);
+        
+        obj.transform.position = activePosition;
+        PositionAttackController attackController = obj.GetComponent<PositionAttackController>();
+        attackController.InitializeAttack(activePosition, attackData);
+        
+        obj.SetActive(true);
+    }
     
     public void InsertObjectPool(ObjectPool.Pool pool)
     {

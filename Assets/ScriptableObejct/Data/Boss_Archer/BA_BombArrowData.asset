@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tag: BombArrow
   damage: 20
-  speed: 40
-  duration: 0.5
+  speed: 30
+  duration: 2
+  spread: 0
   target:
     serializedVersion: 2
     m_Bits: 64
-  spread: 0
   numberofProjectilesPerShot: 2
   multipleProjectilesAngle: 0

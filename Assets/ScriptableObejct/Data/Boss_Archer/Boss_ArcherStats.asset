@@ -23,10 +23,10 @@ MonoBehaviour:
   dodgeTime: 0.4
   secondAttackDistance: 1.5
   secondAttackTime: 0.1
-  backstepDistance: 10
+  backstepDistance: 8
   backstepTime: 0.8
   backstepJumpPosition: 4
-  trackingDistance: 8
+  trackingDistance: 6
   trackingSpeed: 30
   numberOfTrackingAttacks: 4
   trackingAttacksWaitTime: 0.05
@@ -34,34 +34,42 @@ MonoBehaviour:
   backTumblingTime: 0.4
   spinDashAttackDistance: 4
   spinDashAttackSpeed: 20
-  leapPosition: 4
-  leapTime: 0.5
+  leapPosition: 4.5
+  leapTime: 0.3
   numberOfLeapShot: 2
   aimingTime: 1
   projectiles:
   - tag: BA_Arrow
-    prefab: {fileID: 5699447481153168627, guid: b87a71e404e1cce47a82728bc573d2cc, type: 3}
-    size: 3
+    prefab: {fileID: 913579387397932168, guid: 29bb8d684145c6740b97f0344e7e15b0, type: 3}
+    size: 4
   - tag: BombArrow
-    prefab: {fileID: 4358163393702817439, guid: 2a8b5a9f30619104ab972e218bf9e7d6, type: 3}
-    size: 2
-  - tag: PoisonArrow
-    prefab: {fileID: 4358163393702817439, guid: 2a8b5a9f30619104ab972e218bf9e7d6, type: 3}
+    prefab: {fileID: 1541699905658841087, guid: 2aaeceab9d0cc04498f9d53c1e267b79, type: 3}
     size: 3
+  - tag: PoisonArrow
+    prefab: {fileID: 7968759150108742984, guid: cb81f6f9a3da5c34cbda89e625a43a82, type: 3}
+    size: 4
   - tag: ScatterArrow
-    prefab: {fileID: 4358163393702817439, guid: 2a8b5a9f30619104ab972e218bf9e7d6, type: 3}
-    size: 2
-  - tag: BombMine
-    prefab: {fileID: 4358163393702817439, guid: 2a8b5a9f30619104ab972e218bf9e7d6, type: 3}
+    prefab: {fileID: 16419201612604955, guid: c4dd58311da2b90459946a91725caf16, type: 3}
     size: 3
   - tag: PoisonFlask
-    prefab: {fileID: 2550417898927544042, guid: bbe8525482f6b3243b72abae4f677bae, type: 3}
+    prefab: {fileID: 473537946730957710, guid: bbe8525482f6b3243b72abae4f677bae, type: 3}
+    size: 4
+  - tag: SmallArrow
+    prefab: {fileID: 335960726170392620, guid: 36a39b83fa57a18419ae7811ac15b408, type: 3}
+    size: 6
+  - tag: PoisonExplosion
+    prefab: {fileID: 12934609602784747, guid: 9bed057aa9e0eaa44ab4f99439d9c9eb, type: 3}
     size: 3
+  - tag: PoisonAoE
+    prefab: {fileID: 4358163393702817439, guid: 2a8b5a9f30619104ab972e218bf9e7d6, type: 3}
+    size: 5
+  - tag: BombExplosion
+    prefab: {fileID: 169576513809505338, guid: b1c9aab4cd60d8547acd094aafa78e9a, type: 3}
+    size: 6
   arrowData: {fileID: 11400000, guid: 43ca5f370f37fb646a34e66936784530, type: 2}
   bombArrowData: {fileID: 11400000, guid: ddab564edde01c64880107232d5dbee2, type: 2}
   poisonArrowData: {fileID: 11400000, guid: 68a19d6d747d8ff4895a09279f82c5a1, type: 2}
   scatterArrowData: {fileID: 11400000, guid: a22d2a2d2b558ea4799da6e772bc2a12, type: 2}
-  bombMineData: {fileID: 11400000, guid: 317569b63e6666a43bcaaa3ca8088b10, type: 2}
   poisonFlaskData: {fileID: 11400000, guid: 9278b740a5b49bb4da1deb0284fc1e0b, type: 2}
   runSound: {fileID: 8300000, guid: 5233bf45cf0644246ba2c1e2a828fc67, type: 3}
   dodgeSound: {fileID: 8300000, guid: 5b6a15884510cc744b3c0316f8a64335, type: 3}
@@ -71,6 +79,5 @@ MonoBehaviour:
   ScatterArroSound: {fileID: 0}
   spinAttackSound: {fileID: 8300000, guid: 0131a44445c70ae4db90aa3e86fae48b, type: 3}
   bombSound: {fileID: 0}
-  countdownSound: {fileID: 0}
   aimingSound: {fileID: 0}
   flaskSound: {fileID: 0}
