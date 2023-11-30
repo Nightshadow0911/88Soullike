@@ -1,505 +1,429 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Callbacks;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Pool;
-using Object = System.Object;
+using UnityEngine.UIElements;
+using UnityEngine.Video;
 using Random = UnityEngine.Random;
 
-public class Boss_Archer : Boss
+public class Boss_Archer : EnemyCharacter
 {
-    [Header("Boss_Archer")]
-    [SerializeField] private float backstepDistance;
-    [SerializeField] private float dodgeDistance;
-    [SerializeField] private float trackingDistance;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private Transform attackPosition;
-    [SerializeField] private Vector2 meleeAttackRange;
-    [SerializeField] private LayerMask wallLayer;
-    [SerializeField] public int maxHealth = 1000;
-    [SerializeField] public Transform selfPosition;
-    private int currentHealth;
-
-    private readonly Vector3 atkRightPos = new Vector3(0.4f, 0.4f, 0);
-    private readonly Vector3 atkLeftPos = new Vector3(-0.4f, 0.4f, 0);
-
-    [Header("RangedAttack Info")] 
-    [SerializeField] private ObjectPool.Pool ProjectileObj;
-    [SerializeField] private RangedAttackData rangedData;
-
-    [Header("Sound Info")]
-    [SerializeField] private AudioClip runSound;
-    [SerializeField] private AudioClip dodgeSound;
-    [SerializeField] private AudioClip meleeAttackSound;
-    [SerializeField] private AudioClip rangedAttackSound;
-    [SerializeField] private AudioClip spinAttackSound;
-    [SerializeField] private AudioClip snapShotSound;
-    [SerializeField] private AudioClip danger;
+    private Boss_ArcherStats uniqueStats;
+    private RangedAttack rangedAttack;
+    private PositionAttack positionAttack;
     
-    private Vector2 direction;
-    private Vector2 destination;
-    private bool dodging = false;
-    private Boss_Archer_Animation anim;
+    [Header("Unique Setting")]
+    [SerializeField] private Transform attackPosition;
+    [SerializeField] private LayerMask tileLayer;
+    private bool isRage = false;
+    
+    [Header("ArrowEffects Type")]
+    [SerializeField] private GameObject bomb;
+    [SerializeField] private GameObject scatter;
+    [SerializeField] private GameObject poison;
 
     protected override void Awake()
     {
         base.Awake();
-        anim = GetComponent<Boss_Archer_Animation>();
+        uniqueStats = GetBaseStats() as Boss_ArcherStats;
+        rangedAttack = GetComponent<RangedAttack>();
+        positionAttack = GetComponent<PositionAttack>();
+
+        #region CloseRangedPattern
+        AddPattern(Distance.CloseRange, DodgeAttack);
+        AddPattern(Distance.CloseRange, BackstepAttack);
+        AddPattern(Distance.CloseRange, BackTumbling);
+        #endregion
+
+        #region MediumRangePattern
+        AddPattern(Distance.MediumRange, LeapShot);
+        AddPattern(Distance.MediumRange, TrackingAttack);
+        AddPattern(Distance.MediumRange, Run);
+        #endregion
+
+        #region LongRangePattern
+        AddPattern(Distance.LongRange, LeapShot);
+        AddPattern(Distance.LongRange, RangedAttack);
+        #endregion
+
+        bomb.SetActive(false);
+        scatter.SetActive(false);
+        poison.SetActive(false);
     }
 
-    private void Start()
+    protected override void Start()
     {
-        ProjectileManager.instance.InsertObjectPool(ProjectileObj);
-        currentHealth = maxHealth;
-    }
-
-    protected override void Update()
-    {
-        if (groggyMeter < 0)
+        base.Start();
+        foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
-            currentTime += Time.deltaTime;
-            OnGroggy();
-            if (currentTime > groggyTime)
-            {
-                EndGroggy();
-            }
-        }
-        
-        if (!dodging && !isGroggy && !isDie)
-            Rotate();
-        
-        base.Update();
-    }
-    
-    protected override void BossPattern(Distance distance)
-    {
-        int randomPatton = Random.Range(1, 10);
-        switch (distance) 
-        {
-            case Distance.CloseRange :
-                if (CheckFrontWall(2.5f, sprite.flipX))
-                {
-                    if (randomPatton < 4)
-                    {
-                        anim.OnBakcstepAttack();
-                    } 
-                    else if (randomPatton < 8)
-                    {
-                        anim.OnMeleeAttack();
-                    }
-                    else
-                    {
-                        anim.OnTrakingAttack();
-                    }
-                }
-                else if (CheckBackWall(2f, sprite.flipX))
-                {
-                    if (randomPatton < 1)
-                    {
-                        anim.OnBakcstepAttack();
-                    }
-                    else if (randomPatton < 4)
-                    {
-                        anim.OnMeleeAttack();
-                    } 
-                    else if (randomPatton < 9)
-                    {
-                        anim.OnDodge();
-                    }
-                    else
-                    {
-                        anim.OnTrakingAttack();
-                    }
-                }
-                else
-                {
-                    if (randomPatton < 3)
-                    {
-                        anim.OnBakcstepAttack();
-                    }
-                    else if (randomPatton < 6)
-                    {
-                        anim.OnMeleeAttack();
-                    }
-                    else if (randomPatton < 8)
-                    {
-                        anim.OnDodge();
-                    }
-                    else
-                    {
-                        anim.OnTrakingAttack();
-                    }
-                }
-                break;
-            
-            case Distance.MediumRange :
-                if (randomPatton < 1)
-                {
-                    anim.OnBakcstepAttack();
-                }
-                else if (randomPatton < 4)
-                {
-                    anim.OnTrakingAttack();
-                }
-                else if (randomPatton < 7)
-                {
-                    anim.OnRangedAttack();
-                }
-                else
-                {
-                    Move();
-                }
-                break;
-            
-            case Distance.LongRange :
-                if (randomPatton < 4)
-                {
-                    anim.OnRangedAttack();
-                }
-                else if (randomPatton < 8)
-                {
-                    anim.OnSnapshot(sprite.flipX);
-                }
-                else
-                {
-                    Move();
-                }
-                break;
+            ProjectileManager.instance.InsertObjectPool(projectile);
         }
     }
-    
-    private void Rotate()
-    {
-        sprite.flipX = target.position.x < transform.position.x;
-        attackPosition.localPosition = sprite.flipX ? atkLeftPos : atkRightPos;
-    }
 
-    private void Move()
-    {
-        StartCoroutine(Movement());
-    }
-
-    private void Dodge()
-    {
-        destination = GetDestination(dodgeDistance);
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"));
-        dodging = true;
-        StartCoroutine(DodgeMovement(destination));
-        SoundManager.instance.PlayClip(dodgeSound);
-    }
-    
     private void MeleeAttack()
     {
-        Collider2D collision = Physics2D.OverlapBox(attackPosition.position, meleeAttackRange, 0, targetLayer);
+        Collider2D collision = Physics2D.OverlapBox(
+            attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
         if (collision != null)
         {
-            GameManager.Instance.playerStats.TakeDamage(power);
+            // 데미지 주기
             Debug.Log("player hit");
         }
-        SoundManager.instance.PlayClip(meleeAttackSound);
-        AttackReady();
     }
 
-    private void RangedAttack()
+    private void ShootArrow(bool multiple)
     {
-        ShootArrow(1, GetDirection());
-        SoundManager.instance.PlayClip(rangedAttackSound);
-        AttackReady();
-    }
-    
-    private void TripleShot()
-    {
-        ShootArrow(3, GetDirection());
-        SoundManager.instance.PlayClip(rangedAttackSound);
-    }
-    
-    private void BackStep()
-    {
-        destination = (-GetDirection() * backstepDistance) + (Vector2)transform.position;
-        SoundManager.instance.PlayClip(dodgeSound);
-        StartCoroutine(BackStepMovement(destination));
-    }
-    
-    
-    private void TrackingAttack()
-    {
-        // 애니메이션 실행도중 그로기,데스 발생시 실행 취소
-        if (isGroggy || isDie)
-        {
-            return;
-        }
-        StartCoroutine(Tracking());
+        soundManager.PlayClip(uniqueStats.arrowAttackSound);
+        if (multiple) 
+            rangedAttack.CreateMultipleProjectile(GetDirection(), uniqueStats.arrowData);
+        else
+            rangedAttack.CreateProjectile(GetDirection(), uniqueStats.arrowData);
     }
 
-    private void Snapshot()
+    private void ShootSpecialArrow(Vector3 dir, RangedAttackData data)
     {
-        if (isGroggy || isDie)
-        {
-            return;
-        }
-        StartCoroutine(FireSnapshot());
-    }
-
-    private IEnumerator Movement()
-    {
-        SoundManager.instance.PlayClip(runSound);
-        while (true) 
-        {
-            Vector2 distance = (target.position * Vector2.right) - (Vector2)transform.position;
-            if (Mathf.Abs(distance.x) < 1)
-            {
-                SoundManager.instance.StopClip();
-                rigid.velocity = Vector2.zero;
-                anim.Running(rigid.velocity);
-                break;
-            }
-            rigid.velocity = GetDirection() * speed;
-            anim.Running(rigid.velocity);
-            
-            yield return null;
-        }
-        AttackReady();
-        NoDelay();
-    }
-
-    private IEnumerator DodgeMovement(Vector2 dest)
-    {
-        yield return YieldCache.WaitForSeconds(0.1f);
-        while (true)
-        {
-            if ((Vector2)transform.position == dest || CheckFrontWall(1f, sprite.flipX))
-            {
-                break;
-            }
-            transform.position = Vector3.MoveTowards(transform.position, destination, 0.05f);
-            yield return null;
-        }
-        yield return YieldCache.WaitForSeconds(0.1f);
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"), false);
-        dodging = false;
-        AttackReady();
-        NoDelay();
+        soundManager.PlayClip(uniqueStats.arrowAttackSound);
+        rangedAttack.CreateProjectile(dir, data);
     }
     
-    private IEnumerator BackStepMovement(Vector2 dest)
+    private IEnumerator Run()
     {
-        // 점프
-        rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        while (true)
+        RunningPattern();
+        soundManager.PlayClip(uniqueStats.runSound);
+        animationController.AnimationBool("Run", true);
+        float distance = float.MaxValue;
+        while (Mathf.Abs(distance) > 3f)
         {
-            transform.position = Vector3.MoveTowards(transform.position,  dest, 0.05f);
-            // 목표지점에 도착하거나 벽에 닿으면 종료
-            if ((Vector2)transform.position == dest || CheckBackWall(1f, sprite.flipX))
-            {
-                break;
-            }
-            yield return null;
+            distance = targetTransform.position.x - transform.position.x;
+            rigid.velocity = GetDirection() * currentStats.speed;
+            yield return YieldCache.WaitForFixedUpdate;
         }
-        AttackReady();
+        soundManager.StopClip();
+        animationController.AnimationBool("Run", false);
+        rigid.velocity = Vector2.zero;
+        state = State.FAILURE;
     }
     
-    private IEnumerator Tracking() {
-        anim.StartTracking();
-        // 적을 추격하거나 위치에 도달하면 공격
-        destination = GetDestination(trackingDistance);
-        while (true)
+    private IEnumerator ArrowShot()
+    {
+        RunningPattern();
+        animationController.AnimationTrigger("ArrowShot");
+        yield return YieldCache.WaitForSeconds(0.5f);
+        ShootArrow(false);
+        state = State.SUCCESS;
+        yield return null;
+    }
+    
+    private IEnumerator ChargeShot()
+    {
+        RunningPattern();
+        animationController.AnimationTrigger("ChargeShot");
+        Vector3 direction = GetDirection();
+        yield return YieldCache.WaitForSeconds(0.3f);
+        SpecialArrowEffect(poison);
+        yield return YieldCache.WaitForSeconds(0.7f);
+        SpecialArrowEffect(poison);
+        ShootSpecialArrow(direction, uniqueStats.poisonArrowData);
+        state = State.SUCCESS;
+        yield return null;
+    }
+
+    private IEnumerator RangedAttack()
+    {
+        if (!isRage)
+            StartCoroutine(ArrowShot());
+        else
+            StartCoroutine(ChargeShot());
+        yield return null;
+    }
+
+    private IEnumerator DodgeAttack()
+    {
+        RunningPattern();
+        Vector2 direction = GetDirection();
+        if (CheckTile(direction, true))
         {
-            Vector2 distance = (target.position * Vector2.right) - (Vector2)transform.position;
-            if (Mathf.Abs(distance.x) < 1)
-            {
-                break;
-            }
-            else if ((Vector2)transform.position == destination)
-            {
-                break;
-            }
-            transform.position = Vector3.MoveTowards(transform.position, destination, 0.2f);
+            state = State.FAILURE;
+            yield break;
+        }
+        soundManager.PlayClip(uniqueStats.dodgeSound);
+        animationController.AnimationTrigger("DodgeAttack");
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = GetEndPosition(uniqueStats.dodgeDistance, false);
+        float elapsedTime = 0f;
+        while (elapsedTime < uniqueStats.dodgeTime && !CheckTile(direction, false))
+        {
+            elapsedTime += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / uniqueStats.dodgeTime);
             yield return null;
         }
-        yield return YieldCache.WaitForSeconds(0.1f);
+        Rotate();
+        direction = GetDirection();
+        yield return YieldCache.WaitForSeconds(0.3f);
+        soundManager.PlayClip(uniqueStats.meleeAttackSound);
+        MeleeAttack();
+        yield return YieldCache.WaitForSeconds(0.3f);
+        startPosition = transform.position;
+        endPosition = startPosition + (Vector3)(direction * uniqueStats.secondAttackDistance);
+        elapsedTime = 0f;
+        while (elapsedTime < uniqueStats.secondAttackTime && !CheckTile(direction, false))
+        { 
+            elapsedTime += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / uniqueStats.secondAttackTime);
+            yield return null;
+        }
+        soundManager.PlayClip(uniqueStats.meleeAttackSound);
+        MeleeAttack();
+        if (!isRage)
+            state = State.SUCCESS;
+        else
+        {
+            yield return YieldCache.WaitForSeconds(0.2f);
+            yield return StartCoroutine(TrackingAttack());
+        }
+    }
+    
+    private IEnumerator BackstepAttack()
+    {
+        RunningPattern();
+        Vector2 direction = -GetDirection();
+        if (CheckTile(direction, true))
+        {
+            state = State.FAILURE;
+            yield break;
+        }
+        //soundManager.PlayClip();
+        animationController.AnimationTrigger("BackstepAttack");
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = GetEndPosition(uniqueStats.backstepDistance, true);
+        Vector3 middlePosition = ((startPosition + endPosition) / 2) + (Vector3.up * uniqueStats.backstepJumpPosition);
+        float elapsedTime = 0f;
+        bool shoot = false;
+        while (elapsedTime < uniqueStats.backstepTime && !CheckTile(direction, false))
+        {
+            elapsedTime += Time.deltaTime;
+            Vector3 a = Vector3.Lerp(startPosition, middlePosition, elapsedTime / uniqueStats.backstepTime);
+            Vector3 b = Vector3.Lerp(middlePosition, endPosition, elapsedTime / uniqueStats.backstepTime);
+            transform.position = Vector3.Lerp(a, b, elapsedTime / uniqueStats.backstepTime);
+            if (!shoot && (elapsedTime / uniqueStats.backstepTime) > 0.5f)
+            {
+                ShootArrow(true);
+                shoot = true;
+            }
+            yield return null;
+        }
+        if (!shoot)
+        {
+            yield return YieldCache.WaitForSeconds(0.1f);
+            ShootArrow(true);
+        }
+        state = State.SUCCESS;
+    }
+    
+    private IEnumerator TrackingAttack() {
+        RunningPattern();
+        animationController.AnimationTrigger("OnTrackingAttack");
+        Vector2 direction = GetDirection();
+        yield return YieldCache.WaitForSeconds(0.4f);
+        float distance,moveDistance;
+        Vector3 startPosition = transform.position;
+        do 
+        {
+            Vector3 position = transform.position;
+            distance = targetTransform.position.x - position.x;
+            moveDistance = position.x - startPosition.x;
+            rigid.velocity = direction * uniqueStats.trackingSpeed;
+            yield return YieldCache.WaitForFixedUpdate;
+        } 
+        while (
+            Mathf.Abs(distance) > 1.5f &&
+            Mathf.Abs(moveDistance) < uniqueStats.trackingDistance &&
+            !CheckTile(direction, false)
+            );
+        rigid.velocity = Vector2.zero;
+        yield return YieldCache.WaitForSeconds(0.15f);
+        soundManager.PlayClip(uniqueStats.spinAttackSound);
+        animationController.AnimationTrigger("TrackingAttack");
+        for (int i = 0; i < uniqueStats.numberOfTrackingAttacks; i++)
+        {
+            MeleeAttack();
+            yield return YieldCache.WaitForSeconds(uniqueStats.trackingAttacksWaitTime);
+            yield return YieldCache.WaitForFixedUpdate;
+        }
+        state = State.SUCCESS;
+    }
+
+    private IEnumerator BackTumbling()
+    {
+        RunningPattern();
+        Vector2 direction = -GetDirection();
+        if (CheckTile(direction, true))
+        {
+            state = State.FAILURE;
+            yield break;
+        }
+        //soundManager.PlayClip(uniqueStats.);
+        animationController.AnimationTrigger("BackTumbling");
+        if (!isRage)
+        {
+            positionAttack.CreateProjectile((Vector2)transform.position + (Vector2.up * 2f)
+                                            , uniqueStats.poisonFlaskData);
+        }
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = GetEndPosition(uniqueStats.backTumblingDistance, true);
+        float elapsedTime = 0f;
+        while (elapsedTime < uniqueStats.backTumblingTime && !CheckTile(direction, false))
+        {
+            elapsedTime += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / uniqueStats.backTumblingTime);
+            yield return null;
+        }
+        yield return YieldCache.WaitForSeconds(0.3f);
         
-        // 3번 공격
-        anim.EndTracking();
-        SoundManager.instance.PlayClip(spinAttackSound);
-        for (int i = 0; i < 4; i++)
+        float ran = Random.Range(0, 10);
+        if (ran < 5)
         {
-            Collider2D collision = Physics2D.OverlapBox(attackPosition.position, meleeAttackRange, 0, targetLayer);
-            if (collision != null)
+            yield return StartCoroutine(ChargeShot());
+        }
+        else
+        {
+            animationController.AnimationTrigger("SpinDashAttack");
+            Rotate();
+            direction = GetDirection();
+            yield return YieldCache.WaitForSeconds(0.5f);
+            //soundManager.PlayClip(uniqueStats.);
+            float moveDistance;
+            bool hit = false;
+            startPosition = transform.position;
+            do 
             {
-                GameManager.Instance.playerStats.TakeDamage(power);
-                yield return YieldCache.WaitForSeconds(0.1f);
+                Vector3 position = transform.position;
+                moveDistance = position.x - startPosition.x;
+                rigid.velocity = direction * uniqueStats.spinDashAttackSpeed;
+                if (!hit)
+                {
+                    MeleeAttack();
+                    hit = true;
+                }
+                yield return YieldCache.WaitForFixedUpdate;
+            }
+            while (Mathf.Abs(moveDistance) < uniqueStats.spinDashAttackDistance && !CheckTile(direction, false));
+            rigid.velocity = Vector2.zero;
+        }
+        state = State.SUCCESS;
+    }
+
+    private IEnumerator LeapShot()
+    {
+        RunningPattern();
+        if (isRage)
+        {
+            state = State.FAILURE;
+            yield break;
+        }
+        //soundManager.PlayClip(uniqueStats.);
+        animationController.AnimationTrigger("OnLeapShot");
+        rigid.gravityScale = 0f;
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = startPosition + (Vector3.up * uniqueStats.leapPosition);
+        float elapsedTime = 0f;
+        yield return YieldCache.WaitForSeconds(0.1f);
+        while (elapsedTime < uniqueStats.leapTime)
+        { 
+            elapsedTime += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / uniqueStats.leapTime);
+            yield return null;
+        }
+        yield return YieldCache.WaitForSeconds(0.2f);
+        Vector3 direction;
+        for (int i = 0; i < uniqueStats.numberOfLeapShot; i++)
+        {
+            float ran = Random.Range(0, 10);
+            //soundManager.PlayClip();
+            if (ran < 5)
+                SpecialArrowEffect(bomb);
+            else
+                SpecialArrowEffect(scatter);
+            elapsedTime = 0f;
+            while (elapsedTime < uniqueStats.aimingTime)
+            { 
+                elapsedTime += Time.deltaTime;
+                direction = targetTransform.position - transform.position;
+                float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                if (direction.x < 0)
+                    transform.rotation = Quaternion.Euler(0, 180, -180 - rotZ);
+                else
+                    transform.rotation = Quaternion.Euler(0, 0, rotZ);
+                yield return null;
+            }
+            direction = (targetTransform.position - transform.position).normalized;
+            yield return YieldCache.WaitForSeconds(0.3f);
+            if (ran < 5)    
+            {
+                SpecialArrowEffect(bomb);
+                ShootSpecialArrow(direction, uniqueStats.bombArrowData);
             }
             else
             {
-                yield return YieldCache.WaitForSeconds(0.1f);
+                SpecialArrowEffect(scatter);
+                ShootSpecialArrow(direction, uniqueStats.scatterArrowData);
             }
         }
-        yield return YieldCache.WaitForSeconds(0.2f);
-        AttackReady();
+        animationController.AnimationTrigger("EndLeapShot");
+        Rotate();
+        rigid.gravityScale = 1f;
+        while (!CheckGround())
+        {
+            rigid.velocity = Vector2.down * currentStats.speed;
+            yield return YieldCache.WaitForFixedUpdate;
+        }
+        rigid.velocity = Vector2.zero;
+        state = State.SUCCESS;
     }
 
-    private IEnumerator FireSnapshot()
-    {
-        //SoundManager.instance.PlayClip(snapShotSound);
-        for (int i = 0; i < 3; i++)
-        {
-            ShootArrow(1, GetDirection());
-            yield return YieldCache.WaitForSeconds(0.05f);
-        }
-        AttackReady();
-    }
-    
-    private void ShootArrow(int numberOfArrows, Vector2 dir)
-    {
-        
-    }
-    
-    private Vector2 RotateVector2(Vector2 v, float degree) {
-        return Quaternion.Euler(0, 0, degree) * v;
-    }
-
-    // 벽에 닿았는지 확인
-    private bool CheckFrontWall(float dist, bool flip)
-    {
-        if (flip)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, dist, wallLayer);
-            if (hit.collider != null)
-            {
-                return true;
-            }
-        }
-        else
-        {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, dist, wallLayer);
-            if (hit.collider != null)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    private bool CheckBackWall(float dist, bool flip)
-    {
-        if (!flip)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, dist, wallLayer);
-            if (hit.collider != null)
-            {
-                return true;
-            }
-        }
-        else
-        {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, dist, wallLayer);
-            if (hit.collider != null)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // 플레이어쪽 x축 방향을 찾음
     private Vector2 GetDirection()
     {
-        direction = target.position - transform.position;
-        direction *= Vector2.right;
-        return direction.normalized;
+        return targetTransform.position.x - transform.position.x < 0 ? Vector2.left : Vector2.right;
     }
     
-    // x축 목적지를 찾음
-    private Vector2 GetDestination(float dist)
+    private Vector2 GetEndPosition(float distance, bool reverse)
     {
-        Vector2 dest = (GetDirection() * dist) + (Vector2)transform.position;
-        return dest;
-    }
-
-    private void AttackReady()
-    {
-        isAttackReady = true;
-    }
-
-    private void NoDelay()
-    {
-        lastAttackTime = delay - 0.2f;
-    }
-
-    private void AllStop()
-    {
-        StopAllCoroutines();
-        isAttackReady = false;
-        rigid.velocity = Vector2.zero;
-        anim.Running(rigid.velocity);
-        OffDangerSign();
-    }
-
-    private void OnGroggy()
-    {
-        if (isGroggy || groggyMeter > 0)
-            return;
-        AllStop();
-        anim.OnStun();
-        isGroggy = true;
-    }
-
-    private void EndGroggy()
-    {
-        if (!isGroggy || groggyMeter > 0)
-            return;
-        currentTime = 0f;
-        AttackReady();
-        groggyMeter = baseGroggyMeter;
-        anim.EndStun();
-        isGroggy = false;
-    }
-
-    private void Death()
-    {
-        AllStop();
-        anim.OnDeath();
-        isDie = true;
-        ProjectileManager.instance.DeleteObjectPool(ProjectileObj.tag);
-        Vector2 SelfPosition = selfPosition.position + new Vector3(0, 1);
-        SoulObjectPool objectPool = FindObjectOfType<SoulObjectPool>();
-        foreach (var pool in objectPool.pools)
+        float positionX = transform.position.x;
+        if (reverse)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                GameObject obj = objectPool.SpawnFromPool(pool.tag);
-
-                if (obj != null)
-                {
-                    obj.transform.position = SelfPosition;
-                    obj.SetActive(true);
-                }
-            }
+            positionX += targetTransform.position.x - positionX < 0 ? distance : -distance;
         }
-    }
-    
-    //private void OnDangerSign()
-    //{
-    //    SoundManager.instance.PlayClip(danger);
-    //    dangerSign.SetActive(true);
-    //}
-    
-    private void OffDangerSign()
-    {
-        dangerSign.SetActive(false);
-    }
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-
-        if (currentHealth <= 0)
+        else
         {
-            Death();
+            positionX += targetTransform.position.x - positionX < 0 ? -distance : distance;
         }
+        return Vector2.right * positionX;
+    }
+
+    private bool CheckTile(Vector2 dir, bool detect)
+    {
+        float distance = detect ? 2f : 1f;
+        RaycastHit2D hit = Physics2D.Raycast(
+            transform.position, dir, distance, tileLayer);
+        if (hit.collider != null)
+            return true;
+        return false;
+    }
+
+    private bool CheckGround()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(
+            transform.position, Vector2.down, 0.7f, tileLayer);
+        if (hit.collider != null)
+            return true;
+        return false;
+    }
+
+    private void SpecialArrowEffect(GameObject type)
+    {
+        if (!type.activeSelf)
+            type.SetActive(true);
+        else
+            type.SetActive(false);
     }
 }

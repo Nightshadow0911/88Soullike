@@ -6,6 +6,8 @@ using UnityEngine;
 // 코루틴 캐싱 클래스
 public static class YieldCache
 {
+    public static readonly WaitForFixedUpdate WaitForFixedUpdate = new WaitForFixedUpdate();
+    
     // 박싱 방지 클래스
     class FloatComparer : IEqualityComparer<float>
     {

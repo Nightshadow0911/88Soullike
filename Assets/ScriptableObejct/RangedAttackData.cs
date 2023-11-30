@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="RangedAttackData", order = 0)]
+[CreateAssetMenu(fileName ="RangedAttackData", menuName = "AttackData/RangedAttackData", order = 0)]
 public class RangedAttackData : ScriptableObject
 {
     [Header("Ranged Attack Data")] 
@@ -11,7 +11,9 @@ public class RangedAttackData : ScriptableObject
     public int speed;
     public float duration;
     public float spread;
+    public LayerMask target;
+    
+    [Header("Multiple Attack Data")] 
     public int numberofProjectilesPerShot;
     public float multipleProjectilesAngle;
-    public LayerMask target;
 }
