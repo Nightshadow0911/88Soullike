@@ -79,7 +79,7 @@ public class LastPlayerController : MonoBehaviour
     void Update()
     {
         CheckInput();
-        UseMana();
+        
         CollisionCheck();
         FlipController();
         AnimatorController();
@@ -100,17 +100,15 @@ public class LastPlayerController : MonoBehaviour
             CheckForLedge();
         }
         Death();
-    }
 
-    private void UseMana()
+        if (Input.GetKeyDown(KeyCode.G)) UseSkill();
+    }
+    void UseSkill()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            if (characterStats.characterMana >= 1)
-            {
-                characterStats.characterMana -= 1;
-            }
-        }
+
+        transform.GetComponent<Equipment>().skillSlotList[0].Use();
+
+
     }
 
     private void IsWallSliding()

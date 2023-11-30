@@ -21,6 +21,7 @@ public class Equipment : MonoBehaviour
 
     public Item[] equipItemList = new Item[2];
     public Item[] quickSlotList = new Item[3];
+    public Skill[] skillSlotList = new Skill[3]; // 스킬 슬롯, 0번이 제일 앞에 보임
 
     private CharacterStats characterStats;
     
@@ -28,6 +29,11 @@ public class Equipment : MonoBehaviour
     private void Start()
     {
         characterStats = GameManager.Instance.playerStats;
+    }
+
+    public void ChageEquipSkill()
+    {
+
     }
 
     public void ChangeEquipItem(Item newItem)
