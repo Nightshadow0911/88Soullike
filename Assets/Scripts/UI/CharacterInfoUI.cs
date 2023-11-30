@@ -81,7 +81,7 @@ public class CharacterInfoUI : MonoBehaviour
         attackSpeedTxt.text = $"{playerStat.AttackSpeed}";
 
         deffenceTxt.text = $"{playerStat.CharacterDefense}";
-        parryTimeTxt.text = $"{playerStat.ParryTime:F2}";
+        parryTimeTxt.text = $"{(playerStat.ParryTime):F2}";
         addGoodTxt.text = $"{playerStat.AddGoods}";
 
         growPoint.text = $"포인트 : {playerStat.Points}";
