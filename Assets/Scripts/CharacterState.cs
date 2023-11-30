@@ -447,7 +447,6 @@ public class CharacterStats : MonoBehaviour
     }
     
     // 상태 이상
-    
     public enum StatusEffectType
     {
         None,
