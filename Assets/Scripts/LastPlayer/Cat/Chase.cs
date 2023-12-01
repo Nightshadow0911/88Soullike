@@ -31,47 +31,62 @@ public class Chase : MonoBehaviour
     }
     private void Move()
     {
+        // 플레이어와 적 레이어 간의 충돌을 무시
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"));
 
+        // 플레이어와 고양이 사이의 방향 벡터 계산
         Vector2 direction = player.position - transform.position;
 
+        // 플레이어와 고양이의 y축 거리가 -5에서 10 사이인 경우
         if (-5 < direction.y && direction.y < 10)
         {
+            // x축 거리가 17 이상이면 순간이동
             if (Mathf.Abs(direction.x) >= 17)
             {
                 transform.position = player.position;
             }
             else if (Mathf.Abs(direction.x) >= 4)
             {
-                canRun = true;
+                // 플레이어와의 거리가 4 이상이면 뛰기
+                MoveWithSpeed(5);
                 canWalk = false;
-                moveSpeed = 5; // 플레이어와 같은값 
-                Vector2 moveDirection = direction.normalized;
-                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+                canRun = true;
             }
-            else if (Mathf.Abs(direction.x) > 2 && Mathf.Abs(direction.x) <= 4)
+            else if (Mathf.Abs(direction.x) > 1.5 && Mathf.Abs(direction.x) <= 4)
             {
-                canRun = false;
+                // 거리가 2에서 4 사이이면 걷기
+                MoveWithSpeed(2);
                 canWalk = true;
-                moveSpeed = 2;
-                Vector2 moveDirection = direction.normalized;
-                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+                canRun = false;
             }
             else
             {
-                moveSpeed = 0;
+                // 그 외의 경우는 정지
+                MoveWithSpeed(0);
                 canWalk = false;
                 canRun = false;
-                Vector2 moveDirection = direction.normalized;
-                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
             }
         }
         else
         {
+            // y축 거리가 범위를 벗어난 경우 순간이동
             transform.position = player.position;
         }
     }
+
+    // 이동 속도에 따라 고양이 이동을 처리하는 함수
+    private void MoveWithSpeed(float speed)
+    {
+        canRun = speed > 0;
+        canWalk = speed > 0;
+        moveSpeed = speed;
+
+        // 이동 방향을 정규화하여 이동
+        Vector2 moveDirection = (player.position - transform.position).normalized;
+        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+    }
+
 
 
     void CatFaceWay()
