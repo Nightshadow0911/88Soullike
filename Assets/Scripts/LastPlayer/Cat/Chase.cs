@@ -33,20 +33,24 @@ public class Chase : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"));
-        Vector2 direction = player.position - transform.position; //플레이어위치  - 고양이 위치  값
-        if (-4<direction.y&&direction.y<10)
+
+        Vector2 direction = player.position - transform.position;
+
+        if (-5 < direction.y && direction.y < 10)
         {
-            Debug.Log("거리 : " + direction.x);
-            if (Mathf.Abs(direction.x) >= 4)
+            if (Mathf.Abs(direction.x) >= 17)
+            {
+                transform.position = player.position;
+            }
+            else if (Mathf.Abs(direction.x) >= 4)
             {
                 canRun = true;
                 canWalk = false;
-                moveSpeed = 5;//플레이어와 같은 값 
+                moveSpeed = 5; // 플레이어와 같은값 
                 Vector2 moveDirection = direction.normalized;
                 transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-
             }
-            if (Mathf.Abs(direction.x) > 2 && Mathf.Abs(direction.x) <= 4)
+            else if (Mathf.Abs(direction.x) > 2 && Mathf.Abs(direction.x) <= 4)
             {
                 canRun = false;
                 canWalk = true;
@@ -54,7 +58,7 @@ public class Chase : MonoBehaviour
                 Vector2 moveDirection = direction.normalized;
                 transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
             }
-            else if (Mathf.Abs(direction.x) <= 2)
+            else
             {
                 moveSpeed = 0;
                 canWalk = false;
@@ -65,10 +69,10 @@ public class Chase : MonoBehaviour
         }
         else
         {
-            Debug.Log("고양이 순간이동 ");
             transform.position = player.position;
         }
     }
+
 
     void CatFaceWay()
     {
