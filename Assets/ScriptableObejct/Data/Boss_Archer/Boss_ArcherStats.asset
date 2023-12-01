@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfba037d0a4fcb542bc0c8e8860c3cc6, type: 3}
   m_Name: Boss_ArcherStats
   m_EditorClassIdentifier: 
+  characterMaxHP: 100
+  characterDamage: 1
+  characterDefense: 1
+  propertyDamage: 1
+  propertyDefense: 1
   speed: 10
-  damage: 15
   delay: 1
   target:
     serializedVersion: 2
