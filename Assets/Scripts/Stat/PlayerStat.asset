@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18910ed4730bca48a5e1ed9333f06e4, type: 3}
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
-  characterMaxHP: 0
-  characterDamage: 0
-  characterDefense: 0
-  propertyDamage: 0
-  propertyDefense: 0
-  level: 0
-  levelPoint: 0
+  characterMaxHP: 100
+  characterDamage: 10
+  characterDefense: 1
+  propertyDamage: 1
+  propertyDefense: 1
+  level: 1
+  levelPoint: 10
   growHP: 0
   growStemina: 0
   growStr: 0
@@ -28,7 +28,6 @@ MonoBehaviour:
   currentHp: 0
   characterRegainHp: 0
   characterWeight: 0
-  characterStamina: 0
   characterMana: 0
   nomallSkillDamage: 0
   EquipWeight: 0
@@ -43,3 +42,4 @@ MonoBehaviour:
   extraMoveSpeed: 1.5
   parryTime: 0.05
   criticalChance: 0
+  characterStamina: 0
