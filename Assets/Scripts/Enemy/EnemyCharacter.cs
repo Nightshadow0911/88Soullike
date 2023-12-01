@@ -12,9 +12,10 @@ public class EnemyCharacter : EnemyPattern
     }
     
     [Header("Base Setting")]
-    [SerializeField] private EnemyStat baseStats; protected EnemyStat GetBaseStats() => baseStats;
-    protected EnemyStat currentStats;
+    [Space(10)]
     [SerializeField] protected Transform targetTransform;
+    protected EnemyStatusHandler statusHandler;
+    protected EnemyStat stat;
     protected Rigidbody2D rigid;
     protected EnemyAnimationController animationController;
     protected SoundManager soundManager;
@@ -26,13 +27,14 @@ public class EnemyCharacter : EnemyPattern
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        statusHandler = GetComponent<EnemyStatusHandler>();
         animationController = GetComponent<EnemyAnimationController>();
-        SetStats();
     }
 
     protected virtual void Start()
     {
         soundManager = SoundManager.instance;
+        stat = statusHandler.GetStat();
     }
 
     protected virtual void Update()
@@ -41,7 +43,7 @@ public class EnemyCharacter : EnemyPattern
             ActionPattern();
         if (state != State.RUNNING)
             currentTime += Time.deltaTime;
-        if (currentTime > currentStats.delay)
+        if (currentTime > stat.patternDelay)
         {
             ActionPattern();
         }
@@ -68,19 +70,6 @@ public class EnemyCharacter : EnemyPattern
             ? Quaternion.Euler(0, 180, 0)
             : Quaternion.Euler(0, 0, 0);
     } 
-    
-    private void SetStats()
-    {
-        currentStats = ScriptableObject.CreateInstance<EnemyStat>();
-        currentStats.characterMaxHP = baseStats.characterMaxHP;
-        currentStats.characterDamage = baseStats.characterDamage;
-        currentStats.characterDefense = baseStats.characterDefense;
-        currentStats.propertyDamage = baseStats.propertyDamage;
-        currentStats.propertyDefense = baseStats.propertyDefense;
-        currentStats.speed = baseStats.speed;
-        currentStats.delay = baseStats.delay;
-        currentStats.target = baseStats.target;
-    }
 
     private void AllStop()
     {

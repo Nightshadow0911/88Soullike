@@ -5,32 +5,37 @@ using UnityEngine;
 
 public class EnemyStatusHandler :StatHandler
 {
-    private EnemyStat enemyStat;
-    private EnemyStat currentStat;
+    private EnemyStat enemyMaxStat; // MAX 수치 저장 데이터
+    private EnemyStat currentStat; // 현재 수치 저장 데이터
+    public EnemyStat GetUniqueStat() => enemyMaxStat; // 몬스터 고유 스탯 가져오기
+    public EnemyStat GetStat() => currentStat; // 현재 스탯 가져오기
 
-    private void Awake()
+    protected override void Awake()
     {
-        enemyStat = baseStatSO as EnemyStat;
+        enemyMaxStat = baseStatSO as EnemyStat;
+        base.Awake();
     }
 
     protected override void TakeDamage(int baseDamage)
     {
         if (currentStat != null)
         {
-            currentStat.characterMaxHP-= baseDamage;
+            currentStat.hp-= baseDamage;
         }
     }
    
     protected override void SetStat()
     {
         currentStat = ScriptableObject.CreateInstance<EnemyStat>();
-        currentStat.characterMaxHP = enemyStat.characterMaxHP;
-        currentStat.characterDamage = enemyStat.characterDamage;
-        currentStat.characterDefense = enemyStat.characterDefense;
-        currentStat.propertyDamage = enemyStat.propertyDamage;
-        currentStat.propertyDefense = enemyStat.propertyDefense;
-        currentStat.speed = enemyStat.speed;
-        currentStat.delay = enemyStat.delay;
-        currentStat.target = enemyStat.target;
+        currentStat.hp = enemyMaxStat.hp;
+        currentStat.damage = enemyMaxStat.damage;
+        currentStat.speed = enemyMaxStat.speed;
+        currentStat.delay = enemyMaxStat.delay;
+        currentStat.defense = enemyMaxStat.defense;
+        currentStat.propertyDamage = enemyMaxStat.propertyDamage;
+        currentStat.propertyDefense = enemyMaxStat.propertyDefense;
+        currentStat.detectRange = enemyMaxStat.detectRange;
+        currentStat.patternDelay = enemyMaxStat.patternDelay;
+        currentStat.target = enemyMaxStat.target;
     }
 }

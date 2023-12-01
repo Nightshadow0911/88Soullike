@@ -1,10 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class StatHandler : MonoBehaviour
 {
-   [SerializeField] public BaseStat baseStatSO;
+   [SerializeField] protected BaseStat baseStatSO;
+
+   protected virtual void Awake()
+   {
+      SetStat();
+   }
 
    protected abstract void TakeDamage(int baseDamage);
 

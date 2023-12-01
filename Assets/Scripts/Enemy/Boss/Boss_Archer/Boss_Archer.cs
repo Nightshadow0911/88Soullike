@@ -8,7 +8,8 @@ using Random = UnityEngine.Random;
 
 public class Boss_Archer : EnemyCharacter
 {
-    private Boss_ArcherStats uniqueStats;
+    private Boss_ArcherStat uniqueStats;
+    private EnemyStat ee;
     private RangedAttack rangedAttack;
     private PositionAttack positionAttack;
     
@@ -25,9 +26,11 @@ public class Boss_Archer : EnemyCharacter
     protected override void Awake()
     {
         base.Awake();
-        uniqueStats = GetBaseStats() as Boss_ArcherStats;
         rangedAttack = GetComponent<RangedAttack>();
         positionAttack = GetComponent<PositionAttack>();
+        bomb.SetActive(false);
+        scatter.SetActive(false);
+        poison.SetActive(false);
 
         #region CloseRangedPattern
         AddPattern(Distance.CloseRange, DodgeAttack);
@@ -46,14 +49,12 @@ public class Boss_Archer : EnemyCharacter
         AddPattern(Distance.LongRange, RangedAttack);
         #endregion
 
-        bomb.SetActive(false);
-        scatter.SetActive(false);
-        poison.SetActive(false);
     }
 
     protected override void Start()
     {
         base.Start();
+        uniqueStats = statusHandler.GetUniqueStat() as Boss_ArcherStat;
         foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
@@ -95,7 +96,7 @@ public class Boss_Archer : EnemyCharacter
         while (Mathf.Abs(distance) > 3f)
         {
             distance = targetTransform.position.x - transform.position.x;
-            rigid.velocity = GetDirection() * currentStats.speed;
+            rigid.velocity = GetDirection() * stat.speed;
             yield return YieldCache.WaitForFixedUpdate;
         }
         soundManager.StopClip();
@@ -151,6 +152,8 @@ public class Boss_Archer : EnemyCharacter
         Vector3 startPosition = transform.position;
         Vector3 endPosition = GetEndPosition(uniqueStats.dodgeDistance, false);
         float elapsedTime = 0f;
+        Debug.Log(startPosition);
+        Debug.Log(endPosition);
         while (elapsedTime < uniqueStats.dodgeTime && !CheckTile(direction, false))
         {
             elapsedTime += Time.deltaTime;
@@ -375,7 +378,7 @@ public class Boss_Archer : EnemyCharacter
         rigid.gravityScale = 1f;
         while (!CheckGround())
         {
-            rigid.velocity = Vector2.down * currentStats.speed;
+            rigid.velocity = Vector2.down * stat.speed;
             yield return YieldCache.WaitForFixedUpdate;
         }
         rigid.velocity = Vector2.zero;
@@ -389,16 +392,16 @@ public class Boss_Archer : EnemyCharacter
     
     private Vector2 GetEndPosition(float distance, bool reverse)
     {
-        float positionX = transform.position.x;
+        Vector2 position = Vector2.right;
         if (reverse)
         {
-            positionX += targetTransform.position.x - positionX < 0 ? distance : -distance;
+            position *= targetTransform.position.x - transform.position.x < 0 ? distance : -distance;
         }
         else
         {
-            positionX += targetTransform.position.x - positionX < 0 ? -distance : distance;
+            position *= targetTransform.position.x - transform.position.x < 0  ? -distance : distance;
         }
-        return Vector2.right * positionX;
+        return (Vector2)transform.position + position;
     }
 
     private bool CheckTile(Vector2 dir, bool detect)

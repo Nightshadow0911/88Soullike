@@ -95,7 +95,7 @@ public class CharacterInfoUI : MonoBehaviour
 
     public void GrowStat(string statName)
     {
-        playerStat.TryLevelUp(statName);
+        //playerStat.TryLevelUp(statName);
     }
     public void TogglePopup()
     {

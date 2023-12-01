@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 6166154580822335953}
   - component: {fileID: 326642951759478616}
   - component: {fileID: 5144808923018816717}
+  - component: {fileID: 3181530040030206276}
   - component: {fileID: 5658020677484353115}
   - component: {fileID: 9178313139778652197}
   - component: {fileID: 910569754565661679}
@@ -255,7 +256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a4f8af90af9d74eba355e16fa2f901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStats: {fileID: 11400000, guid: 103eb217215cb11438ad3a1b1492dc1b, type: 2}
   targetTransform: {fileID: 0}
   attackPosition: {fileID: 2286751427095356880}
   tileLayer:
@@ -264,6 +264,19 @@ MonoBehaviour:
   bomb: {fileID: 7713091042914117645}
   scatter: {fileID: 2529890295563191034}
   poison: {fileID: 2580996391223972131}
+--- !u!114 &3181530040030206276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7470434121842117839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d207ea01b5937ad4d9dcdcc89d6cd535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseStatSO: {fileID: 11400000, guid: 103eb217215cb11438ad3a1b1492dc1b, type: 2}
 --- !u!114 &5658020677484353115
 MonoBehaviour:
   m_ObjectHideFlags: 0

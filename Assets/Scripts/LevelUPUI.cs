@@ -31,7 +31,7 @@ public class LevelUpUI : MonoBehaviour
         if (characterStats != null)
         {
             UpdateUI();
-            levelUpButton.onClick.AddListener(LevelUp);
+            //levelUpButton.onClick.AddListener(LevelUp);
         }
         else
         {
@@ -49,17 +49,17 @@ public class LevelUpUI : MonoBehaviour
         pointsText.text = "Points: " + characterStats.Points;
     }
 
-    public void LevelUp()
-    {
-        if (selectedStat != StatType.None) // 선택한 스텟이 None이 아니면
-        {
-            if (characterStats.TryLevelUp(selectedStat.ToString()))
-            {
-                UpdateUI();
-            }
-        }
-        Debug.Log("Level Up Button Clicked");
-    }
+    // public void LevelUp()
+    // {
+    //     if (selectedStat != StatType.None) // 선택한 스텟이 None이 아니면
+    //     {
+    //         if (characterStats.TryLevelUp(selectedStat.ToString()))
+    //         {
+    //             UpdateUI();
+    //         }
+    //     }
+    //     Debug.Log("Level Up Button Clicked");
+    // }
 
     public void SetSelectedStat(int statIndex)
     {
