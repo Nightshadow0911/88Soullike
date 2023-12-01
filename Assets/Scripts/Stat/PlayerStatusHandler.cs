@@ -4,35 +4,44 @@ using UnityEngine;
 
 public class PlayerStatusHandler :StatHandler
 {
+    private PlayerStat currentStat;
     private PlayerStat playerStat;
+    
     private void Awake()
     {
-        playerStat = BaseStatSO as PlayerStat;
+        playerStat = baseStatSO as PlayerStat;
     }
 
     
     public float CriticalCheck(float Damage)
     {
-        if (Random.value < playerStat.criticalChance)
+        if (Random.value < currentStat.criticalChance)
         {
             return Damage * 2.0f; 
         }
         return Damage;
     }
 
-    public void TakeDamage(int baseDamage)
+    protected override void TakeDamage(int baseDamage)
     {
-        if (playerStat != null)
+        if (currentStat != null)
         {
-            playerStat.currentHp -= baseDamage;
+            currentStat.currentHp -= baseDamage;
         }
+    }
+
+    protected override void SetStat()
+    {
+        currentStat = ScriptableObject.CreateInstance<PlayerStat>();
+        currentStat.characterMaxHP = baseStatSO.characterMaxHP;
+        // 다 복사
     }
     
     //Gro매서드
     #region
     private void HPGrow(int i)
     {
-        if (playerStat != null)
+        if (baseStatSO != null)
         {
             playerStat.growHP += 1;
             playerStat.characterMaxHP += i;

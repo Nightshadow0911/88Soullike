@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatHandler
+public abstract class StatHandler : MonoBehaviour
 {
-   public BaseStat BaseStatSO;
-  
+   public BaseStat baseStatSO;
+
+   protected abstract void TakeDamage(int baseDamage);
+
+   protected abstract void SetStat();
 }
