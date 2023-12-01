@@ -29,19 +29,44 @@ public class PlayerStatusHandler :StatHandler
             currentStat.currentHp -= baseDamage;
         }
     }
-
+    
     protected override void SetStat()
     {
         currentStat = ScriptableObject.CreateInstance<PlayerStat>();
-        currentStat.characterMaxHP = baseStatSO.characterMaxHP;
-        // 다 복사
+        currentStat.characterMaxHP = playerStat.characterMaxHP;
+        currentStat.characterDamage = playerStat.characterDamage;
+        currentStat.characterDefense = playerStat.characterDefense;
+        currentStat.propertyDamage = playerStat.propertyDamage;
+        currentStat.propertyDefense = playerStat.propertyDefense;
+        currentStat.characterRegainHp = playerStat.characterRegainHp;
+        currentStat.characterWeight  = playerStat.characterWeight;
+        currentStat.characterStamina = playerStat.characterStamina;
+        currentStat.characterMana  = playerStat.characterMana;
+        currentStat.nomallSkillDamage = playerStat.nomallSkillDamage;
+        currentStat.EquipWeight = playerStat.EquipWeight;
+        currentStat.maxStr = playerStat.maxStr;
+        currentStat.maxDex = playerStat.maxDex;
+        currentStat.maxInt = playerStat.maxInt;
+        currentStat.maxLuk = playerStat.maxLuk;
+        currentStat.attackSpeed = playerStat.attackSpeed;
+        currentStat.addGoods  = playerStat.addGoods;
+        currentStat.moveSpeed = playerStat.moveSpeed;
+        currentStat.attackRange  = playerStat.attackRange;
+        currentStat.extraMoveSpeed = playerStat.extraMoveSpeed;
+        currentStat.parryTime = playerStat.parryTime;
+        
+        currentStat.currentHp = playerStat.growHP + playerStat.characterMaxHP;
+        currentStat.characterMaxHP = playerStat.characterMaxHP + playerStat.characterMaxHP;
+        currentStat.characterDamage = playerStat.characterDamage + playerStat.characterDamage;
+        currentStat.characterDefense = playerStat.characterDefense + playerStat.characterDefense;
+        currentStat.propertyDamage = playerStat.propertyDamage + playerStat.propertyDamage;
     }
     
     //Gro매서드
     #region
     private void HPGrow(int i)
     {
-        if (baseStatSO != null)
+        if (playerStat != null)
         {
             playerStat.growHP += 1;
             playerStat.characterMaxHP += i;
