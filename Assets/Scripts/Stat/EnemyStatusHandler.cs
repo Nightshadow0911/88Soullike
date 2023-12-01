@@ -1,16 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyStatusHandler :StatHandler
 {
-    public void TakeDamage(int baseDamage)
-    {
-        EnemyStat EnemyStat = BaseStatSO as EnemyStat;
+    private EnemyStat currentStat;
 
-        if (EnemyStat != null)
+    private void Awake()
+    {
+        baseStatSO = baseStatSO as EnemyStat;
+    }
+
+    protected override void TakeDamage(int baseDamage)
+    {
+        if (currentStat != null)
         {
-            EnemyStat.characterMaxHP-= baseDamage;
+            currentStat.characterMaxHP-= baseDamage;
         }
+    }
+
+    protected override void SetStat()
+    {
+        currentStat = ScriptableObject.CreateInstance<EnemyStat>();
+        currentStat.characterMaxHP = baseStatSO.characterMaxHP;
     }
 }
