@@ -106,58 +106,13 @@ public class CharacterStats : MonoBehaviour
 
     // 스텟 증가시 서브스텟 증가 함수
     // 체력 증가시 HP, 무게, 방어력
-    private void HPGrow(int i)
-    {
-
-        GrowHP += 1;
-        subState[(int)Substate.characterHp] += i;
-        subState[(int)Substate.characterWeight] += i;
-        subState[(int)Substate.characterDefense] += i;
-    }
+    
     // 지구력 증가시 HP, 스태미너
-    private void StGrow(int i)
-    {
-        GrowStemina += 1;
-        subState[(int)Substate.characterHp] += 1;
-        subState[(int)Substate.characterStamina] += i;
-    }
+   
     // 힘 증가시 일반공격력, 무게, 물리스킬데미지
-    private void StrGrow(int i)
-    {
-        GrowStr += 1;
-
-        subState[(int)Substate.nomallAttackDamage] += i;
-        subState[(int)Substate.characterWeight] += i;
-        subState[(int)Substate.nomallSkillDamage] += i;
-        subState[(int)Substate.maxStr] += i;
-    }
     // 민첩 증가시 공속, 이속
-    private void DexGrow(int i)
-    {
-        GrowDex += 1;
-        attackSpeed += i * 0.05;
-        moveSpeed += i * 0.05;
-        subState[(int)Substate.maxDex] += 1;
-    }
     // 운 증가시 치명타율, 패리 시간, 재화획득량, 버티기(??)
-    private void LuxGrow(int i)
-    {
-        GrowLux += 1;
-        subState[(int)Substate.critcal] += i;
-        //subState[(int)Substate.parryTime] += i;
-        parryTime += i*0.025f;
-        subState[(int)Substate.addGoods] += i;
-        subState[(int)Substate.characterRegainHp] += i;
-        subState[(int)Substate.maxLuk] += 1;
-    }
     // 지능 증가시 마나, 속성 데미지
-    private void IntGrow(int i)
-    {
-        GrowInt += 1;
-        subState[(int)Substate.characterMana] += i;
-        subState[(int)Substate.propertyDamage] += i;
-        subState[(int)Substate.maxInt] += 1;
-    }
 
     //무게에 따라 속도가 다름?
     public void WeightSpeed()
@@ -194,42 +149,7 @@ public class CharacterStats : MonoBehaviour
         growthValues[GrowState.growthInt] = 0;
         growthValues[GrowState.growthLux] = 0;
     }
-    public bool TryLevelUp(string selectedStat)
-    {
-        Debug.Log("Selected Stat: " + selectedStat);
-        if (points > 0)
-        {
-            points--;
-            switch (selectedStat)
-            {
-                case "HP":
-                    HPGrow(1); // HP를 1만큼 업데이트
-                    Debug.Log("HP Increased");
-                    break;
-                case "ST":
-                    StGrow(1); // 스태미너를 1만큼 업데이트
-                    Debug.Log("Stemina Increased");
-                    break;
-                case "STR":
-                    StrGrow(1); // 스태미너를 1만큼 업데이트
-                    break;
-                case "DEX":
-                    DexGrow(1); // 스태미너를 1만큼 업데이트
-                    break;
-                case "INT":
-                    IntGrow(1); // 스태미너를 1만큼 업데이트
-                    break;
-                case "LUK":
-                    LuxGrow(1); // 스태미너를 1만큼 업데이트
-                    break;
-            }
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    
     public void TakeDamage(int damage)//MonsterToPlayer
     {
         damage -= CharacterDefense;
