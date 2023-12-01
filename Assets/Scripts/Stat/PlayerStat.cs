@@ -23,7 +23,7 @@ public class PlayerStat : BaseStat
     public int currentHp;
     public int characterRegainHp; //재생체력
     public int characterWeight; // 캐릭터 무게
-    public int characterStamina; // 캐릭터 스테미너
+
     public int characterMana; // 캐릭터 마나
     public int nomallSkillDamage; // 주문력
     public int EquipWeight; // 장비 무게
@@ -32,9 +32,10 @@ public class PlayerStat : BaseStat
     public int maxInt;
     public int maxLuk;
     #endregion
-    
+
     //float 및 double 스텟
     #region
+
     public double attackSpeed = 1f; // 공격 속도
     public double addGoods; 
     public double moveSpeed = 5f; // 이동속도
@@ -42,6 +43,7 @@ public class PlayerStat : BaseStat
     public float extraMoveSpeed = 1.5f;
     public float parryTime = 0.05f;
     public float criticalChance; // 크리티컬 확률
+    public float characterStamina; // 캐릭터 스테미너
     #endregion
 
 }

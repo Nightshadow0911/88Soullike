@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18910ed4730bca48a5e1ed9333f06e4, type: 3}
+  m_Name: PlayerStat
+  m_EditorClassIdentifier: 
+  characterMaxHP: 0
+  characterDamage: 0
+  characterDefense: 0
+  propertyDamage: 0
+  propertyDefense: 0
+  level: 0
+  levelPoint: 0
+  growHP: 0
+  growStemina: 0
+  growStr: 0
+  growDex: 0
+  growInt: 0
+  growLux: 0
+  currentHp: 0
+  characterRegainHp: 0
+  characterWeight: 0
+  characterStamina: 0
+  characterMana: 0
+  nomallSkillDamage: 0
+  EquipWeight: 0
+  maxStr: 0
+  maxDex: 0
+  maxInt: 0
+  maxLuk: 0
+  attackSpeed: 1
+  addGoods: 0
+  moveSpeed: 5
+  attackRange: 1
+  extraMoveSpeed: 1.5
+  parryTime: 0.05
+  criticalChance: 0

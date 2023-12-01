@@ -17,9 +17,9 @@ public class PlayerStatusHandler :StatHandler
     {
         if (Random.value < currentStat.criticalChance)
         {
-            return Damage * 2.0f; 
+            return currentStat.characterDamage * 2.0f; 
         }
-        return Damage;
+        return currentStat.characterDamage;
     }
 
     protected override void TakeDamage(int baseDamage)
