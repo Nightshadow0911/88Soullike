@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class EnemyStatusHandler :StatHandler
 {
+    private EnemyStat enemyStat;
     private EnemyStat currentStat;
 
     private void Awake()
     {
-        baseStatSO = baseStatSO as EnemyStat;
+        enemyStat = baseStatSO as EnemyStat;
     }
 
     protected override void TakeDamage(int baseDamage)
@@ -19,10 +20,17 @@ public class EnemyStatusHandler :StatHandler
             currentStat.characterMaxHP-= baseDamage;
         }
     }
-
+   
     protected override void SetStat()
     {
         currentStat = ScriptableObject.CreateInstance<EnemyStat>();
-        currentStat.characterMaxHP = baseStatSO.characterMaxHP;
+        currentStat.characterMaxHP = enemyStat.characterMaxHP;
+        currentStat.characterDamage = enemyStat.characterDamage;
+        currentStat.characterDefense = enemyStat.characterDefense;
+        currentStat.propertyDamage = enemyStat.propertyDamage;
+        currentStat.propertyDefense = enemyStat.propertyDefense;
+        currentStat.speed = enemyStat.speed;
+        currentStat.delay = enemyStat.delay;
+        currentStat.target = enemyStat.target;
     }
 }

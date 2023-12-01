@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class StatHandler : MonoBehaviour
 {
-   public BaseStat baseStatSO;
+   [SerializeField] public BaseStat baseStatSO;
 
    protected abstract void TakeDamage(int baseDamage);
 
