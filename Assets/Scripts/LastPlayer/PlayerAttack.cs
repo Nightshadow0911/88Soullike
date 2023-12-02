@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerStat stat;
     private Animator anim;
     public LastPlayerController player;
+    public CharacterStats characterStats;
 
     private float comboResetTime = 1.5f;
     private float lastClickTime;
@@ -137,10 +138,10 @@ public class PlayerAttack : MonoBehaviour
 
                     //double sp = gameManager.playerStats.AttackSpeed + 1f; // AttackSpeed= 1 // 아이템 공속 감소?
                     nextAttackTime = Time.time + 1f; // / sp  <= 삭제함( 수정 필요 )
-                    if (stat.stemina >= attackStaminaCost)
+                    if (stat.stamina >= attackStaminaCost)
                     {
+                        stat.stamina -= attackStaminaCost;
                         anim.SetTrigger("attack");
-
                         ApplyDamage();
                     }
                 }
@@ -162,14 +163,12 @@ public class PlayerAttack : MonoBehaviour
         int modifiedAttackDamage = stat.damage;
         if (comboAttackClickCount != 3)
         {
-
-            stat.stemina -= attackStaminaCost;
             comboAttack = false;
         }
         else
         {
             anim.SetTrigger("combo");
-            stat.stemina -= attackStaminaCost * 2;
+            stat.stamina -= attackStaminaCost;
             modifiedAttackDamage *= 2;
             comboAttackClickCount = 0;
             comboAttack = true;
@@ -182,8 +181,8 @@ public class PlayerAttack : MonoBehaviour
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, stat.attackRange, enemyLayer);
 
-        Debug.Log("enemyLayer : " + enemyLayer);
-        Debug.Log("hitEnemy : " + hitEnemies.Length);
+        //Debug.Log("enemyLayer : " + enemyLayer);
+        //Debug.Log("hitEnemy : " + hitEnemies.Length);
         if (hitEnemies.Length != 0)
         {
 

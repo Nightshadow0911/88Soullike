@@ -106,7 +106,7 @@ public class LevelUpUI : MonoBehaviour
             case StatType.Health:
                 return playerStat.healthStat;
             case StatType.Stemina:
-                return playerStat.steminaStat;
+                return playerStat.staminaStat;
             case StatType.Str:
                 return playerStat.strStat;
             case StatType.Dex:

@@ -6,12 +6,14 @@ using UnityEngine;
 public class LastPlayerController : MonoBehaviour
 {
     private PlayerStatusHandler playerStatusHandler;
+    private PlayerStat stat;
     private Animator anim;
     private Rigidbody2D rb;
     private PlayerAttack playerAttack;
 
     public FadeOut fadeOut;
-    public CharacterStats characterStats;
+    //public CharacterStats characterStats;
+
     public LedgeCheck ledgeCheck;
 
     public PlayerUI playerUI;
@@ -50,7 +52,6 @@ public class LastPlayerController : MonoBehaviour
     private float dashStartTime;
     private float lastDashTime;
 
-    [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
     [SerializeField] public float comboStaminaCost = 20f;
@@ -72,7 +73,7 @@ public class LastPlayerController : MonoBehaviour
 
     void Start()
     {
-
+        stat = playerStatusHandler.GetStat();
     }
 
     private void Awake()
@@ -111,8 +112,8 @@ public class LastPlayerController : MonoBehaviour
     void UseSkill()
     {
 
-        transform.GetComponent<Equipment>().skillSlotList[skillIndex].Use();
 
+        transform.GetComponent<Equipment>().skillSlotList[skillIndex].Use();
 
     }
     public void ChangeSkill()
@@ -204,9 +205,10 @@ public class LastPlayerController : MonoBehaviour
         {
             if (canDash)
             {
-                if (characterStats.characterStamina >= dashStaminaCost)
+                if (stat.stamina >= dashStaminaCost)
                 {
-                    characterStats.characterStamina -= dashStaminaCost;
+                    stat.stamina -= dashStaminaCost;
+                    Debug.Log("Player:" + stat.stamina);
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
@@ -227,13 +229,13 @@ public class LastPlayerController : MonoBehaviour
 
     private void RegenStamina()
     {
-        characterStats.characterStamina += staminaRegenRate * Time.deltaTime;
-        characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
+        stat.stamina += staminaRegenRate * Time.deltaTime;
+        stat.stamina = Mathf.Clamp(stat.stamina, 0, 100);
     }
 
     private void Death()
     {
-        if (characterStats.characterHp <= 0)
+        if (stat.hp <= 0)
         {
             Debug.Log("DeathAnim");
             anim.SetBool("isDeath", true);
