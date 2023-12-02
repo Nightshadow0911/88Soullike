@@ -26,12 +26,12 @@ public class Equipment : MonoBehaviour
     public GameObject[] skillIcons = new GameObject[3];
     public Transform skillHolder;
 
-    private CharacterStats characterStats;
+    private CharacterStats characterStats; //
 
 
     private void Start()
     {
-        characterStats = GameManager.Instance.playerStats;
+        characterStats = GameManager.Instance.playerStats; //
         for (int i = 0; i < skillIcons.Length; i++)
         {
             skillIcons[i] = skillHolder.GetChild(i).gameObject;
@@ -94,12 +94,12 @@ public class Equipment : MonoBehaviour
         }
         EquipmentUI.instance.DrawEquipSlot();
     }
-    public void UpdateStatus(int equipIndex)
+    public void UpdateStatus(int equipIndex) //
     {
         switch (equipIndex)
         {
             case WEAPON:
-                characterStats.NormalAttackDamage += equipItemList[equipIndex].Power;
+                characterStats.NormalAttackDamage += equipItemList[equipIndex].Power; 
                 characterStats.AttackSpeed += equipItemList[equipIndex].AttackSpeed;
                 characterStats.AttackRange += equipItemList[equipIndex].AttackRange;
                 characterStats.EquipWeight += equipItemList[equipIndex].Weight;
@@ -114,9 +114,9 @@ public class Equipment : MonoBehaviour
                 break;
         }
     }
-    public void UnEquipItem(int equipIndex)
+    public void UnEquipItem(int equipIndex) //
     {
-        //if (equipItemList[equipIndex] == null) return;
+        if (equipItemList[equipIndex] == null) return;
 
         switch (equipIndex)
         {

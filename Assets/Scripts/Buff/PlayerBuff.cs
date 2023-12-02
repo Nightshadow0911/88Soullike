@@ -24,23 +24,7 @@ public class PlayerBuff : MonoBehaviour
 
             });
             Debug.Log(buff.buff.name + " : 버프 적용");
-        } else
-        {
-            //적용 실패 => amount를 돌려줄것인가? Item.Use 부분에서 막아야하나?
         }
-
-        /*if (!buffs.Contains(buff))
-        {
-            buffs.Add(buff); // activated this, ()
-            buff.Activated(transform.GetComponent<CharacterStats>(), () =>
-            {
-                buffs.Remove(buff);
-                Destroy(buff.gameObject);
-                Debug.Log(buff.buff.name + " : 버프 제거됨");
-
-            });
-        }
-        Debug.Log(buff.buff.name + " : 버프 적용");*/
     }
     
 }

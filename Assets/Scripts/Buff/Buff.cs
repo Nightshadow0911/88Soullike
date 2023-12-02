@@ -17,6 +17,7 @@ public class Buff : MonoBehaviour
     protected IEnumerator SC_Timer2(object obj, Action cbDone)
     {
         var fi = obj.GetType().GetTypeInfo().GetDeclaredProperty(buff.StatName); // Reflection으로 obj에 선언된 프로퍼티를 가져옴
+        //var fii = obj.GetType().GetTypeInfo().GetDeclaredField(buff.StatName); // Reflection으로 obj에 선언된 프로퍼티를 가져옴
 
         int v = (int)fi.GetValue(obj); // 현재 값 => 현재값으로 하니까 여러개 먹었을때 버그
 

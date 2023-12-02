@@ -6,12 +6,8 @@ using UnityEngine;
 public class ItemHealingEft : ItemEffect
 {
     public int healingPoint = 0;
-    private CharacterStats ps;
+    private CharacterStats ps; //
 
-    private void Awake()
-    {
-        //ps = GameManager.Instance.playerStats;
-    }
     public override bool ExcuteRole(int power) //�������� ȿ��
     {
         ps = GameManager.Instance.playerStats;
