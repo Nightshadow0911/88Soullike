@@ -12,7 +12,7 @@ public abstract class StatHandler : MonoBehaviour
       SetStat();
    }
 
-   protected abstract void TakeDamage(int baseDamage);
+   public abstract void TakeDamage(int baseDamage);
 
    protected abstract void SetStat();
 }

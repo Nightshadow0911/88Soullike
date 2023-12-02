@@ -26,22 +26,22 @@ public class PlayerStatusHandler :StatHandler
     }
 
     
-    public int CriticalCheck(int Damage)
+    public int CriticalCheck(int damage)
     {
-        if (Random.value < currentStat.criticalChance)
+        if (Random.Range(0,100) < currentStat.criticalChance)
         {
-            int criticalDamage = currentStat.damage * 2;
+            int criticalDamage = damage * 2;
             return criticalDamage;
         }
-        return currentStat.damage;
+        return damage;
     }
 
-    protected override void TakeDamage(int baseDamage)
+    public override void TakeDamage(int damage)
     {
         if (currentStat == null)
             return;
-        baseDamage -= currentStat.defense;
-        currentStat.hp -= baseDamage;
+        damage -= currentStat.defense;
+        currentStat.hp -= damage;
     }
     
     protected override void SetStat()
@@ -53,10 +53,10 @@ public class PlayerStatusHandler :StatHandler
         UpdateStatus();
     }
 
-    private void GrowUpStat(int num, Status status) // 레벨업 메서드
+    public bool GrowUpStat(int num, Status status) // 레벨업 메서드
     {
         if (playerMaxStat == null)
-            return;
+            return false;
         switch (status)
         {
             case Status.Health:
@@ -79,6 +79,7 @@ public class PlayerStatusHandler :StatHandler
                 break;
         }
         UpdateStatus();
+        return true;
     }
    
     private void UpdateStatus()  // 업데이트 스테이터스 매서드
