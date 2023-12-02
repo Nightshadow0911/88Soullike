@@ -10,7 +10,8 @@ public enum Status // <- 레벨업시 사용
     Str, // 5
     Dex, // 5
     Int, // 기본 수치 수정 필요
-    Lux // 5
+    Lux, // 5
+    None
 }
 
 public class PlayerStatusHandler :StatHandler
@@ -30,9 +31,9 @@ public class PlayerStatusHandler :StatHandler
     {
         if (Random.value < currentStat.criticalChance)
         {
-            return currentStat.characterDamage * 2.0f; 
+            return currentStat.damage * 2.0f; 
         }
-        return currentStat.characterDamage;
+        return currentStat.damage;
     }
 
     protected override void TakeDamage(int baseDamage)
@@ -49,10 +50,10 @@ public class PlayerStatusHandler :StatHandler
         UpdateStatus();
     }
 
-    private void GrowUpStat(int num, Status status) // 레벨업 메서드
+    public bool  GrowUpStat(int num, Status status) // 레벨업 메서드
     {
         if (playerMaxStat == null)
-            return;
+
         switch (status)
         {
             case Status.Health:
@@ -75,6 +76,7 @@ public class PlayerStatusHandler :StatHandler
                 break;
         }
         UpdateStatus();
+        return true;
     }
    
     private void UpdateStatus()  // 업데이트 스테이터스 매서드
