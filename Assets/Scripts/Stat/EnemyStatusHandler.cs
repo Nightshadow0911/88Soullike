@@ -18,10 +18,10 @@ public class EnemyStatusHandler :StatHandler
 
     protected override void TakeDamage(int baseDamage)
     {
-        if (currentStat != null)
-        {
-            currentStat.hp-= baseDamage;
-        }
+        if (currentStat == null)
+            return;
+        baseDamage -= currentStat.defense;
+        currentStat.hp -= baseDamage;
     }
    
     protected override void SetStat()
