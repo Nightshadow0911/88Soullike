@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6205454152577938833}
   - component: {fileID: 1354831507889003004}
   - component: {fileID: 5415526385945227353}
+  - component: {fileID: 2080311139203343036}
   - component: {fileID: 3056681724442440447}
   m_Layer: 0
   m_Name: Cat
@@ -34,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8834677037730149300
 SpriteRenderer:
@@ -181,6 +182,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2080311139203343036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987961807971356780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d3f2d51c0443b742ac25323861f65e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  petSkill: {fileID: 0}
+  petSkills:
+  - {fileID: 11400000, guid: e05e15a3561e4a94fba4930e20d80e64, type: 2}
+  - {fileID: 11400000, guid: 016b8df5357e9574f87b6066c121bc22, type: 2}
 --- !u!114 &3056681724442440447
 MonoBehaviour:
   m_ObjectHideFlags: 0

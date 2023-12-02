@@ -211,7 +211,6 @@ MonoBehaviour:
   currentStamina: 100
   staminaRegenRate: 10
   dashStaminaCost: 10
-  attackStaminaCost: 5
   comboStaminaCost: 20
   ledgeDetected: 0
   offset1: {x: 0, y: -1.6}
@@ -219,6 +218,7 @@ MonoBehaviour:
   canGrabLedge: 1
   isSitting: 0
   canDash: 1
+  skillIndex: 0
 --- !u!95 &7028182834870813551
 Animator:
   serializedVersion: 5
@@ -379,9 +379,14 @@ MonoBehaviour:
     weight: 0
     price: 0
   skillSlotList:
-  - {fileID: 9165240758897152920, guid: a4e444cffe3b30d43b9127f6cf4a835a, type: 3}
-  - {fileID: 6525689853256069183, guid: 94233447f9ef64a49b49d26c503bdd5a, type: 3}
-  - {fileID: 3082831814835967893, guid: 4b67823366f95b04e8c819c44a9c7bd0, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skillIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skillHolder: {fileID: 0}
 --- !u!114 &4454474238667929373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,16 +414,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6113475548300559220}
-  characterStats: {fileID: 2491328609635162135}
+  attackStaminaCost: 5
   isParrying: 0
   isGuarding: 0
-  comboAttack: 0
-  comboAttackClickCount: 1
   monsterToPlayerDamage: 1
   attackPoint: {fileID: 3646084481749102177}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  comboAttack: 0
+  buffDamage: 0
 --- !u!114 &6131177484530544590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebac04d3aaa10ff49bc56ad7c0acecff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffUIPrefab: {fileID: 1707066295582191958, guid: e2bc2a144be4de444b2c04fb90c43043, type: 3}
+  buffUIHolder: {fileID: 0}
 --- !u!114 &6254307038230211842
 MonoBehaviour:
   m_ObjectHideFlags: 0
