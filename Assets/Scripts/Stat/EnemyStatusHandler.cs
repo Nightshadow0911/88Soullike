@@ -16,12 +16,12 @@ public class EnemyStatusHandler :StatHandler
         base.Awake();
     }
 
-    protected override void TakeDamage(int baseDamage)
+    public override void TakeDamage(int damage)
     {
         if (currentStat == null)
             return;
-        baseDamage -= currentStat.defense;
-        currentStat.hp -= baseDamage;
+        damage -= currentStat.defense;
+        currentStat.hp -= damage;
     }
    
     protected override void SetStat()
