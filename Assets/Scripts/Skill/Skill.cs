@@ -26,11 +26,13 @@ public class Skill : MonoBehaviour
         Init();
         characterStats = GameManager.Instance.playerStats;
         dir = new Vector3(GameManager.Instance.lastPlayerController.facingDirection, 0, 0);
+        Debug.Log(this.SkillName);
 
     }
     private void Update()
     {
-        StartCoroutine(move());
+        if(type == SkillType.Active) 
+        StartCoroutine(SkillActivation());
     }
 
     public void Init()
@@ -90,7 +92,7 @@ public class Skill : MonoBehaviour
 
     }
 
-    IEnumerator move()
+    IEnumerator SkillActivation()
     {
         if (dir.x > 0)
         {
@@ -119,6 +121,7 @@ public class Skill : MonoBehaviour
     }
 
     #region 프로퍼티
+    public SkillSO CurSkill { get { return curSkill;  } set { curSkill = value;  } }
     public SkillType Type { get { return type; } }
     public bool ActiveType { get { return activeType; } set { activeType = value; } }
     public string SkillName { get { return skillName; } set { skillName = value; } }

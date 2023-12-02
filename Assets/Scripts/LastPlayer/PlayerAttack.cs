@@ -28,6 +28,7 @@ public class PlayerAttack : MonoBehaviour
     //public float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
     public bool comboAttack;
+    public int buffDamage = 0;
 
     // Start is called before the first frame update
 
@@ -159,7 +160,8 @@ public class PlayerAttack : MonoBehaviour
 
     private int DamageCalculator()
     {
-        int modifiedAttackDamage = stat.damage;
+        
+        int modifiedAttackDamage = stat.damage + buffDamage;
         if (comboAttackClickCount != 3)
         {
 

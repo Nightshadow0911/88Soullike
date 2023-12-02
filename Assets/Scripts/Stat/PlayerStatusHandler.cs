@@ -16,8 +16,9 @@ public enum Status // <- 레벨업시 사용
 public class PlayerStatusHandler :StatHandler
 {
     private PlayerStat playerMaxStat; // MAX 수치 저장 데이터
-    private PlayerStat currentStat; // 현재 수치 저장 데이터 
+    private PlayerStat currentStat; // 현재 수치 저장 데이터
     public PlayerStat GetStat() => currentStat; // 현재 스탯 가져오기
+    public PlayerStat GetMaxStat() => playerMaxStat; // 현재 스탯 가져오기
     
     protected override void Awake()
     {
@@ -103,5 +104,21 @@ public class PlayerStatusHandler :StatHandler
         currentStat.soulDropRate = playerMaxStat.soulDropRate + currentStat.increaseSoulDropRate;
         
         currentStat.damage = playerMaxStat.strStat * 4 + playerMaxStat.dexStat * 2; 
+    }
+
+    public void UpdateWeapon(int power, float attackSpeed, float attackRange, int weight, int propertyAmount)
+    {
+        currentStat.damage += power;
+        currentStat.delay += attackSpeed;
+        currentStat.attackRange += attackRange;
+        currentStat.weight += weight;
+        currentStat.propertyDamage += propertyAmount;
+
+    }
+    public void UpdateArmor(int power, int weight, int propertyAmount)
+    {
+        currentStat.defense += power;
+        currentStat.weight += weight;
+        currentStat.propertyDefense += propertyAmount;
     }
 }

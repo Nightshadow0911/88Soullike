@@ -6,6 +6,7 @@ using UnityEngine;
 public class ItemHealingEft : ItemEffect
 {
     public int healingPoint = 0;
+    private PlayerStatusHandler playerStatusHandler;
     private CharacterStats ps; //
 
     public override bool ExcuteRole(int power) //�������� ȿ��

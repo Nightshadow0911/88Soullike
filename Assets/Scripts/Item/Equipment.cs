@@ -26,12 +26,12 @@ public class Equipment : MonoBehaviour
     public GameObject[] skillIcons = new GameObject[3];
     public Transform skillHolder;
 
-    private CharacterStats characterStats; //
+    private PlayerStatusHandler playerStatusHandler;
 
 
     private void Start()
     {
-        characterStats = GameManager.Instance.playerStats; //
+        playerStatusHandler = transform.GetComponent<PlayerStatusHandler>(); //
         for (int i = 0; i < skillIcons.Length; i++)
         {
             skillIcons[i] = skillHolder.GetChild(i).gameObject;
@@ -69,7 +69,7 @@ public class Equipment : MonoBehaviour
                     {
                         equipItemList[WEAPON] = newItem;
                     }
-                    UpdateStatus(WEAPON);
+                    EquipItem(WEAPON);
 
                 }
                 break;
@@ -85,7 +85,7 @@ public class Equipment : MonoBehaviour
                         equipItemList[ARMOR] = newItem;
 
                     }
-                    UpdateStatus(ARMOR);
+                    EquipItem(ARMOR);
 
                 }
                 break;
@@ -94,23 +94,22 @@ public class Equipment : MonoBehaviour
         }
         EquipmentUI.instance.DrawEquipSlot();
     }
-    public void UpdateStatus(int equipIndex) //
+    public void EquipItem(int equipIndex) //
     {
         switch (equipIndex)
         {
             case WEAPON:
-                characterStats.NormalAttackDamage += equipItemList[equipIndex].Power; 
-                characterStats.AttackSpeed += equipItemList[equipIndex].AttackSpeed;
-                characterStats.AttackRange += equipItemList[equipIndex].AttackRange;
-                characterStats.EquipWeight += equipItemList[equipIndex].Weight;
-                characterStats.PropertyDamage += equipItemList[equipIndex].PropertyAmount;
-                characterStats.WeightSpeed();
+                playerStatusHandler.UpdateWeapon(equipItemList[equipIndex].Power, equipItemList[equipIndex].AttackSpeed,
+                    equipItemList[equipIndex].AttackRange, equipItemList[equipIndex].Weight, equipItemList[equipIndex].PropertyAmount);
+
+                //characterStats.WeightSpeed();
+                // 공격력, 공격속도, 공격범위, 무게, 속성공격력, 
                 break;
             case ARMOR:
-                characterStats.CharacterDefense += equipItemList[equipIndex].Power;
-                characterStats.EquipWeight += equipItemList[equipIndex].Weight;
-                characterStats.PropertyDefense += equipItemList[equipIndex].PropertyAmount;
-                characterStats.WeightSpeed();
+                playerStatusHandler.UpdateArmor(equipItemList[equipIndex].Power,
+                    equipItemList[equipIndex].Weight, equipItemList[equipIndex].PropertyAmount);
+
+                //characterStats.WeightSpeed();
                 break;
         }
     }
@@ -121,16 +120,12 @@ public class Equipment : MonoBehaviour
         switch (equipIndex)
         {
             case WEAPON:
-                characterStats.NormalAttackDamage -= equipItemList[equipIndex].Power;
-                characterStats.AttackSpeed -= equipItemList[equipIndex].AttackSpeed;
-                characterStats.AttackRange -= equipItemList[equipIndex].AttackRange;
-                characterStats.EquipWeight -= equipItemList[equipIndex].Weight;
-                characterStats.PropertyDamage -= equipItemList[equipIndex].PropertyAmount;
+                playerStatusHandler.UpdateWeapon(-equipItemList[equipIndex].Power, -equipItemList[equipIndex].AttackSpeed,
+                    -equipItemList[equipIndex].AttackRange, -equipItemList[equipIndex].Weight, -equipItemList[equipIndex].PropertyAmount);
                 break;
             case ARMOR:
-                characterStats.CharacterDefense -= equipItemList[equipIndex].Power;
-                characterStats.EquipWeight -= equipItemList[equipIndex].Weight;
-                characterStats.PropertyDefense -= equipItemList[equipIndex].PropertyAmount;
+                playerStatusHandler.UpdateArmor(-equipItemList[equipIndex].Power,
+                    -equipItemList[equipIndex].Weight, -equipItemList[equipIndex].PropertyAmount);
                 break;
         }
 

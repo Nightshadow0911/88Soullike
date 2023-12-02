@@ -10,14 +10,12 @@ public class Buff : MonoBehaviour
     
     public void Activated(object obj, Action cbDone) // obj = 버프가 적용될 객체, cbDone 버프가 끝났음을 obj에게 알리기 위함
     {
-        //StartCoroutine(SC_Timer(obj, cbDone));
-        StartCoroutine(SC_Timer2(obj, cbDone));
+        StartCoroutine(SC_Timer(obj, cbDone));
     }
 
     protected IEnumerator SC_Timer2(object obj, Action cbDone)
     {
         var fi = obj.GetType().GetTypeInfo().GetDeclaredProperty(buff.StatName); // Reflection으로 obj에 선언된 프로퍼티를 가져옴
-        //var fii = obj.GetType().GetTypeInfo().GetDeclaredField(buff.StatName); // Reflection으로 obj에 선언된 프로퍼티를 가져옴
 
         int v = (int)fi.GetValue(obj); // 현재 값 => 현재값으로 하니까 여러개 먹었을때 버그
 
@@ -57,6 +55,8 @@ public class Buff : MonoBehaviour
         cbDone.Invoke(); // 버프가 끝났음을 알림
     }
 
+    
+
     public override bool Equals(object obj)
     {
         if (obj == null || GetType() != obj.GetType())
@@ -64,7 +64,7 @@ public class Buff : MonoBehaviour
 
         Buff otherBuff = (Buff)obj;
 
-        // 여기에 버프 객체의 내용을 비교하는 로직을 구현합니다.
+        // 버프 객체의 내용을 비교
         // 예시로서 버프의 이름을 비교하는 경우:
         return buff.StatName == otherBuff.buff.StatName;
     }

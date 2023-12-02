@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class BuffUI : MonoBehaviour
 {
-    public string type;
-    public float percentage;
+    public string statName;
+    public int value;
     public float duration;
     public float currentTime;
     public Image icon;
@@ -16,14 +16,15 @@ public class BuffUI : MonoBehaviour
         icon = GetComponent<Image>();
     }
 
-    public void Init(string type, float per, float du)
+    public void Init(string statName, int value, float du, Sprite icon)
     {
-        this.type = type;
-        percentage = per;
+        this.statName = statName;
+        this.value = value;
         duration = du;
         currentTime = duration;
+        this.icon.sprite = icon;
     }
-    WaitForSeconds seconds = new WaitForSeconds(0.1f);
+    WaitForSeconds seconds = new WaitForSeconds(1f);
     public void Excute()
     {
         StartCoroutine(Activation());
@@ -33,8 +34,16 @@ public class BuffUI : MonoBehaviour
     {
         while(currentTime > 0)
         {
-            currentTime -= 0.1f;
+            currentTime -= 1f;
             yield return seconds;
+
+            if(currentTime < (duration * 0.2f))
+            {
+                Color fadedColor = icon.color;
+                //fadedColor.a = fadedColor.a > 0.5f ? 0.2f : 1f;
+                fadedColor.a = 0.5f;
+                icon.color = fadedColor;
+            }
         }
         currentTime = 0;
         DeActivation();

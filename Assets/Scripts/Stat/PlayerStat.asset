@@ -23,7 +23,7 @@ MonoBehaviour:
   level: 1
   levelPoint: 10
   healthStat: 0
-  steminaStat: 0
+  steminaStat: 10
   strStat: 0
   dexStat: 0
   intStat: 0
