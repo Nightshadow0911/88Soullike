@@ -91,17 +91,17 @@ public class PlayerStatusHandler :StatHandler
         currentStat.defense = playerMaxStat.healthStat * 2;
         currentStat.stemina = playerMaxStat.steminaStat * 5; 
         currentStat.weight = playerMaxStat.steminaStat * 3;
-        currentStat.damage = playerMaxStat.strStat * 4; 
         currentStat.increaseParryTime = playerMaxStat.strStat * 0.01f;
         currentStat.parryTime = playerMaxStat.parryTime + currentStat.increaseParryTime;
-        currentStat.damage = playerMaxStat.dexStat * 2; 
         currentStat.increaseInvincibleTime = playerMaxStat.dexStat * 0.01f;
         currentStat.invincibleTime = playerMaxStat.invincibleTime + currentStat.increaseInvincibleTime;
-        currentStat.mana = playerMaxStat.intStat * 1; // 수치 수정 필요
+        currentStat.mana = 4;
         currentStat.spellPower = playerMaxStat.intStat * 1; // 수치 수정 필요
         currentStat.propertyDamage = playerMaxStat.intStat * 1; // 수치 수정 필요
         currentStat.criticalChance = playerMaxStat.luxStat * 0.1f;
         currentStat.increaseSoulDropRate = playerMaxStat.luxStat * 10f;
         currentStat.soulDropRate = playerMaxStat.soulDropRate + currentStat.increaseSoulDropRate;
+        
+        currentStat.damage = playerMaxStat.strStat * 4 + playerMaxStat.dexStat * 2; 
     }
 }
