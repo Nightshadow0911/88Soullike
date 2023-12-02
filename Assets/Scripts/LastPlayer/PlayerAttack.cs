@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    private PlayerStatusHandler playerStatusHandler;
     private Animator anim;
     private GameManager gameManager;
     public LastPlayerController player;
@@ -11,7 +12,7 @@ public class PlayerAttack : MonoBehaviour
 
     private float clickCountResetTime = 1.5f; // 클릭 카운터를 초기화하는데 걸리는 시간
     private float lastClickTime;
-
+    [SerializeField] public int attackStaminaCost = 5;
     double nextAttackTime = 0f;
 
     public bool isParrying = false;
@@ -33,9 +34,14 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+
+        canAttack = true;
+    }
+    private void Awake()
+    {
         anim = GetComponent<Animator>();
         gameManager = GameManager.Instance;
-        canAttack = true;
+        playerStatusHandler = GetComponent<PlayerStatusHandler>();
     }
 
     // Update is called once per frame
@@ -59,7 +65,8 @@ public class PlayerAttack : MonoBehaviour
         {
             isParrying = true;
             transform.Find("Parrying").gameObject.SetActive(true);
-            parryWindowEndTime = Time.time + characterStats.ParryTime;
+            //parryWindowEndTime = Time.time + characterStats.ParryTime;
+            parryWindowEndTime = Time.time + playerStatusHandler.GetStat().parryTime;
             Debug.Log("Parry Start");
         }
         else if (Input.GetMouseButtonUp(1) && isParrying)
@@ -104,9 +111,13 @@ public class PlayerAttack : MonoBehaviour
         }
         if (manaRegainClickCount==10)
         {
-            if (characterStats.characterMana<characterStats.MaxMana)
+            //if (characterStats.characterMana<characterStats.MaxMana)
+            //{
+            //    characterStats.characterMana += 1;
+            //}
+            if (playerStatusHandler.GetStat().mana< 4)
             {
-                characterStats.characterMana += 1;
+                playerStatusHandler.GetStat().mana += 1;
             }
             manaRegainClickCount = 1;
         }
@@ -127,7 +138,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
                 {
-                    double sp = gameManager.playerStats.AttackSpeed + 1f;
+                    double sp = gameManager.playerStats.AttackSpeed + 1f; // AttackSpeed= 1
                     nextAttackTime = Time.time + 1f / +sp;
                     if (player.isSitting == false)
                     {
@@ -144,16 +155,22 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        if (gameManager.playerStats.characterStamina >= player.attackStaminaCost)
+        //if (gameManager.playerStats.characterStamina >= player.attackStaminaCost)
+        if (playerStatusHandler.GetStat().stemina >= attackStaminaCost)
         {
-            gameManager.playerStats.characterStamina -= player.attackStaminaCost;
+            //gameManager.playerStats.characterStamina -= attackStaminaCost;
+            playerStatusHandler.GetStat().stemina -= attackStaminaCost;
             anim.SetTrigger("attack");
-            gameManager.playerStats.AttackDamage();
-            int modifiedAttackDamage = gameManager.playerStats.NormalAttackDamage;
-            if (comboAttackClickCount != 0 && comboAttackClickCount % 2==0)
+            //gameManager.playerStats.AttackDamage();
+            //playerStatusHandler.CriticalCheck(); //크리 데미지 반환 또는 일반 데미지
+            // 일반 데미지 10 
+            int modifiedAttackDamage = 10;
+
+            if (comboAttackClickCount != 0 && comboAttackClickCount % 2==0)//3 타
+
             {
                 comboAttack = true;
-                gameManager.playerStats.characterStamina -= player.comboStaminaCost;
+                playerStatusHandler.GetStat().stemina -= attackStaminaCost;
                 anim.SetTrigger("combo");
                 modifiedAttackDamage *= 2;
                 ApplyDamage(modifiedAttackDamage);
@@ -166,9 +183,9 @@ public class PlayerAttack : MonoBehaviour
     }
     public void CrouchAttack()
     {
-        if (gameManager.playerStats.characterStamina >= player.attackStaminaCost)
+        if (gameManager.playerStats.characterStamina >= attackStaminaCost)
         {
-            gameManager.playerStats.characterStamina -= player.attackStaminaCost;
+            gameManager.playerStats.characterStamina -= attackStaminaCost;
             anim.SetTrigger("crouchAttack");
             gameManager.playerStats.AttackDamage();
             int a = gameManager.playerStats.NormalAttackDamage;

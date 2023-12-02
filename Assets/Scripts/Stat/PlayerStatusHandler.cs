@@ -26,7 +26,7 @@ public class PlayerStatusHandler :StatHandler
     }
 
     
-    public float CriticalCheck(float Damage)
+    public int CriticalCheck(int Damage)
     {
         if (Random.value < currentStat.criticalChance)
         {
@@ -47,6 +47,9 @@ public class PlayerStatusHandler :StatHandler
     protected override void SetStat()
     {
         currentStat = ScriptableObject.CreateInstance<PlayerStat>();
+        currentStat.speed=playerMaxStat.speed;
+        currentStat.parryTime = playerMaxStat.parryTime;
+
         UpdateStatus();
     }
 
