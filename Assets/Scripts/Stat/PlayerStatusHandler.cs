@@ -49,10 +49,8 @@ public class PlayerStatusHandler :StatHandler
         //추가
         currentStat = ScriptableObject.CreateInstance<PlayerStat>();
         currentStat.speed=playerMaxStat.speed;
-        currentStat.parryTime = playerMaxStat.parryTime;
-        currentStat.stemina = playerMaxStat.stemina;
-        currentStat.damage = playerMaxStat.damage;
 
+        
         UpdateStatus();
     }
 
@@ -103,5 +101,8 @@ public class PlayerStatusHandler :StatHandler
         currentStat.soulDropRate = playerMaxStat.soulDropRate + currentStat.increaseSoulDropRate;
         
         currentStat.damage = playerMaxStat.strStat * 4 + playerMaxStat.dexStat * 2; 
+        
+        playerMaxStat.hp = playerMaxStat.healthStat * 10;
+        playerMaxStat.stemina = playerMaxStat.steminaStat * 5;
     }
 }
