@@ -5,24 +5,23 @@ using UnityEngine;
 
 public class RangedAttackController : MonoBehaviour
 {
-    [SerializeField] private LayerMask baseCollision;
-    private RangedAttackData attackData;
-    private Vector2 direction;
+    [SerializeField] protected LayerMask baseCollision;
+    protected RangedAttackData attackData;
+    protected Vector2 direction;
     private float currentDuration;
     private bool isReady;
 
-    private Rigidbody2D rigid;
+    protected Rigidbody2D rigid;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (!isReady)
             return;
-        
         currentDuration += Time.deltaTime;
 
         if (currentDuration > attackData.duration) {
@@ -30,16 +29,8 @@ public class RangedAttackController : MonoBehaviour
         }
         rigid.velocity = direction * attackData.speed;
     }
-
-    public void InitializeAttack(Vector2 direction, RangedAttackData attackData)
-    {
-        this.attackData = attackData;
-        this.direction = direction;
-        currentDuration = 0;
-        isReady = true;
-    }
     
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (baseCollision.value == (baseCollision.value | (1 << collision.gameObject.layer)))
         {
@@ -49,12 +40,21 @@ public class RangedAttackController : MonoBehaviour
         {
             // 데미지 주기
             Debug.Log("player hit");
+            DestroyProjectile(transform.position);
         }
     }
 
-    private void DestroyProjectile(Vector2 position)
+    public void InitializeAttack(Vector2 direction, RangedAttackData attackData)
     {
-        // 파티클이 있다면 position에 파티클 생성
+        this.attackData = attackData;
+        this.direction = direction;
+        currentDuration = 0;
+        transform.right = direction;
+        isReady = true;
+    }
+    protected void DestroyProjectile(Vector2 position)
+    {
+        //파티클
         gameObject.SetActive(false);
     }
 }

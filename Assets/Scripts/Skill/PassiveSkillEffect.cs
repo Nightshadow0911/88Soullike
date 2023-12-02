@@ -5,16 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Scriptable", menuName = "Scriptable/SkillEft/PassiveEft")]
 public class PassiveSkillEffect : SkillEffect
 {
-    // ÆÐ½Ãºê·Î ¿Ã¸± ÇÃ·¹ÀÌ¾î ½ºÅÈ
+    // ï¿½Ð½Ãºï¿½ï¿½ ï¿½Ã¸ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     [SerializeField] private string selectStat;
-    // ´Ù¸¥ Æ¯¼öÈ¿°úµµ ±¦ÂúÀ½ like ¼Ó¼º ÀúÇ×
+    // ï¿½Ù¸ï¿½ Æ¯ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ like ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
     public override bool ExcuteRole(int power, SkillType type)
     {
-        for (int i = 0; i < power; i++) // ÇÃ·¹ÀÌ¾î ½ºÅÈÀ» ÇÑ¹ø¿¡ Áõ°¡½ÃÅ°´Â ¸Þ¼­µå°¡ ¾ø¾î¼­ ÀÌ·¸°Ô ±¸Çö
-        {
-            GameManager.Instance.playerStats.TryLevelUp(selectStat);
-
-        }
+        // for (int i = 0; i < power; i++) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½î¼­ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // {
+        //     GameManager.Instance.playerStats.TryLevelUp(selectStat);
+        //
+        // }
 
         return true;
     }

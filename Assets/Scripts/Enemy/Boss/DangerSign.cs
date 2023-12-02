@@ -16,8 +16,8 @@ public class DangerSign : MonoBehaviour
 
     public void OnDangerSign()
     {
-        dangerSign.SetActive(true);
         SoundManager.instance.PlayClip(danger);
+        dangerSign.SetActive(true);
     }
     
     public void OffDangerSign()

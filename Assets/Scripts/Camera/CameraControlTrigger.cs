@@ -7,22 +7,26 @@ using UnityEngine;
 
 public class CameraControlTrigger : MonoBehaviour
 {
+    public CameraManager _cameraManager;
     public CustomInspectorObjects customInspectorObjects;
 
     private Collider2D coll;
+    private LayerMask playerLayer;
 
     private void Awake()
     {
+        _cameraManager = CameraManager.instance;
         coll = GetComponent<Collider2D>();
+        playerLayer = 1 << LayerMask.NameToLayer("Player");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
         {
             if (customInspectorObjects.panCameraOnContact)
             {
-                CameraManager.instance.PanCameraOnContact(customInspectorObjects.panDistance,
+                _cameraManager.PanCameraOnContact(customInspectorObjects.panDistance,
                     customInspectorObjects.panTime, customInspectorObjects.panDirection, false);
             }
         }
@@ -31,26 +35,27 @@ public class CameraControlTrigger : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
        
-        if (other.CompareTag("Player"))
+        if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
         {
             Vector2 exitDirection = (other.transform.position - coll.bounds.center).normalized;
             
             if (customInspectorObjects.swapCameras && customInspectorObjects.cameraOnLeft != null &&
                 customInspectorObjects.cameraOnRight != null)
             {
-                CameraManager.instance.SwapCamera(customInspectorObjects.cameraOnLeft,
+                _cameraManager.SwapCamera(customInspectorObjects.cameraOnLeft,
                     customInspectorObjects.cameraOnRight, exitDirection);
             }
             
             if (customInspectorObjects.panCameraOnContact)
             {
-                CameraManager.instance.PanCameraOnContact(customInspectorObjects.panDistance,
+                _cameraManager.PanCameraOnContact(customInspectorObjects.panDistance,
                     customInspectorObjects.panTime, customInspectorObjects.panDirection, true);
             }
         }
     }
 }
 
+# region Custom
 [System.Serializable]
 public class CustomInspectorObjects
 {
@@ -85,26 +90,24 @@ public class MyScriptEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        CustomInspectorObjects customInspector = cameraControlTrigger.customInspectorObjects;
+        
         DrawDefaultInspector();
-        if (cameraControlTrigger.customInspectorObjects.swapCameras)
+        if (customInspector.swapCameras)
         {
-            cameraControlTrigger.customInspectorObjects.cameraOnLeft = EditorGUILayout.ObjectField("Camera on Left",
-                cameraControlTrigger.customInspectorObjects.cameraOnLeft, typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
+            customInspector.cameraOnLeft = EditorGUILayout.ObjectField("Camera on Left",
+                customInspector.cameraOnLeft, typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
             
-            cameraControlTrigger.customInspectorObjects.cameraOnRight = EditorGUILayout.ObjectField("Camera on Right",
-                cameraControlTrigger.customInspectorObjects.cameraOnRight, typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
+            customInspector.cameraOnRight = EditorGUILayout.ObjectField("Camera on Right",
+                customInspector.cameraOnRight, typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
         }
 
-        if (cameraControlTrigger.customInspectorObjects.panCameraOnContact)
+        if (customInspector.panCameraOnContact)
         {
-            cameraControlTrigger.customInspectorObjects.panDirection =
-                (PanDirection)EditorGUILayout.EnumPopup("Camera Pan Direction",
-                    cameraControlTrigger.customInspectorObjects.panDirection);
-
-            cameraControlTrigger.customInspectorObjects.panDistance = EditorGUILayout.FloatField("Pan Distance",
-                cameraControlTrigger.customInspectorObjects.panDistance);
-            cameraControlTrigger.customInspectorObjects.panTime =
-                EditorGUILayout.FloatField("Pan Time", cameraControlTrigger.customInspectorObjects.panTime);
+            customInspector.panDirection =
+                (PanDirection)EditorGUILayout.EnumPopup("Camera Pan Direction", customInspector.panDirection);
+            customInspector.panDistance = EditorGUILayout.FloatField("Pan Distance", customInspector.panDistance);
+            customInspector.panTime = EditorGUILayout.FloatField("Pan Time", customInspector.panTime);
         }
 
         if (GUI.changed)
@@ -113,6 +116,7 @@ public class MyScriptEditor : Editor
         }
     }
 }
+#endregion
 
 
 
