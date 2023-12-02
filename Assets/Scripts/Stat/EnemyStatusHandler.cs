@@ -22,6 +22,7 @@ public class EnemyStatusHandler :StatHandler
             return;
         damage -= currentStat.defense;
         currentStat.hp -= damage;
+        Debug.Log("currentStat.hp:" + currentStat.hp);
     }
    
     protected override void SetStat()

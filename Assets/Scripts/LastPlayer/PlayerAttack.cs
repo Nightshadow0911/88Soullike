@@ -15,11 +15,11 @@ public class PlayerAttack : MonoBehaviour
     double nextAttackTime = 0f; // 어디서 쓰는지?
 
     public bool isParrying = false;
-    public bool isGuarding = false; 
+    public bool isGuarding = false;
     private float parryWindowEndTime = 0f; // 어디서 쓰는지?
     private bool canAttack = true;
 
-    [SerializeField] private int comboAttackClickCount = 1;
+    private int comboAttackClickCount = 0;
     private int manaRegainClickCount = 1;
     [SerializeField] public bool monsterToPlayerDamage;
     //public int damage;
@@ -27,6 +27,7 @@ public class PlayerAttack : MonoBehaviour
     public Transform attackPoint;
     //public float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
+    public bool comboAttack;
 
     // Start is called before the first frame update
 
@@ -101,11 +102,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void ResetClickCount()
     {
-        // 클릭 카운터 초기화
-        if (Time.time - lastClickTime > comboResetTime)
-        {
-            comboAttackClickCount = -1;
-        }
         if (manaRegainClickCount == 10)
         {
             //if (characterStats.characterMana<characterStats.MaxMana)
@@ -129,16 +125,22 @@ public class PlayerAttack : MonoBehaviour
 
     private void CheckAttackTime()
     {
+
         if (Time.time >= nextAttackTime)//다음 공격 가능 시간 
         {
-            if (canAttack ==true)
+
+            if (canAttack == true)
             {
-                if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
+
+                if (Input.GetMouseButtonDown(0) && player.isGrounded) //&& PopupUIManager.instance.activePopupLList.Count <= 0)
                 {
+
                     //double sp = gameManager.playerStats.AttackSpeed + 1f; // AttackSpeed= 1 // 아이템 공속 감소?
-                    nextAttackTime = Time.time + 1f / stat.delay; // / sp  <= 삭제함( 수정 필요 )
-                    if (player.isSitting == false)
+                    nextAttackTime = Time.time + 1f; // / sp  <= 삭제함( 수정 필요 )
+                    if (stat.stemina >= attackStaminaCost)
                     {
+                        anim.SetTrigger("attack");
+
                         ApplyDamage();
                     }
                 }
@@ -158,10 +160,11 @@ public class PlayerAttack : MonoBehaviour
     private int DamageCalculator()
     {
         int modifiedAttackDamage = stat.damage;
-        if (stat.stemina >= attackStaminaCost && comboAttackClickCount != 2)
+        if (comboAttackClickCount != 3)
         {
-            anim.SetTrigger("attack");
+
             stat.stemina -= attackStaminaCost;
+            comboAttack = false;
         }
         else
         {
@@ -169,35 +172,36 @@ public class PlayerAttack : MonoBehaviour
             stat.stemina -= attackStaminaCost * 2;
             modifiedAttackDamage *= 2;
             comboAttackClickCount = 0;
+            comboAttack = true;
         }
         modifiedAttackDamage = playerStatusHandler.CriticalCheck(modifiedAttackDamage);
         return modifiedAttackDamage;
     }
-    
+
     private void ApplyDamage() // Add damage To Monster
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, stat.attackRange , enemyLayer);
-        if (hitEnemies != null)
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, stat.attackRange, enemyLayer);
+
+        Debug.Log("enemyLayer : " + enemyLayer);
+        Debug.Log("hitEnemy : " + hitEnemies.Length);
+        if (hitEnemies.Length != 0)
         {
-            int damage = DamageCalculator();
+
             ClickCount();
+            int damage = DamageCalculator();
             foreach (Collider2D enemyCollider in hitEnemies)
             {
                 EnemyStatusHandler enemyhandler = enemyCollider.GetComponent<EnemyStatusHandler>();
                 enemyhandler.TakeDamage(damage);
                 RegainAttack(damage);
                 PlayerEvents.playerDamaged.Invoke(gameObject, damage);
-            }  
+            }
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        if (attackPoint == null)
-        {
-            return;
-        }
-        Gizmos.DrawWireSphere(attackPoint.position, stat.attackRange);
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireSphere(attackPoint.position, stat.attackRange);
 
-    }
+    //}
 }
