@@ -46,9 +46,12 @@ public class PlayerStatusHandler :StatHandler
     
     protected override void SetStat()
     {
+        //추가
         currentStat = ScriptableObject.CreateInstance<PlayerStat>();
         currentStat.speed=playerMaxStat.speed;
         currentStat.parryTime = playerMaxStat.parryTime;
+        currentStat.stemina = playerMaxStat.stemina;
+        currentStat.damage = playerMaxStat.damage;
 
         UpdateStatus();
     }

@@ -188,23 +188,23 @@ public class skeletonEnemy : MonoBehaviour
     }
     public void Knockback()
     {
-        if(gameManager.playerAttack.comboAttack == true)
-        {
-            knockback = true;
-            knockbackStart = Time.time;
-            rb.velocity = new Vector2(knockbackSpeedX * gameManager.lastPlayerController.facingDirection, knockbackSpeedY);
-        }
+        //if(gameManager.playerAttack.comboAttack == true)
+        //{
+        //    knockback = true;
+        //    knockbackStart = Time.time;
+        //    rb.velocity = new Vector2(knockbackSpeedX * gameManager.lastPlayerController.facingDirection, knockbackSpeedY);
+        //}
     }
     public void CheckKnockback()
     {
-        if (gameManager.playerAttack.comboAttack == false)
-        {
-            if (Time.time >= knockbackStart + knockbackDuration && knockback)
-            {
-                knockback = false;
-                rb.velocity = new Vector2(0.0f, rb.velocity.y);
-            }
-        }
+        //if (gameManager.playerAttack.comboAttack == false)
+        //{
+        //    if (Time.time >= knockbackStart + knockbackDuration && knockback)
+        //    {
+        //        knockback = false;
+        //        rb.velocity = new Vector2(0.0f, rb.velocity.y);
+        //    }
+        //}
     }
 
 }
