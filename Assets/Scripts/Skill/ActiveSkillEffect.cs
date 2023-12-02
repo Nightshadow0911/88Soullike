@@ -12,7 +12,7 @@ public class ActiveSkillEffect : SkillEffect
     public Vector3 skillPosition;
     public override bool ExcuteRole(int power, SkillType type) // power를 기반으로 피해를 줌
     {
-        Debug.Log("스킬이펙트");
+        skillPosition = GameManager.Instance.playerAttack.attackPoint.transform.position;
         // power만큼 피해를 가진다.
         // type에 따라 r근거리/ 원거리 나뉨
         GameObject go = Instantiate(skillPrefab, skillPosition, Quaternion.identity);
