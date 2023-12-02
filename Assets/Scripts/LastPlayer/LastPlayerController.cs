@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class LastPlayerController : MonoBehaviour
 {
+    private PlayerStatusHandler playerStatusHandler;
     private Animator anim;
     private Rigidbody2D rb;
-    private GameManager gameManager;
     private PlayerAttack playerAttack;
 
     public FadeOut fadeOut;
@@ -53,7 +53,6 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
-    [SerializeField] public float attackStaminaCost = 5f;
     [SerializeField] public float comboStaminaCost = 20f;
     [HideInInspector] public bool ledgeDetected;
 
@@ -71,11 +70,15 @@ public class LastPlayerController : MonoBehaviour
 
     void Start()
     {
-        anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        gameManager = GameManager.Instance;
+
     }
 
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        playerStatusHandler = GetComponent<PlayerStatusHandler>();
+    }
     void Update()
     {
         CheckInput();
@@ -177,10 +180,11 @@ public class LastPlayerController : MonoBehaviour
         if (canMove)
         {
             Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
-            rb.velocity = new Vector2((float)(movingInput * gameManager.playerStats.CharacterSpeed), rb.velocity.y);
+            rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
             if (isSitting)
             {
-                rb.velocity = new Vector2((float)(movingInput * gameManager.playerStats.ExtraCharacterSpeed), rb.velocity.y);
+                rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
+                Debug.Log(playerStatusHandler.GetStat().speed);
             }
         }
     }
@@ -278,7 +282,7 @@ public class LastPlayerController : MonoBehaviour
         {
             float verticalInput = Input.GetAxis("Vertical");
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(rb.velocity.x, (float)(verticalInput * gameManager.playerStats.CharacterSpeed));
+            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.GetStat().speed);
             isGrounded = false;
             canWallSlide = false;
         }
