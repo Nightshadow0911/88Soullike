@@ -68,6 +68,8 @@ public class LastPlayerController : MonoBehaviour
     public bool isSitting;
     public bool canDash = true;
 
+    public int skillIndex = 0;
+
     void Start()
     {
 
@@ -109,8 +111,15 @@ public class LastPlayerController : MonoBehaviour
     void UseSkill()
     {
 
-        transform.GetComponent<Equipment>().skillSlotList[0].Use();
+        transform.GetComponent<Equipment>().skillSlotList[skillIndex].Use();
 
+
+    }
+    public void ChangeSkill()
+    {
+        skillIndex++;
+        if (skillIndex >= 3) skillIndex = 0;
+        transform.GetComponent<Equipment>().ChageEquipSkill();
 
     }
 
