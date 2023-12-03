@@ -22,7 +22,7 @@ public class Equipment : MonoBehaviour
 
     public Item[] equipItemList = new Item[2];
     public Item[] quickSlotList = new Item[3];
-    public Skill[] skillSlotList = new Skill[3]; // 스킬 슬롯, 0번이 제일 앞에 보임
+    public Skill[] skillSlotList = new Skill[3]; // ��ų ����, 0���� ���� �տ� ����
     public GameObject[] skillIcons = new GameObject[3];
     public Transform skillHolder;
 
@@ -32,10 +32,10 @@ public class Equipment : MonoBehaviour
     private void Start()
     {
         characterStats = GameManager.Instance.playerStats;
-        for (int i = 0; i < skillIcons.Length; i++)
-        {
-            skillIcons[i] = skillHolder.GetChild(i).gameObject;
-        }
+        //for (int i = 0; i < skillIcons.Length; i++)
+        //{
+        //    skillIcons[i] = skillHolder.GetChild(i).gameObject;
+        //}
     }
 
     public void ChageEquipSkill()

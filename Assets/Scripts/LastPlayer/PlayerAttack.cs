@@ -45,58 +45,90 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckDeffense();
+        CheckDefense();
         CheckAttackTime();
         ResetClickCount();
     }
 
-
-    public void CheckDeffense()
+    public void CheckDefense()
     {
-        if (isGuarding)
-        {
-            monsterToPlayerDamage = true;// 몬스터가 플레이어한테 데미지를 줌 
-        }
+        HandleGuarding();
+        HandleParrying();
+    }
 
-        // 패링 가능한 상태에서만 패링이 가능하도록 체크
-        if (Input.GetMouseButtonDown(1) && !isParrying)
+    private void HandleGuarding()
+    {
+        // 가드 중이 아닌 경우에만 가드 체크
+        if (!isGuarding)
         {
-            isParrying = true;
-            transform.Find("Parrying").gameObject.SetActive(true);
-            //parryWindowEndTime = Time.time + characterStats.ParryTime;
-            parryWindowEndTime = Time.time + stat.parryTime;
-            Debug.Log("Parry Start");
+            if (Input.GetMouseButtonDown(1))
+            {
+                StartGuard();
+            }
         }
-        else if (Input.GetMouseButtonUp(1) && isParrying)
+        else // 가드 중인 경우에만 가드 해제 체크
         {
-            isParrying = false;
-            transform.Find("Parrying").gameObject.SetActive(false);
-            Debug.Log("Parry Success");
+            if (Input.GetMouseButtonUp(1))
+            {
+                EndGuard();
+            }
         }
+    }
 
-        // 가드가 활성화되지 않은 상태에서 가드 가능한지 체크
-        if (Input.GetMouseButtonDown(1) && !isGuarding)
+    private void HandleParrying()
+    {
+        // 패링 중이 아닌 경우에만 패링 체크
+        if (!isParrying)
         {
-            canAttack = false;
-            isGuarding = true;
-            Debug.Log("Guard Start");
-            transform.Find("Shield").gameObject.SetActive(true);
+            if (Input.GetMouseButtonDown(1))
+            {
+                StartParry();
+            }
         }
-        else if (Input.GetMouseButtonUp(1) && isGuarding)
+        else // 패링 중인 경우에만 패링 해제 체크
         {
-            canAttack = true;
-            isGuarding = false;
-            Debug.Log("Guard End");
-            transform.Find("Shield").gameObject.SetActive(false);
-        }
+            if (Input.GetMouseButtonUp(1))
+            {
+                EndParry();
+            }
 
-        // 패링 윈도우 종료 체크
-        if (Time.time > parryWindowEndTime)
-        {
-            isParrying = false;
-            transform.Find("Parrying").gameObject.SetActive(false);
-            //Debug.Log("Parry Failed");
+            // 패링 윈도우 종료 체크
+            if (Time.time > parryWindowEndTime)
+            {
+                EndParry();
+            }
         }
+    }
+
+    private void StartGuard()
+    {
+        canAttack = false;
+        isGuarding = true;
+        Debug.Log("Guard Start");
+        transform.Find("Shield").gameObject.SetActive(true);
+    }
+
+    private void EndGuard()
+    {
+        canAttack = true;
+        isGuarding = false;
+        Debug.Log("Guard End");
+        transform.Find("Shield").gameObject.SetActive(false);
+    }
+
+    private void StartParry()
+    {
+        isParrying = true;
+        transform.Find("Parrying").gameObject.SetActive(true);
+        parryWindowEndTime = Time.time + stat.parryTime; // stat.parryTime 대신 적절한 변수 사용
+        Debug.Log("Parry Start");
+    }
+
+    private void EndParry()
+    {
+        isParrying = false;
+        transform.Find("Parrying").gameObject.SetActive(false);
+        Debug.Log("Parry Success");
     }
 
 
