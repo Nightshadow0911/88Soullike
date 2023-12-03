@@ -22,7 +22,7 @@ public class Equipment : MonoBehaviour
 
     public Item[] equipItemList = new Item[2];
     public Item[] quickSlotList = new Item[3];
-    public Skill[] skillSlotList = new Skill[3]; // ½ºÅ³ ½½·Ô, 0¹øÀÌ Á¦ÀÏ ¾Õ¿¡ º¸ÀÓ
+    public Skill[] skillSlotList = new Skill[3]; // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½, 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject[] skillIcons = new GameObject[3];
     public Transform skillHolder;
 
@@ -32,10 +32,10 @@ public class Equipment : MonoBehaviour
     private void Start()
     {
         characterStats = GameManager.Instance.playerStats;
-        for (int i = 0; i < skillIcons.Length; i++)
-        {
-            skillIcons[i] = skillHolder.GetChild(i).gameObject;
-        }
+        //for (int i = 0; i < skillIcons.Length; i++)
+        //{
+        //    skillIcons[i] = skillHolder.GetChild(i).gameObject;
+        //}
     }
 
     public void ChageEquipSkill()

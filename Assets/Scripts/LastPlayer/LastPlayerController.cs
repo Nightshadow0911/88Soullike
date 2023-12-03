@@ -20,7 +20,7 @@ public class LastPlayerController : MonoBehaviour
     private bool canMove = true;
 
     private bool canWallSlide;
-    private bool isWallSliding;
+    internal bool isWallSliding;
 
     public bool facingRight = true;
     private float movingInput;
@@ -70,6 +70,8 @@ public class LastPlayerController : MonoBehaviour
 
     public int skillIndex = 0;
 
+    private bool canPressS = true;
+    private float pressCooldown = 2f;
     void Start()
     {
 
@@ -84,7 +86,7 @@ public class LastPlayerController : MonoBehaviour
     void Update()
     {
         CheckInput();
-        
+        FastDown();
         CollisionCheck();
         FlipController();
         AnimatorController();
@@ -108,6 +110,14 @@ public class LastPlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G)) UseSkill();
     }
+
+
+    private IEnumerator EnablePressAfterCooldown()
+    {
+        yield return new WaitForSeconds(pressCooldown);
+        canPressS = true;
+    }
+
     void UseSkill()
     {
 
@@ -122,6 +132,7 @@ public class LastPlayerController : MonoBehaviour
         transform.GetComponent<Equipment>().ChageEquipSkill();
 
     }
+
 
     private void IsWallSliding()
     {
@@ -164,6 +175,8 @@ public class LastPlayerController : MonoBehaviour
             yield return null;
         }
     }
+
+
 
     private void AllowLedgeGrab()
     {
@@ -225,6 +238,34 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
+    private void FastDown()
+    {
+        if (!isGrounded)
+        {
+            if (canPressS && Input.GetKeyDown(KeyCode.S))
+            {
+                if (rb.velocity.y<0)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y *10f));
+                    canPressS = false;
+                    StartCoroutine(EnablePressAfterCooldown());
+                    Debug.Log("FastDown");
+                }
+                else
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * -10f));
+                    canPressS = false;
+                    StartCoroutine(EnablePressAfterCooldown());
+                    Debug.Log("FastDown2");
+                }
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+            }
+        }
+    }
+
     private void RegenStamina()
     {
         characterStats.characterStamina += staminaRegenRate * Time.deltaTime;
@@ -258,6 +299,7 @@ public class LastPlayerController : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
     }
 
     private void wallJump()
