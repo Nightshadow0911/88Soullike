@@ -6,14 +6,12 @@ using UnityEngine;
 public class LastPlayerController : MonoBehaviour
 {
     private PlayerStatusHandler playerStatusHandler;
-    private PlayerStat stat;
     private Animator anim;
     private Rigidbody2D rb;
     private PlayerAttack playerAttack;
 
     public FadeOut fadeOut;
-    //public CharacterStats characterStats;
-
+    public CharacterStats characterStats;
     public LedgeCheck ledgeCheck;
 
     public PlayerUI playerUI;
@@ -22,7 +20,7 @@ public class LastPlayerController : MonoBehaviour
     private bool canMove = true;
 
     private bool canWallSlide;
-    private bool isWallSliding;
+    internal bool isWallSliding;
 
     public bool facingRight = true;
     private float movingInput;
@@ -52,6 +50,7 @@ public class LastPlayerController : MonoBehaviour
     private float dashStartTime;
     private float lastDashTime;
 
+    [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
     [SerializeField] public float comboStaminaCost = 20f;
@@ -71,9 +70,11 @@ public class LastPlayerController : MonoBehaviour
 
     public int skillIndex = 0;
 
+    private bool canPressS = true;
+    private float pressCooldown = 2f;
     void Start()
     {
-        stat = playerStatusHandler.GetStat();
+
     }
 
     private void Awake()
@@ -85,7 +86,7 @@ public class LastPlayerController : MonoBehaviour
     void Update()
     {
         CheckInput();
-        
+        FastDown();
         CollisionCheck();
         FlipController();
         AnimatorController();
@@ -109,11 +110,19 @@ public class LastPlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G)) UseSkill();
     }
+
+
+    private IEnumerator EnablePressAfterCooldown()
+    {
+        yield return new WaitForSeconds(pressCooldown);
+        canPressS = true;
+    }
+
     void UseSkill()
     {
 
-
         transform.GetComponent<Equipment>().skillSlotList[skillIndex].Use();
+
 
     }
     public void ChangeSkill()
@@ -123,6 +132,7 @@ public class LastPlayerController : MonoBehaviour
         transform.GetComponent<Equipment>().ChageEquipSkill();
 
     }
+
 
     private void IsWallSliding()
     {
@@ -166,6 +176,8 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
+
+
     private void AllowLedgeGrab()
     {
         canGrabLedge = true;
@@ -205,10 +217,9 @@ public class LastPlayerController : MonoBehaviour
         {
             if (canDash)
             {
-                if (stat.stamina >= dashStaminaCost)
+                if (characterStats.characterStamina >= dashStaminaCost)
                 {
-                    stat.stamina -= dashStaminaCost;
-                    Debug.Log("Player:" + stat.stamina);
+                    characterStats.characterStamina -= dashStaminaCost;
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
@@ -227,15 +238,43 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
+    private void FastDown()
+    {
+        if (!isGrounded)
+        {
+            if (canPressS && Input.GetKeyDown(KeyCode.S))
+            {
+                if (rb.velocity.y<0)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y *10f));
+                    canPressS = false;
+                    StartCoroutine(EnablePressAfterCooldown());
+                    Debug.Log("FastDown");
+                }
+                else
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * -10f));
+                    canPressS = false;
+                    StartCoroutine(EnablePressAfterCooldown());
+                    Debug.Log("FastDown2");
+                }
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+            }
+        }
+    }
+
     private void RegenStamina()
     {
-        stat.stamina += staminaRegenRate * Time.deltaTime;
-        stat.stamina = Mathf.Clamp(stat.stamina, 0, 100);
+        characterStats.characterStamina += staminaRegenRate * Time.deltaTime;
+        characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
     }
 
     private void Death()
     {
-        if (stat.hp <= 0)
+        if (characterStats.characterHp <= 0)
         {
             Debug.Log("DeathAnim");
             anim.SetBool("isDeath", true);
@@ -260,6 +299,7 @@ public class LastPlayerController : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
     }
 
     private void wallJump()

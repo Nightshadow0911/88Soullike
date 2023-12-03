@@ -15,7 +15,7 @@ public enum Status // <- 레벨업시 사용
 
 public class PlayerStatusHandler :StatHandler
 {
-    public PlayerStat playerMaxStat; // MAX 수치 저장 데이터
+    private PlayerStat playerMaxStat; // MAX 수치 저장 데이터
     private PlayerStat currentStat; // 현재 수치 저장 데이터 
     public PlayerStat GetStat() => currentStat; // 현재 스탯 가져오기
     
@@ -42,7 +42,6 @@ public class PlayerStatusHandler :StatHandler
             return;
         damage -= currentStat.defense;
         currentStat.hp -= damage;
-        currentStat.regainHp -= (damage / 2);
     }
     
     protected override void SetStat()
@@ -50,6 +49,8 @@ public class PlayerStatusHandler :StatHandler
         //추가
         currentStat = ScriptableObject.CreateInstance<PlayerStat>();
         currentStat.speed=playerMaxStat.speed;
+
+        
         UpdateStatus();
     }
 
@@ -63,7 +64,7 @@ public class PlayerStatusHandler :StatHandler
                 playerMaxStat.healthStat += num;
                 break;
             case Status.Stemina:
-                playerMaxStat.staminaStat += num;
+                playerMaxStat.steminaStat += num;
                 break;
             case Status.Str:
                 playerMaxStat.strStat += num;
@@ -84,11 +85,10 @@ public class PlayerStatusHandler :StatHandler
    
     private void UpdateStatus()  // 업데이트 스테이터스 매서드
     {
-        currentStat.hp = playerMaxStat.healthStat * 10;
-        currentStat.regainHp = playerMaxStat.healthStat * 10; // 추가 
+        currentStat.hp = playerMaxStat.healthStat * 10; 
         currentStat.defense = playerMaxStat.healthStat * 2;
-        currentStat.stamina = playerMaxStat.staminaStat * 5; 
-        currentStat.weight = playerMaxStat.staminaStat * 3;
+        currentStat.stemina = playerMaxStat.steminaStat * 5; 
+        currentStat.weight = playerMaxStat.steminaStat * 3;
         currentStat.increaseParryTime = playerMaxStat.strStat * 0.01f;
         currentStat.parryTime = playerMaxStat.parryTime + currentStat.increaseParryTime;
         currentStat.increaseInvincibleTime = playerMaxStat.dexStat * 0.01f;
@@ -99,11 +99,10 @@ public class PlayerStatusHandler :StatHandler
         currentStat.criticalChance = playerMaxStat.luxStat * 0.1f;
         currentStat.increaseSoulDropRate = playerMaxStat.luxStat * 10f;
         currentStat.soulDropRate = playerMaxStat.soulDropRate + currentStat.increaseSoulDropRate;
-
-        currentStat.damage = playerMaxStat.strStat * 4 + playerMaxStat.dexStat * 2;
-
+        
+        currentStat.damage = playerMaxStat.strStat * 4 + playerMaxStat.dexStat * 2; 
+        
         playerMaxStat.hp = playerMaxStat.healthStat * 10;
-        playerMaxStat.stamina = playerMaxStat.staminaStat * 5;
-        playerMaxStat.mana = 4;
+        playerMaxStat.stemina = playerMaxStat.steminaStat * 5;
     }
 }
