@@ -16,12 +16,11 @@ MonoBehaviour:
   damage: 15
   defense: 10
   speed: 10
-  delay: 0
+  delay: 1
   attackRange: 0
-  propertyDamage: 0
+  propertyDamage: 1
   propertyDefense: 0
   detectRange: 100
-  patternDelay: 1
   target:
     serializedVersion: 2
     m_Bits: 64

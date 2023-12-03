@@ -7,6 +7,5 @@ public class EnemyStat : BaseStat
 {
    [Header("Enemy Stats")] 
    public float detectRange;
-   public float patternDelay;
    public LayerMask target;
 }

@@ -27,16 +27,16 @@ public class EnemyStatusHandler :StatHandler
    
     protected override void SetStat()
     {
-        currentStat = ScriptableObject.CreateInstance<EnemyStat>();
-        currentStat.hp = enemyMaxStat.hp;
-        currentStat.damage = enemyMaxStat.damage;
-        currentStat.speed = enemyMaxStat.speed;
-        currentStat.delay = enemyMaxStat.delay;
-        currentStat.defense = enemyMaxStat.defense;
-        currentStat.propertyDamage = enemyMaxStat.propertyDamage;
-        currentStat.propertyDefense = enemyMaxStat.propertyDefense;
-        currentStat.detectRange = enemyMaxStat.detectRange;
-        currentStat.patternDelay = enemyMaxStat.patternDelay;
-        currentStat.target = enemyMaxStat.target;
+        // currentStat = ScriptableObject.CreateInstance<EnemyStat>();
+        // currentStat.hp = enemyMaxStat.hp;
+        // currentStat.damage = enemyMaxStat.damage;
+        // currentStat.speed = enemyMaxStat.speed;
+        // currentStat.delay = enemyMaxStat.delay;
+        // currentStat.defense = enemyMaxStat.defense;
+        // currentStat.propertyDamage = enemyMaxStat.propertyDamage;
+        // currentStat.propertyDefense = enemyMaxStat.propertyDefense;
+        // currentStat.detectRange = enemyMaxStat.detectRange;
+        // currentStat.patternDelay = enemyMaxStat.patternDelay;
+        // currentStat.target = enemyMaxStat.target;
     }
 }
