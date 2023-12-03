@@ -10,34 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d18910ed4730bca48a5e1ed9333f06e4, type: 3}
-  m_Name: PlayerStat
+  m_Name: PlayerGrowStat
   m_EditorClassIdentifier: 
-  hp: 0
+  hp: 100
   damage: 0
   defense: 0
-  speed: 5
-  delay: 0
-  attackRange: 1
-  propertyDamage: 1
-  propertyDefense: 1
-  level: 1
-  levelPoint: 10
+  speed: 8
+  delay: 1.2
+  attackRange: 1.5
+  propertyDamage: 0
+  propertyDefense: 0
+  level: 0
+  levelPoint: 0
   healthStat: 0
   steminaStat: 0
   strStat: 0
   dexStat: 0
   intStat: 0
   luxStat: 0
-  stemina: 0
-  mana: 0
+  stemina: 50
   weight: 0
   spellPower: 0
   regainHp: 0
   invincibleTime: 0
-  increaseInvincibleTime: 0
-  parryTime: 0.05
-  increaseParryTime: 0
-  extraMoveSpeed: 1.5
+  parryTime: 0
+  extraMoveSpeed: 0
   soulDropRate: 0
-  increaseSoulDropRate: 0
   criticalChance: 0

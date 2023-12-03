@@ -108,11 +108,11 @@ public class PlayerAttack : MonoBehaviour
             //{
             //    characterStats.characterMana += 1;
             //}
-            if (stat.mana < 4)
-            {
-                stat.mana += 1;
-            }
-            manaRegainClickCount = 1;
+            // if (stat.mana < 4)
+            // {
+            //     stat.mana += 1;
+            // }
+            // manaRegainClickCount = 1;
         }
     }
 
@@ -199,9 +199,8 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawWireSphere(attackPoint.position, stat.attackRange);
-
-    //}
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.DrawWireSphere(attackPoint.position, stat.attackRange);
+    // }
 }

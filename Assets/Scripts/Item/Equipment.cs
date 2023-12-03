@@ -22,7 +22,7 @@ public class Equipment : MonoBehaviour
 
     public Item[] equipItemList = new Item[2];
     public Item[] quickSlotList = new Item[3];
-    public Skill[] skillSlotList = new Skill[3]; // ½ºÅ³ ½½·Ô, 0¹øÀÌ Á¦ÀÏ ¾Õ¿¡ º¸ÀÓ
+    public Skill[] skillSlotList = new Skill[3]; // ìŠ¤í‚¬ ìŠ¬ë¡¯, 0ë²ˆì´ ì œì¼ ì•ì— ë³´ì„
     public GameObject[] skillIcons = new GameObject[3];
     public Transform skillHolder;
 
