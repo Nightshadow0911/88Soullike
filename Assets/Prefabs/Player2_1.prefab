@@ -176,7 +176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeOut: {fileID: 7183166718667996228}
-  characterStats: {fileID: 2491328609635162135}
   ledgeCheck: {fileID: 5023542258718932009}
   playerUI: {fileID: 0}
   jumpForce: 8
@@ -208,9 +207,7 @@ MonoBehaviour:
   dashDuration: 0.5
   dashCooldown: 1
   isDashing: 0
-  currentStamina: 100
   staminaRegenRate: 10
-  dashStaminaCost: 10
   comboStaminaCost: 20
   ledgeDetected: 0
   offset1: {x: 0, y: -1.6}
@@ -451,6 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStatSO: {fileID: 11400000, guid: de06f41263c3f4a9482044bad20c442b, type: 2}
+  growStatSO: {fileID: 11400000, guid: 769d5f30a0e7ecf45ba30e823db4645b, type: 2}
 --- !u!1 &2018583826729319458
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 311699310386165041}
   - component: {fileID: 1105700408747113865}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +644,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0607f822626da424e8666e4e016a1908, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -674,7 +672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6917367673985408838
 Transform:
   m_ObjectHideFlags: 0
@@ -753,7 +751,7 @@ GameObject:
   - component: {fileID: 2253853175490137132}
   - component: {fileID: 363207681412182346}
   - component: {fileID: 2059018855701250480}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MagnetField
   m_TagString: MagnetField
   m_Icon: {fileID: 0}
@@ -831,7 +829,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3646084481749102177}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

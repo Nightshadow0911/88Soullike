@@ -13,7 +13,6 @@ public class BuffSkillEffect : SkillEffect
 
     public override bool ExcuteRole(int power, SkillType type) //아이템의 효과, 이대로면 power는 쓸모없긴 한데..
     {
-        // PlayerBuff.Instance.AddBuff(curBuff); // Buff - BuffSO - StatName에 따라 효과가 달라짐
         var buff = Instantiate(buffPrefab);
         pb = GameManager.Instance.player.GetComponent<PlayerBuff>();
 

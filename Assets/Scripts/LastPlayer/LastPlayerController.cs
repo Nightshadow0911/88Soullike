@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class LastPlayerController : MonoBehaviour
 {
+    private SoundManager soundManager;
     private PlayerStatusHandler playerStatusHandler;
     private Animator anim;
     private Rigidbody2D rb;
     private PlayerAttack playerAttack;
 
     public FadeOut fadeOut;
-    public CharacterStats characterStats;
     public LedgeCheck ledgeCheck;
 
     public PlayerUI playerUI;
@@ -50,9 +50,8 @@ public class LastPlayerController : MonoBehaviour
     private float dashStartTime;
     private float lastDashTime;
 
-    [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
-    [SerializeField] private float dashStaminaCost = 20f;
+    private float dashStaminaCost = 20f;
     [SerializeField] public float comboStaminaCost = 20f;
     [HideInInspector] public bool ledgeDetected;
 
@@ -70,13 +69,18 @@ public class LastPlayerController : MonoBehaviour
 
     public int skillIndex = 0;
 
+    private bool canPressS = true;
+    private float pressCooldown = 2f;
+
+
     void Start()
     {
-
+        soundManager = SoundManager.instance;
     }
 
     private void Awake()
     {
+       
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
@@ -84,7 +88,7 @@ public class LastPlayerController : MonoBehaviour
     void Update()
     {
         CheckInput();
-        
+        FastDown();
         CollisionCheck();
         FlipController();
         AnimatorController();
@@ -107,6 +111,39 @@ public class LastPlayerController : MonoBehaviour
         Death();
 
         if (Input.GetKeyDown(KeyCode.G)) UseSkill();
+    }
+
+    private void FastDown()
+    {
+        if (!isGrounded)
+        {
+            if (canPressS && Input.GetKeyDown(KeyCode.S))
+            {
+                if (rb.velocity.y < 0)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * 10f));
+                    canPressS = false;
+                    StartCoroutine(EnablePressAfterCooldown());
+                    Debug.Log("FastDown");
+                }
+                else
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * -10f));
+                    canPressS = false;
+                    StartCoroutine(EnablePressAfterCooldown());
+                    Debug.Log("FastDown2");
+                }
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+            }
+        }
+    }
+    private IEnumerator EnablePressAfterCooldown()
+    {
+        yield return new WaitForSeconds(pressCooldown);
+        canPressS = true;
     }
     void UseSkill()
     {
@@ -187,7 +224,7 @@ public class LastPlayerController : MonoBehaviour
     private void Move()
     {
         if (canMove)
-        {
+        { 
             Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
             rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
             if (isSitting)
@@ -204,9 +241,9 @@ public class LastPlayerController : MonoBehaviour
         {
             if (canDash)
             {
-                if (characterStats.characterStamina >= dashStaminaCost)
+                if (playerStatusHandler.GetStat().stemina >= dashStaminaCost)
                 {
-                    characterStats.characterStamina -= dashStaminaCost;
+                    playerStatusHandler.GetStat().stemina -= dashStaminaCost;
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
@@ -227,13 +264,14 @@ public class LastPlayerController : MonoBehaviour
 
     private void RegenStamina()
     {
-        characterStats.characterStamina += staminaRegenRate * Time.deltaTime;
-        characterStats.characterStamina = Mathf.Clamp(characterStats.characterStamina, 0f, 100f);
+        playerStatusHandler.GetStat().stemina += staminaRegenRate * Time.deltaTime;
+        playerStatusHandler.GetStat().stemina = Mathf.Clamp(playerStatusHandler.GetStat().stemina, 0f, 100f);
+        //Debug.Log("currentStamina ::" + playerStatusHandler.GetStat().stemina);
     }
 
     private void Death()
     {
-        if (characterStats.characterHp <= 0)
+        if (playerStatusHandler.GetStat().hp <= 0)
         {
             Debug.Log("DeathAnim");
             anim.SetBool("isDeath", true);

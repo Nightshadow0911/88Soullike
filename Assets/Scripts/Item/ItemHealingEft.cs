@@ -7,21 +7,22 @@ public class ItemHealingEft : ItemEffect
 {
     public int healingPoint = 0;
     private PlayerStatusHandler playerStatusHandler;
-    private CharacterStats ps; //
+    private PlayerStat playerStat; //
+    private PlayerStat playerMaxStat; //
 
     public override bool ExcuteRole(int power) //�������� ȿ��
     {
-        ps = GameManager.Instance.playerStats;
-        healingPoint = (int)Mathf.Ceil(ps.MaxHP * 0.4f);
+        playerStatusHandler = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
+        playerStat = playerStatusHandler.GetStat();
+        playerMaxStat = playerStatusHandler.GetMaxStat();
+        healingPoint = (int)Mathf.Ceil(playerMaxStat.hp * 0.4f);
 
-        ps.characterHp += healingPoint;
+        playerStat.hp += healingPoint;
 
-        if(ps.characterHp >= ps.MaxHP)
+        if(playerStat.hp >= playerMaxStat.hp)
         {
-            ps.characterHp = ps.MaxHP;
+            playerStat.hp = playerMaxStat.hp;
         }
-        Debug.Log(healingPoint);
-
         return true;
     }
 }

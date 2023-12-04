@@ -239,7 +239,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.836
+  m_Value: 0.618
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1178,7 +1178,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.59
+  m_Value: 0.576
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1218,7 +1218,7 @@ RectTransform:
   - {fileID: 836903944859815577}
   - {fileID: 7375162987284541612}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1300,7 +1300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8445ecc21deb4643aebe65923fe7cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterStats: {fileID: 0}
+  PlayerStatusHandler: {fileID: 0}
   lastPlayerController: {fileID: 0}
   healthText: {fileID: 3509723699448283038}
   healthSlider: {fileID: 3911901761150695551}

@@ -13,13 +13,14 @@ public class PlayerBuff : MonoBehaviour
     [SerializeField] private Dictionary<Buff, bool> buffs = new Dictionary<Buff, bool>();
     //버프 SO 넣어둔 Dictionary 추가 생성?
 
+
     public void AddBuff(Buff buff)
     {
         if (!buffs.ContainsKey(buff))
         {
             buffs.Add(buff, true); // activated this, ()
             buff.Activated(transform.GetComponent<PlayerAttack>(), () =>
-            {
+            { //공격력 버프는 아직 PlayerAttack에서 하는게 맞는가? 버프로 조정되는 모든 스탯이 하나의 스크립트에 모여있어야 좋은데
                 buffs.Remove(buff);
                 Destroy(buff.gameObject);
                 Debug.Log(buff.buff.name + " : 버프 제거됨");
@@ -29,6 +30,8 @@ public class PlayerBuff : MonoBehaviour
         }
         AddBuffUI(buff.buff);
     }
+    // 1. PlayerStat.cs에 PlayerBuffStat 추가
+    // 2. PlayerStatusHandler에서 
 
     public void AddBuffUI(BuffSO buffSO)
     {
