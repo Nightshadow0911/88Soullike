@@ -10,6 +10,7 @@ public class SavePoint : MonoBehaviour
     [SerializeField] private string pointName;
     [SerializeField] private GameObject travelPoint;
     [SerializeField] private GameObject alert;
+    [SerializeField] private GameObject awakeEffect;
     [SerializeField] private LayerMask playerLayer;
     private bool isAwake = false;
     
@@ -17,8 +18,9 @@ public class SavePoint : MonoBehaviour
 
     private void Awake()
     {
-        travelPoint.SetActive(false);
         alert.SetActive(false);
+        awakeEffect.SetActive(false);
+        travelPoint.SetActive(false);
     }
 
     private void Update()
@@ -28,12 +30,13 @@ public class SavePoint : MonoBehaviour
             if (!isAwake)
             {
                 travelPoint.GetComponent<TravelPoint>().SetTravel(name, transform.position);
+                awakeEffect.SetActive(true);
                 TravelEvent?.Invoke(true);
                 isAwake = true;
             }
             CharacterStats stats = GameManager.Instance.playerStats;
-            stats.characterHp = stats.MaxHP;
-            stats.characterStamina = stats.MaxStemina;
+            // stats.characterHp = stats.MaxHP;
+            // stats.characterStamina = stats.MaxStemina;
         }
     }
 

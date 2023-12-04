@@ -8,4 +8,20 @@ public class EnemyStat : BaseStat
    [Header("Enemy Stats")] 
    public float detectRange;
    public LayerMask target;
+   
+   [Header("Distance Setting")]
+   public float closeRange;
+   public float mediumRange;
+   public float longRange;
+
+   public EnemyStat CopyEnemyStat(EnemyStat stat)
+   {
+      base.CopyStat(stat);
+      stat.detectRange = detectRange;
+      stat.target = target;
+      stat.closeRange = closeRange;
+      stat.mediumRange = mediumRange;
+      stat.longRange = longRange;
+      return stat;
+   }
 }

@@ -22,21 +22,23 @@ public class EnemyStatusHandler :StatHandler
             return;
         damage -= currentStat.defense;
         currentStat.hp -= damage;
-        Debug.Log("currentStat.hp:" + currentStat.hp);
     }
    
     protected override void SetStat()
     {
-        // currentStat = ScriptableObject.CreateInstance<EnemyStat>();
-        // currentStat.hp = enemyMaxStat.hp;
-        // currentStat.damage = enemyMaxStat.damage;
-        // currentStat.speed = enemyMaxStat.speed;
-        // currentStat.delay = enemyMaxStat.delay;
-        // currentStat.defense = enemyMaxStat.defense;
-        // currentStat.propertyDamage = enemyMaxStat.propertyDamage;
-        // currentStat.propertyDefense = enemyMaxStat.propertyDefense;
-        // currentStat.detectRange = enemyMaxStat.detectRange;
-        // currentStat.patternDelay = enemyMaxStat.patternDelay;
-        // currentStat.target = enemyMaxStat.target;
+        currentStat = ScriptableObject.CreateInstance<EnemyStat>();
+        currentStat.hp = enemyMaxStat.hp;
+        currentStat.damage = enemyMaxStat.damage;
+        currentStat.defense = enemyMaxStat.defense;
+        currentStat.speed = enemyMaxStat.speed;
+        currentStat.delay = enemyMaxStat.delay;
+        currentStat.attackRange = enemyMaxStat.attackRange;
+        currentStat.propertyDamage = enemyMaxStat.propertyDamage;
+        currentStat.propertyDefense = enemyMaxStat.propertyDefense;
+        currentStat.detectRange = enemyMaxStat.detectRange;
+        currentStat.target = enemyMaxStat.target;
+        currentStat.closeRange = enemyMaxStat.closeRange;
+        currentStat.mediumRange = enemyMaxStat.mediumRange;
+        currentStat.longRange = enemyMaxStat.longRange;
     }
 }
