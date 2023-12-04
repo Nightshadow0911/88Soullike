@@ -16,15 +16,17 @@ MonoBehaviour:
   damage: 15
   defense: 10
   speed: 10
-  delay: 0
+  delay: 1
   attackRange: 0
   propertyDamage: 0
   propertyDefense: 0
-  detectRange: 100
-  patternDelay: 1
+  detectRange: 0
   target:
     serializedVersion: 2
     m_Bits: 64
+  closeRange: 3
+  mediumRange: 13
+  longRange: 0
   meleeAttackRange: {x: 2, y: 2}
   dodgeDistance: 4
   dodgeTime: 0.4
