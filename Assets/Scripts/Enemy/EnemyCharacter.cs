@@ -43,7 +43,7 @@ public class EnemyCharacter : EnemyPattern
             ActionPattern();
         if (state != State.RUNNING)
             currentTime += Time.deltaTime;
-        if (currentTime > stat.delay)
+        if (currentTime > stat.patternDelay)
         {
             ActionPattern();
         }
