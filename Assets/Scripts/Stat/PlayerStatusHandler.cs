@@ -22,6 +22,7 @@ public class PlayerStatusHandler :StatHandler
     private PlayerStat playerMaxStat; // MAX 수치 저장 데이터
     private PlayerStat currentStat; // 현재 수치 저장 데이터 
     public PlayerStat GetStat() => currentStat;
+    public PlayerStat GetMaxStat() => playerMaxStat;
     public PlayerStat growStatSO;// 현재 스탯 가져오기
     
     protected override void Awake()
@@ -208,6 +209,21 @@ public class PlayerStatusHandler :StatHandler
                 playerMaxStat.hp += (int)Math.Floor(floorStat);
                 break;
         }
+    }
+    public void UpdateWeapon(int power, float attackSpeed, float attackRange, int weight, int propertyAmount)
+    {
+        currentStat.damage += power;
+        currentStat.delay += attackSpeed;
+        currentStat.attackRange += attackRange;
+        currentStat.weight += weight;
+        currentStat.propertyDamage += propertyAmount;
+
+    }
+    public void UpdateArmor(int power, int weight, int propertyAmount)
+    {
+        currentStat.defense += power;
+        currentStat.weight += weight;
+        currentStat.propertyDefense += propertyAmount;
     }
 
 }
