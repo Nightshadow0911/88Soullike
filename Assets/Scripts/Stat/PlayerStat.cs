@@ -16,7 +16,7 @@ public class PlayerStat : BaseStat
     public int dexStat;
     public int intStat;
     public int luxStat;
-    
+
     [Header("Player Stats")]
     public int stemina;
     public int mana;
