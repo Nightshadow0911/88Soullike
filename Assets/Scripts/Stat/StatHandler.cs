@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class StatHandler : MonoBehaviour
 {
-   [SerializeField] protected BaseStat baseStatSO;
+   [SerializeField] protected BaseStat currentStatSO;
 
    protected virtual void Awake()
    {
