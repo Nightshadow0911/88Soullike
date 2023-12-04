@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    private GameManager gameManager;
-    public CharacterStats characterStats;
+    private PlayerStatusHandler playerStatusHandler;
     public LastPlayerController lastPlayerController;
     public Text healthText;
     public Slider healthSlider;
@@ -18,13 +17,15 @@ public class PlayerUI : MonoBehaviour
     public Text manaText;
     void Start()
     {
-        gameManager = GameManager.Instance;
         healthSlider.value = 1;
         staminaSlider.value = 1;
         regainSlider.value = 1;
         manaSlider.value = 1;
     }
-
+    private void Awake()
+    {
+        playerStatusHandler = GetComponent<PlayerStatusHandler>();
+    }
     void Update()
     {
         UpdateHpUI();
@@ -36,38 +37,37 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateHpUI()
     {
-        int maxHealth = characterStats.MaxHP;
-        int currentHealth = characterStats.characterHp;
-
+        int maxHealth = 100;
+        int currentHealth = 100;//playerStatusHandler.GetStat().hp;
         healthText.text = "HP: " + currentHealth + " / " + maxHealth;
         healthSlider.value = calculateHealthPercentage(currentHealth, maxHealth);
     }
     private void UpdateStaminaUI()
     {
-        float maxStamina = characterStats.MaxStemina;
-        float currentStamina = characterStats.characterStamina;
+        float maxStamina = 100;
+        float currentStamina = 100;//playerStatusHandler.GetStat().stemina;
         staminaSlider.value = currentStamina / maxStamina;
     }
 
     private void UpdateManaUI()
     {
-        int maxMana = characterStats.MaxMana;
-        int currentMana = characterStats.characterMana;
+        int maxMana = 4;
+        int currentMana = 4;
         manaText.text = currentMana + " / " + maxMana;
         manaSlider.value = calculaterManaPercentage(currentMana, maxMana);
     }
 
     public void UpdateRegainHpUI()
     {
-        int maxHealth = characterStats.MaxHP;
-        int characterRegainHp = characterStats.characterRegainHp;
-        if (gameManager.playerStats.characterRegainHp < gameManager.playerStats.characterHp)
+        int maxHealth = 100;
+        int characterRegainHp = 100;//playerStatusHandler.GetStat().regainHp;
+        if (playerStatusHandler.GetStat().regainHp < playerStatusHandler.GetStat().hp)
         {
-            gameManager.playerStats.characterRegainHp = gameManager.playerStats.characterHp;
+            playerStatusHandler.GetStat().regainHp = playerStatusHandler.GetStat().hp;
         }
-        if (gameManager.playerStats.characterHp <= 0)
+        if (playerStatusHandler.GetStat().hp <= 0)
         {
-            gameManager.playerStats.characterRegainHp = 0;
+            playerStatusHandler.GetStat().regainHp = 0;
         }
         regainSlider.value = calculateGuardPercentage(characterRegainHp, maxHealth);
     }
