@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de6f87c417638644d90868bcd6c3fa79, type: 3}
+  m_Name: DEFBuffSO
+  m_EditorClassIdentifier: 
+  type: 2
+  activeType: 0
+  skillName: "\uBC29\uC5B4\uB825 \uC99D\uAC00"
+  skillIcon: {fileID: 0}
+  efts:
+  - {fileID: 11400000, guid: a7389691ff9c3e34fa37597282ebe98c, type: 2}
+  power: 10
+  cost: 0
+  descriptiion:
+  - "\uBC1B\uB294 \uD53C\uD574 '\uACC4\uC0B0\uC2DD'\uAC10\uC18C"
+  skillProperty: 0
+  price: 800

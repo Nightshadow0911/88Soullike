@@ -28,6 +28,7 @@ public class PlayerAttack : MonoBehaviour
     //public float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
     public bool comboAttack;
+    public int buffDamage = 0;
 
     // Start is called before the first frame update
 
@@ -45,90 +46,58 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckDefense();
+        CheckDeffense();
         CheckAttackTime();
         ResetClickCount();
     }
 
-    public void CheckDefense()
-    {
-        HandleGuarding();
-        HandleParrying();
-    }
 
-    private void HandleGuarding()
+    public void CheckDeffense()
     {
-        // 가드 중이 아닌 경우에만 가드 체크
-        if (!isGuarding)
+        if (isGuarding)
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-                StartGuard();
-            }
+            monsterToPlayerDamage = true;// 몬스터가 플레이어한테 데미지를 줌 
         }
-        else // 가드 중인 경우에만 가드 해제 체크
+
+        // 패링 가능한 상태에서만 패링이 가능하도록 체크
+        if (Input.GetMouseButtonDown(1) && !isParrying)
         {
-            if (Input.GetMouseButtonUp(1))
-            {
-                EndGuard();
-            }
+            isParrying = true;
+            transform.Find("Parrying").gameObject.SetActive(true);
+            //parryWindowEndTime = Time.time + characterStats.ParryTime;
+            parryWindowEndTime = Time.time + stat.parryTime;
+            Debug.Log("Parry Start");
         }
-    }
-
-    private void HandleParrying()
-    {
-        // 패링 중이 아닌 경우에만 패링 체크
-        if (!isParrying)
+        else if (Input.GetMouseButtonUp(1) && isParrying)
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-                StartParry();
-            }
+            isParrying = false;
+            transform.Find("Parrying").gameObject.SetActive(false);
+            Debug.Log("Parry Success");
         }
-        else // 패링 중인 경우에만 패링 해제 체크
+
+        // 가드가 활성화되지 않은 상태에서 가드 가능한지 체크
+        if (Input.GetMouseButtonDown(1) && !isGuarding)
         {
-            if (Input.GetMouseButtonUp(1))
-            {
-                EndParry();
-            }
-
-            // 패링 윈도우 종료 체크
-            if (Time.time > parryWindowEndTime)
-            {
-                EndParry();
-            }
+            canAttack = false;
+            isGuarding = true;
+            Debug.Log("Guard Start");
+            transform.Find("Shield").gameObject.SetActive(true);
         }
-    }
+        else if (Input.GetMouseButtonUp(1) && isGuarding)
+        {
+            canAttack = true;
+            isGuarding = false;
+            Debug.Log("Guard End");
+            transform.Find("Shield").gameObject.SetActive(false);
+        }
 
-    private void StartGuard()
-    {
-        canAttack = false;
-        isGuarding = true;
-        Debug.Log("Guard Start");
-        transform.Find("Shield").gameObject.SetActive(true);
-    }
-
-    private void EndGuard()
-    {
-        canAttack = true;
-        isGuarding = false;
-        Debug.Log("Guard End");
-        transform.Find("Shield").gameObject.SetActive(false);
-    }
-
-    private void StartParry()
-    {
-        isParrying = true;
-        transform.Find("Parrying").gameObject.SetActive(true);
-        parryWindowEndTime = Time.time + stat.parryTime; // stat.parryTime 대신 적절한 변수 사용
-        Debug.Log("Parry Start");
-    }
-
-    private void EndParry()
-    {
-        isParrying = false;
-        transform.Find("Parrying").gameObject.SetActive(false);
-        Debug.Log("Parry Success");
+        // 패링 윈도우 종료 체크
+        if (Time.time > parryWindowEndTime)
+        {
+            isParrying = false;
+            transform.Find("Parrying").gameObject.SetActive(false);
+            //Debug.Log("Parry Failed");
+        }
     }
 
 
@@ -140,11 +109,11 @@ public class PlayerAttack : MonoBehaviour
             //{
             //    characterStats.characterMana += 1;
             //}
-            // if (stat.mana < 4)
-            // {
-            //     stat.mana += 1;
-            // }
-            // manaRegainClickCount = 1;
+            if (stat.mana < 4)
+            {
+                stat.mana += 1;
+            }
+            manaRegainClickCount = 1;
         }
     }
 
@@ -191,7 +160,8 @@ public class PlayerAttack : MonoBehaviour
 
     private int DamageCalculator()
     {
-        int modifiedAttackDamage = stat.damage;
+        
+        int modifiedAttackDamage = stat.damage + buffDamage;
         if (comboAttackClickCount != 3)
         {
 
@@ -231,8 +201,9 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.DrawWireSphere(attackPoint.position, stat.attackRange);
-    // }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireSphere(attackPoint.position, stat.attackRange);
+
+    //}
 }

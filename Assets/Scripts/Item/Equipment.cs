@@ -22,20 +22,20 @@ public class Equipment : MonoBehaviour
 
     public Item[] equipItemList = new Item[2];
     public Item[] quickSlotList = new Item[3];
-    public Skill[] skillSlotList = new Skill[3]; // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½, 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Skill[] skillSlotList = new Skill[3]; // ½ºÅ³ ½½·Ô, 0¹øÀÌ Á¦ÀÏ ¾Õ¿¡ º¸ÀÓ
     public GameObject[] skillIcons = new GameObject[3];
     public Transform skillHolder;
 
-    private CharacterStats characterStats;
+    private PlayerStatusHandler playerStatusHandler;
 
 
     private void Start()
     {
-        characterStats = GameManager.Instance.playerStats;
-        //for (int i = 0; i < skillIcons.Length; i++)
-        //{
-        //    skillIcons[i] = skillHolder.GetChild(i).gameObject;
-        //}
+        playerStatusHandler = transform.GetComponent<PlayerStatusHandler>(); //
+        for (int i = 0; i < skillIcons.Length; i++)
+        {
+            skillIcons[i] = skillHolder.GetChild(i).gameObject;
+        }
     }
 
     public void ChageEquipSkill()
@@ -69,7 +69,7 @@ public class Equipment : MonoBehaviour
                     {
                         equipItemList[WEAPON] = newItem;
                     }
-                    UpdateStatus(WEAPON);
+                    EquipItem(WEAPON);
 
                 }
                 break;
@@ -85,7 +85,7 @@ public class Equipment : MonoBehaviour
                         equipItemList[ARMOR] = newItem;
 
                     }
-                    UpdateStatus(ARMOR);
+                    EquipItem(ARMOR);
 
                 }
                 break;
@@ -94,43 +94,38 @@ public class Equipment : MonoBehaviour
         }
         EquipmentUI.instance.DrawEquipSlot();
     }
-    public void UpdateStatus(int equipIndex)
+    public void EquipItem(int equipIndex) //
     {
         switch (equipIndex)
         {
             case WEAPON:
-                characterStats.NormalAttackDamage += equipItemList[equipIndex].Power;
-                characterStats.AttackSpeed += equipItemList[equipIndex].AttackSpeed;
-                characterStats.AttackRange += equipItemList[equipIndex].AttackRange;
-                characterStats.EquipWeight += equipItemList[equipIndex].Weight;
-                characterStats.PropertyDamage += equipItemList[equipIndex].PropertyAmount;
-                characterStats.WeightSpeed();
+                playerStatusHandler.UpdateWeapon(equipItemList[equipIndex].Power, equipItemList[equipIndex].AttackSpeed,
+                    equipItemList[equipIndex].AttackRange, equipItemList[equipIndex].Weight, equipItemList[equipIndex].PropertyAmount);
+
+                //characterStats.WeightSpeed();
+                // °ø°Ý·Â, °ø°Ý¼Óµµ, °ø°Ý¹üÀ§, ¹«°Ô, ¼Ó¼º°ø°Ý·Â, 
                 break;
             case ARMOR:
-                characterStats.CharacterDefense += equipItemList[equipIndex].Power;
-                characterStats.EquipWeight += equipItemList[equipIndex].Weight;
-                characterStats.PropertyDefense += equipItemList[equipIndex].PropertyAmount;
-                characterStats.WeightSpeed();
+                playerStatusHandler.UpdateArmor(equipItemList[equipIndex].Power,
+                    equipItemList[equipIndex].Weight, equipItemList[equipIndex].PropertyAmount);
+
+                //characterStats.WeightSpeed();
                 break;
         }
     }
-    public void UnEquipItem(int equipIndex)
+    public void UnEquipItem(int equipIndex) //
     {
-        //if (equipItemList[equipIndex] == null) return;
+        if (equipItemList[equipIndex] == null) return;
 
         switch (equipIndex)
         {
             case WEAPON:
-                characterStats.NormalAttackDamage -= equipItemList[equipIndex].Power;
-                characterStats.AttackSpeed -= equipItemList[equipIndex].AttackSpeed;
-                characterStats.AttackRange -= equipItemList[equipIndex].AttackRange;
-                characterStats.EquipWeight -= equipItemList[equipIndex].Weight;
-                characterStats.PropertyDamage -= equipItemList[equipIndex].PropertyAmount;
+                playerStatusHandler.UpdateWeapon(-equipItemList[equipIndex].Power, -equipItemList[equipIndex].AttackSpeed,
+                    -equipItemList[equipIndex].AttackRange, -equipItemList[equipIndex].Weight, -equipItemList[equipIndex].PropertyAmount);
                 break;
             case ARMOR:
-                characterStats.CharacterDefense -= equipItemList[equipIndex].Power;
-                characterStats.EquipWeight -= equipItemList[equipIndex].Weight;
-                characterStats.PropertyDefense -= equipItemList[equipIndex].PropertyAmount;
+                playerStatusHandler.UpdateArmor(-equipItemList[equipIndex].Power,
+                    -equipItemList[equipIndex].Weight, -equipItemList[equipIndex].PropertyAmount);
                 break;
         }
 
