@@ -104,7 +104,7 @@ public class PlayerStatusHandler :StatHandler
         
         playerMaxStat.damage = playerMaxStat.strStat * 4 + playerMaxStat.dexStat * 2; 
     }
-
+ //주석처리
     private void PlusStatsToMax()
     {
         if (playerBaseStat != null && playerGrowStat != null)
