@@ -12,9 +12,11 @@ public class PetBuff : MonoBehaviour
         seconds = new WaitForSeconds(30f);
         StartCoroutine(RepeatSkillTimer());
     }
+    
 
     IEnumerator RepeatSkillTimer()
     {
+        yield return new WaitForEndOfFrame();
         while(true)
         {
             yield return StartCoroutine(UseSkill());
@@ -26,8 +28,8 @@ public class PetBuff : MonoBehaviour
     {
         petSkill.CurSkill = petSkills[Random.Range(0, petSkills.Count)];
         petSkill.Init();
-        petSkill.Use();
         Debug.Log("½ΊΕ³Έν" + petSkill.SkillName);
+        petSkill.Use();
 
         yield return null;
     }

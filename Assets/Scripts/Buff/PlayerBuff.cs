@@ -13,6 +13,7 @@ public class PlayerBuff : MonoBehaviour
     [SerializeField] private Dictionary<Buff, bool> buffs = new Dictionary<Buff, bool>();
     //버프 SO 넣어둔 Dictionary 추가 생성?
 
+
     public void AddBuff(Buff buff)
     {
         if (!buffs.ContainsKey(buff))
@@ -29,6 +30,8 @@ public class PlayerBuff : MonoBehaviour
         }
         AddBuffUI(buff.buff);
     }
+    // 1. PlayerStat.cs에 PlayerBuffStat 추가
+    // 2. PlayerStatusHandler에서 
 
     public void AddBuffUI(BuffSO buffSO)
     {
