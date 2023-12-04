@@ -9,7 +9,7 @@ public class PlayerStat : BaseStat
     public int level;
     public int levelPoint;
     
-    [Header("Stats")]
+    [Header("Grow Stats")]
     public int healthStat;
     public int steminaStat;
     public int strStat;
@@ -19,20 +19,14 @@ public class PlayerStat : BaseStat
     
     [Header("Player Stats")]
     public int stemina;
-    public int mana;
     public int weight;
     public int spellPower; // 주문력
     public int regainHp; //재생체력
     public float invincibleTime;
-    public float increaseInvincibleTime;
     public float parryTime;
-    public float increaseParryTime; // 0.05f
     public float extraMoveSpeed; // 1.5f
     public float soulDropRate; 
-    public float increaseSoulDropRate; 
     public float criticalChance; // 크리티컬 확률
-    
-    
 }
 
 

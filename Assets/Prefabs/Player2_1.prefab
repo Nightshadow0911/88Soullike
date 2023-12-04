@@ -47,7 +47,7 @@ Transform:
   - {fileID: 311699310386165041}
   - {fileID: 6917367673985408838}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3823468216354946513
 SpriteRenderer:
@@ -127,7 +127,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 6
 --- !u!70 &4756923094452566960
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -211,7 +211,6 @@ MonoBehaviour:
   currentStamina: 100
   staminaRegenRate: 10
   dashStaminaCost: 10
-  attackStaminaCost: 5
   comboStaminaCost: 20
   ledgeDetected: 0
   offset1: {x: 0, y: -1.6}
@@ -219,6 +218,7 @@ MonoBehaviour:
   canGrabLedge: 1
   isSitting: 0
   canDash: 1
+  skillIndex: 0
 --- !u!95 &7028182834870813551
 Animator:
   serializedVersion: 5
@@ -382,6 +382,11 @@ MonoBehaviour:
   - {fileID: 9165240758897152920, guid: a4e444cffe3b30d43b9127f6cf4a835a, type: 3}
   - {fileID: 6525689853256069183, guid: 94233447f9ef64a49b49d26c503bdd5a, type: 3}
   - {fileID: 3082831814835967893, guid: 4b67823366f95b04e8c819c44a9c7bd0, type: 3}
+  skillIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skillHolder: {fileID: 0}
 --- !u!114 &4454474238667929373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,16 +414,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6113475548300559220}
-  characterStats: {fileID: 2491328609635162135}
+  attackStaminaCost: 5
   isParrying: 0
   isGuarding: 0
-  comboAttack: 0
-  comboAttackClickCount: 1
   monsterToPlayerDamage: 1
   attackPoint: {fileID: 3646084481749102177}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  comboAttack: 0
 --- !u!114 &6131177484530544590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,7 +750,7 @@ GameObject:
   - component: {fileID: 2253853175490137132}
   - component: {fileID: 363207681412182346}
   - component: {fileID: 2059018855701250480}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MagnetField
   m_TagString: MagnetField
   m_Icon: {fileID: 0}
@@ -824,13 +828,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3646084481749102177}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3646084481749102177
 Transform:
   m_ObjectHideFlags: 0
@@ -839,7 +843,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8407141843765768564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.83, y: 1, z: 0}
+  m_LocalPosition: {x: 1.8, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
