@@ -29,8 +29,6 @@ public class PlayerStatusHandler :StatHandler
     {
         playerBaseStat = baseStatSO as PlayerStat;
         playerGrowStat = growStatSO;
-        playerMaxStat.mana = 4;
-        currentStat.mana = playerMaxStat.mana;
         base.Awake();
         SetStat();
     }
@@ -113,6 +111,7 @@ public class PlayerStatusHandler :StatHandler
         if (playerBaseStat != null && playerGrowStat != null)
         {
             playerMaxStat.hp = playerBaseStat.hp + playerGrowStat.hp;
+            playerMaxStat.mana = playerBaseStat.mana + playerGrowStat.mana;
             playerMaxStat.damage = playerBaseStat.damage + playerGrowStat.damage;
             playerMaxStat.defense = playerBaseStat.defense + playerGrowStat.defense;
             playerMaxStat.speed = playerBaseStat.speed + playerGrowStat.speed;
@@ -149,6 +148,7 @@ public class PlayerStatusHandler :StatHandler
     private void CopyStatsToCurrent()
     {
       currentStat.hp =  playerMaxStat.hp;
+      currentStat.mana = playerMaxStat.mana;
       currentStat.damage = playerMaxStat.damage;
       currentStat.defense = playerMaxStat.defense;
       currentStat.speed = playerMaxStat.speed;

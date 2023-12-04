@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class LastPlayerController : MonoBehaviour
 {
-    private Boss_ArcherStat uniqueStats;
     private SoundManager soundManager;
     private PlayerStatusHandler playerStatusHandler;
     private Animator anim;
@@ -51,9 +50,8 @@ public class LastPlayerController : MonoBehaviour
     private float dashStartTime;
     private float lastDashTime;
 
-    [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
-    [SerializeField] private float dashStaminaCost = 20f;
+    private float dashStaminaCost = 20f;
     [SerializeField] public float comboStaminaCost = 20f;
     [HideInInspector] public bool ledgeDetected;
 
@@ -74,6 +72,7 @@ public class LastPlayerController : MonoBehaviour
     private bool canPressS = true;
     private float pressCooldown = 2f;
 
+
     void Start()
     {
         soundManager = SoundManager.instance;
@@ -89,7 +88,7 @@ public class LastPlayerController : MonoBehaviour
     void Update()
     {
         CheckInput();
-        
+        FastDown();
         CollisionCheck();
         FlipController();
         AnimatorController();
@@ -109,7 +108,7 @@ public class LastPlayerController : MonoBehaviour
             Dash();
             CheckForLedge();
         }
-        //Death();
+        Death();
 
         if (Input.GetKeyDown(KeyCode.G)) UseSkill();
     }
@@ -267,6 +266,7 @@ public class LastPlayerController : MonoBehaviour
     {
         playerStatusHandler.GetStat().stemina += staminaRegenRate * Time.deltaTime;
         playerStatusHandler.GetStat().stemina = Mathf.Clamp(playerStatusHandler.GetStat().stemina, 0f, 100f);
+        //Debug.Log("currentStamina ::" + playerStatusHandler.GetStat().stemina);
     }
 
     private void Death()

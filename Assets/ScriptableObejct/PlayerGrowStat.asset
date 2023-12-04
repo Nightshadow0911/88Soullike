@@ -28,11 +28,11 @@ MonoBehaviour:
   dexStat: 0
   intStat: 0
   luxStat: 0
-  stemina: 0
   mana: 0
   weight: 0
   spellPower: 0
   regainHp: 0
+  stemina: 0
   invincibleTime: 0
   increaseInvincibleTime: 0
   parryTime: 0
