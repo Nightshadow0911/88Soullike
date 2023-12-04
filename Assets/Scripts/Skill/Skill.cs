@@ -58,9 +58,11 @@ public class Skill : MonoBehaviour
 
     public bool Use()
     {
-       // if (playerStat.mana <= 0) return false;
+        Debug.Log("1"+playerStat.mana);
 
-        if (CostDecrease()) return false;
+        if (playerStat.mana <= 0) return false;
+        Debug.Log("2"+playerStat.mana);
+       // if (CostDecrease()) return false;
 
         bool isUsed = false;
 
@@ -70,10 +72,10 @@ public class Skill : MonoBehaviour
             isUsed = eft.ExcuteRole(power, type);
         }
 
-/*        if (isUsed)
+        if (isUsed && type != SkillType.Buff)
         {
             CostDecrease();
-        }*/
+        }
 
 
         return isUsed; // 스킬 사용 성공 여부

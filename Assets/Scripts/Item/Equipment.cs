@@ -34,7 +34,7 @@ public class Equipment : MonoBehaviour
         playerStatusHandler = transform.GetComponent<PlayerStatusHandler>(); //
         for (int i = 0; i < skillIcons.Length; i++)
         {
-            //skillIcons[i] = skillHolder.GetChild(i).gameObject;
+            skillIcons[i] = skillHolder.GetChild(i).gameObject;
         }
     }
 
