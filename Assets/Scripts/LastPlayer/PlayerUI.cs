@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    private GameManager gameManager;
-    public CharacterStats characterStats;
-    public LastPlayerController lastPlayerController;
+    public PlayerStatusHandler PlayerStatusHandler;
+    private PlayerStat PlayerStat;
+    private PlayerStat MaxStat;
     public Text healthText;
     public Slider healthSlider;
     public Slider staminaSlider;
@@ -18,15 +18,20 @@ public class PlayerUI : MonoBehaviour
     public Text manaText;
     void Start()
     {
-        gameManager = GameManager.Instance;
         healthSlider.value = 1;
         staminaSlider.value = 1;
         regainSlider.value = 1;
         manaSlider.value = 1;
+        PlayerStat = PlayerStatusHandler.GetStat();
+        MaxStat = PlayerStatusHandler.GetMaxStat();
     }
-
+    private void Awake()
+    {
+        PlayerStatusHandler = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
+    }
     void Update()
     {
+
         UpdateHpUI();
         UpdateStaminaUI();
         UpdateRegainHpUI();
@@ -36,38 +41,42 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateHpUI()
     {
-        int maxHealth = characterStats.MaxHP;
-        int currentHealth = characterStats.characterHp;
-
+        int maxHealth = MaxStat.hp;
+        int currentHealth = PlayerStat.hp;
         healthText.text = "HP: " + currentHealth + " / " + maxHealth;
         healthSlider.value = calculateHealthPercentage(currentHealth, maxHealth);
     }
     private void UpdateStaminaUI()
     {
-        float maxStamina = characterStats.MaxStemina;
-        float currentStamina = characterStats.characterStamina;
-        staminaSlider.value = currentStamina / maxStamina;
+        //float maxStamina = playerStatusHandler.GetMaxStat().stemina;
+        //float currentStamina = playerStatusHandler.GetStat().stemina;
+        float currentStamina = PlayerStat.stemina;
+        float maxStamian = MaxStat.stemina;
+        //Debug.Log("maxStamina ::" + maxStamina);
+        //Debug.Log("currentStamina ::" + currentStamina);
+        staminaSlider.value = currentStamina / maxStamian;
     }
 
     private void UpdateManaUI()
     {
-        int maxMana = characterStats.MaxMana;
-        int currentMana = characterStats.characterMana;
+        int maxMana = MaxStat.mana;
+        int currentMana = PlayerStat.mana;
         manaText.text = currentMana + " / " + maxMana;
         manaSlider.value = calculaterManaPercentage(currentMana, maxMana);
     }
 
     public void UpdateRegainHpUI()
     {
-        int maxHealth = characterStats.MaxHP;
-        int characterRegainHp = characterStats.characterRegainHp;
-        if (gameManager.playerStats.characterRegainHp < gameManager.playerStats.characterHp)
+        int maxHealth = MaxStat.hp;
+        int characterRegainHp = PlayerStat.regainHp;
+        int currentHealth = PlayerStat.hp;
+        if (characterRegainHp < currentHealth)
         {
-            gameManager.playerStats.characterRegainHp = gameManager.playerStats.characterHp;
+            characterRegainHp = currentHealth;
         }
-        if (gameManager.playerStats.characterHp <= 0)
+        if (currentHealth <= 0)
         {
-            gameManager.playerStats.characterRegainHp = 0;
+            characterRegainHp = 0;
         }
         regainSlider.value = calculateGuardPercentage(characterRegainHp, maxHealth);
     }

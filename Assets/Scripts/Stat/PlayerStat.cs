@@ -18,11 +18,11 @@ public class PlayerStat : BaseStat
     public int luxStat;
 
     [Header("Player Stats")]
-    public int stemina;
     public int mana;
     public int weight;
     public int spellPower; // 주문력
     public int regainHp; //재생체력
+    public float stemina;
     public float invincibleTime;
     public float increaseInvincibleTime;
     public float parryTime;

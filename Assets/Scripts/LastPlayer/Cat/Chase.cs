@@ -8,18 +8,19 @@ public class Chase : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private float moveSpeed = 3f;
-    private GameManager gameManager;
-    private bool facingRight;
-
+    private LastPlayerController lastPlayerController;
     private bool canWalk = true;
     private bool canRun;
 
     void Start()
     {
+        lastPlayerController = FindObjectOfType<LastPlayerController>();
+    }
+    private void Awake()
+    {
         rb = GetComponent<Rigidbody2D>();
         player = GameManager.Instance.player.transform;
-        anim= GetComponent<Animator>();
-
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -28,6 +29,7 @@ public class Chase : MonoBehaviour
         Move();
         CatFaceWay();
         AnimatorController();
+
     }
     private void Move()
     {
@@ -37,42 +39,51 @@ public class Chase : MonoBehaviour
 
         // 플레이어와 고양이 사이의 방향 벡터 계산
         Vector2 direction = player.position - transform.position;
-
-        // 플레이어와 고양이의 y축 거리가 -5에서 10 사이인 경우
-        if (-5 < direction.y && direction.y < 10)
+        if (lastPlayerController.isGrounded==true)
         {
-            // x축 거리가 17 이상이면 순간이동
-            if (Mathf.Abs(direction.x) >= 17)
+            // 플레이어와 고양이의 y축 거리가 -5에서 10 사이인 경우
+            if (-5 < direction.y && direction.y < 10)
             {
-                transform.position = player.position;
-            }
-            else if (Mathf.Abs(direction.x) >= 4)
-            {
-                // 플레이어와의 거리가 4 이상이면 뛰기
-                MoveWithSpeed(5);
-                canWalk = false;
-                canRun = true;
-            }
-            else if (Mathf.Abs(direction.x) > 1.5 && Mathf.Abs(direction.x) <= 4)
-            {
-                // 거리가 2에서 4 사이이면 걷기
-                MoveWithSpeed(2);
-                canWalk = true;
-                canRun = false;
+                // x축 거리가 17 이상이면 순간이동
+                if (Mathf.Abs(direction.x) >= 17)
+                {
+                    transform.position = player.position;
+                }
+                else if (Mathf.Abs(direction.x) >= 4)
+                {
+                    // 플레이어와의 거리가 4 이상이면 뛰기
+                    MoveWithSpeed(5);
+                    canWalk = false;
+                    canRun = true;
+                }
+                else if (Mathf.Abs(direction.x) > 1.5 && Mathf.Abs(direction.x) <= 4)
+                {
+                    // 거리가 2에서 4 사이이면 걷기
+                    MoveWithSpeed(2);
+                    canWalk = true;
+                    canRun = false;
+                }
+                else
+                {
+                    // 그 외의 경우는 정지
+                    MoveWithSpeed(0);
+                    canWalk = false;
+                    canRun = false;
+                }
             }
             else
             {
-                // 그 외의 경우는 정지
-                MoveWithSpeed(0);
-                canWalk = false;
-                canRun = false;
+                // y축 거리가 범위를 벗어난 경우 순간이동
+                transform.position = player.position;
             }
         }
         else
         {
-            // y축 거리가 범위를 벗어난 경우 순간이동
-            transform.position = player.position;
+            MoveWithSpeed(0);
+            canWalk = false;
+            canRun = false;
         }
+
     }
 
     // 이동 속도에 따라 고양이 이동을 처리하는 함수
