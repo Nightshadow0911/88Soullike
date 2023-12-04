@@ -22,7 +22,7 @@ public class Equipment : MonoBehaviour
 
     public Item[] equipItemList = new Item[2];
     public Item[] quickSlotList = new Item[3];
-    public Skill[] skillSlotList = new Skill[3]; // ½ºÅ³ ½½·Ô, 0¹øÀÌ Á¦ÀÏ ¾Õ¿¡ º¸ÀÓ
+    public Skill[] skillSlotList = new Skill[3]; // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½, 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject[] skillIcons = new GameObject[3];
     public Transform skillHolder;
 
@@ -34,7 +34,7 @@ public class Equipment : MonoBehaviour
         playerStatusHandler = transform.GetComponent<PlayerStatusHandler>(); //
         for (int i = 0; i < skillIcons.Length; i++)
         {
-            skillIcons[i] = skillHolder.GetChild(i).gameObject;
+          //  skillIcons[i] = skillHolder.GetChild(i).gameObject;
         }
     }
 
@@ -103,7 +103,7 @@ public class Equipment : MonoBehaviour
                     equipItemList[equipIndex].AttackRange, equipItemList[equipIndex].Weight, equipItemList[equipIndex].PropertyAmount);
 
                 //characterStats.WeightSpeed();
-                // °ø°Ý·Â, °ø°Ý¼Óµµ, °ø°Ý¹üÀ§, ¹«°Ô, ¼Ó¼º°ø°Ý·Â, 
+                // ï¿½ï¿½ï¿½Ý·ï¿½, ï¿½ï¿½ï¿½Ý¼Óµï¿½, ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½, 
                 break;
             case ARMOR:
                 playerStatusHandler.UpdateArmor(equipItemList[equipIndex].Power,

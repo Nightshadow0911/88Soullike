@@ -29,8 +29,6 @@ public class PlayerStatusHandler :StatHandler
     {
         playerBaseStat = baseStatSO as PlayerStat;
         playerGrowStat = growStatSO;
-        playerMaxStat.mana = 4;
-        currentStat.mana = playerMaxStat.mana;
         base.Awake();
         SetStat();
     }
@@ -93,8 +91,8 @@ public class PlayerStatusHandler :StatHandler
    
     private void UpdateStatus()  // 업데이트 스테이터스 매서드
     {
-        playerMaxStat.hp = playerMaxStat.healthStat * 10;
-        playerMaxStat.stemina = playerMaxStat.steminaStat * 5;
+        playerMaxStat.hp = playerGrowStat.healthStat * 10;
+        playerMaxStat.stemina = playerGrowStat.steminaStat * 5;
         playerMaxStat.defense = playerMaxStat.healthStat * 2;
         playerMaxStat.stemina = playerMaxStat.steminaStat * 5; 
         playerMaxStat.weight = playerMaxStat.steminaStat * 3;
@@ -131,6 +129,7 @@ public class PlayerStatusHandler :StatHandler
             playerMaxStat.intStat = playerBaseStat.intStat + playerGrowStat.intStat;
             playerMaxStat.luxStat = playerBaseStat.luxStat + playerGrowStat.luxStat;
             
+            playerMaxStat.mana = playerBaseStat.mana + playerGrowStat.mana;
             playerMaxStat.stemina = playerBaseStat.stemina + playerGrowStat.stemina;
             playerMaxStat.weight = playerBaseStat.weight + playerGrowStat.weight;
             playerMaxStat.spellPower = playerBaseStat.spellPower + playerGrowStat.spellPower;
@@ -167,6 +166,7 @@ public class PlayerStatusHandler :StatHandler
       currentStat.intStat = playerMaxStat.intStat;
       currentStat.luxStat = playerMaxStat.luxStat;
       
+      currentStat.mana = playerMaxStat.mana;
       currentStat.stemina = playerMaxStat.stemina;
       currentStat.weight = playerMaxStat.weight;
       currentStat.spellPower =  playerMaxStat.spellPower;

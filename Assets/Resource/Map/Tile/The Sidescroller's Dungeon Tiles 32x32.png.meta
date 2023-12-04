@@ -3711,6 +3711,102 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Sprite_Pillar
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 288
+        width: 32
+        height: 149
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 74.5}
+        - {x: -16, y: 60.252533}
+        - {x: -10.713028, y: 55.86383}
+        - {x: -8.76767, y: 55.837738}
+        - {x: -8.7986145, y: 53.46875}
+        - {x: -10.701767, y: 53.53424}
+        - {x: -12.338074, y: 51.447083}
+        - {x: -12.356018, y: 50.121277}
+        - {x: -8.733032, y: 47.439026}
+        - {x: -8.623154, y: 23.052612}
+        - {x: -7.596649, y: 22.225372}
+        - {x: -8.637573, y: 21.304108}
+        - {x: -8.728378, y: -26.721039}
+        - {x: -7.5102844, y: -27.550598}
+        - {x: -7.464203, y: -28.583008}
+        - {x: -9.583832, y: -28.886505}
+        - {x: -9.639725, y: -42.424713}
+        - {x: -10.615341, y: -42.867737}
+        - {x: -10.5069275, y: -59.909424}
+        - {x: -13.884247, y: -61.787262}
+        - {x: -13.7348175, y: -63.77362}
+        - {x: -14.615555, y: -63.80545}
+        - {x: -14.599518, y: -64.9577}
+        - {x: -15.675598, y: -66.132385}
+        - {x: -15.699997, y: -74.5}
+        - {x: 16, y: -74.5}
+        - {x: 15.999985, y: -65.44824}
+        - {x: 12.688934, y: -60.858917}
+        - {x: 11.300217, y: -60.29431}
+        - {x: 11.018524, y: -42.882782}
+        - {x: 9.663971, y: -42.43637}
+        - {x: 9.6493225, y: -28.74472}
+        - {x: 8.090836, y: -28.729248}
+        - {x: 7.71579, y: -27.36261}
+        - {x: 8.854477, y: -27.12674}
+        - {x: 8.730957, y: -11.227539}
+        - {x: 8.634552, y: 5.126343}
+        - {x: 7.707962, y: 5.0892944}
+        - {x: 7.5186615, y: 6.770935}
+        - {x: 8.70015, y: 6.8219604}
+        - {x: 8.62442, y: 36.082123}
+        - {x: 7.5677795, y: 36.120514}
+        - {x: 7.642914, y: 37.7659}
+        - {x: 8.680038, y: 37.82071}
+        - {x: 8.703201, y: 47.517822}
+        - {x: 11.223801, y: 49.248993}
+        - {x: 12.133972, y: 50.54297}
+        - {x: 11.940079, y: 51.880157}
+        - {x: 10.673737, y: 53.03351}
+        - {x: 7.850357, y: 53.26013}
+        - {x: 7.783203, y: 55.891846}
+        - {x: 10.502182, y: 55.967346}
+        - {x: 15.879532, y: 62.736786}
+        - {x: 16, y: 74.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce40e1f6ba4d1041b8a2939e50e820d
+      internalID: -1177622424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WoodTIle
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 303
+        width: 32
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9720f12e3406494aa9cb232fe3367a2
+      internalID: -1675045004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -3723,6 +3819,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       123: 532547498
+      Sprite_Pillar: -1177622424
       The Sidescroller's Dungeon Tiles 32x32_0: -1933623728
       The Sidescroller's Dungeon Tiles 32x32_1: 1515591412
       The Sidescroller's Dungeon Tiles 32x32_10: -1485722319
@@ -3901,6 +3998,7 @@ TextureImporter:
       The Sidescroller's Dungeon Tiles 32x32_97: 258903706
       The Sidescroller's Dungeon Tiles 32x32_98: -265272975
       The Sidescroller's Dungeon Tiles 32x32_99: -200895579
+      WoodTIle: -1675045004
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
