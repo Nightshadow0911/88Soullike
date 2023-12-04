@@ -4,39 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public enum Distance
+{
+    Default,
+    CloseRange,
+    MediumRange,
+    LongRange
+}
+
 public class EnemyPattern : MonoBehaviour
 {
-    protected enum Distance
-    {
-        Default,
-        CloseRange,
-        MediumRange,
-        LongRange
-    }
     
     private List<Func<IEnumerator>> defaultPattern = new ();
     private List<Func<IEnumerator>> closeRange = new ();
     private List<Func<IEnumerator>> mediumRange = new ();
     private List<Func<IEnumerator>> longRange = new ();
 
-    private Distance targetDistance = Distance.Default;
+    private Distance targetDistance;
 
-    protected virtual Distance SetDistance(Vector3 targetPosition)
+    public void SetDistance(Distance distance)
     {
-        float distance = Mathf.Abs(targetPosition.x - transform.position.x);
-        //Debug.Log("거리" + (int)distance);
-        if (distance < 5f)
-        {
-            targetDistance = Distance.CloseRange;
-        }
-        else
-        {
-            targetDistance = distance < 13f ? Distance.MediumRange : Distance.LongRange;
-        }
-        return targetDistance;
+        targetDistance = distance;
     }
 
-    protected void AddPattern(Distance distance, Func<IEnumerator> pattern)
+    public void AddPattern(Distance distance, Func<IEnumerator> pattern)
     {
         switch (distance)
         {
@@ -55,7 +46,7 @@ public class EnemyPattern : MonoBehaviour
         }
     }
 
-    protected Func<IEnumerator> GetPattern()
+    public Func<IEnumerator> GetPattern()
     {
         List<Func<IEnumerator>> list = GetPatternList(targetDistance);
         if (list.Count == 0)
@@ -84,12 +75,6 @@ public class EnemyPattern : MonoBehaviour
             default:
                 return defaultPattern;
         }
-    }
-    
-    protected void ClearPatternList(Distance distance)
-    {
-        GetPatternList(distance).Clear();
-        targetDistance = Distance.Default;
     }
 }   
 
