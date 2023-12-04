@@ -73,7 +73,49 @@ public class Boss_NightBorn : EnemyCharacter
         }
     }
     
-    //  패턴 추가 
+    private IEnumerator RandomCut()
+    {
+        RunningPattern();
+        float ran = Random.Range(0, 10);
+        // 애니 트리거
+        yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
+        MeleeAttack();
+        if (ran < 5)
+        {
+            // 애니 트리거
+            yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
+            MeleeAttack();
+        }
+        state = State.SUCCESS;
+        yield return null;
+    }
+
+    private IEnumerator StraightExplosion()
+    {
+        RunningPattern();
+        // 애니 트리거
+        yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
+        // positionAttack.CreateMultipleProjectile(위치 수정, uniqueStats.data); // 포지션 맵끝으로 변경 필요
+        // 애니 트리거
+        yield return YieldCache.WaitForSeconds(1f); // 패턴끝나는거 기다리기
+        state = State.SUCCESS;
+        yield return null;
+    }
+
+    private IEnumerator BlinkExplosion()
+    {
+        RunningPattern();
+        // 애니 트리거
+        yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
+        transform.position = targetTransform.position;
+        // 애니 트리거
+        yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
+        // positionAttack.CreateMultipleProjectile(transform.position, uniqueStats.data);
+        yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
+        state = State.SUCCESS;
+        yield return null;
+    }
+    
     
     private Vector2 GetEndPosition(float distance, bool reverse)
     {
