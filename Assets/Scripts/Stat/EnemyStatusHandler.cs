@@ -12,7 +12,7 @@ public class EnemyStatusHandler :StatHandler
 
     protected override void Awake()
     {
-        enemyMaxStat = baseStatSO as EnemyStat;
+        enemyMaxStat = currentStatSO as EnemyStat;
         base.Awake();
     }
 
