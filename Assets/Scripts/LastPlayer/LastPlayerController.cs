@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class LastPlayerController : MonoBehaviour
 {
+    private PlayerStatusHandler playerStatusHandler;
     private Animator anim;
     private Rigidbody2D rb;
-    private GameManager gameManager;
     private PlayerAttack playerAttack;
 
     public FadeOut fadeOut;
@@ -20,7 +20,7 @@ public class LastPlayerController : MonoBehaviour
     private bool canMove = true;
 
     private bool canWallSlide;
-    private bool isWallSliding;
+    internal bool isWallSliding;
 
     public bool facingRight = true;
     private float movingInput;
@@ -53,7 +53,6 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float dashStaminaCost = 20f;
-    [SerializeField] public float attackStaminaCost = 5f;
     [SerializeField] public float comboStaminaCost = 20f;
     [HideInInspector] public bool ledgeDetected;
 
@@ -69,17 +68,25 @@ public class LastPlayerController : MonoBehaviour
     public bool isSitting;
     public bool canDash = true;
 
+    public int skillIndex = 0;
+
+    private bool canPressS = true;
+    private float pressCooldown = 2f;
     void Start()
+    {
+
+    }
+
+    private void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        gameManager = GameManager.Instance;
+        playerStatusHandler = GetComponent<PlayerStatusHandler>();
     }
-
     void Update()
     {
         CheckInput();
-        UseMana();
+        FastDown();
         CollisionCheck();
         FlipController();
         AnimatorController();
@@ -100,18 +107,32 @@ public class LastPlayerController : MonoBehaviour
             CheckForLedge();
         }
         Death();
+
+        if (Input.GetKeyDown(KeyCode.G)) UseSkill();
     }
 
-    private void UseMana()
+
+    private IEnumerator EnablePressAfterCooldown()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            if (characterStats.characterMana >= 1)
-            {
-                characterStats.characterMana -= 1;
-            }
-        }
+        yield return new WaitForSeconds(pressCooldown);
+        canPressS = true;
     }
+
+    void UseSkill()
+    {
+
+        transform.GetComponent<Equipment>().skillSlotList[skillIndex].Use();
+
+
+    }
+    public void ChangeSkill()
+    {
+        skillIndex++;
+        if (skillIndex >= 3) skillIndex = 0;
+        transform.GetComponent<Equipment>().ChageEquipSkill();
+
+    }
+
 
     private void IsWallSliding()
     {
@@ -155,6 +176,8 @@ public class LastPlayerController : MonoBehaviour
         }
     }
 
+
+
     private void AllowLedgeGrab()
     {
         canGrabLedge = true;
@@ -179,10 +202,11 @@ public class LastPlayerController : MonoBehaviour
         if (canMove)
         {
             Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
-            rb.velocity = new Vector2((float)(movingInput * gameManager.playerStats.CharacterSpeed), rb.velocity.y);
+            rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
             if (isSitting)
             {
-                rb.velocity = new Vector2((float)(movingInput * gameManager.playerStats.ExtraCharacterSpeed), rb.velocity.y);
+                rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
+                Debug.Log(playerStatusHandler.GetStat().speed);
             }
         }
     }
@@ -211,6 +235,34 @@ public class LastPlayerController : MonoBehaviour
         {
             isDashing = false;
             fadeOut.makeFadeOut = false;
+        }
+    }
+
+    private void FastDown()
+    {
+        if (!isGrounded)
+        {
+            if (canPressS && Input.GetKeyDown(KeyCode.S))
+            {
+                if (rb.velocity.y<0)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y *10f));
+                    canPressS = false;
+                    StartCoroutine(EnablePressAfterCooldown());
+                    Debug.Log("FastDown");
+                }
+                else
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * -10f));
+                    canPressS = false;
+                    StartCoroutine(EnablePressAfterCooldown());
+                    Debug.Log("FastDown2");
+                }
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+            }
         }
     }
 
@@ -247,6 +299,7 @@ public class LastPlayerController : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
     }
 
     private void wallJump()
@@ -280,7 +333,7 @@ public class LastPlayerController : MonoBehaviour
         {
             float verticalInput = Input.GetAxis("Vertical");
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(rb.velocity.x, (float)(verticalInput * gameManager.playerStats.CharacterSpeed));
+            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.GetStat().speed);
             isGrounded = false;
             canWallSlide = false;
         }

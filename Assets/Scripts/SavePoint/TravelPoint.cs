@@ -19,9 +19,9 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     private void Awake()
     {
-        CloseText();
-        changeColor = imageUI.color;
         SavePoint.TravelEvent += ChangeReady;
+        changeColor = imageUI.color;
+        CloseText();
     }
 
     public void SetTravel(string name, Vector3 position)
@@ -31,13 +31,11 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         gameObject.SetActive(true);
     }
 
-    private void ChangeReady(bool state)
+    public void ChangeReady(bool state)
     {
         changeColor.a = state ? 1f : 0.3f;
         imageUI.color = changeColor;
         isReady = state;
-        if (!state)
-            CloseText();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -45,7 +43,6 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if (isReady)
         {
             GameManager.Instance.player.transform.position = position;
-            CloseText();
         }
     }
 
@@ -63,7 +60,4 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         textUI.gameObject.SetActive(false);
     }
-
-    
-
 }

@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    private PlayerStatusHandler playerStatusHandler;
+    private PlayerStat stat;
     private Animator anim;
-    private GameManager gameManager;
     public LastPlayerController player;
-    public CharacterStats characterStats;
 
-    private float clickCountResetTime = 1.5f; // 클릭 카운터를 초기화하는데 걸리는 시간
+    private float comboResetTime = 1.5f;
     private float lastClickTime;
-
-    double nextAttackTime = 0f;
+    [SerializeField] public int attackStaminaCost = 5; // 민열님과 얘기
+    double nextAttackTime = 0f; // 어디서 쓰는지?
 
     public bool isParrying = false;
     public bool isGuarding = false;
-    private float parryWindowEndTime = 0f;
-    public bool comboAttack = false;
+    private float parryWindowEndTime = 0f; // 어디서 쓰는지?
     private bool canAttack = true;
 
-    [SerializeField] private int comboAttackClickCount = 1;
+    private int comboAttackClickCount = 0;
     private int manaRegainClickCount = 1;
     [SerializeField] public bool monsterToPlayerDamage;
     //public int damage;
@@ -28,87 +27,124 @@ public class PlayerAttack : MonoBehaviour
     public Transform attackPoint;
     //public float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
+    public bool comboAttack;
 
     // Start is called before the first frame update
 
     void Start()
     {
-        anim = GetComponent<Animator>();
-        gameManager = GameManager.Instance;
         canAttack = true;
+        stat = playerStatusHandler.GetStat();
+    }
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        playerStatusHandler = GetComponent<PlayerStatusHandler>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckDeffense();
+        CheckDefense();
         CheckAttackTime();
         ResetClickCount();
     }
 
-
-    public void CheckDeffense()
+    public void CheckDefense()
     {
-        if (isGuarding)
-        {
-            monsterToPlayerDamage = true;// 몬스터가 플레이어한테 데미지를 줌 
-        }
+        HandleGuarding();
+        HandleParrying();
+    }
 
-        // 패링 가능한 상태에서만 패링이 가능하도록 체크
-        if (Input.GetMouseButtonDown(1) && !isParrying)
+    private void HandleGuarding()
+    {
+        // 가드 중이 아닌 경우에만 가드 체크
+        if (!isGuarding)
         {
-            isParrying = true;
-            transform.Find("Parrying").gameObject.SetActive(true);
-            parryWindowEndTime = Time.time + characterStats.ParryTime;
-            Debug.Log("Parry Start");
+            if (Input.GetMouseButtonDown(1))
+            {
+                StartGuard();
+            }
         }
-        else if (Input.GetMouseButtonUp(1) && isParrying)
+        else // 가드 중인 경우에만 가드 해제 체크
         {
-            isParrying = false;
-            transform.Find("Parrying").gameObject.SetActive(false);
-            Debug.Log("Parry Success");
+            if (Input.GetMouseButtonUp(1))
+            {
+                EndGuard();
+            }
         }
+    }
 
-        // 가드가 활성화되지 않은 상태에서 가드 가능한지 체크
-        if (Input.GetMouseButtonDown(1) && !isGuarding)
+    private void HandleParrying()
+    {
+        // 패링 중이 아닌 경우에만 패링 체크
+        if (!isParrying)
         {
-            canAttack = false;
-            isGuarding = true;
-            Debug.Log("Guard Start");
-            transform.Find("Shield").gameObject.SetActive(true);
+            if (Input.GetMouseButtonDown(1))
+            {
+                StartParry();
+            }
         }
-        else if (Input.GetMouseButtonUp(1) && isGuarding)
+        else // 패링 중인 경우에만 패링 해제 체크
         {
-            canAttack = true;
-            isGuarding = false;
-            Debug.Log("Guard End");
-            transform.Find("Shield").gameObject.SetActive(false);
-        }
+            if (Input.GetMouseButtonUp(1))
+            {
+                EndParry();
+            }
 
-        // 패링 윈도우 종료 체크
-        if (Time.time > parryWindowEndTime)
-        {
-            isParrying = false;
-            transform.Find("Parrying").gameObject.SetActive(false);
-            //Debug.Log("Parry Failed");
+            // 패링 윈도우 종료 체크
+            if (Time.time > parryWindowEndTime)
+            {
+                EndParry();
+            }
         }
+    }
+
+    private void StartGuard()
+    {
+        canAttack = false;
+        isGuarding = true;
+        Debug.Log("Guard Start");
+        transform.Find("Shield").gameObject.SetActive(true);
+    }
+
+    private void EndGuard()
+    {
+        canAttack = true;
+        isGuarding = false;
+        Debug.Log("Guard End");
+        transform.Find("Shield").gameObject.SetActive(false);
+    }
+
+    private void StartParry()
+    {
+        isParrying = true;
+        transform.Find("Parrying").gameObject.SetActive(true);
+        parryWindowEndTime = Time.time + stat.parryTime; // stat.parryTime 대신 적절한 변수 사용
+        Debug.Log("Parry Start");
+    }
+
+    private void EndParry()
+    {
+        isParrying = false;
+        transform.Find("Parrying").gameObject.SetActive(false);
+        Debug.Log("Parry Success");
     }
 
 
     private void ResetClickCount()
     {
-        // 클릭 카운터 초기화
-        if (Time.time - lastClickTime > clickCountResetTime)
+        if (manaRegainClickCount == 10)
         {
-            comboAttackClickCount = -1;
-        }
-        if (manaRegainClickCount==10)
-        {
-            if (characterStats.characterMana<characterStats.MaxMana)
-            {
-                characterStats.characterMana += 1;
-            }
-            manaRegainClickCount = 1;
+            //if (characterStats.characterMana<characterStats.MaxMana)
+            //{
+            //    characterStats.characterMana += 1;
+            //}
+            // if (stat.mana < 4)
+            // {
+            //     stat.mana += 1;
+            // }
+            // manaRegainClickCount = 1;
         }
     }
 
@@ -121,136 +157,82 @@ public class PlayerAttack : MonoBehaviour
 
     private void CheckAttackTime()
     {
+
         if (Time.time >= nextAttackTime)//다음 공격 가능 시간 
         {
-            if (canAttack ==true)
+
+            if (canAttack == true)
             {
-                if (Input.GetMouseButtonDown(0) && player.isGrounded && PopupUIManager.instance.activePopupLList.Count <= 0)
+
+                if (Input.GetMouseButtonDown(0) && player.isGrounded) //&& PopupUIManager.instance.activePopupLList.Count <= 0)
                 {
-                    double sp = gameManager.playerStats.AttackSpeed + 1f;
-                    nextAttackTime = Time.time + 1f / +sp;
-                    if (player.isSitting == false)
+
+                    //double sp = gameManager.playerStats.AttackSpeed + 1f; // AttackSpeed= 1 // 아이템 공속 감소?
+                    nextAttackTime = Time.time + 1f; // / sp  <= 삭제함( 수정 필요 )
+                    if (stat.stemina >= attackStaminaCost)
                     {
-                        Attack();
-                    }
-                    else
-                    {
-                        CrouchAttack();
+                        anim.SetTrigger("attack");
+
+                        ApplyDamage();
                     }
                 }
             }
         }
     }
 
-    public void Attack()
+    private void RegainAttack(int damage)
     {
-        if (gameManager.playerStats.characterStamina >= player.attackStaminaCost)
+        int heal = damage;
+        if (stat.hp < stat.regainHp)
         {
-            gameManager.playerStats.characterStamina -= player.attackStaminaCost;
-            anim.SetTrigger("attack");
-            gameManager.playerStats.AttackDamage();
-            int modifiedAttackDamage = gameManager.playerStats.NormalAttackDamage;
-            if (comboAttackClickCount != 0 && comboAttackClickCount % 2==0)
-            {
-                comboAttack = true;
-                gameManager.playerStats.characterStamina -= player.comboStaminaCost;
-                anim.SetTrigger("combo");
-                modifiedAttackDamage *= 2;
-                ApplyDamage(modifiedAttackDamage);
-                comboAttackClickCount = -1;
-            }
+            stat.hp += heal / 4;
+        }
+    }
+
+    private int DamageCalculator()
+    {
+        int modifiedAttackDamage = stat.damage;
+        if (comboAttackClickCount != 3)
+        {
+
+            stat.stemina -= attackStaminaCost;
             comboAttack = false;
-            ApplyDamage(modifiedAttackDamage);
-
         }
-    }
-    public void CrouchAttack()
-    {
-        if (gameManager.playerStats.characterStamina >= player.attackStaminaCost)
+        else
         {
-            gameManager.playerStats.characterStamina -= player.attackStaminaCost;
-            anim.SetTrigger("crouchAttack");
-            gameManager.playerStats.AttackDamage();
-            int a = gameManager.playerStats.NormalAttackDamage;
-            int modifiedAttackDamage = a / 2;
-            ApplyDamage(modifiedAttackDamage);
-
+            anim.SetTrigger("combo");
+            stat.stemina -= attackStaminaCost * 2;
+            modifiedAttackDamage *= 2;
+            comboAttackClickCount = 0;
+            comboAttack = true;
         }
+        modifiedAttackDamage = playerStatusHandler.CriticalCheck(modifiedAttackDamage);
+        return modifiedAttackDamage;
     }
 
-    private void RegainAttack()
+    private void ApplyDamage() // Add damage To Monster
     {
-        int heal = gameManager.playerStats.totalDamage;
-        if (gameManager.playerStats.characterHp < gameManager.playerStats.characterRegainHp)
-        {
-            gameManager.playerStats.characterHp += heal / 4;
-        }
-    }
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, stat.attackRange, enemyLayer);
 
-    private void ApplyDamage(int damage) // Add damage To Monster
-    {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, characterStats.AttackRange, enemyLayer);
-        foreach (Collider2D enemyCollider in hitEnemies)
+        Debug.Log("enemyLayer : " + enemyLayer);
+        Debug.Log("hitEnemy : " + hitEnemies.Length);
+        if (hitEnemies.Length != 0)
         {
-            if (enemyCollider.CompareTag("Boss_DB"))
-            {
-                ClickCount();
-                DeathBringerEnemy deathBringer = enemyCollider.GetComponent<DeathBringerEnemy>();
-                if (deathBringer != null)
-                {
-                    deathBringer.TakeDamage(gameManager.playerStats.totalDamage);
-                    RegainAttack();
-                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
-                }
-            }
-            else if (enemyCollider.CompareTag("Boss_Archer"))
-            {
-                ClickCount();
-                Boss_Archer boss_archer = enemyCollider.GetComponent<Boss_Archer>();
-                if (boss_archer != null)
-                {
-                    boss_archer.TakeDamage(gameManager.playerStats.totalDamage);
-                    RegainAttack();
-                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
-                }
-            }
-            else if (enemyCollider.CompareTag("skeleton"))
-            {
-                ClickCount();
-                skeletonEnemy skeleton = enemyCollider.GetComponent<skeletonEnemy>();
-                if (skeleton != null)
-                {
-                    skeleton.TakeDamage(gameManager.playerStats.totalDamage);
-                    RegainAttack();
-                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
-                }
-            }
-            else if (enemyCollider.CompareTag("archer"))
-            {
-                ClickCount();
-                archerEnemy archer = enemyCollider.GetComponent<archerEnemy>();
-                if (archer != null)
-                {
-                    archer.TakeDamage(gameManager.playerStats.totalDamage);
-                    RegainAttack();
-                    PlayerEvents.playerDamaged.Invoke(gameObject, damage);
 
-                }
+            ClickCount();
+            int damage = DamageCalculator();
+            foreach (Collider2D enemyCollider in hitEnemies)
+            {
+                EnemyStatusHandler enemyhandler = enemyCollider.GetComponent<EnemyStatusHandler>();
+                enemyhandler.TakeDamage(damage);
+                RegainAttack(damage);
+                PlayerEvents.playerDamaged.Invoke(gameObject, damage);
             }
         }
     }
 
-
-
-    private void OnDrawGizmos()
-    {
-        if (attackPoint == null)
-        {
-            return;
-        }
-        Gizmos.DrawWireSphere(attackPoint.position, characterStats.AttackRange);
-
-    }
-
-
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.DrawWireSphere(attackPoint.position, stat.attackRange);
+    // }
 }

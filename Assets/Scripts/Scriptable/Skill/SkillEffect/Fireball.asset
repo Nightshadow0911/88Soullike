@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88d12ed000c7134f96180882553e4db, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  type: 1
+  skillPrefab: {fileID: 7960429835522760303, guid: 94233447f9ef64a49b49d26c503bdd5a, type: 3}
+  skillPosition: {x: 0, y: 0, z: 0}

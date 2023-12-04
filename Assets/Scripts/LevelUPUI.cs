@@ -10,32 +10,41 @@ public class LevelUpUI : MonoBehaviour
     public Text pointsText;
     public Button levelUpButton;
 
-    public CharacterStats characterStats;
+    public PlayerStat playerStat;
+    private PlayerStatusHandler playerStatusHandler;
 
-    private StatType selectedStat; // 선택한 스텟을 나타내는 열거형 변수
-
-    
-    public enum StatType
+    public enum StatType // 여기서 public으로 선언
     {
-        HP,
-        Stamina,
-        STR,
-        Dexterity,
-        Intelligence,
+        Health,
+        Stemina,
+        Str,
+        Dex,
+        Int,
         Lux,
         None
     }
 
+    private StatType selectedStat; // 선택한 스텟을 나타내는 열거형 변수
+
     private void Start()
     {
-        if (characterStats != null)
+        if (playerStat != null)
         {
-            UpdateUI();
-            levelUpButton.onClick.AddListener(LevelUp);
+            playerStatusHandler = GetComponent<PlayerStatusHandler>(); // 또는 다른 방식으로 PlayerStatusHandler를 가져와서 할당
+
+            if (playerStatusHandler != null)
+            {
+                levelUpButton.onClick.AddListener(LevelUp);
+                UpdateUI();
+            }
+            else
+            {
+                Debug.LogError("PlayerStatusHandler 스크립트가 연결되지 않았습니다.");
+            }
         }
         else
         {
-            Debug.LogError("CharacterStats 스크립트가 연결되지 않았습니다.");
+            Debug.LogError("PlayerStat 스크립트가 연결되지 않았습니다.");
         }
     }
 
@@ -43,22 +52,44 @@ public class LevelUpUI : MonoBehaviour
     {
         for (int i = 0; i < statTexts.Length; i++)
         {
-            statTexts[i].text = statTexts[i].name + ": " + GetStatValue((StatType)i);
+            //statTexts[i].text = statTexts[i].name + ": " + GetStatValue((StatType)i);
         }
-        levelText.text = "Level: " + characterStats.Level;
-        pointsText.text = "Points: " + characterStats.Points;
+        // levelText.text = "Level: " + playerStat.level;
+        // pointsText.text = "Points: " + playerStat.levelPoint;
     }
 
     public void LevelUp()
     {
-        if (selectedStat != StatType.None) // 선택한 스텟이 None이 아니면
+        if (selectedStat != StatType.None)
         {
-            if (characterStats.TryLevelUp(selectedStat.ToString()))
+            // if (playerStatusHandler.GrowUpStat(1, ConvertToStatus(selectedStat)))
             {
                 UpdateUI();
             }
         }
-        Debug.Log("Level Up Button Clicked");
+        Debug.Log("버튼은 눌림");
+    }
+
+    private Status ConvertToStatus(StatType statType)
+    {
+        switch (statType)
+        {
+            case StatType.Health:
+                return Status.Health;
+            case StatType.Stemina:
+                return Status.Stemina;
+            case StatType.Str:
+                return Status.Str;
+            case StatType.Dex:
+                return Status.Dex;
+            case StatType.Int:
+                return Status.Int;
+            case StatType.Lux:
+                return Status.Lux;
+            default:
+                Debug.Log("statType이 정해지지 못했습니다.");
+                return Status.Health;
+        }
     }
 
     public void SetSelectedStat(int statIndex)
@@ -68,24 +99,24 @@ public class LevelUpUI : MonoBehaviour
         Debug.Log("Selected Stat: " + selectedStat);
     }
 
-    private int GetStatValue(StatType statType)
-    {
-        switch (statType)
-        {
-            case StatType.HP:
-                return characterStats.GrowHP;
-            case StatType.STR:
-                return characterStats.GrowStr;
-            case StatType.Stamina:
-                return characterStats.GrowStemina;
-            case StatType.Dexterity:
-                return characterStats.GrowDex;
-            case StatType.Intelligence:
-                return characterStats.GrowInt;
-            case StatType.Lux:
-                return characterStats.GrowLux;
-            default:
-                return 0;
-        }
-    }
+    // private int GetStatValue(StatType statType)
+    // {
+    //     switch (statType)
+    //     {
+    //         case StatType.Health:
+    //             return playerStat.healthStat;
+    //         case StatType.Stemina:
+    //             return playerStat.steminaStat;
+    //         case StatType.Str:
+    //             return playerStat.strStat;
+    //         case StatType.Dex:
+    //             return playerStat.dexStat;
+    //         case StatType.Int:
+    //             return playerStat.intStat;
+    //         case StatType.Lux:
+    //             return playerStat.luxStat;
+    //         default:
+    //             return 0;
+    //     }
+    // }
 }

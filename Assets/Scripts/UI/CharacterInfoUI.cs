@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class CharacterInfoUI : MonoBehaviour
 {
+    public PlayerStatusHandler playerStatusHandler;
+    
     public static CharacterInfoUI instance;
     public GameObject growPopupBtn;
 
@@ -93,10 +95,43 @@ public class CharacterInfoUI : MonoBehaviour
         growLukTxt.text = $"운 {playerStat.MaxLuk}({playerStat.GrowLux})";
     }
 
-    public void GrowStat(string statName)
-    {
-        playerStat.TryLevelUp(statName);
-    }
+    
+    //민열님 여기 간단하게 바꾸긴했는데 확실하게확인해셔야할거같아서 냅둘게요
+    //주석 풀으셔도 playerStatusHandlerd 설정안되어있어요.
+    // public void GrowStat(string statName)
+    // {
+    //     Status status = ConvertToStatus(statName);
+    //     if (status != Status.None)
+    //     {
+    //         playerStatusHandler.GrowUpStat(1, status);
+    //         UpdateStatus();
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError($"Invalid stat name: {statName}");
+    //     }
+    // }
+    //
+    // private Status ConvertToStatus(string statName)
+    // {
+    //     switch (statName)
+    //     {
+    //         case "Health":
+    //             return Status.Health;
+    //         case "Stemina":
+    //             return Status.Stemina;
+    //         case "Str":
+    //             return Status.Str;
+    //         case "Dex":
+    //             return Status.Dex;
+    //         case "Int":
+    //             return Status.Int;
+    //         case "Luk":
+    //             return Status.Lux;
+    //         default:
+    //             return Status.None;
+    //     }
+    // }
     public void TogglePopup()
     {
         isOpen = !isOpen;
