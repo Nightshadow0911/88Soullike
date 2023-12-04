@@ -10,7 +10,7 @@ public class BaseStat : ScriptableObject
    public int damage;
    public int defense;
    public float speed;
-   public float delay; // 플레이어 공격속도 = 1f // 에너미 패턴 딜레이
+   public float delay; // 플레이어 공격속도 = 1f
    public float attackRange; // 플레이어 공격 범위 = 1f
    public int propertyDamage;
    public int propertyDefense;
