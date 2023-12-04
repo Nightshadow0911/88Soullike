@@ -29,6 +29,8 @@ public class PlayerStatusHandler :StatHandler
     {
         playerBaseStat = baseStatSO as PlayerStat;
         playerGrowStat = growStatSO;
+        playerMaxStat.mana = 4;
+        currentStat.mana = playerMaxStat.mana;
         base.Awake();
         SetStat();
     }
