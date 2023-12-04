@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class CharacterInfoUI : MonoBehaviour
 {
     public PlayerStatusHandler playerStatusHandler;
-    
+
     public static CharacterInfoUI instance;
     public GameObject growPopupBtn;
 
@@ -46,14 +46,21 @@ public class CharacterInfoUI : MonoBehaviour
     [SerializeField] private TMP_Text growIntTxt;
     [SerializeField] private TMP_Text growLukTxt;
 
-    private CharacterStats playerStat;
+    private PlayerStatusHandler playerStatHandler;
+    private PlayerStat playerStat;
+    private PlayerStat playerMaxStat;
 
     private void Awake()
     {
         instance = this;
-        playerStat = GameManager.Instance.playerStats;
+        playerStatHandler = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
         
-}
+    }
+    private void Start()
+    {
+        playerStat = playerStatHandler.GetStat();
+        playerMaxStat = playerStatHandler.GetMaxStat();
+    }
     private void Update()
     {
         UpdateStatus();
@@ -62,76 +69,46 @@ public class CharacterInfoUI : MonoBehaviour
 
     public void UpdateStatus()
     {
-        levelTxt.text = $"LV.{playerStat.Level} ({(100*((float)playerStat.curExp / playerStat.maxExp)):F1}%)"; // ()안에 {(현재 경험치 / 경험치 통):F1}
-        healthTxt.text = $"{playerStat.characterHp} / {playerStat.MaxHP}";
-        steminaTxt.text = $"{(int)Math.Floor(playerStat.characterStamina)} / {playerStat.MaxStemina}";
+        levelTxt.text = $"LV.{playerStat.level}";
+        healthTxt.text = $"{playerStat.hp} / {playerMaxStat.hp}";
+        steminaTxt.text = $"{playerStat.stemina} / {playerMaxStat.stemina}";
         int equipWeight = 0;
-        foreach(Item ew in Equipment.instance.equipItemList)
+        foreach (Item ew in Equipment.instance.equipItemList)
         {
-            if(ew != null)
-            equipWeight += ew.Weight;
+            if (ew != null)
+                equipWeight += ew.Weight;
         }
-        weightTxt.text = $"{equipWeight} / {playerStat.CharacterWeight}";
+        weightTxt.text = $"{equipWeight} / {playerStat.weight}";
 
-        speedTxt.text = $"{playerStat.moveState}";
+        speedTxt.text = $"{playerStat.speed}";
 
         weaponTxt.text = $"[E] {Equipment.instance.equipItemList[0]?.ItemName}";
-        attackTxt.text = $"{playerStat.NormalAttackDamage}";
-        skillTxt.text = $"{playerStat.NormalSkillDamage}";
-        propertyTxt.text = $"{playerStat.PropertyDamage}";
-        criticalTxt.text = $"{playerStat.Critical:F1}%";
-        attackSpeedTxt.text = $"{playerStat.AttackSpeed}";
+        attackTxt.text = $"{playerStat.damage}";
+        skillTxt.text = $"{playerStat.spellPower}";
+        propertyTxt.text = $"{playerStat.propertyDamage}";
+        criticalTxt.text = $"{playerStat.criticalChance:F1}%";
+        attackSpeedTxt.text = $"{playerStat.delay}";
 
-        deffenceTxt.text = $"{playerStat.CharacterDefense}";
-        parryTimeTxt.text = $"{(playerStat.ParryTime):F2}";
-        addGoodTxt.text = $"{playerStat.AddGoods}";
+        deffenceTxt.text = $"{playerStat.defense}";
+        parryTimeTxt.text = $"{(playerStat.parryTime):F2}";
+        addGoodTxt.text = $"{playerStat.soulDropRate}";
 
-        growPoint.text = $"포인트 : {playerStat.Points}";
-        growHealthTxt.text = $"체력 {playerStat.MaxHP}({playerStat.GrowHP})";
-        growStemenaTxt.text = $"스테미나 {playerStat.MaxStemina}({playerStat.GrowStemina})";
-        growStrTxt.text = $"힘 {playerStat.MaxStr}({playerStat.GrowStr})"; // 축적된 힘을 가질 변수 필요
-        growDexTxt.text = $"민첩 {playerStat.MaxDex}({playerStat.GrowDex})";
-        growIntTxt.text = $"지력 {playerStat.MaxInt}({playerStat.GrowInt})";
-        growLukTxt.text = $"운 {playerStat.MaxLuk}({playerStat.GrowLux})";
+        growPoint.text = $"포인트 : {playerStat.levelPoint}";
+        growHealthTxt.text = $"체력 {playerMaxStat.hp}({playerStat.healthStat})";
+        growStemenaTxt.text = $"스테미나 {playerMaxStat.stemina}({playerStat.steminaStat})";
+        growStrTxt.text = $"힘 {playerMaxStat.strStat}({playerStat.strStat})"; // 축적된 힘을 가질 변수 필요
+        growDexTxt.text = $"민첩 {playerMaxStat.dexStat}({playerStat.dexStat})";
+        growIntTxt.text = $"지력 {playerMaxStat.intStat}({playerStat.intStat})";
+        growLukTxt.text = $"운 {playerMaxStat.luxStat}({playerStat.luxStat})";
     }
 
-    
-    //민열님 여기 간단하게 바꾸긴했는데 확실하게확인해셔야할거같아서 냅둘게요
-    //주석 풀으셔도 playerStatusHandlerd 설정안되어있어요.
-    // public void GrowStat(string statName)
-    // {
-    //     Status status = ConvertToStatus(statName);
-    //     if (status != Status.None)
-    //     {
-    //         playerStatusHandler.GrowUpStat(1, status);
-    //         UpdateStatus();
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError($"Invalid stat name: {statName}");
-    //     }
-    // }
-    //
-    // private Status ConvertToStatus(string statName)
-    // {
-    //     switch (statName)
-    //     {
-    //         case "Health":
-    //             return Status.Health;
-    //         case "Stemina":
-    //             return Status.Stemina;
-    //         case "Str":
-    //             return Status.Str;
-    //         case "Dex":
-    //             return Status.Dex;
-    //         case "Int":
-    //             return Status.Int;
-    //         case "Luk":
-    //             return Status.Lux;
-    //         default:
-    //             return Status.None;
-    //     }
-    // }
+
+    public void GrowStat(Status statName)
+    {
+            playerStatusHandler.GrowUpStat(1, statName);
+            UpdateStatus();
+    }
+
     public void TogglePopup()
     {
         isOpen = !isOpen;

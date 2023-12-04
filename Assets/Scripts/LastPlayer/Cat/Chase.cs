@@ -8,12 +8,13 @@ public class Chase : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private float moveSpeed = 3f;
+    private LastPlayerController lastPlayerController;
     private bool canWalk = true;
     private bool canRun;
-    private LastPlayerController lastPlayerController; 
+
     void Start()
     {
-        lastPlayerController = FindObjectOfType<LastPlayerController>(); 
+        lastPlayerController = FindObjectOfType<LastPlayerController>();
     }
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class Chase : MonoBehaviour
         Move();
         CatFaceWay();
         AnimatorController();
+
     }
     private void Move()
     {
@@ -43,9 +45,9 @@ public class Chase : MonoBehaviour
             if (-5 < direction.y && direction.y < 10)
             {
                 // x축 거리가 17 이상이면 순간이동
-                if (Mathf.Abs(direction.x) >= 12)
+                if (Mathf.Abs(direction.x) >= 17)
                 {
-                        transform.position = player.position;
+                    transform.position = player.position;
                 }
                 else if (Mathf.Abs(direction.x) >= 4)
                 {
@@ -71,7 +73,8 @@ public class Chase : MonoBehaviour
             }
             else
             {
-                    transform.position = player.position;
+                // y축 거리가 범위를 벗어난 경우 순간이동
+                transform.position = player.position;
             }
         }
         else
@@ -80,7 +83,8 @@ public class Chase : MonoBehaviour
             canWalk = false;
             canRun = false;
         }
-     }
+
+    }
 
     // 이동 속도에 따라 고양이 이동을 처리하는 함수
     private void MoveWithSpeed(float speed)
@@ -93,6 +97,9 @@ public class Chase : MonoBehaviour
         Vector2 moveDirection = (player.position - transform.position).normalized;
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
+
+
+
     void CatFaceWay()
     {
         Vector2 direction = player.position - transform.position;
