@@ -19,12 +19,18 @@ public class Skill : MonoBehaviour
     [SerializeField] private PropertyType skillProperty;
     [SerializeField] private int price; // 가격(상점에서 살때의 가격임, 상점판매가 불가능한 경우 0)
 
-    CharacterStats characterStats;
+    private PlayerStatusHandler characterStats;
+    private PlayerStat playerStat;
     Vector3 dir;
+
+    private void Awake()
+    {
+        characterStats = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
+    }
     private void Start()
     {
         Init();
-        characterStats = GameManager.Instance.playerStats;
+        playerStat = characterStats.GetStat();
         dir = new Vector3(GameManager.Instance.lastPlayerController.facingDirection, 0, 0);
         Debug.Log(this.SkillName);
 
@@ -52,7 +58,9 @@ public class Skill : MonoBehaviour
 
     public bool Use()
     {
-        if (characterStats.characterMana <= 0) return false;
+       // if (playerStat.mana <= 0) return false;
+
+        if (CostDecrease()) return false;
 
         bool isUsed = false;
 
@@ -62,27 +70,32 @@ public class Skill : MonoBehaviour
             isUsed = eft.ExcuteRole(power, type);
         }
 
-        if (isUsed)
+/*        if (isUsed)
         {
             CostDecrease();
-        }
+        }*/
 
 
         return isUsed; // 스킬 사용 성공 여부
     }
 
-    void CostDecrease()
+    bool CostDecrease()
     {
-        if (characterStats.characterMana >= cost)
+        if (playerStat.mana >= cost)
         {
-            characterStats.characterMana -= cost;
+            playerStat.mana -= cost;
+            return true;
         }
+        else {
+            return false;
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<skeletonEnemy>().TakeDamage(power + characterStats.NormalSkillDamage);
+            collision.GetComponent<EnemyStatusHandler>().TakeDamage(power + playerStat.spellPower);
             //power와 플레이어 주문력을 기반으로 데미지를 줌 collision.getComponent<Enemy>().TakeDamage??
             if (activeType)
             {

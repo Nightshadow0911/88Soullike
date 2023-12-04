@@ -96,25 +96,17 @@ public class CharacterInfoUI : MonoBehaviour
         growPoint.text = $"포인트 : {playerStat.levelPoint}";
         growHealthTxt.text = $"체력 {playerMaxStat.hp}({playerStat.healthStat})";
         growStemenaTxt.text = $"스테미나 {playerMaxStat.stemina}({playerStat.steminaStat})";
-        //growStrTxt.text = $"힘 {playerMaxStat.strStat}({playerStat.GrowStr})"; // 축적된 힘을 가질 변수 필요
-        //growDexTxt.text = $"민첩 {playerMaxStat.dexStat}({playerStat.GrowDex})";
-        //growIntTxt.text = $"지력 {playerMaxStat.intStat}({playerStat.GrowInt})";
-        //growLukTxt.text = $"운 {playerMaxStat.luxStat}({playerStat.GrowLux})";
+        growStrTxt.text = $"힘 {playerMaxStat.strStat}({playerStat.strStat})"; // 축적된 힘을 가질 변수 필요
+        growDexTxt.text = $"민첩 {playerMaxStat.dexStat}({playerStat.dexStat})";
+        growIntTxt.text = $"지력 {playerMaxStat.intStat}({playerStat.intStat})";
+        growLukTxt.text = $"운 {playerMaxStat.luxStat}({playerStat.luxStat})";
     }
 
 
     public void GrowStat(Status statName)
     {
-
-        if (statName != null)
-        {
             playerStatusHandler.GrowUpStat(1, statName);
             UpdateStatus();
-        }
-        else
-        {
-            Debug.LogError($"Invalid stat name: {statName}");
-        }
     }
 
     public void TogglePopup()
