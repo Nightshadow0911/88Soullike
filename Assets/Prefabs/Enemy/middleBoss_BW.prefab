@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7701013720560885847}
   - component: {fileID: 2714229474663793436}
   - component: {fileID: 4933381492808349410}
-  - component: {fileID: 6480184304654686342}
+  - component: {fileID: 5652006372639671980}
   m_Layer: 7
   m_Name: middleBoss_BW
   m_TagString: Boss_DB
@@ -181,7 +181,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6480184304654686342
+--- !u!114 &5652006372639671980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,12 +195,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   mapSpellMarker: {fileID: 0}
-  selfPosition: {fileID: 4902004596751578511}
-  soulDrop: {fileID: 7428717623223419327, guid: 9a9b3036750ae9b4fad0d4ca145d0d0c, type: 3}
-  meleeAttack: {fileID: 8108776398137204367, guid: 958b28cdcd9e54245867576549210b52, type: 3}
-  spellAttack: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
-  spellEffect: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
-  MiddleBoss: {fileID: 6045820309081120241}
-  maxHealth: 1000
+  selfPosition: {fileID: 0}
+  soulDrop: {fileID: 0}
+  meleeAttack: {fileID: 0}
+  spellAttack: {fileID: 0}
+  spellEffect: {fileID: 0}
+  magicMissile: {fileID: 0}
+  missileSpeed: 5
+  MiddleBoss: {fileID: 0}
+  maxHealth: 0
   currentHealth: 0
-  characterStats: {fileID: 2491328609635162135, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
+  characterStats: {fileID: 0}
