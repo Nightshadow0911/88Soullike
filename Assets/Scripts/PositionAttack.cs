@@ -17,33 +17,47 @@ public class PositionAttack : MonoBehaviour
         projectileManager.ActivePositionAttack(position, data);
     }
 
-    public void CreateMultipleProjectile(Vector2 position, PositionAttackData data)
+    public void CreateMultipleProjectile(Vector2 position, PositionAttackData data, bool reverse)
     {
-        StartCoroutine(MultipleProjectile(position, data));
+        StartCoroutine(MultipleProjectile(position, data, reverse));
+    }
+    
+    public void CreateBothSideProjectile(Vector2 position, PositionAttackData data)
+    {
+        StartCoroutine(BothSideProjectile(position, data));
     }
 
-    private IEnumerator MultipleProjectile(Vector2 position, PositionAttackData data)
+    private IEnumerator MultipleProjectile(Vector2 position, PositionAttackData data, bool reverse)
     {
         projectileManager.ActivePositionAttack(position, data);
-        int count = data.numberofPositionAttack;
-        if (!data.bothSide)
+        if (reverse)
         {
-            for (int i = 1; i < count; i++)
+            for (int i = 1; i < data.numberofPositionAttack; i++)
             {
                 yield return YieldCache.WaitForSeconds(data.delayTime);
-                projectileManager.ActivePositionAttack(position + data.followUpDirection * i, data);
-            }
+                projectileManager.ActivePositionAttack(position + -data.followUpDirection * i, data);
+            } 
         }
         else
         {
-            for (int i = 1; i < count; i++)
+            for (int i = 1; i < data.numberofPositionAttack; i++)
             {
                 yield return YieldCache.WaitForSeconds(data.delayTime);
                 projectileManager.ActivePositionAttack(position + data.followUpDirection * i, data);
-                projectileManager.ActivePositionAttack(position + -data.followUpDirection * i, data);
-                count--;
-            }
+            } 
         }
-        yield return null;
+    }
+
+    private IEnumerator BothSideProjectile(Vector2 position, PositionAttackData data)
+    {
+        projectileManager.ActivePositionAttack(position, data);
+        int count = data.numberofPositionAttack;
+        for (int i = 1; i < count; i++)
+        {
+            yield return YieldCache.WaitForSeconds(data.delayTime);
+            projectileManager.ActivePositionAttack(position + data.followUpDirection * i, data);
+            projectileManager.ActivePositionAttack(position + -data.followUpDirection * i, data);
+            count--;
+        }
     }
 }

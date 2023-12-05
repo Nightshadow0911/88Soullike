@@ -6,29 +6,32 @@ using UnityEngine;
 public class DarkSpirit : EnemyCharacter
 {
     [Header("Unique Setting")]
-    private Vector2 meleeAttackRange;
-    
+    [SerializeField] private Vector2 meleeAttackRange;
+
     protected override void Awake()
     {
         base.Awake();
+        Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
         
         #region Pattern
         pattern.AddPattern(Distance.Default, Run);
-        pattern.AddPattern(Distance.CloseRange, Attack);
         #endregion
     }
-
+    
     protected override void SetPatternDistance()
     {
-        float distance = Mathf.Abs(targetTransform.position.x - transform.position.x);
-        if (distance < characterStat.closeRange)
-        {
-            pattern.SetDistance(Distance.CloseRange);
-        }
-        else
-        {
-            pattern.SetDistance(Distance.Default);
-        }
+        pattern.SetDistance(Distance.Default);
+    }
+
+    protected override void DetectPlayer()
+    {
+        targetTransform = GameManager.Instance.player.transform;
+        Invoke("DetectedTrue", 0.5f);
+    }
+
+    private void DetectedTrue()
+    {
+        detected = true;
     }
     
     protected override void Rotate()
@@ -38,7 +41,6 @@ public class DarkSpirit : EnemyCharacter
             : Quaternion.Euler(0, 180, 0);
     } 
     
-
     private void MeleeAttack()
     {
         Collider2D collision = Physics2D.OverlapBox(
@@ -53,24 +55,33 @@ public class DarkSpirit : EnemyCharacter
     private IEnumerator Run()
     {
         RunningPattern();
+        anim.HashBool(anim.run, true);
         float distance = float.MaxValue;
-        while (Mathf.Abs(distance) > characterStat.attackRange)
+        while (Mathf.Abs(distance) > characterStat.closeRange)
         {
             distance = targetTransform.position.x - transform.position.x;
             rigid.velocity = GetDirection() * characterStat.speed;
-            yield return null;
+            yield return YieldCache.WaitForFixedUpdate;
         }
+        anim.HashBool(anim.run, false);
         rigid.velocity = Vector2.zero;
-        state = State.SUCCESS;
-        yield return null;
+        yield return StartCoroutine(Attack());
     }
 
     private IEnumerator Attack()
     {
         RunningPattern();
-        yield return YieldCache.WaitForSeconds(0.5f);// 애니메이션 싱크
+        anim.HashTrigger(anim.attack);
+        yield return YieldCache.WaitForSeconds(0.4f);// 애니메이션 싱크
         MeleeAttack();
         state = State.SUCCESS;
         yield return null;
+    }
+
+    protected override void Death()
+    {
+        anim.HashTrigger(anim.death);
+        Boss_NightBorn.spiritNum--;
+        Destroy(gameObject);
     }
 }

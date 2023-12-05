@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class LastPlayerController : MonoBehaviour
 {
-    private SoundManager soundManager;
     private PlayerStatusHandler playerStatusHandler;
     private Animator anim;
     private Rigidbody2D rb;
@@ -72,18 +71,24 @@ public class LastPlayerController : MonoBehaviour
     private bool canPressS = true;
     private float pressCooldown = 2f;
 
+    private Test test;
+    private SoundManager soundManager;
+    private float lastPlayTime = 0f;
+    [SerializeField] private float playAudioTime;
 
     void Start()
     {
-        soundManager = SoundManager.instance;
+
     }
 
     private void Awake()
     {
-       
+
+        soundManager = SoundManager.instance;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
+        test = GetComponent<Test>();
     }
     void Update()
     {
@@ -105,6 +110,7 @@ public class LastPlayerController : MonoBehaviour
         else
         {
             Move();
+            MoveSound();
             Dash();
             CheckForLedge();
         }
@@ -234,6 +240,20 @@ public class LastPlayerController : MonoBehaviour
             }
         }
     }
+    private void MoveSound()
+    {
+        if (rb.velocity.y == 0)
+        {
+            if (rb.velocity.x < -4 || rb.velocity.x > 4)
+            {
+                if (Time.time - lastPlayTime > playAudioTime)
+                {
+                    soundManager.PlayClip(test.runSound);
+                    lastPlayTime = Time.time;
+                }
+            }
+        }
+    }
 
     private void Dash()
     {
@@ -243,7 +263,7 @@ public class LastPlayerController : MonoBehaviour
             {
                 if (playerStatusHandler.GetStat().stemina >= dashStaminaCost)
                 {
-                    playerStatusHandler.GetStat().stemina -= dashStaminaCost;
+                    // playerStatusHandler.GetStat().stemina -= dashStaminaCost;
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
@@ -264,20 +284,20 @@ public class LastPlayerController : MonoBehaviour
 
     private void RegenStamina()
     {
-        playerStatusHandler.GetStat().stemina += staminaRegenRate * Time.deltaTime;
-        playerStatusHandler.GetStat().stemina = Mathf.Clamp(playerStatusHandler.GetStat().stemina, 0f, 100f);
+        // playerStatusHandler.GetStat().stemina += staminaRegenRate * Time.deltaTime;
+        // playerStatusHandler.GetStat().stemina = Mathf.Clamp(playerStatusHandler.GetStat().stemina, 0f, 100f);
         //Debug.Log("currentStamina ::" + playerStatusHandler.GetStat().stemina);
     }
 
     private void Death()
     {
-        if (playerStatusHandler.GetStat().hp <= 0)
-        {
-            Debug.Log("DeathAnim");
-            anim.SetBool("isDeath", true);
-            canMove = false;
-            rb.velocity = Vector2.zero;
-        }
+        // if (playerStatusHandler.GetStat().hp <= 0)
+        // {
+        //     Debug.Log("DeathAnim");
+        //     anim.SetBool("isDeath", true);
+        //     canMove = false;
+        //     rb.velocity = Vector2.zero;
+        // }
     }
 
     private void JumpButton()

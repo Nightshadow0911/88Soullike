@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   damage: 15
-  defense: 10
-  speed: 6
-  delay: 0.5
+  defense: 5
+  speed: 4
+  delay: 1
   attackRange: 2.5
   propertyDamage: 0
   propertyDefense: 0
-  detectRange: 0
+  detectRange: 100
   target:
     serializedVersion: 2
     m_Bits: 64

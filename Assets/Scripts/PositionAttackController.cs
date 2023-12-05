@@ -46,7 +46,7 @@ public class PositionAttackController : MonoBehaviour
         isReady = true;
     }
 
-    protected void DestroyProjectile()
+    protected virtual void DestroyProjectile()
     {
         gameObject.SetActive(false);
     }

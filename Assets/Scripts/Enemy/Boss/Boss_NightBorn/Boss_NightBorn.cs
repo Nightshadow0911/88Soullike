@@ -4,45 +4,43 @@ using UnityEngine;
 
 public class Boss_NightBorn : EnemyCharacter
 {
-    private Boss_NightBornStat uniqueStats;
-    private PositionAttack positionAttack;
-    
     [Header("Unique Setting")]
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Boss_NightBornUniqueStat uniqueStats;
+    [SerializeField] private GameObject backLight;
+    [SerializeField] private LayerMask wallLayer;
+
+    private PositionAttack positionAttack;
+    public static int spiritNum;
     private bool isRage = false;
 
     protected override void Awake()
     {
         base.Awake();
         positionAttack = GetComponent<PositionAttack>();
+        backLight.SetActive(false);
         
-        // #region CloseRangedPattern
-        // AddPattern(Distance.CloseRange, );
-        // AddPattern(Distance.CloseRange, );
-        // AddPattern(Distance.CloseRange, );
-        // #endregion
-        //
-        // #region MediumRangePattern
-        // AddPattern(Distance.MediumRange, );
-        // AddPattern(Distance.MediumRange, );
-        // AddPattern(Distance.MediumRange, );
-        // #endregion
-        //
-        // #region LongRangePattern
-        // AddPattern(Distance.LongRange, );
-        // AddPattern(Distance.LongRange, );
-        // #endregion
-
+        #region CloseRangedPattern
+        pattern.AddPattern(Distance.CloseRange, Slash);
+        pattern.AddPattern(Distance.CloseRange, ForwardDashSlash);
+        pattern.AddPattern(Distance.CloseRange, SpwanMonster);
+        #endregion
+        
+        #region MediumRangePattern
+        pattern.AddPattern(Distance.MediumRange, ForwardDashSlash);
+        pattern.AddPattern(Distance.MediumRange, StraightExplosion);
+        pattern.AddPattern(Distance.MediumRange, BlinkExplosion);
+        pattern.AddPattern(Distance.MediumRange, SpwanMonster);
+        pattern.AddPattern(Distance.MediumRange, Run);
+        #endregion
     }
     
     protected override void Start()
     {
         base.Start();
-        uniqueStats = statusHandler.GetUniqueStat() as Boss_NightBornStat;
-        // foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
-        // {
-        //     ProjectileManager.instance.InsertObjectPool(projectile);
-        // }
+        foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
+        {
+            ProjectileManager.instance.InsertObjectPool(projectile);
+        }
     }
 
     protected override void SetPatternDistance()
@@ -52,91 +50,159 @@ public class Boss_NightBorn : EnemyCharacter
         {
             pattern.SetDistance(Distance.CloseRange);
         }
-        else if (distance < characterStat.mediumRange)
+        else
         {
             pattern.SetDistance(Distance.MediumRange);
         }
-        else
-        {
-            pattern.SetDistance(Distance.Default);
-        }
+    }
+    
+    protected override void DetectPlayer()
+    {
+        targetTransform = GameManager.Instance.player.transform;
+        detected = true;
     }
 
     private void MeleeAttack()
     {
         Collider2D collision = Physics2D.OverlapBox(
-            attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
+            attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
         if (collision != null)
         {
             // 데미지 주기
             Debug.Log("player hit");
         }
     }
+
+    private IEnumerator Run()
+    {
+        RunningPattern();
+        // soundManager.PlayClip(uniqueStats.runSound);
+        anim.HashBool(anim.run, true);
+        float distance = float.MaxValue;
+        while (Mathf.Abs(distance) > characterStat.closeRange)
+        {
+            distance = targetTransform.position.x - transform.position.x;
+            rigid.velocity = GetDirection() * characterStat.speed;
+            yield return YieldCache.WaitForFixedUpdate;
+        }
+        // soundManager.StopClip();
+        anim.HashBool(anim.run, false);
+        rigid.velocity = Vector2.zero;
+        state = State.FAILURE;
+    }
     
-    private IEnumerator RandomCut()
+    private IEnumerator Slash()
     {
         RunningPattern();
         float ran = Random.Range(0, 10);
-        // 애니 트리거
-        yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
+        anim.StringTrigger("Slash");
+        yield return YieldCache.WaitForSeconds(0.7f); // 애니 싱크
         MeleeAttack();
         if (ran < 5)
         {
-            // 애니 트리거
-            yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
+            anim.StringTrigger("TwiceSlash");
+            yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
             MeleeAttack();
         }
         state = State.SUCCESS;
-        yield return null;
+    }
+
+    private IEnumerator ForwardDashSlash()
+    {
+        RunningPattern();
+        //soundManager.PlayClip(uniqueStats.);
+        anim.StringTrigger("ForwardDashSlash");
+        Vector2 direction = GetDirection();
+        yield return YieldCache.WaitForSeconds(1f);
+        float moveDistance;
+        bool hit = false;
+        Vector2 startPosition = transform.position;
+        do 
+        {
+            Vector3 position = transform.position;
+            moveDistance = position.x - startPosition.x;
+            rigid.velocity = direction * uniqueStats.fowardDashSlashSpeed;
+            if (!hit)
+            {
+                Collider2D collision = Physics2D.OverlapBox(
+                    attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
+                if (collision != null)
+                {
+                    // 데미지 주기
+                    hit = true;
+                    Debug.Log("player hit");
+                }
+            }
+            yield return YieldCache.WaitForFixedUpdate;
+        }
+        while (Mathf.Abs(moveDistance) < uniqueStats.fowardDashSlashDistance && !CheckTile(direction));
+        rigid.velocity = Vector2.zero;
+        state = State.SUCCESS;
     }
 
     private IEnumerator StraightExplosion()
     {
         RunningPattern();
-        // 애니 트리거
+        anim.StringTrigger("OnStraightExplosion");
         yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
-        // positionAttack.CreateMultipleProjectile(위치 수정, uniqueStats.data); // 포지션 맵끝으로 변경 필요
-        // 애니 트리거
-        yield return YieldCache.WaitForSeconds(1f); // 패턴끝나는거 기다리기
+        if (GetDirection().x < 0)
+        {
+            Vector3 position = new Vector2(uniqueStats.minX, transform.position.y + 1f);
+            positionAttack.CreateMultipleProjectile( position, uniqueStats.bornExplosion, false);
+        }
+        else
+        {
+            Vector3 position = new Vector2(uniqueStats.maxX, transform.position.y + 1f);
+            positionAttack.CreateMultipleProjectile(position, uniqueStats.bornExplosion, true);
+        }
+        yield return YieldCache.WaitForSeconds(2f); // 패턴끝나는거 기다리기
+        anim.StringTrigger("EndStraightExplosion");
+        yield return YieldCache.WaitForSeconds(0.5f);
         state = State.SUCCESS;
-        yield return null;
     }
 
     private IEnumerator BlinkExplosion()
     {
         RunningPattern();
-        // 애니 트리거
+        anim.StringTrigger("OnBlinkExplosion");
+        yield return YieldCache.WaitForSeconds(0.7f); // 애니 싱크
+        Vector3 position = transform.position += (targetTransform.position.x - transform.position.x) * Vector3.right;
         yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
-        transform.position = targetTransform.position;
-        // 애니 트리거
+        positionAttack.CreateBothSideProjectile(position + Vector3.up,
+            uniqueStats.bothSideExplosion);
         yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
-        // positionAttack.CreateMultipleProjectile(transform.position, uniqueStats.data);
-        yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
+        anim.StringTrigger("EndBlinkExplosion");
         state = State.SUCCESS;
-        yield return null;
     }
-    
-    
-    private Vector2 GetEndPosition(float distance, bool reverse)
+
+    private IEnumerator SpwanMonster()
     {
-        Vector2 position = Vector2.right;
-        if (reverse)
+        RunningPattern();   
+        if (isRage || spiritNum >= 5)
         {
-            position *= targetTransform.position.x - transform.position.x < 0 ? distance : -distance;
+            state = State.FAILURE;
+            yield break;
         }
-        else
-        {
-            position *= targetTransform.position.x - transform.position.x < 0  ? -distance : distance;
-        }
-        return (Vector2)transform.position + position;
+        anim.StringTrigger("SpwanMonster");
+        yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
+        float ran = Random.Range(uniqueStats.minX, uniqueStats.maxX);
+        Vector2 position = new Vector2(ran, transform.position.y + 1f);
+        positionAttack.CreateProjectile(position, uniqueStats.spwanBall);
+        yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
+        state = State.SUCCESS;
     }
     
-    private bool CheckGround()
+    private bool CheckTile(Vector2 dir)
     {
         RaycastHit2D hit = Physics2D.Raycast(
-            transform.position, Vector2.down, 0.7f, groundLayer);
+            transform.position, dir, 2f, wallLayer);
         if (hit.collider != null)
             return true;
         return false;
+    }
+
+    protected override void Death()
+    {
+        anim.HashTrigger(anim.death);
     }
 }

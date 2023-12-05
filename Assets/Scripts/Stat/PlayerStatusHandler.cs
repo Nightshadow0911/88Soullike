@@ -6,39 +6,47 @@ using UnityEngine;
 
 public enum Status // <- 레벨업시 사용
 {
-    // 주석 == 기본 스탯 수치
-    Health, // 10
-    Stemina, // 10
-    Str, // 5
-    Dex, // 5
-    Int, // 기본 수치 수정 필요
-    Lux // 5
+    Health,
+    Stemina, 
+    Str, 
+    Dex, 
+    Int, 
+    Lux 
 }
 
 public class PlayerStatusHandler :StatHandler
 {
-    private PlayerStat playerBaseStat;
-    private PlayerStat playerGrowStat;
-    private PlayerStat playerMaxStat; // MAX 수치 저장 데이터
-    private PlayerStat playerCurrentStat; // 현재 수치 저장 데이터 
-    public PlayerStat GetStat() => playerCurrentStat;
-    public PlayerStat GetMaxStat() => playerMaxStat;
+    private PlayerStat playerCurrentStat;
+    public PlayerStat GetStat() => playerCurrentStat;  // 현재 수치 가져오기 
     public PlayerStat growStatSO;
     public PlayerStat baseStatSO;
+
+    public int currentHp;
+    public float currentStemina;
+    public int currentDamage;
+    public int currentSpellPower;
+    public int currentDefense;
+    public int currentpropertyDamage;
+    public int currentpropertyDefense;
+    public int currentWeight;
+    public int curretRegainHp;
+    public int curretMana;
+    public float currentSpeed;
+    public float currentCritical;
+    public float currentDelay;
+    public float currentParryTime;
+    public float currentSoulDrop;
     
-    protected override void Awake()
+    private void Awake()
     {
         playerCurrentStat = currentStatSO as PlayerStat;
-        playerBaseStat = baseStatSO;
-        playerGrowStat = growStatSO;
-        base.Awake();
         SetStat();
     }
 
     
     public int CriticalCheck(int damage)
     {
-        if (UnityEngine.Random.Range(0,100) < playerCurrentStat.criticalChance)
+        if (UnityEngine.Random.Range(0,100) < currentCritical)
         {
             int criticalDamage = damage * 2;
             return criticalDamage;
@@ -50,49 +58,59 @@ public class PlayerStatusHandler :StatHandler
     {
         if (playerCurrentStat == null)
             return;
-        damage -= playerCurrentStat.defense;
-        playerCurrentStat.hp -= damage;
+        damage -= currentDefense;
+        currentHp -= damage;
     }
     
     protected override void SetStat()
     {
-        playerCurrentStat = ScriptableObject.CreateInstance<PlayerStat>();
-        playerBaseStat = ScriptableObject.CreateInstance<PlayerStat>();
-        playerGrowStat = ScriptableObject.CreateInstance<PlayerStat>();
         UpdateStat();
+        currentHp = playerCurrentStat.hp;
+        currentStemina = playerCurrentStat.stemina;
+        currentDamage = playerCurrentStat.damage;
+        currentSpellPower = playerCurrentStat.spellPower;
+        currentDefense = playerCurrentStat.defense;
+        currentpropertyDamage = playerCurrentStat.propertyDamage;
+        currentpropertyDefense = playerCurrentStat.propertyDefense;
+        currentWeight = playerCurrentStat.weight;
+        curretRegainHp = playerCurrentStat.regainHp;
+        curretMana = playerCurrentStat.mana;
+        currentSpeed = playerCurrentStat.speed;
+        currentCritical = playerCurrentStat.criticalChance;
+        currentDelay = playerCurrentStat.delay;
+        currentParryTime = playerCurrentStat.parryTime;
+        currentSoulDrop = playerCurrentStat.soulDropRate;
     }
 
     public void UpdateStat()
     {
-        playerGrowStat.DetailedStat(playerGrowStat);
-        playerBaseStat.DetailedStat(playerBaseStat);
-        playerCurrentStat.PlusStatToMax(playerBaseStat, playerGrowStat);
-        playerMaxStat.CopyBaseStat(playerCurrentStat);
+        growStatSO.DetailedStat(growStatSO);
+        playerCurrentStat.PlusStatToMax(baseStatSO, growStatSO);
     }
 
     public bool GrowUpStat(int num, Status status) // 레벨업 메서드
     {
-        if (playerGrowStat == null)
+        if (growStatSO == null)
             return false;
         switch (status)
         {
             case Status.Health:
-                playerGrowStat.healthStat += num;
+                growStatSO.healthStat += num;
                 break;
             case Status.Stemina:
-                playerGrowStat.steminaStat += num;
+                growStatSO.steminaStat += num;
                 break;
             case Status.Str:
-                playerGrowStat.strStat += num;
+                growStatSO.strStat += num;
                 break;
             case Status.Dex:
-                playerGrowStat.dexStat += num;
+                growStatSO.dexStat += num;
                 break;
             case Status.Int:
-                playerGrowStat.intStat += num;
+                growStatSO.intStat += num;
                 break;
             case Status.Lux:
-                playerGrowStat.luxStat += num;
+                growStatSO.luxStat += num;
                 break;
         }
         return true;
@@ -114,5 +132,4 @@ public class PlayerStatusHandler :StatHandler
         playerCurrentStat.weight += weight;
         playerCurrentStat.propertyDefense += propertyAmount;
     }
-
 }

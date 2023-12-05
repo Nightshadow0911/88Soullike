@@ -7,11 +7,6 @@ public abstract class StatHandler : MonoBehaviour
 {
    [SerializeField] protected BaseStat currentStatSO;
 
-   protected virtual void Awake()
-   {
-      SetStat();
-   }
-
    public abstract void TakeDamage(int baseDamage);
 
    protected abstract void SetStat();
