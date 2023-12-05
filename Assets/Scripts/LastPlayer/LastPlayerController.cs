@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class LastPlayerController : MonoBehaviour
 {
-    private SoundManager soundManager;
     private PlayerStatusHandler playerStatusHandler;
     private Animator anim;
     private Rigidbody2D rb;
@@ -72,18 +71,24 @@ public class LastPlayerController : MonoBehaviour
     private bool canPressS = true;
     private float pressCooldown = 2f;
 
+    private Test test;
+    private SoundManager soundManager;
+    private float lastPlayTime = 0f;
+    [SerializeField] private float playAudioTime;
 
     void Start()
     {
-        soundManager = SoundManager.instance;
+
     }
 
     private void Awake()
     {
-       
+
+        soundManager = SoundManager.instance;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
+        test = GetComponent<Test>();
     }
     void Update()
     {
@@ -105,6 +110,7 @@ public class LastPlayerController : MonoBehaviour
         else
         {
             Move();
+            MoveSound();
             Dash();
             CheckForLedge();
         }
@@ -231,6 +237,20 @@ public class LastPlayerController : MonoBehaviour
             {
                 rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
                 Debug.Log(playerStatusHandler.GetStat().speed);
+            }
+        }
+    }
+    private void MoveSound()
+    {
+        if (rb.velocity.y == 0)
+        {
+            if (rb.velocity.x < -4 || rb.velocity.x > 4)
+            {
+                if (Time.time - lastPlayTime > playAudioTime)
+                {
+                    soundManager.PlayClip(test.runSound);
+                    lastPlayTime = Time.time;
+                }
             }
         }
     }
