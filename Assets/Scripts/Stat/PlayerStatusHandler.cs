@@ -16,8 +16,8 @@ public enum Status // <- 레벨업시 사용
 
 public class PlayerStatusHandler :StatHandler
 {
-    private PlayerStat playerCurrentStat; // 현재 수치 저장 데이터 
-    public PlayerStat GetStat() => playerCurrentStat;
+    private PlayerStat playerCurrentStat;
+    public PlayerStat GetStat() => playerCurrentStat;  // 현재 수치 가져오기 
     public PlayerStat growStatSO;
     public PlayerStat baseStatSO;
 
@@ -46,7 +46,7 @@ public class PlayerStatusHandler :StatHandler
     
     public int CriticalCheck(int damage)
     {
-        if (UnityEngine.Random.Range(0,100) < playerCurrentStat.criticalChance)
+        if (UnityEngine.Random.Range(0,100) < currentCritical)
         {
             int criticalDamage = damage * 2;
             return criticalDamage;
@@ -58,8 +58,8 @@ public class PlayerStatusHandler :StatHandler
     {
         if (playerCurrentStat == null)
             return;
-        damage -= playerCurrentStat.defense;
-        playerCurrentStat.hp -= damage;
+        damage -= currentDefense;
+        currentHp -= damage;
     }
     
     protected override void SetStat()

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Boss_NightBorn : EnemyCharacter
 {
-    private Boss_NightBornStat uniqueStats;
-    private PositionAttack positionAttack;
-    
     [Header("Unique Setting")]
-    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private Boss_NightBornStat uniqueStats;
     [SerializeField] private GameObject backLight;
+    [SerializeField] private LayerMask wallLayer;
+    
+    private PositionAttack positionAttack;
     private bool isRage = false;
 
     protected override void Awake()
@@ -37,7 +37,6 @@ public class Boss_NightBorn : EnemyCharacter
     protected override void Start()
     {
         base.Start();
-        //uniqueStats = statusHandler.GetUniqueStat() as Boss_NightBornStat;
         foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
             ProjectileManager.instance.InsertObjectPool(projectile);

@@ -5,24 +5,26 @@ using UnityEngine;
 
 public class EnemyStatusHandler :StatHandler
 {
-    private EnemyStat currentStat; // 현재 수치 저장 데이터
-    public EnemyStat GetStat() => currentStat; // 현재 스탯 가져오기
+    private EnemyStat enemyCurrentStat;
+    public EnemyStat GetStat() => enemyCurrentStat; // 현재 스탯 가져오기
+    
+    public int currentHp;
     
     private void Awake()
     {
-        currentStat = currentStatSO as EnemyStat;
+        enemyCurrentStat = currentStatSO as EnemyStat;
     }
 
     protected override void SetStat()
     {
-        throw new NotImplementedException();
+        currentHp = enemyCurrentStat.hp;
     }
 
     public override void TakeDamage(int damage)
     {
-        if (currentStat == null)
+        if (enemyCurrentStat == null)
             return;
-        damage -= currentStat.defense;
-        currentStat.hp -= damage;
+        damage -= enemyCurrentStat.defense;
+        currentHp -= damage;
     }
 }

@@ -8,18 +8,18 @@ using Random = UnityEngine.Random;
 
 public class Boss_Archer : EnemyCharacter
 {
-    private Boss_ArcherStat uniqueStats;
-    private RangedAttack rangedAttack;
-    private PositionAttack positionAttack;
-    
     [Header("Unique Setting")]
+    [SerializeField] private Boss_ArcherStat uniqueStats;
     [SerializeField] private LayerMask tileLayer;
-    private bool isRage = false;
     
     [Header("ArrowEffects Type")]
     [SerializeField] private GameObject bomb;
     [SerializeField] private GameObject scatter;
     [SerializeField] private GameObject poison;
+    
+    private RangedAttack rangedAttack;
+    private PositionAttack positionAttack;
+    private bool isRage = false;
 
     protected override void Awake()
     {
@@ -51,7 +51,6 @@ public class Boss_Archer : EnemyCharacter
     protected override void Start()
     {
         base.Start();
-        //uniqueStats = statusHandler.GetUniqueStat() as Boss_ArcherStat;
         foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
