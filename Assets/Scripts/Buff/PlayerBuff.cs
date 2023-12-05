@@ -25,12 +25,12 @@ public class PlayerBuff : MonoBehaviour
         if (!buffs.ContainsKey(buff))
         {
             buffs.Add(buff, true); // activated this, ()
+
             buff.Activated(playerStatusHandler, () =>
             { //공격력 버프는 아직 PlayerAttack에서 하는게 맞는가? 버프로 조정되는 모든 스탯이 하나의 스크립트에 모여있어야 좋은데
                 buffs.Remove(buff);
                 Destroy(buff.gameObject);
                 Debug.Log(buff.buff.name + " : 버프 제거됨");
-
             });
             Debug.Log(buff.buff.name + " : 버프 적용");
         }

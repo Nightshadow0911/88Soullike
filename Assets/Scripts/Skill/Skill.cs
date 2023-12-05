@@ -32,7 +32,6 @@ public class Skill : MonoBehaviour
         Init();
         playerStat = characterStats.GetStat();
         dir = new Vector3(GameManager.Instance.lastPlayerController.facingDirection, 0, 0);
-        Debug.Log(this.SkillName);
 
     }
     private void Update()
