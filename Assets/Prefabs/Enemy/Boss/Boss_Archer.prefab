@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1264885276170689814
 Transform:
   m_ObjectHideFlags: 0
@@ -259,6 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
   attackPosition: {fileID: 2286751427095356880}
+  uniqueStats: {fileID: 11400000, guid: 103eb217215cb11438ad3a1b1492dc1b, type: 2}
   tileLayer:
     serializedVersion: 2
     m_Bits: 1536
@@ -277,7 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d207ea01b5937ad4d9dcdcc89d6cd535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStatSO: {fileID: 11400000, guid: 103eb217215cb11438ad3a1b1492dc1b, type: 2}
+  currentStatSO: {fileID: 11400000, guid: 25b6f4bba14ee284b8d78dac9de73fe8, type: 2}
+  currentHp: 0
 --- !u!114 &5658020677484353115
 MonoBehaviour:
   m_ObjectHideFlags: 0

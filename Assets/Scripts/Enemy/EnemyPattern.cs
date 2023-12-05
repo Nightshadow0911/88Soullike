@@ -51,15 +51,16 @@ public class EnemyPattern : MonoBehaviour
         List<Func<IEnumerator>> list = GetPatternList(targetDistance);
         if (list.Count == 0)
             return null;
+        int random;
         for (int i = 0; i < list.Count; i++)
         {
-            int ran = Random.Range(0, list.Count);
-            Func<IEnumerator> ranPattern = list[ran];
-            list[ran] = list[i];
+            random = Random.Range(i, list.Count);
+            Func<IEnumerator> ranPattern = list[random];
+            list[random] = list[i];
             list[i] = ranPattern;
-            return ranPattern;
         }
-        return list[0];
+        random = Random.Range(0, list.Count);
+        return list[random];
     }
 
     private List<Func<IEnumerator>> GetPatternList(Distance distance)

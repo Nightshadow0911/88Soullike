@@ -228,10 +228,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
   attackPosition: {fileID: 1657755521677915222}
+  uniqueStats: {fileID: 11400000, guid: c5409c2814314df4881b5d224036ad3b, type: 2}
+  backLight: {fileID: 8878730732387862798}
   wallLayer:
     serializedVersion: 2
     m_Bits: 512
-  backLight: {fileID: 8878730732387862798}
 --- !u!114 &1513084008973565711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d207ea01b5937ad4d9dcdcc89d6cd535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStatSO: {fileID: 11400000, guid: c5409c2814314df4881b5d224036ad3b, type: 2}
+  currentStatSO: {fileID: 11400000, guid: c3dff12d9257c437d823da3ab89a5630, type: 2}
+  currentHp: 0
 --- !u!114 &5429057769090658166
 MonoBehaviour:
   m_ObjectHideFlags: 0

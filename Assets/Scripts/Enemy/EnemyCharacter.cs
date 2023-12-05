@@ -17,7 +17,7 @@ public abstract class EnemyCharacter : MonoBehaviour
     [SerializeField] protected Transform attackPosition;
     protected EnemyStatusHandler statusHandler;
     protected EnemyStat characterStat;
-    protected EnemyAnimationController animationController;
+    protected EnemyAnimationController anim;
     protected EnemyPattern pattern;
     protected Rigidbody2D rigid;
     protected SoundManager soundManager;
@@ -25,11 +25,12 @@ public abstract class EnemyCharacter : MonoBehaviour
     private Coroutine currentPattern;
     private float currentTime = float.MaxValue;
     protected State state;
+    protected bool detected;
 
     protected virtual void Awake()
     {
         statusHandler = GetComponent<EnemyStatusHandler>();
-        animationController = GetComponent<EnemyAnimationController>();
+        anim = GetComponent<EnemyAnimationController>();
         pattern = GetComponent<EnemyPattern>();
         rigid = GetComponent<Rigidbody2D>();
     }
@@ -40,15 +41,22 @@ public abstract class EnemyCharacter : MonoBehaviour
         characterStat = statusHandler.GetStat();
     }
 
-    protected virtual void Update()
+    private void Update()
     {
-        if (state == State.FAILURE)
-            ActionPattern();
-        if (state != State.RUNNING)
-            currentTime += Time.deltaTime;
-        if (currentTime > characterStat.delay)
+        if (!detected)
         {
-            ActionPattern();
+            DetectPlayer();
+        }
+        else
+        {
+            if (state == State.FAILURE)
+                ActionPattern();
+            if (state != State.RUNNING)
+                currentTime += Time.deltaTime;
+            if (currentTime > characterStat.delay)
+            {
+                ActionPattern();
+            }
         }
     }
     
@@ -63,7 +71,18 @@ public abstract class EnemyCharacter : MonoBehaviour
 
     protected abstract void SetPatternDistance();
 
-    protected virtual void RunningPattern()
+    protected virtual void DetectPlayer()
+    {
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position - (Vector2.right * characterStat.detectRange),
+            Vector2.right, characterStat.detectRange * 2, characterStat.target);
+        if (hit.collider != null)
+        {
+            targetTransform = GameManager.Instance.player.transform;
+            detected = true;
+        }
+    }
+
+    protected void RunningPattern()
     {
         state = State.RUNNING;
         Rotate();
@@ -87,4 +106,6 @@ public abstract class EnemyCharacter : MonoBehaviour
         state = State.FAILURE;
         rigid.velocity = Vector2.zero;
     }
+
+    protected abstract void Death();
 }
