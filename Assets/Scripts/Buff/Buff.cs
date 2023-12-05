@@ -7,55 +7,55 @@ using System;
 public class Buff : MonoBehaviour
 {
     public BuffSO buff;
-    
-    public void Activated(object obj, Action cbDone) // obj = ¹öÇÁ°¡ Àû¿ëµÉ °´Ã¼, cbDone ¹öÇÁ°¡ ³¡³µÀ½À» obj¿¡°Ô ¾Ë¸®±â À§ÇÔ
+
+    public void Activated(object obj, Action cbDone) // obj = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼, cbDone ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ objï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         StartCoroutine(SC_Timer(obj, cbDone));
     }
 
     protected IEnumerator SC_Timer2(object obj, Action cbDone)
     {
-        var fi = obj.GetType().GetTypeInfo().GetDeclaredProperty(buff.StatName); // ReflectionÀ¸·Î obj¿¡ ¼±¾ðµÈ ÇÁ·ÎÆÛÆ¼¸¦ °¡Á®¿È
+        var fi = obj.GetType().GetTypeInfo().GetDeclaredProperty(buff.StatName); // Reflectionï¿½ï¿½ï¿½ï¿½ objï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        int v = (int)fi.GetValue(obj); // ÇöÀç °ª => ÇöÀç°ªÀ¸·Î ÇÏ´Ï±î ¿©·¯°³ ¸Ô¾úÀ»¶§ ¹ö±×
+        int v = (int)fi.GetValue(obj); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ => ï¿½ï¿½ï¿½ç°ªï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        int buffed = v + buff.Value; // ¹öÇÁ°¡ Àû¿ëµÈ °ª
+        int buffed = v + buff.Value; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
-        fi.SetValue(obj, buffed); // obj¿¡ ¹öÇÁµÈ ½ºÅÈÀ» Àû¿ë
+        fi.SetValue(obj, buffed); // objï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        float elapsed = 0; // ¹öÇÁ ½Ã°£(durTime)µ¿¾È ´ë±â, ¹öÇÁ Áö¼Ó½Ã°£
+        float elapsed = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½(durTime)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½
 
         while (elapsed <= buff.DurTime)
         {
             elapsed += Time.deltaTime;
             yield return null;
         }
-        fi.SetValue(obj, v); // objÀÇ °ªÀ» ¿ø·¡´ë·Î µÇµ¹¸²
-        cbDone.Invoke(); // ¹öÇÁ°¡ ³¡³µÀ½À» ¾Ë¸²
+        fi.SetValue(obj, v); // objï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½
+        cbDone.Invoke(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½
     }
 
     protected IEnumerator SC_Timer(object obj, Action cbDone)
     {
-        var fi = obj.GetType().GetTypeInfo().GetDeclaredField(buff.StatName); // ReflectionÀ¸·Î obj¿¡ ¼±¾ðµÈ º¯¼ö¸¦ °¡Á®¿È
+        var fi = obj.GetType().GetTypeInfo().GetDeclaredField(buff.StatName); // Reflectionï¿½ï¿½ï¿½ï¿½ objï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        int v = (int)fi.GetValue(obj); // ÇöÀç °ª
+        int v = (int)fi.GetValue(obj); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
-        int buffed = v + buff.Value; // ¹öÇÁ°¡ Àû¿ëµÈ °ª
+        int buffed = v + buff.Value; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
-        fi.SetValue(obj, buffed); // obj¿¡ ¹öÇÁµÈ ½ºÅÈÀ» Àû¿ë
+        fi.SetValue(obj, buffed); // objï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        float elapsed = 0; // ¹öÇÁ ½Ã°£(durTime)µ¿¾È ´ë±â, ¹öÇÁ Áö¼Ó½Ã°£
+        float elapsed = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½(durTime)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½
 
-        while(elapsed <= buff.DurTime)
+        while (elapsed <= buff.DurTime)
         {
             elapsed += Time.deltaTime;
             yield return null;
         }
-        fi.SetValue(obj, v); // objÀÇ °ªÀ» ¿ø·¡´ë·Î µÇµ¹¸²
-        cbDone.Invoke(); // ¹öÇÁ°¡ ³¡³µÀ½À» ¾Ë¸²
+        fi.SetValue(obj, v); // objï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½
+        cbDone.Invoke(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½
     }
 
-    
+
 
     public override bool Equals(object obj)
     {
@@ -64,8 +64,8 @@ public class Buff : MonoBehaviour
 
         Buff otherBuff = (Buff)obj;
 
-        // ¹öÇÁ °´Ã¼ÀÇ ³»¿ëÀ» ºñ±³
-        // ¿¹½Ã·Î¼­ ¹öÇÁÀÇ ÀÌ¸§À» ºñ±³ÇÏ´Â °æ¿ì:
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        // ï¿½ï¿½ï¿½Ã·Î¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½:
         return buff.StatName == otherBuff.buff.StatName;
     }
 

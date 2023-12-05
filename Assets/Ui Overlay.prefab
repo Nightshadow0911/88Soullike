@@ -1301,7 +1301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerStatusHandler: {fileID: 0}
-  lastPlayerController: {fileID: 0}
   healthText: {fileID: 3509723699448283038}
   healthSlider: {fileID: 3911901761150695551}
   staminaSlider: {fileID: 752977664086163536}

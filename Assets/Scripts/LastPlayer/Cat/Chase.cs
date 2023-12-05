@@ -79,9 +79,9 @@ public class Chase : MonoBehaviour
         }
         else
         {
-            MoveWithSpeed(0);
-            canWalk = false;
-            canRun = false;
+            MoveWithSpeed(1);
+            canWalk = true;
+            canRun = true;
         }
 
     }
