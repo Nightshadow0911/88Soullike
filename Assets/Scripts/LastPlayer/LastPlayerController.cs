@@ -243,7 +243,7 @@ public class LastPlayerController : MonoBehaviour
             {
                 if (playerStatusHandler.GetStat().stemina >= dashStaminaCost)
                 {
-                    playerStatusHandler.GetStat().stemina -= dashStaminaCost;
+                    // playerStatusHandler.GetStat().stemina -= dashStaminaCost;
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
@@ -264,20 +264,20 @@ public class LastPlayerController : MonoBehaviour
 
     private void RegenStamina()
     {
-        playerStatusHandler.GetStat().stemina += staminaRegenRate * Time.deltaTime;
-        playerStatusHandler.GetStat().stemina = Mathf.Clamp(playerStatusHandler.GetStat().stemina, 0f, 100f);
+        // playerStatusHandler.GetStat().stemina += staminaRegenRate * Time.deltaTime;
+        // playerStatusHandler.GetStat().stemina = Mathf.Clamp(playerStatusHandler.GetStat().stemina, 0f, 100f);
         //Debug.Log("currentStamina ::" + playerStatusHandler.GetStat().stemina);
     }
 
     private void Death()
     {
-        if (playerStatusHandler.GetStat().hp <= 0)
-        {
-            Debug.Log("DeathAnim");
-            anim.SetBool("isDeath", true);
-            canMove = false;
-            rb.velocity = Vector2.zero;
-        }
+        // if (playerStatusHandler.GetStat().hp <= 0)
+        // {
+        //     Debug.Log("DeathAnim");
+        //     anim.SetBool("isDeath", true);
+        //     canMove = false;
+        //     rb.velocity = Vector2.zero;
+        // }
     }
 
     private void JumpButton()

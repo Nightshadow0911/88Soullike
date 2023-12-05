@@ -15,14 +15,35 @@ MonoBehaviour:
   hp: 1000
   damage: 15
   defense: 20
-  speed: 6
-  delay: 1
+  speed: 8
+  delay: 2
   attackRange: 0
   propertyDamage: 0
   propertyDefense: 0
   detectRange: 0
+  patternDelay: 0
   target:
     serializedVersion: 2
     m_Bits: 64
+  closeRange: 0
+  mediumRange: 0
+  longRange: 0
   meleeAttackRange: {x: 5, y: 7}
-  runSound: {fileID: 0}
+  minX: -13
+  maxX: 13
+  fowardDashSlashDistance: 6.5
+  fowardDashSlashSpeed: 30
+  projectiles:
+  - tag: BornExplosion
+    prefab: {fileID: 6951118443260180035, guid: a033561cc4627e54b808810b6c888d8a, type: 3}
+    size: 5
+  - tag: BothSideExplosion
+    prefab: {fileID: 1792518783751651042, guid: b1ac13ae58078254e868dd996ce24dbc, type: 3}
+    size: 3
+  - tag: SpwanBall
+    prefab: {fileID: 1556664850444448300, guid: 67e64102d7a164247ac2041ddba706b5, type: 3}
+    size: 2
+  bornExplosion: {fileID: 11400000, guid: 081506eb5670c724195c2522802b267f, type: 2}
+  bothSideExplosion: {fileID: 11400000, guid: 5ffd875bb1400094eb7123beb95ccd11, type: 2}
+  spwanBall: {fileID: 11400000, guid: cefa47807177746478f967667ee0f70f, type: 2}
+  runSound: {fileID: 8300000, guid: 5233bf45cf0644246ba2c1e2a828fc67, type: 3}

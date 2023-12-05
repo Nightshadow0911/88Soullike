@@ -109,10 +109,10 @@ public class PlayerAttack : MonoBehaviour
             //{
             //    characterStats.characterMana += 1;
             //}
-            if (stat.mana < 4)
-            {
-                stat.mana += 1;
-            }
+            // if (stat.mana < 4)
+            // {
+            //     stat.mana += 1;
+            // }
             manaRegainClickCount = 1;
         }
     }

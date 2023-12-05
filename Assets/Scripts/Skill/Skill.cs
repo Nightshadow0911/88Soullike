@@ -13,11 +13,11 @@ public class Skill : MonoBehaviour
     [SerializeField] private string skillName;
     [SerializeField] private Sprite skillIcon;
     [SerializeField] private List<SkillEffect> efts;
-    [SerializeField] private int power; // µ¥¹ÌÁö °è»ê½Ä(ex: ½ºÅ³°ø°Ý·Â * power) or ¹öÇÁ½Ã°£ µî
-    [SerializeField] private int cost; // ¸¶³ª ÄÚ½ºÆ®
+    [SerializeField] private int power; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ex: ï¿½ï¿½Å³ï¿½ï¿½ï¿½Ý·ï¿½ * power) or ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½
+    [SerializeField] private int cost; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½Æ®
     [SerializeField] private List<String> descriptiion;
     [SerializeField] private PropertyType skillProperty;
-    [SerializeField] private int price; // °¡°Ý(»óÁ¡¿¡¼­ »ì¶§ÀÇ °¡°ÝÀÓ, »óÁ¡ÆÇ¸Å°¡ ºÒ°¡´ÉÇÑ °æ¿ì 0)
+    [SerializeField] private int price; // ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ì¶§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸Å°ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 0)
 
     private PlayerStatusHandler characterStats;
     private PlayerStat playerStat;
@@ -58,10 +58,10 @@ public class Skill : MonoBehaviour
 
     public bool Use()
     {
-        Debug.Log("1"+playerStat.mana);
-
-        if (playerStat.mana <= 0) return false;
-        Debug.Log("2"+playerStat.mana);
+        // Debug.Log("1"+playerStat.mana);
+        //
+        // if (playerStat.mana <= 0) return false;
+        // Debug.Log("2"+playerStat.mana);
        // if (CostDecrease()) return false;
 
         bool isUsed = false;
@@ -74,31 +74,31 @@ public class Skill : MonoBehaviour
 
         if (isUsed && type != SkillType.Buff)
         {
-            CostDecrease();
+            //CostDecrease();
         }
 
 
-        return isUsed; // ½ºÅ³ »ç¿ë ¼º°ø ¿©ºÎ
+        return isUsed; // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    bool CostDecrease()
-    {
-        if (playerStat.mana >= cost)
-        {
-            playerStat.mana -= cost;
-            return true;
-        }
-        else {
-            return false;
-        }
-
-    }
+    // bool CostDecrease()
+    // {
+    //     if (playerStat.mana >= cost)
+    //     {
+    //         playerStat.mana -= cost;
+    //         return true;
+    //     }
+    //     else {
+    //         return false;
+    //     }
+    //
+    // }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<EnemyStatusHandler>().TakeDamage(power + playerStat.spellPower);
-            //power¿Í ÇÃ·¹ÀÌ¾î ÁÖ¹®·ÂÀ» ±â¹ÝÀ¸·Î µ¥¹ÌÁö¸¦ ÁÜ collision.getComponent<Enemy>().TakeDamage??
+            //powerï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ collision.getComponent<Enemy>().TakeDamage??
             if (activeType)
             {
                 Destroy(gameObject);
@@ -122,20 +122,20 @@ public class Skill : MonoBehaviour
         if (activeType)
         {
             transform.Translate(new Vector3(dir.x
-                * 20 * Time.deltaTime, 0, 0)); // 1f´Â ÇÃ·¹ÀÌ¾î°¡ ¹Ù¶óº¸´Â ¹æÇâ¿¡ µû¶ó -1f or 1f
+                * 20 * Time.deltaTime, 0, 0)); // 1fï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ù¶óº¸´ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ -1f or 1f
             yield return new WaitForSeconds(1f);
         }
         else
         {
             yield return new WaitForSeconds(0.3f);
-            // ½ÇÇàµÇ°í 1ÃÊ µÚ »ç¶óÁü
+            // ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         }
         Destroy(gameObject);
 
         yield return null;
     }
 
-    #region ÇÁ·ÎÆÛÆ¼
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼
     public SkillSO CurSkill { get { return curSkill;  } set { curSkill = value;  } }
     public SkillType Type { get { return type; } }
     public bool ActiveType { get { return activeType; } set { activeType = value; } }
