@@ -20,18 +20,17 @@ public class Boss_NightBorn : EnemyCharacter
         backLight.SetActive(false);
         
         #region CloseRangedPattern
-        // pattern.AddPattern(Distance.CloseRange, Slash);
-        // pattern.AddPattern(Distance.CloseRange, ForwardDashSlash);
-        // pattern.AddPattern(Distance.CloseRange, SpwanMonster);
-        pattern.AddPattern(Distance.MediumRange, BlinkExplosion);
+        pattern.AddPattern(Distance.CloseRange, Slash);
+        pattern.AddPattern(Distance.CloseRange, ForwardDashSlash);
+        pattern.AddPattern(Distance.CloseRange, SpwanMonster);
         #endregion
         
         #region MediumRangePattern
-        // pattern.AddPattern(Distance.MediumRange, ForwardDashSlash);
-        // pattern.AddPattern(Distance.MediumRange, StraightExplosion);
+        pattern.AddPattern(Distance.MediumRange, ForwardDashSlash);
+        pattern.AddPattern(Distance.MediumRange, StraightExplosion);
         pattern.AddPattern(Distance.MediumRange, BlinkExplosion);
-        // pattern.AddPattern(Distance.MediumRange, SpwanMonster);
-        // pattern.AddPattern(Distance.MediumRange, Run);
+        pattern.AddPattern(Distance.MediumRange, SpwanMonster);
+        pattern.AddPattern(Distance.MediumRange, Run);
         #endregion
     }
     
