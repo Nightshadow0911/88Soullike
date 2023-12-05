@@ -22,8 +22,7 @@ public class PlayerUI : MonoBehaviour
         staminaSlider.value = 1;
         regainSlider.value = 1;
         manaSlider.value = 1;
-        PlayerStat = PlayerStatusHandler.GetStat();
-        MaxStat = PlayerStatusHandler.GetMaxStat();
+        MaxStat = PlayerStatusHandler.GetStat();
     }
     private void Awake()
     {
@@ -41,8 +40,9 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateHpUI()
     {
-        int maxHealth = MaxStat.hp;
-        int currentHealth = PlayerStat.hp;
+        int currentHealth = PlayerStatusHandler.currentHp;/// 변경사항
+        int maxHealth = MaxStat.hp;//
+        Debug.Log("cH : " + currentHealth);
         healthText.text = "HP: " + currentHealth + " / " + maxHealth;
         healthSlider.value = calculateHealthPercentage(currentHealth, maxHealth);
     }
@@ -50,7 +50,7 @@ public class PlayerUI : MonoBehaviour
     {
         //float maxStamina = playerStatusHandler.GetMaxStat().stemina;
         //float currentStamina = playerStatusHandler.GetStat().stemina;
-        float currentStamina = PlayerStat.stemina;
+        float currentStamina = PlayerStatusHandler.currentStemina;
         float maxStamian = MaxStat.stemina;
         //Debug.Log("maxStamina ::" + maxStamina);
         //Debug.Log("currentStamina ::" + currentStamina);
@@ -68,8 +68,8 @@ public class PlayerUI : MonoBehaviour
     public void UpdateRegainHpUI()
     {
         int maxHealth = MaxStat.hp;
-        int characterRegainHp = PlayerStat.regainHp;
-        int currentHealth = PlayerStat.hp;
+        int characterRegainHp = PlayerStatusHandler.curretRegainHp;
+        int currentHealth = PlayerStatusHandler.currentHp;
         if (characterRegainHp < currentHealth)
         {
             characterRegainHp = currentHealth;
