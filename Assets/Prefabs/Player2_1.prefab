@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 3629454059808967070}
   - component: {fileID: 6131177484530544590}
   - component: {fileID: 6254307038230211842}
+  - component: {fileID: 1659357573951601878}
   m_Layer: 6
   m_Name: Player2_1
   m_TagString: Player
@@ -216,6 +217,7 @@ MonoBehaviour:
   isSitting: 0
   canDash: 1
   skillIndex: 0
+  playAudioTime: 0.2
 --- !u!95 &7028182834870813551
 Animator:
   serializedVersion: 5
@@ -420,7 +422,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   comboAttack: 0
-  buffDamage: 0
 --- !u!114 &6131177484530544590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebac04d3aaa10ff49bc56ad7c0acecff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBuffStat: {fileID: 0}
   buffUIPrefab: {fileID: 1707066295582191958, guid: e2bc2a144be4de444b2c04fb90c43043, type: 3}
   buffUIHolder: {fileID: 0}
 --- !u!114 &6254307038230211842
@@ -447,8 +449,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4192032ba984d324083a72b0b237d276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStatSO: {fileID: 11400000, guid: de06f41263c3f4a9482044bad20c442b, type: 2}
+  currentStatSO: {fileID: 11400000, guid: ecd45f9923f41b04daf897b8ac974bd6, type: 2}
   growStatSO: {fileID: 11400000, guid: 769d5f30a0e7ecf45ba30e823db4645b, type: 2}
+  baseStatSO: {fileID: 11400000, guid: 14a9ef6079ce3be4c8b196cc1bf31d95, type: 2}
+  currentHp: 0
+  currentStemina: 0
+  currentDamage: 0
+  currentSpellPower: 0
+  currentDefense: 0
+  currentpropertyDamage: 0
+  currentpropertyDefense: 0
+  currentWeight: 0
+  curretRegainHp: 0
+  curretMana: 0
+  currentSpeed: 0
+  currentCritical: 0
+  currentDelay: 0
+  currentParryTime: 0
+  currentSoulDrop: 0
+  currentAttackRange: 0
+--- !u!114 &1659357573951601878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269623617930255229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e920dd1f01141528ee9e8b992b8991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runSound: {fileID: 8300000, guid: 023ea3ddeaa8dd146b7633a0800e5a0e, type: 3}
 --- !u!1 &2018583826729319458
 GameObject:
   m_ObjectHideFlags: 0

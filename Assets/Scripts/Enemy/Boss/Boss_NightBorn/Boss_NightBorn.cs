@@ -19,6 +19,7 @@ public class Boss_NightBorn : EnemyCharacter
         positionAttack = GetComponent<PositionAttack>();
         backLight.SetActive(false);
         
+        
         #region CloseRangedPattern
         pattern.AddPattern(Distance.CloseRange, Slash);
         pattern.AddPattern(Distance.CloseRange, ForwardDashSlash);
@@ -41,6 +42,8 @@ public class Boss_NightBorn : EnemyCharacter
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
         }
+
+        spiritNum = 0;
     }
 
     protected override void SetPatternDistance()
@@ -177,6 +180,7 @@ public class Boss_NightBorn : EnemyCharacter
 
     private IEnumerator SpwanMonster()
     {
+        Debug.Log("시작");
         RunningPattern();   
         if (isRage || spiritNum >= 5)
         {
@@ -190,6 +194,7 @@ public class Boss_NightBorn : EnemyCharacter
         positionAttack.CreateProjectile(position, uniqueStats.spwanBall);
         yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
         state = State.SUCCESS;
+        Debug.Log("끝");
     }
     
     private bool CheckTile(Vector2 dir)

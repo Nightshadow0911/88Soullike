@@ -28,7 +28,6 @@ public class PetBuff : MonoBehaviour
     {
         petSkill.CurSkill = petSkills[Random.Range(0, petSkills.Count)];
         petSkill.Init();
-        Debug.Log("½ΊΕ³Έν" + petSkill.SkillName);
         petSkill.Use();
 
         yield return null;

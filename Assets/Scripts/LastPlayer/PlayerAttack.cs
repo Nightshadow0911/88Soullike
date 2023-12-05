@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private PlayerStatusHandler playerStatusHandler;
-    private PlayerStat stat;
+    private PlayerStat max;
     private Animator anim;
     public LastPlayerController player;
 
@@ -16,7 +16,7 @@ public class PlayerAttack : MonoBehaviour
 
     public bool isParrying = false;
     public bool isGuarding = false;
-    private float parryWindowEndTime = 0f; // 어디서 쓰는지?
+    private float parryWindowEndTime = 0f;
     private bool canAttack = true;
 
     private int comboAttackClickCount = 0;
@@ -28,14 +28,13 @@ public class PlayerAttack : MonoBehaviour
     //public float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
     public bool comboAttack;
-    public int buffDamage = 0;
 
     // Start is called before the first frame update
 
     void Start()
     {
         canAttack = true;
-        stat = playerStatusHandler.GetStat();
+        max = playerStatusHandler.GetStat();
     }
     private void Awake()
     {
@@ -64,9 +63,9 @@ public class PlayerAttack : MonoBehaviour
         {
             isParrying = true;
             transform.Find("Parrying").gameObject.SetActive(true);
-            //parryWindowEndTime = Time.time + characterStats.ParryTime;
-            parryWindowEndTime = Time.time + stat.parryTime;
-            Debug.Log("Parry Start");
+            parryWindowEndTime = Time.time + playerStatusHandler.currentParryTime;
+
+            Debug.Log("Parry Start"+ playerStatusHandler.currentParryTime);
         }
         else if (Input.GetMouseButtonUp(1) && isParrying)
         {
@@ -105,14 +104,10 @@ public class PlayerAttack : MonoBehaviour
     {
         if (manaRegainClickCount == 10)
         {
-            //if (characterStats.characterMana<characterStats.MaxMana)
-            //{
-            //    characterStats.characterMana += 1;
-            //}
-            // if (stat.mana < 4)
-            // {
-            //     stat.mana += 1;
-            // }
+            if (playerStatusHandler.curretMana < max.mana)
+            {
+                playerStatusHandler.curretMana += 1;
+            }
             manaRegainClickCount = 1;
         }
     }
@@ -129,17 +124,15 @@ public class PlayerAttack : MonoBehaviour
 
         if (Time.time >= nextAttackTime)//다음 공격 가능 시간 
         {
-
             if (canAttack == true)
             {
-
                 if (Input.GetMouseButtonDown(0) && player.isGrounded) //&& PopupUIManager.instance.activePopupLList.Count <= 0)
                 {
-
                     //double sp = gameManager.playerStats.AttackSpeed + 1f; // AttackSpeed= 1 // 아이템 공속 감소?
                     nextAttackTime = Time.time + 1f; // / sp  <= 삭제함( 수정 필요 )
-                    if (stat.stemina >= attackStaminaCost)
+                    if (playerStatusHandler.currentStemina >= attackStaminaCost)
                     {
+                        playerStatusHandler.currentStemina -= attackStaminaCost;
                         anim.SetTrigger("attack");
 
                         ApplyDamage();
@@ -152,26 +145,24 @@ public class PlayerAttack : MonoBehaviour
     private void RegainAttack(int damage)
     {
         int heal = damage;
-        if (stat.hp < stat.regainHp)
+        if (playerStatusHandler.currentHp < playerStatusHandler.curretRegainHp)
         {
-            stat.hp += heal / 4;
+            playerStatusHandler.currentHp += heal / 4;
         }
     }
 
     private int DamageCalculator()
     {
-        
-        int modifiedAttackDamage = stat.damage + buffDamage;
+        int modifiedAttackDamage = playerStatusHandler.currentDamage;
         if (comboAttackClickCount != 3)
         {
-
-            stat.stemina -= attackStaminaCost;
+            //playerStatusHandler.currentStemina -= attackStaminaCost;
             comboAttack = false;
         }
         else
         {
             anim.SetTrigger("combo");
-            stat.stemina -= attackStaminaCost * 2;
+            playerStatusHandler.currentStemina -= attackStaminaCost * 2;
             modifiedAttackDamage *= 2;
             comboAttackClickCount = 0;
             comboAttack = true;
@@ -182,7 +173,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void ApplyDamage() // Add damage To Monster
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, stat.attackRange, enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, playerStatusHandler.currentAttackRange, enemyLayer);
 
         Debug.Log("enemyLayer : " + enemyLayer);
         Debug.Log("hitEnemy : " + hitEnemies.Length);

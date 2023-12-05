@@ -75,7 +75,6 @@ public class DarkSpirit : EnemyCharacter
         yield return YieldCache.WaitForSeconds(0.4f);// 애니메이션 싱크
         MeleeAttack();
         state = State.SUCCESS;
-        yield return null;
     }
 
     protected override void Death()

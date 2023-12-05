@@ -53,11 +53,11 @@ public class Buff : MonoBehaviour
     {
         var fi = obj.GetType().GetTypeInfo().GetDeclaredField(buff.StatName); // Reflection으로 obj에 선언된 변수를 가져옴
         int v = (int)fi.GetValue(obj); // 현재 값
-
+        
         int buffed = v + buff.Value; // 버프가 적용된 값
 
         fi.SetValue(obj, buffed); // obj에 버프된 스탯을 적용
-
+        
         float elapsed = 0; // 버프 시간(durTime)동안 대기, 버프 지속시간
 
         while(elapsed <= buff.DurTime)

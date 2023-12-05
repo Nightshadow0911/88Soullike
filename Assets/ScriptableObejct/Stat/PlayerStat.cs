@@ -102,6 +102,7 @@ public class PlayerStat : BaseStat
             extraMoveSpeed = baseStat.extraMoveSpeed + growStat.extraMoveSpeed;
             soulDropRate = baseStat.soulDropRate + growStat.soulDropRate;
             criticalChance = baseStat.criticalChance + growStat.criticalChance;
+            mana = baseStat.mana + growStat.mana;
     }
     
 }
