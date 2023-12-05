@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 729150299934101174}
   - component: {fileID: 6028718587676751784}
   - component: {fileID: 4538989473501866103}
+  - component: {fileID: 6114394636886025098}
   m_Layer: 7
   m_Name: skeleton
   m_TagString: skeleton
@@ -202,3 +203,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6114394636886025098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4131467677953457577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d207ea01b5937ad4d9dcdcc89d6cd535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentStatSO: {fileID: 11400000, guid: c3dff12d9257c437d823da3ab89a5630, type: 2}
+  currentHp: 0
