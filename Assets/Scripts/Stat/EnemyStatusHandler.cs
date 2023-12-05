@@ -8,6 +8,7 @@ public class EnemyStatusHandler :StatHandler
     private EnemyStat enemyCurrentStat;
     public EnemyStat GetStat() => enemyCurrentStat; // 현재 스탯 가져오기
     
+    [HideInInspector]
     public int currentHp;
     
     private void Awake()

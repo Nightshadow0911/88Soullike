@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Boss_NightBornStats", menuName = "Stats/EnemyStat/Boss_NightBornStats", order = 3)]
-public class Boss_NightBornStat : ScriptableObject
+[CreateAssetMenu(fileName = "Boss_NightBornUniqueStats", menuName = "Stats/EnemyStat/Boss_NightBornUniqueStats", order = 3)]
+public class Boss_NightBornUniqueStat : ScriptableObject
 {
     [Header("NightBorn Stats")] 
     public Vector2 meleeAttackRange;

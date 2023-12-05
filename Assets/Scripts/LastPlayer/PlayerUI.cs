@@ -22,8 +22,7 @@ public class PlayerUI : MonoBehaviour
         staminaSlider.value = 1;
         regainSlider.value = 1;
         manaSlider.value = 1;
-        PlayerStat = PlayerStatusHandler.GetStat();
-        MaxStat = PlayerStatusHandler.GetMaxStat();
+        MaxStat = PlayerStatusHandler.GetStat();
     }
     private void Awake()
     {
