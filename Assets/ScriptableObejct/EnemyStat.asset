@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14589f9a940f864a9375cc533e3f9f8, type: 3}
   m_Name: EnemyStat
   m_EditorClassIdentifier: 
-  hp: 100
-  damage: 2
+  hp: 0
+  damage: 0
   defense: 0
-  speed: 1
-  delay: 1
-  attackRange: 1
+  speed: 0
+  delay: 0
+  attackRange: 0
   propertyDamage: 0
   propertyDefense: 0
-  detectRange: 1
-  patternDelay: 1
+  detectRange: 0
+  patternDelay: 0
   target:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0

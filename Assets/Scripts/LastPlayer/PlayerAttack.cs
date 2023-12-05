@@ -184,8 +184,8 @@ public class PlayerAttack : MonoBehaviour
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, stat.attackRange, enemyLayer);
 
-        //Debug.Log("enemyLayer : " + enemyLayer);
-        //Debug.Log("hitEnemy : " + hitEnemies.Length);
+        Debug.Log("enemyLayer : " + enemyLayer);
+        Debug.Log("hitEnemy : " + hitEnemies.Length);
         if (hitEnemies.Length != 0)
         {
 
@@ -197,7 +197,6 @@ public class PlayerAttack : MonoBehaviour
                 enemyhandler.TakeDamage(damage);
                 RegainAttack(damage);
                 PlayerEvents.playerDamaged.Invoke(gameObject, damage);
-                Debug.Log("hitEnemy : " + damage);
             }
         }
     }

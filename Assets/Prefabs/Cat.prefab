@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3f2d51c0443b742ac25323861f65e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petSkill: {fileID: 8395784152621780548, guid: 16aa30e13aee70f49869979580740afa, type: 3}
+  petSkill: {fileID: 0}
   petSkills:
   - {fileID: 11400000, guid: e05e15a3561e4a94fba4930e20d80e64, type: 2}
   - {fileID: 11400000, guid: 016b8df5357e9574f87b6066c121bc22, type: 2}
