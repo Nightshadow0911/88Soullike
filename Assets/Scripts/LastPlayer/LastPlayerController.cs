@@ -127,14 +127,14 @@ public class LastPlayerController : MonoBehaviour
             {
                 if (rb.velocity.y < 0)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * 10f));
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * 5f));
                     canPressS = false;
                     StartCoroutine(EnablePressAfterCooldown());
                     Debug.Log("FastDown");
                 }
                 else
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * -10f));
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * -5f));
                     canPressS = false;
                     StartCoroutine(EnablePressAfterCooldown());
                     Debug.Log("FastDown2");
@@ -232,11 +232,10 @@ public class LastPlayerController : MonoBehaviour
         if (canMove)
         { 
             Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
-            rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
+            rb.velocity = new Vector2(movingInput * playerStatusHandler.currentSpeed, rb.velocity.y);
             if (isSitting)
             {
-                rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
-                Debug.Log(playerStatusHandler.GetStat().speed);
+                rb.velocity = new Vector2(movingInput * playerStatusHandler.currentSpeed/2, rb.velocity.y);
             }
         }
     }
@@ -261,9 +260,10 @@ public class LastPlayerController : MonoBehaviour
         {
             if (canDash)
             {
-                if (playerStatusHandler.GetStat().stemina >= dashStaminaCost)
+                if (playerStatusHandler.currentStemina >= dashStaminaCost)
                 {
-                    // playerStatusHandler.GetStat().stemina -= dashStaminaCost;
+                    playerStatusHandler.currentStemina -= dashStaminaCost;
+                    Debug.Log("playerStatusHandler.currentStemina:" + playerStatusHandler.currentStemina);
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
@@ -284,20 +284,20 @@ public class LastPlayerController : MonoBehaviour
 
     private void RegenStamina()
     {
-        // playerStatusHandler.GetStat().stemina += staminaRegenRate * Time.deltaTime;
-        // playerStatusHandler.GetStat().stemina = Mathf.Clamp(playerStatusHandler.GetStat().stemina, 0f, 100f);
-        //Debug.Log("currentStamina ::" + playerStatusHandler.GetStat().stemina);
+        playerStatusHandler.currentStemina += staminaRegenRate * Time.deltaTime;
+        playerStatusHandler.currentStemina = Mathf.Clamp(playerStatusHandler.currentStemina, 0f, 100f);
+        //Debug.Log("currentStamina ::" + playerStatusHandler.currentStemina);
     }
 
     private void Death()
     {
-        // if (playerStatusHandler.GetStat().hp <= 0)
-        // {
-        //     Debug.Log("DeathAnim");
-        //     anim.SetBool("isDeath", true);
-        //     canMove = false;
-        //     rb.velocity = Vector2.zero;
-        // }
+        if (playerStatusHandler.currentHp <= 0)
+        {
+            Debug.Log("DeathAnim");
+            anim.SetBool("isDeath", true);
+            canMove = false;
+            rb.velocity = Vector2.zero;
+        }
     }
 
     private void JumpButton()
@@ -349,7 +349,7 @@ public class LastPlayerController : MonoBehaviour
         {
             float verticalInput = Input.GetAxis("Vertical");
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.GetStat().speed);
+            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.currentSpeed);
             isGrounded = false;
             canWallSlide = false;
         }
