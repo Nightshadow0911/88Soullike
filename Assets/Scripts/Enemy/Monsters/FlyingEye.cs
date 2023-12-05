@@ -97,9 +97,4 @@ public class FlyingEye : EnemyCharacter
         find = false;
         state = State.SUCCESS;
     }
-
-    protected override void Death()
-    {
-        anim.HashTrigger(anim.death);
-    }
 }
