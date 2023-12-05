@@ -1892,9 +1892,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1235531162}
     - target: {fileID: 6254307038230211842, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
+      propertyPath: baseStatSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 14a9ef6079ce3be4c8b196cc1bf31d95, type: 2}
+    - target: {fileID: 6254307038230211842, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
       propertyPath: growStatSO
       value: 
-      objectReference: {fileID: 11400000, guid: 9044def470f776e4fa671508c118d0cf, type: 2}
+      objectReference: {fileID: 11400000, guid: 769d5f30a0e7ecf45ba30e823db4645b, type: 2}
+    - target: {fileID: 6254307038230211842, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
+      propertyPath: currentStatSO
+      value: 
+      objectReference: {fileID: 11400000, guid: ecd45f9923f41b04daf897b8ac974bd6, type: 2}
     - target: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
       propertyPath: m_RootOrder
       value: 0
