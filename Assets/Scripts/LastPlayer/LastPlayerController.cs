@@ -78,12 +78,12 @@ public class LastPlayerController : MonoBehaviour
 
     private TestAudio testAudio;
     private SoundManager soundManager;
-    public float minMoveDistance = 1f;
-    private Vector3 previousPosition;
+    private float lastPlayTime=0f;
+    [SerializeField]private float playAudioTime;
     void Start()
     {
         PlayerStat = playerStatusHandler.GetStat();
-        previousPosition = transform.position;
+
     }
 
     private void Awake()
@@ -232,31 +232,29 @@ public class LastPlayerController : MonoBehaviour
     {
         if (canMove)
         {
-
             Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
             rb.velocity = new Vector2(movingInput * PlayerStat.speed, rb.velocity.y);
-            Debug.Log("zz" + rb.velocity.x);
             if (isSitting)
             {
-                rb.velocity = new Vector2(movingInput * PlayerStat.speed, rb.velocity.y);
+                rb.velocity = new Vector2(movingInput * PlayerStat.speed/3, rb.velocity.y);
             }
         }
     }
     private void MoveSound()
     {
-        if (rb.velocity.x >4)
+        if (rb.velocity.y == 0)
         {
-            float moveDistance = Vector3.Distance(transform.position, previousPosition);
-            if (moveDistance >= minMoveDistance)
+            if (rb.velocity.x < -4 || rb.velocity.x > 4)
             {
-                Debug.Log("test");
-                soundManager.PlayClip(testAudio.runSound);
-                previousPosition = transform.position;
-            } 
+                if (Time.time - lastPlayTime > playAudioTime)
+                {
+                    Debug.Log("test");
+                    soundManager.PlayClip(testAudio.runSound);
+                    lastPlayTime = Time.time;
+                }
+            }
         }
     }
-
-
     private void Dash()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > lastDashTime + dashCooldown)
