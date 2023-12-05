@@ -72,7 +72,7 @@ public class PlayerStat : BaseStat
        damage = stat.strStat * 4 + stat.dexStat * 2; 
     }
 
-    public void PlusStatToMax(PlayerStat baseStat, PlayerStat growStat, PlayerStat playerBuffStat)
+    public void PlusStatToMax(PlayerStat baseStat, PlayerStat growStat)
     {
             hp = baseStat.hp + growStat.hp;
             damage = baseStat.damage + growStat.damage;

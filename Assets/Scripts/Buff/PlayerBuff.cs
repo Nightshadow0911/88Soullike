@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerBuff : MonoBehaviour
 {    
     public static PlayerBuff Instance;
-    public PlayerStat playerBuffStat;
+    public PlayerStatusHandler playerBuffStat;
     [SerializeField] private GameObject buffUIPrefab;
     [SerializeField] private Transform buffUIHolder;
     //[SerializeField] private List<Buff> buffs = new List<Buff>();
@@ -16,7 +16,7 @@ public class PlayerBuff : MonoBehaviour
 
     private void Start()
     {
-        playerBuffStat = GameManager.Instance.player.GetComponent<PlayerStatusHandler>().buffStatSO;
+        playerBuffStat = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
     }
 
 

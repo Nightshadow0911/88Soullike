@@ -47,7 +47,6 @@ public class CharacterInfoUI : MonoBehaviour
     [SerializeField] private TMP_Text growLukTxt;
 
     private PlayerStatusHandler playerStatHandler;
-    private PlayerStat playerStat;
     private PlayerStat playerMaxStat;
 
     private void Awake()
@@ -58,8 +57,7 @@ public class CharacterInfoUI : MonoBehaviour
     }
     private void Start()
     {
-        playerStat = playerStatHandler.GetStat();
-        playerMaxStat = playerStatHandler.GetMaxStat();
+        playerMaxStat = playerStatHandler.GetStat();
     }
     private void Update()
     {
@@ -69,37 +67,37 @@ public class CharacterInfoUI : MonoBehaviour
 
     public void UpdateStatus()
     {
-        levelTxt.text = $"LV.{playerStat.level}";
-        healthTxt.text = $"{playerStat.hp} / {playerMaxStat.hp}";
-        steminaTxt.text = $"{playerStat.stemina} / {playerMaxStat.stemina}";
+        levelTxt.text = $"LV.{playerMaxStat.level}";
+        healthTxt.text = $"{playerStatHandler.currentHp} / {playerMaxStat.hp}";
+        steminaTxt.text = $"{playerStatHandler.currentStemina} / {playerMaxStat.stemina}";
         int equipWeight = 0;
         foreach (Item ew in Equipment.instance.equipItemList)
         {
             if (ew != null)
                 equipWeight += ew.Weight;
         }
-        weightTxt.text = $"{equipWeight} / {playerStat.weight}";
+        weightTxt.text = $"{equipWeight} / {playerStatHandler.currentWeight}";
 
-        speedTxt.text = $"{playerStat.speed}";
+        speedTxt.text = $"{playerStatHandler.currentSpeed}";
 
         weaponTxt.text = $"[E] {Equipment.instance.equipItemList[0]?.ItemName}";
-        attackTxt.text = $"{playerStat.damage}";
-        skillTxt.text = $"{playerStat.spellPower}";
-        propertyTxt.text = $"{playerStat.propertyDamage}";
-        criticalTxt.text = $"{playerStat.criticalChance:F1}%";
-        attackSpeedTxt.text = $"{playerStat.delay}";
+        attackTxt.text = $"{playerStatHandler.currentDamage}";
+        skillTxt.text = $"{playerStatHandler.currentSpellPower}";
+        propertyTxt.text = $"{playerStatHandler.currentpropertyDamage}";
+        criticalTxt.text = $"{playerStatHandler.currentCritical:F1}%";
+        attackSpeedTxt.text = $"{playerStatHandler.currentDelay}";
 
-        deffenceTxt.text = $"{playerStat.defense}";
-        parryTimeTxt.text = $"{(playerStat.parryTime):F2}";
-        addGoodTxt.text = $"{playerStat.soulDropRate}";
+        deffenceTxt.text = $"{playerStatHandler.currentDefense}";
+        parryTimeTxt.text = $"{(playerStatHandler.currentParryTime):F2}";
+        addGoodTxt.text = $"{playerStatHandler.currentSoulDrop}";
 
-        growPoint.text = $"포인트 : {playerStat.levelPoint}";
-        growHealthTxt.text = $"체력 {playerMaxStat.hp}({playerStat.healthStat})";
-        growStemenaTxt.text = $"스테미나 {playerMaxStat.stemina}({playerStat.steminaStat})";
-        growStrTxt.text = $"힘 {playerMaxStat.strStat}({playerStat.strStat})"; // 축적된 힘을 가질 변수 필요
-        growDexTxt.text = $"민첩 {playerMaxStat.dexStat}({playerStat.dexStat})";
-        growIntTxt.text = $"지력 {playerMaxStat.intStat}({playerStat.intStat})";
-        growLukTxt.text = $"운 {playerMaxStat.luxStat}({playerStat.luxStat})";
+        //growPoint.text = $"포인트 : {playerStatHandler.levelPoint}";
+        growHealthTxt.text = $"체력 {playerMaxStat.hp}()";
+        growStemenaTxt.text = $"스테미나 {playerMaxStat.stemina}()";
+        growStrTxt.text = $"힘 {playerMaxStat.strStat}()"; // 축적된 힘을 가질 변수 필요
+        growDexTxt.text = $"민첩 {playerMaxStat.dexStat}()";
+        growIntTxt.text = $"지력 {playerMaxStat.intStat}()";
+        growLukTxt.text = $"운 {playerMaxStat.luxStat}()";
     }
 
 

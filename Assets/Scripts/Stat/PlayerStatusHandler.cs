@@ -24,12 +24,18 @@ public class PlayerStatusHandler :StatHandler
     public int currentHp;
     public float currentStemina;
     public int currentDamage;
+    public int currentSpellPower;
     public int currentDefense;
     public int currentpropertyDamage;
     public int currentpropertyDefense;
     public int currentWeight;
-    public int curretntRegainHp;
-    public int curretntMana;
+    public int curretRegainHp;
+    public int curretMana;
+    public float currentSpeed;
+    public float currentCritical;
+    public float currentDelay;
+    public float currentParryTime;
+    public float currentSoulDrop;
     
     private void Awake()
     {
@@ -59,6 +65,21 @@ public class PlayerStatusHandler :StatHandler
     protected override void SetStat()
     {
         UpdateStat();
+        currentHp = playerCurrentStat.hp;
+        currentStemina = playerCurrentStat.stemina;
+        currentDamage = playerCurrentStat.damage;
+        currentSpellPower = playerCurrentStat.spellPower;
+        currentDefense = playerCurrentStat.defense;
+        currentpropertyDamage = playerCurrentStat.propertyDamage;
+        currentpropertyDefense = playerCurrentStat.propertyDefense;
+        currentWeight = playerCurrentStat.weight;
+        curretRegainHp = playerCurrentStat.regainHp;
+        curretMana = playerCurrentStat.mana;
+        currentSpeed = playerCurrentStat.speed;
+        currentCritical = playerCurrentStat.criticalChance;
+        currentDelay = playerCurrentStat.delay;
+        currentParryTime = playerCurrentStat.parryTime;
+        currentSoulDrop = playerCurrentStat.soulDropRate;
     }
 
     public void UpdateStat()
