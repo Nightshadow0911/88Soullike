@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c96b6c815948f445b30e71e23ab7a82, type: 3}
+  m_Name: Boss_DBUniqueStats
+  m_EditorClassIdentifier: 
+  meleeAttackRange: {x: 2, y: 2}
+  dodgeDistance: 0
+  dodgeTime: 0
+  secondAttackDistance: 0
+  secondAttackTime: 0
+  spawnSpell: {fileID: 0}
+  projectiles:
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  arrowData: {fileID: 0}
+  bombArrowData: {fileID: 0}
+  poisonArrowData: {fileID: 0}
+  scatterArrowData: {fileID: 0}
+  poisonFlaskData: {fileID: 0}
+  runSound: {fileID: 0}
+  meleeAttackSound: {fileID: 0}

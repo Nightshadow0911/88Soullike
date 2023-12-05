@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7701013720560885847}
   - component: {fileID: 2714229474663793436}
   - component: {fileID: 4933381492808349410}
-  - component: {fileID: 5652006372639671980}
+  - component: {fileID: 4879434061709390884}
   m_Layer: 7
   m_Name: middleBoss_BW
   m_TagString: Boss_DB
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1705715553120706534
 SpriteRenderer:
@@ -181,7 +181,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5652006372639671980
+--- !u!114 &4879434061709390884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,19 +190,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6045820309081120241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec62ee560b0d9984f8f1b965f515d579, type: 3}
+  m_Script: {fileID: 11500000, guid: 1369aa9c2e1d1024193e4614e52087f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  mapSpellMarker: {fileID: 0}
-  selfPosition: {fileID: 0}
-  soulDrop: {fileID: 0}
-  meleeAttack: {fileID: 0}
-  spellAttack: {fileID: 0}
-  spellEffect: {fileID: 0}
-  magicMissile: {fileID: 0}
-  missileSpeed: 5
-  MiddleBoss: {fileID: 0}
-  maxHealth: 0
-  currentHealth: 0
-  characterStats: {fileID: 0}
+  targetTransform: {fileID: 4902004596751578511}
+  attackPosition: {fileID: 0}
+  uniqueStats: {fileID: 11400000, guid: 05b79ad0dfd82b242a0d9631eb176502, type: 2}
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 0
