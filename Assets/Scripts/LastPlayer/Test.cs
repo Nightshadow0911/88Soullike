@@ -7,8 +7,8 @@ public class Test : MonoBehaviour
 {
     [Header("Sound Setting")]
     public AudioClip runSound;
-    //public AudioClip dashSound;
-    //public AudioClip jumpSound;
+    public AudioClip dashSound;
+    public AudioClip jumpSound;
     //public AudioClip attackSound;
     //public AudioClip comboAttackSound;
     //public AudioClip deathSound;
