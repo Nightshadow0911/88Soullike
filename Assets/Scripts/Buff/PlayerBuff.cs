@@ -11,7 +11,7 @@ public class PlayerBuff : MonoBehaviour
     [SerializeField] private Transform buffUIHolder;
     //[SerializeField] private List<Buff> buffs = new List<Buff>();
     [SerializeField] private Dictionary<Buff, bool> buffs = new Dictionary<Buff, bool>();
-    //¹öÇÁ SO ³Ö¾îµÐ Dictionary Ãß°¡ »ý¼º?
+    //ï¿½ï¿½ï¿½ï¿½ SO ï¿½Ö¾ï¿½ï¿½ Dictionary ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½?
 
 
     public void AddBuff(Buff buff)
@@ -20,18 +20,18 @@ public class PlayerBuff : MonoBehaviour
         {
             buffs.Add(buff, true); // activated this, ()
             buff.Activated(transform.GetComponent<PlayerAttack>(), () =>
-            { //°ø°Ý·Â ¹öÇÁ´Â ¾ÆÁ÷ PlayerAttack¿¡¼­ ÇÏ´Â°Ô ¸Â´Â°¡? ¹öÇÁ·Î Á¶Á¤µÇ´Â ¸ðµç ½ºÅÈÀÌ ÇÏ³ªÀÇ ½ºÅ©¸³Æ®¿¡ ¸ð¿©ÀÖ¾î¾ß ÁÁÀºµ¥
+            { //ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ PlayerAttackï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Â°ï¿½ ï¿½Â´Â°ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 buffs.Remove(buff);
                 Destroy(buff.gameObject);
-                Debug.Log(buff.buff.name + " : ¹öÇÁ Á¦°ÅµÊ");
+  //              Debug.Log(buff.buff.name + " : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Åµï¿½");
 
             });
-            Debug.Log(buff.buff.name + " : ¹öÇÁ Àû¿ë");
+//            Debug.Log(buff.buff.name + " : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
         }
         AddBuffUI(buff.buff);
     }
-    // 1. PlayerStat.cs¿¡ PlayerBuffStat Ãß°¡
-    // 2. PlayerStatusHandler¿¡¼­ 
+    // 1. PlayerStat.csï¿½ï¿½ PlayerBuffStat ï¿½ß°ï¿½
+    // 2. PlayerStatusHandlerï¿½ï¿½ï¿½ï¿½ 
 
     public void AddBuffUI(BuffSO buffSO)
     {
