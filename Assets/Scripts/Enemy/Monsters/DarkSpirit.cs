@@ -58,7 +58,7 @@ public class DarkSpirit : EnemyCharacter
         {
             distance = targetTransform.position.x - transform.position.x;
             rigid.velocity = GetDirection() * characterStat.speed;
-            yield return null;
+            yield return YieldCache.WaitForFixedUpdate;
         }
         rigid.velocity = Vector2.zero;
         state = State.SUCCESS;

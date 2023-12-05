@@ -46,7 +46,6 @@ public class Boss_Archer : EnemyCharacter
         pattern.AddPattern(Distance.LongRange, LeapShot);
         pattern.AddPattern(Distance.LongRange, RangedAttack);
         #endregion
-
     }
 
     protected override void Start()
@@ -108,7 +107,7 @@ public class Boss_Archer : EnemyCharacter
         soundManager.PlayClip(uniqueStats.runSound);
         animationController.AnimationBool("Run", true);
         float distance = float.MaxValue;
-        while (Mathf.Abs(distance) > 3f)
+        while (Mathf.Abs(distance) > characterStat.closeRange)
         {
             distance = targetTransform.position.x - transform.position.x;
             rigid.velocity = GetDirection() * characterStat.speed;
@@ -320,8 +319,14 @@ public class Boss_Archer : EnemyCharacter
                 rigid.velocity = direction * uniqueStats.spinDashAttackSpeed;
                 if (!hit)
                 {
-                    MeleeAttack();
-                    hit = true;
+                    Collider2D collision = Physics2D.OverlapBox(
+                        attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
+                    if (collision != null)
+                    {
+                        // 데미지 주기
+                        hit = true;
+                        Debug.Log("player hit");
+                    }
                 }
                 yield return YieldCache.WaitForFixedUpdate;
             }

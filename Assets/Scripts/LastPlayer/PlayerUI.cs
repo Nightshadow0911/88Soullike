@@ -59,10 +59,10 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateManaUI()
     {
-        int maxMana = MaxStat.mana;
-        int currentMana = PlayerStat.mana;
-        manaText.text = currentMana + " / " + maxMana;
-        manaSlider.value = calculaterManaPercentage(currentMana, maxMana);
+        // int maxMana = MaxStat.mana;
+        // int currentMana = PlayerStat.mana;
+        // manaText.text = currentMana + " / " + maxMana;
+        // manaSlider.value = calculaterManaPercentage(currentMana, maxMana);
     }
 
     public void UpdateRegainHpUI()
