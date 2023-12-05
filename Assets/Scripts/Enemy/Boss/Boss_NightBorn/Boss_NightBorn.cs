@@ -19,6 +19,7 @@ public class Boss_NightBorn : EnemyCharacter
         positionAttack = GetComponent<PositionAttack>();
         backLight.SetActive(false);
         
+        
         #region CloseRangedPattern
         pattern.AddPattern(Distance.CloseRange, Slash);
         pattern.AddPattern(Distance.CloseRange, ForwardDashSlash);
@@ -41,6 +42,8 @@ public class Boss_NightBorn : EnemyCharacter
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
         }
+
+        spiritNum = 0;
     }
 
     protected override void SetPatternDistance()
