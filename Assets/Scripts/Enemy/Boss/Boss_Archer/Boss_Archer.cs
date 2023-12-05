@@ -51,7 +51,7 @@ public class Boss_Archer : EnemyCharacter
     protected override void Start()
     {
         base.Start();
-        uniqueStats = statusHandler.GetUniqueStat() as Boss_ArcherStat;
+        //uniqueStats = statusHandler.GetUniqueStat() as Boss_ArcherStat;
         foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
             ProjectileManager.instance.InsertObjectPool(projectile);

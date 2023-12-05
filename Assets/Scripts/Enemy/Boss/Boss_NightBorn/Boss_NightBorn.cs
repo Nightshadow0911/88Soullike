@@ -37,7 +37,7 @@ public class Boss_NightBorn : EnemyCharacter
     protected override void Start()
     {
         base.Start();
-        uniqueStats = statusHandler.GetUniqueStat() as Boss_NightBornStat;
+        //uniqueStats = statusHandler.GetUniqueStat() as Boss_NightBornStat;
         foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
