@@ -58,13 +58,13 @@ public class Boss_NightBorn : EnemyCharacter
 
     private void MeleeAttack()
     {
-        Collider2D collision = Physics2D.OverlapBox(
-            attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
-        if (collision != null)
-        {
-            // 데미지 주기
-            Debug.Log("player hit");
-        }
+        //Collider2D collision = Physics2D.OverlapBox(
+        //    attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
+        //if (collision != null)
+        //{
+        //    // 데미지 주기
+        //    Debug.Log("player hit");
+        //}
     }
 
     private IEnumerator Run()
@@ -118,14 +118,14 @@ public class Boss_NightBorn : EnemyCharacter
             rigid.velocity = direction * uniqueStats.fowardDashSlashSpeed;
             if (!hit)
             {
-                Collider2D collision = Physics2D.OverlapBox(
-                    attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
-                if (collision != null)
-                {
-                    // 데미지 주기
-                    hit = true;
-                    Debug.Log("player hit");
-                }
+                //Collider2D collision = Physics2D.OverlapBox(
+                //    attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
+                //if (collision != null)
+                //{
+                //    // 데미지 주기
+                //    hit = true;
+                //    Debug.Log("player hit");
+                //}
             }
             yield return YieldCache.WaitForFixedUpdate;
         }

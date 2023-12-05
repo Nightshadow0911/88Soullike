@@ -76,13 +76,13 @@ public class Boss_Archer : EnemyCharacter
 
     private void MeleeAttack()
     {
-        Collider2D collision = Physics2D.OverlapBox(
-            attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
-        if (collision != null)
-        {
-            // 데미지 주기
-            Debug.Log("player hit");
-        }
+        //Collider2D collision = Physics2D.OverlapBox(
+        //    attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
+        //if (collision != null)
+        //{
+        //    // 데미지 주기
+        //    Debug.Log("player hit");
+        //}
     }
 
     private void ShootArrow(bool multiple)
@@ -318,14 +318,14 @@ public class Boss_Archer : EnemyCharacter
                 rigid.velocity = direction * uniqueStats.spinDashAttackSpeed;
                 if (!hit)
                 {
-                    Collider2D collision = Physics2D.OverlapBox(
-                        attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
-                    if (collision != null)
-                    {
-                        // 데미지 주기
-                        hit = true;
-                        Debug.Log("player hit");
-                    }
+                    //Collider2D collision = Physics2D.OverlapBox(
+                    //    attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
+                    //if (collision != null)
+                    //{
+                    //    // 데미지 주기
+                    //    hit = true;
+                    //    Debug.Log("player hit");
+                    //}
                 }
                 yield return YieldCache.WaitForFixedUpdate;
             }

@@ -23,17 +23,17 @@ MonoBehaviour:
   level: 1
   levelPoint: 0
   healthStat: 10
-  steminaStat: 10
-  strStat: 5
-  dexStat: 5
-  intStat: 5
-  luxStat: 5
+  steminaStat: 20
+  strStat: 1
+  dexStat: 1
+  intStat: 1
+  luxStat: 1
   weight: 30
   spellPower: 0
   regainHp: 0
   stemina: 50
   invincibleTime: 0.3
-  parryTime: 0.25
+  parryTime: 1
   extraMoveSpeed: 5
   soulDropRate: 100
   criticalChance: 0

@@ -36,7 +36,7 @@ public class PlayerStatusHandler :StatHandler
     public float currentDelay;
     public float currentParryTime;
     public float currentSoulDrop;
-    
+    public float currentAttackRange;
     private void Awake()
     {
         playerCurrentStat = currentStatSO as PlayerStat;
@@ -80,12 +80,14 @@ public class PlayerStatusHandler :StatHandler
         currentDelay = playerCurrentStat.delay;
         currentParryTime = playerCurrentStat.parryTime;
         currentSoulDrop = playerCurrentStat.soulDropRate;
+        currentAttackRange = playerCurrentStat.attackRange;
     }
 
     public void UpdateStat()
     {
         growStatSO.DetailedStat(growStatSO);
         playerCurrentStat.PlusStatToMax(baseStatSO, growStatSO);
+        playerCurrentStat.DetailedStat(playerCurrentStat);
     }
 
     public bool GrowUpStat(int num, Status status) // 레벨업 메서드
@@ -119,12 +121,11 @@ public class PlayerStatusHandler :StatHandler
     
     public void UpdateWeapon(int power, float attackSpeed, float attackRange, int weight, int propertyAmount)
     {
-        playerCurrentStat.damage += power;
+        currentDamage += power;
         playerCurrentStat.delay += attackSpeed;
-        playerCurrentStat.attackRange += attackRange;
+        currentAttackRange += attackRange;
         playerCurrentStat.weight += weight;
         playerCurrentStat.propertyDamage += propertyAmount;
-
     }
     public void UpdateArmor(int power, int weight, int propertyAmount)
     {
