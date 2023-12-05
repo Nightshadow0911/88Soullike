@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Boss_NightBornStats", menuName = "Stats/EnemyStat/Boss_NightBornStats", order = 3)]
-public class Boss_NightBornStat : EnemyStat
+public class Boss_NightBornStat : ScriptableObject
 {
     [Header("NightBorn Stats")] 
     public Vector2 meleeAttackRange;
@@ -14,14 +14,14 @@ public class Boss_NightBornStat : EnemyStat
     public float fowardDashSlashDistance;
     public float fowardDashSlashSpeed;
     
-    [Header("Projectile Setting")] 
+    [Header("Projectile")] 
     public List<ObjectPool.Pool> projectiles;
 
-    [Header("Projectile Setting")] 
+    [Header("ProjectileData")] 
     public PositionAttackData bornExplosion;
     public PositionAttackData bothSideExplosion;
     public PositionAttackData spwanBall;
     
-    [Header("Sound Setting")] 
+    [Header("Sound")] 
     public AudioClip runSound;
 }

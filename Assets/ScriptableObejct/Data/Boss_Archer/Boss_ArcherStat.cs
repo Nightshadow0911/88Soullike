@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Boss_ArcherStats", menuName = "Stats/EnemyStat/Boss_ArcherStats", order = 2)]
-public class Boss_ArcherStat : EnemyStat
+public class Boss_ArcherStat : ScriptableObject
 {
     [Header("Boss_Archer Stats")] 
     public Vector2 meleeAttackRange;
@@ -41,7 +41,7 @@ public class Boss_ArcherStat : EnemyStat
     public int numberOfLeapShot;
     public float aimingTime;
     
-    [Header("Projectile Setting")] 
+    [Header("Projectile")] 
     public List<ObjectPool.Pool> projectiles;
     
     [Header("ArrowData")]
@@ -51,7 +51,7 @@ public class Boss_ArcherStat : EnemyStat
     public RangedAttackData scatterArrowData;
     public PositionAttackData poisonFlaskData;
     
-    [Header("Sound Setting")]
+    [Header("Sound")]
     public AudioClip runSound;
     public AudioClip dodgeSound;
     public AudioClip jumpSound;
