@@ -12,7 +12,7 @@ public class FullScreenUIManager : MonoBehaviour
     [SerializeField] private TMP_Text menuName;
     [SerializeField] private GameObject fullScreenBase;
 
-    public FullScreenUI currentUI;
+    public List<FullScreenUI> currentUI; // 현재 켜진 UIList 확인 => 아이콘과 메뉴 이름 변경해주기 위함?
 
     [Space]
     public KeyCode escapeKey = KeyCode.Escape;
