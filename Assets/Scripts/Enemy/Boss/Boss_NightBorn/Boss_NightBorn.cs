@@ -88,7 +88,7 @@ public class Boss_NightBorn : EnemyCharacter
         // soundManager.StopClip();
         anim.HashBool(anim.run, false);
         rigid.velocity = Vector2.zero;
-        state = State.SUCCESS;
+        state = State.FAILURE;
     }
     
     private IEnumerator Slash()
@@ -147,13 +147,13 @@ public class Boss_NightBorn : EnemyCharacter
         yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
         if (GetDirection().x < 0)
         {
-            positionAttack.CreateMultipleProjectile((Vector2.right * uniqueStats.minX) + Vector2.up,
-                uniqueStats.bornExplosion, false);
+            Vector3 position = new Vector2(uniqueStats.minX, transform.position.y + 1f);
+            positionAttack.CreateMultipleProjectile( position, uniqueStats.bornExplosion, false);
         }
         else
         {
-            positionAttack.CreateMultipleProjectile((Vector2.right * uniqueStats.maxX) + Vector2.up,
-                uniqueStats.bornExplosion, true);
+            Vector3 position = new Vector2(uniqueStats.maxX, transform.position.y + 1f);
+            positionAttack.CreateMultipleProjectile(position, uniqueStats.bornExplosion, true);
         }
         yield return YieldCache.WaitForSeconds(2f); // 패턴끝나는거 기다리기
         anim.StringTrigger("EndStraightExplosion");
@@ -177,7 +177,7 @@ public class Boss_NightBorn : EnemyCharacter
 
     private IEnumerator SpwanMonster()
     {
-        RunningPattern();
+        RunningPattern();   
         if (isRage || spiritNum >= 5)
         {
             state = State.FAILURE;
@@ -186,7 +186,8 @@ public class Boss_NightBorn : EnemyCharacter
         anim.StringTrigger("SpwanMonster");
         yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
         float ran = Random.Range(uniqueStats.minX, uniqueStats.maxX);
-        positionAttack.CreateProjectile((Vector2.right * ran) + Vector2.up, uniqueStats.spwanBall);
+        Vector2 position = new Vector2(ran, transform.position.y + 1f);
+        positionAttack.CreateProjectile(position, uniqueStats.spwanBall);
         yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
         state = State.SUCCESS;
     }
