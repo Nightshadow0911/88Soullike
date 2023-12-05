@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class SpawnBall : PositionAttackController
 {
     [SerializeField] private GameObject monster;
-    
+
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         return;
@@ -14,6 +15,7 @@ public class SpawnBall : PositionAttackController
     protected override void DestroyProjectile()
     {
         Instantiate(monster, transform.position + (Vector3.down), Quaternion.identity);
+        Boss_NightBorn.spiritNum++;
         base.DestroyProjectile();
     }
 }
