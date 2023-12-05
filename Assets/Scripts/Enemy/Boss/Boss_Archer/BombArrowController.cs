@@ -42,7 +42,7 @@ public class BombArrowController : RangedAttackController
             Vector3 position = transform.position;
             if (1 << LayerMask.NameToLayer("Ground") == 1 << collision.gameObject.layer)
             {
-                positionAttack.CreateMultipleProjectile(position, bombExplosionData);
+                positionAttack.CreateBothSideProjectile(position, bombExplosionData);
             }
             else
             {

@@ -18,7 +18,6 @@ public class PositionAttackData : ScriptableObject
     public int numberofPositionAttack;
     public Vector2 followUpDirection;
     public float delayTime;
-    public bool bothSide;
 
     [Header("Area of Effect")] 
     public bool AoE;

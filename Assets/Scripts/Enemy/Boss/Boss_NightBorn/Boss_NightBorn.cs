@@ -5,11 +5,12 @@ using UnityEngine;
 public class Boss_NightBorn : EnemyCharacter
 {
     [Header("Unique Setting")]
-    [SerializeField] private Boss_NightBornStat uniqueStats;
+    [SerializeField] private Boss_NightBornUniqueStat uniqueStats;
     [SerializeField] private GameObject backLight;
     [SerializeField] private LayerMask wallLayer;
-    
+
     private PositionAttack positionAttack;
+    public static int spiritNum;
     private bool isRage = false;
 
     protected override void Awake()
@@ -19,17 +20,16 @@ public class Boss_NightBorn : EnemyCharacter
         backLight.SetActive(false);
         
         #region CloseRangedPattern
-        // pattern.AddPattern(Distance.CloseRange, Slash);
-        // pattern.AddPattern(Distance.CloseRange, ForwardDashSlash);
-        //pattern.AddPattern(Distance.CloseRange, SpwanMonster);
-        pattern.AddPattern(Distance.CloseRange, Run);
+        pattern.AddPattern(Distance.CloseRange, Slash);
+        pattern.AddPattern(Distance.CloseRange, ForwardDashSlash);
+        pattern.AddPattern(Distance.CloseRange, SpwanMonster);
         #endregion
         
         #region MediumRangePattern
-        // pattern.AddPattern(Distance.MediumRange, ForwardDashSlash);
-        //pattern.AddPattern(Distance.MediumRange, StraightExplosion);
-        // pattern.AddPattern(Distance.MediumRange, BlinkExplosion);
-        //pattern.AddPattern(Distance.MediumRange, SpwanMonster);
+        pattern.AddPattern(Distance.MediumRange, ForwardDashSlash);
+        pattern.AddPattern(Distance.MediumRange, StraightExplosion);
+        pattern.AddPattern(Distance.MediumRange, BlinkExplosion);
+        pattern.AddPattern(Distance.MediumRange, SpwanMonster);
         pattern.AddPattern(Distance.MediumRange, Run);
         #endregion
     }
@@ -55,23 +55,29 @@ public class Boss_NightBorn : EnemyCharacter
             pattern.SetDistance(Distance.MediumRange);
         }
     }
+    
+    protected override void DetectPlayer()
+    {
+        targetTransform = GameManager.Instance.player.transform;
+        detected = true;
+    }
 
     private void MeleeAttack()
     {
-        //Collider2D collision = Physics2D.OverlapBox(
-        //    attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
-        //if (collision != null)
-        //{
-        //    // 데미지 주기
-        //    Debug.Log("player hit");
-        //}
+        Collider2D collision = Physics2D.OverlapBox(
+            attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
+        if (collision != null)
+        {
+            // 데미지 주기
+            Debug.Log("player hit");
+        }
     }
 
     private IEnumerator Run()
     {
         RunningPattern();
         // soundManager.PlayClip(uniqueStats.runSound);
-        animationController.AnimationBool("Run", true);
+        anim.HashBool(anim.run, true);
         float distance = float.MaxValue;
         while (Mathf.Abs(distance) > characterStat.closeRange)
         {
@@ -80,21 +86,21 @@ public class Boss_NightBorn : EnemyCharacter
             yield return YieldCache.WaitForFixedUpdate;
         }
         // soundManager.StopClip();
-        animationController.AnimationBool("Run", false);
+        anim.HashBool(anim.run, false);
         rigid.velocity = Vector2.zero;
-        state = State.SUCCESS;
+        state = State.FAILURE;
     }
     
     private IEnumerator Slash()
     {
         RunningPattern();
         float ran = Random.Range(0, 10);
-        animationController.AnimationTrigger("Slash");
+        anim.StringTrigger("Slash");
         yield return YieldCache.WaitForSeconds(0.7f); // 애니 싱크
         MeleeAttack();
         if (ran < 5)
         {
-            animationController.AnimationTrigger("TwiceSlash");
+            anim.StringTrigger("TwiceSlash");
             yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
             MeleeAttack();
         }
@@ -105,7 +111,7 @@ public class Boss_NightBorn : EnemyCharacter
     {
         RunningPattern();
         //soundManager.PlayClip(uniqueStats.);
-        animationController.AnimationTrigger("ForwardDashSlash");
+        anim.StringTrigger("ForwardDashSlash");
         Vector2 direction = GetDirection();
         yield return YieldCache.WaitForSeconds(1f);
         float moveDistance;
@@ -118,14 +124,14 @@ public class Boss_NightBorn : EnemyCharacter
             rigid.velocity = direction * uniqueStats.fowardDashSlashSpeed;
             if (!hit)
             {
-                //Collider2D collision = Physics2D.OverlapBox(
-                //    attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
-                //if (collision != null)
-                //{
-                //    // 데미지 주기
-                //    hit = true;
-                //    Debug.Log("player hit");
-                //}
+                Collider2D collision = Physics2D.OverlapBox(
+                    attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
+                if (collision != null)
+                {
+                    // 데미지 주기
+                    hit = true;
+                    Debug.Log("player hit");
+                }
             }
             yield return YieldCache.WaitForFixedUpdate;
         }
@@ -137,12 +143,20 @@ public class Boss_NightBorn : EnemyCharacter
     private IEnumerator StraightExplosion()
     {
         RunningPattern();
-        animationController.AnimationTrigger("OnStraightExplosion");
+        anim.StringTrigger("OnStraightExplosion");
         yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
-        float positionX = targetTransform.position.x - transform.position.x < 0 ? uniqueStats.minX : uniqueStats.maxX;
-        positionAttack.CreateMultipleProjectile((Vector2.right * positionX) + Vector2.up, uniqueStats.bornExplosion);
+        if (GetDirection().x < 0)
+        {
+            Vector3 position = new Vector2(uniqueStats.minX, transform.position.y + 1f);
+            positionAttack.CreateMultipleProjectile( position, uniqueStats.bornExplosion, false);
+        }
+        else
+        {
+            Vector3 position = new Vector2(uniqueStats.maxX, transform.position.y + 1f);
+            positionAttack.CreateMultipleProjectile(position, uniqueStats.bornExplosion, true);
+        }
         yield return YieldCache.WaitForSeconds(2f); // 패턴끝나는거 기다리기
-        animationController.AnimationTrigger("EndStraightExplosion");
+        anim.StringTrigger("EndStraightExplosion");
         yield return YieldCache.WaitForSeconds(0.5f);
         state = State.SUCCESS;
     }
@@ -150,28 +164,30 @@ public class Boss_NightBorn : EnemyCharacter
     private IEnumerator BlinkExplosion()
     {
         RunningPattern();
-        animationController.AnimationTrigger("OnBlinkExplosion");
+        anim.StringTrigger("OnBlinkExplosion");
         yield return YieldCache.WaitForSeconds(0.7f); // 애니 싱크
-        transform.position = targetTransform.position;
+        Vector3 position = transform.position += (targetTransform.position.x - transform.position.x) * Vector3.right;
         yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
-        positionAttack.CreateMultipleProjectile(transform.position + Vector3.up, uniqueStats.bothSideExplosion);
+        positionAttack.CreateBothSideProjectile(position + Vector3.up,
+            uniqueStats.bothSideExplosion);
         yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
-        animationController.AnimationTrigger("EndBlinkExplosion");
+        anim.StringTrigger("EndBlinkExplosion");
         state = State.SUCCESS;
     }
 
     private IEnumerator SpwanMonster()
     {
-        RunningPattern();
-        if (isRage)
+        RunningPattern();   
+        if (isRage || spiritNum >= 5)
         {
             state = State.FAILURE;
             yield break;
         }
-        animationController.AnimationTrigger("SpwanMonster");
+        anim.StringTrigger("SpwanMonster");
         yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
         float ran = Random.Range(uniqueStats.minX, uniqueStats.maxX);
-        positionAttack.CreateProjectile((Vector2.right * ran) + Vector2.up, uniqueStats.spwanBall);
+        Vector2 position = new Vector2(ran, transform.position.y + 1f);
+        positionAttack.CreateProjectile(position, uniqueStats.spwanBall);
         yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
         state = State.SUCCESS;
     }
@@ -183,5 +199,10 @@ public class Boss_NightBorn : EnemyCharacter
         if (hit.collider != null)
             return true;
         return false;
+    }
+
+    protected override void Death()
+    {
+        anim.HashTrigger(anim.death);
     }
 }

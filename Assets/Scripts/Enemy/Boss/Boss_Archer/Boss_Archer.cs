@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 public class Boss_Archer : EnemyCharacter
 {
     [Header("Unique Setting")]
-    [SerializeField] private Boss_ArcherStat uniqueStats;
+    [SerializeField] private Boss_ArcherUniqueStat uniqueStats;
     [SerializeField] private LayerMask tileLayer;
     
     [Header("ArrowEffects Type")]
@@ -73,16 +73,22 @@ public class Boss_Archer : EnemyCharacter
             pattern.SetDistance(Distance.LongRange);
         }
     }
+    
+    protected override void DetectPlayer()
+    {
+        targetTransform = GameManager.Instance.player.transform;
+        detected = true;
+    }
 
     private void MeleeAttack()
     {
-        //Collider2D collision = Physics2D.OverlapBox(
-        //    attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
-        //if (collision != null)
-        //{
-        //    // 데미지 주기
-        //    Debug.Log("player hit");
-        //}
+        Collider2D collision = Physics2D.OverlapBox(
+            attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
+        if (collision != null)
+        {
+            // 데미지 주기
+            Debug.Log("player hit");
+        }
     }
 
     private void ShootArrow(bool multiple)
@@ -104,7 +110,7 @@ public class Boss_Archer : EnemyCharacter
     {
         RunningPattern();
         soundManager.PlayClip(uniqueStats.runSound);
-        animationController.AnimationBool("Run", true);
+        anim.HashBool(anim.run, true);
         float distance = float.MaxValue;
         while (Mathf.Abs(distance) > characterStat.closeRange)
         {
@@ -113,7 +119,7 @@ public class Boss_Archer : EnemyCharacter
             yield return YieldCache.WaitForFixedUpdate;
         }
         soundManager.StopClip();
-        animationController.AnimationBool("Run", false);
+        anim.HashBool(anim.run, false);
         rigid.velocity = Vector2.zero;
         state = State.FAILURE;
     }
@@ -121,7 +127,7 @@ public class Boss_Archer : EnemyCharacter
     private IEnumerator ArrowShot()
     {
         RunningPattern();
-        animationController.AnimationTrigger("ArrowShot");
+        anim.StringTrigger("ArrowShot");
         yield return YieldCache.WaitForSeconds(0.5f);
         ShootArrow(false);
         state = State.SUCCESS;
@@ -131,7 +137,7 @@ public class Boss_Archer : EnemyCharacter
     private IEnumerator ChargeShot()
     {
         RunningPattern();
-        animationController.AnimationTrigger("ChargeShot");
+        anim.StringTrigger("ChargeShot");
         Vector3 direction = GetDirection();
         yield return YieldCache.WaitForSeconds(0.3f);
         SpecialArrowEffect(poison);
@@ -161,7 +167,7 @@ public class Boss_Archer : EnemyCharacter
             yield break;
         }
         soundManager.PlayClip(uniqueStats.dodgeSound);
-        animationController.AnimationTrigger("DodgeAttack");
+        anim.StringTrigger("DodgeAttack");
         Vector3 startPosition = transform.position;
         Vector3 endPosition = GetEndPosition(uniqueStats.dodgeDistance, false);
         float elapsedTime = 0f;
@@ -209,7 +215,7 @@ public class Boss_Archer : EnemyCharacter
             yield break;
         }
         //soundManager.PlayClip();
-        animationController.AnimationTrigger("BackstepAttack");
+        anim.StringTrigger("BackstepAttack");
         Vector3 startPosition = transform.position;
         Vector3 endPosition = GetEndPosition(uniqueStats.backstepDistance, true);
         Vector3 middlePosition = ((startPosition + endPosition) / 2) + (Vector3.up * uniqueStats.backstepJumpPosition);
@@ -238,7 +244,7 @@ public class Boss_Archer : EnemyCharacter
     
     private IEnumerator TrackingAttack() {
         RunningPattern();
-        animationController.AnimationTrigger("OnTrackingAttack");
+        anim.StringTrigger("OnTrackingAttack");
         Vector2 direction = GetDirection();
         yield return YieldCache.WaitForSeconds(0.4f);
         float distance,moveDistance;
@@ -259,7 +265,7 @@ public class Boss_Archer : EnemyCharacter
         rigid.velocity = Vector2.zero;
         yield return YieldCache.WaitForSeconds(0.15f);
         soundManager.PlayClip(uniqueStats.spinAttackSound);
-        animationController.AnimationTrigger("TrackingAttack");
+        anim.StringTrigger("TrackingAttack");
         for (int i = 0; i < uniqueStats.numberOfTrackingAttacks; i++)
         {
             MeleeAttack();
@@ -279,7 +285,7 @@ public class Boss_Archer : EnemyCharacter
             yield break;
         }
         //soundManager.PlayClip(uniqueStats.);
-        animationController.AnimationTrigger("BackTumbling");
+        anim.StringTrigger("BackTumbling");
         if (!isRage)
         {
             positionAttack.CreateProjectile((Vector2)transform.position + (Vector2.up * 2f)
@@ -303,7 +309,7 @@ public class Boss_Archer : EnemyCharacter
         }
         else
         {
-            animationController.AnimationTrigger("SpinDashAttack");
+            anim.StringTrigger("SpinDashAttack");
             Rotate();
             direction = GetDirection();
             yield return YieldCache.WaitForSeconds(0.5f);
@@ -318,14 +324,14 @@ public class Boss_Archer : EnemyCharacter
                 rigid.velocity = direction * uniqueStats.spinDashAttackSpeed;
                 if (!hit)
                 {
-                    //Collider2D collision = Physics2D.OverlapBox(
-                    //    attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
-                    //if (collision != null)
-                    //{
-                    //    // 데미지 주기
-                    //    hit = true;
-                    //    Debug.Log("player hit");
-                    //}
+                    Collider2D collision = Physics2D.OverlapBox(
+                        attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
+                    if (collision != null)
+                    {
+                        // 데미지 주기
+                        hit = true;
+                        Debug.Log("player hit");
+                    }
                 }
                 yield return YieldCache.WaitForFixedUpdate;
             }
@@ -344,7 +350,7 @@ public class Boss_Archer : EnemyCharacter
             yield break;
         }
         //soundManager.PlayClip(uniqueStats.);
-        animationController.AnimationTrigger("OnLeapShot");
+        anim.StringTrigger("OnLeapShot");
         rigid.gravityScale = 0f;
         Vector3 startPosition = transform.position;
         Vector3 endPosition = startPosition + (Vector3.up * uniqueStats.leapPosition);
@@ -392,7 +398,7 @@ public class Boss_Archer : EnemyCharacter
             }
         }
         yield return YieldCache.WaitForSeconds(0.1f);
-        animationController.AnimationTrigger("EndLeapShot");
+        anim.StringTrigger("EndLeapShot");
         Rotate();
         rigid.gravityScale = 1f;
         while (!CheckGround())
@@ -443,5 +449,10 @@ public class Boss_Archer : EnemyCharacter
             type.SetActive(true);
         else
             type.SetActive(false);
+    }
+
+    protected override void Death()
+    {
+        anim.HashTrigger(anim.death);
     }
 }
