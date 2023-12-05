@@ -15,16 +15,15 @@ public class BaseStat : ScriptableObject
    public int propertyDamage;
    public int propertyDefense;
 
-   public BaseStat CopyStat(BaseStat stat)
+   public void CopyStat(BaseStat stat)
    {
-      stat.hp = hp;
-      stat.damage = damage;
-      stat.defense = defense;
-      stat.speed = speed;
-      stat.delay = delay;
-      stat.attackRange = attackRange;
-      stat.propertyDamage = propertyDamage;
-      stat.propertyDefense = propertyDefense;
-      return stat;
+      hp = stat.hp;
+      damage = stat.damage;
+      defense = stat.defense;
+      speed = stat.speed;
+      delay = stat.delay;
+      attackRange = stat.attackRange;
+      propertyDamage = stat.propertyDamage;
+      propertyDefense = stat.propertyDefense;
    }
 }
