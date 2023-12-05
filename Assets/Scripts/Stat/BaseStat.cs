@@ -14,4 +14,16 @@ public class BaseStat : ScriptableObject
    public float attackRange; // 플레이어 공격 범위 = 1f
    public int propertyDamage;
    public int propertyDefense;
+
+   public void CopyStat(BaseStat stat)
+   {
+      hp = stat.hp;
+      damage = stat.damage;
+      defense = stat.defense;
+      speed = stat.speed;
+      delay = stat.delay;
+      attackRange = stat.attackRange;
+      propertyDamage = stat.propertyDamage;
+      propertyDefense = stat.propertyDefense;
+   }
 }

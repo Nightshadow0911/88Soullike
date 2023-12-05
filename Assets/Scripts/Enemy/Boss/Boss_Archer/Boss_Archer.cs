@@ -9,12 +9,10 @@ using Random = UnityEngine.Random;
 public class Boss_Archer : EnemyCharacter
 {
     private Boss_ArcherStat uniqueStats;
-    private EnemyStat ee;
     private RangedAttack rangedAttack;
     private PositionAttack positionAttack;
     
     [Header("Unique Setting")]
-    [SerializeField] private Transform attackPosition;
     [SerializeField] private LayerMask tileLayer;
     private bool isRage = false;
     
@@ -33,22 +31,21 @@ public class Boss_Archer : EnemyCharacter
         poison.SetActive(false);
 
         #region CloseRangedPattern
-        AddPattern(Distance.CloseRange, DodgeAttack);
-        AddPattern(Distance.CloseRange, BackstepAttack);
-        AddPattern(Distance.CloseRange, BackTumbling);
+        pattern.AddPattern(Distance.CloseRange, DodgeAttack);
+        pattern.AddPattern(Distance.CloseRange, BackstepAttack);
+        pattern.AddPattern(Distance.CloseRange, BackTumbling);
         #endregion
 
         #region MediumRangePattern
-        AddPattern(Distance.MediumRange, LeapShot);
-        AddPattern(Distance.MediumRange, TrackingAttack);
-        AddPattern(Distance.MediumRange, Run);
+        pattern.AddPattern(Distance.MediumRange, LeapShot);
+        pattern.AddPattern(Distance.MediumRange, TrackingAttack);
+        pattern.AddPattern(Distance.MediumRange, Run);
         #endregion
 
         #region LongRangePattern
-        AddPattern(Distance.LongRange, LeapShot);
-        AddPattern(Distance.LongRange, RangedAttack);
+        pattern.AddPattern(Distance.LongRange, LeapShot);
+        pattern.AddPattern(Distance.LongRange, RangedAttack);
         #endregion
-
     }
 
     protected override void Start()
@@ -58,6 +55,23 @@ public class Boss_Archer : EnemyCharacter
         foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
+        }
+    }
+    
+    protected override void SetPatternDistance()
+    {
+        float distance = Mathf.Abs(targetTransform.position.x - transform.position.x);
+        if (distance < characterStat.closeRange)
+        {
+            pattern.SetDistance(Distance.CloseRange);
+        }
+        else if (distance < characterStat.mediumRange)
+        {
+            pattern.SetDistance(Distance.MediumRange);
+        }
+        else
+        {
+            pattern.SetDistance(Distance.LongRange);
         }
     }
 
@@ -93,10 +107,10 @@ public class Boss_Archer : EnemyCharacter
         soundManager.PlayClip(uniqueStats.runSound);
         animationController.AnimationBool("Run", true);
         float distance = float.MaxValue;
-        while (Mathf.Abs(distance) > 3f)
+        while (Mathf.Abs(distance) > characterStat.closeRange)
         {
             distance = targetTransform.position.x - transform.position.x;
-            rigid.velocity = GetDirection() * stat.speed;
+            rigid.velocity = GetDirection() * characterStat.speed;
             yield return YieldCache.WaitForFixedUpdate;
         }
         soundManager.StopClip();
@@ -305,8 +319,14 @@ public class Boss_Archer : EnemyCharacter
                 rigid.velocity = direction * uniqueStats.spinDashAttackSpeed;
                 if (!hit)
                 {
-                    MeleeAttack();
-                    hit = true;
+                    Collider2D collision = Physics2D.OverlapBox(
+                        attackPosition.position, uniqueStats.meleeAttackRange, 0, uniqueStats.target);
+                    if (collision != null)
+                    {
+                        // 데미지 주기
+                        hit = true;
+                        Debug.Log("player hit");
+                    }
                 }
                 yield return YieldCache.WaitForFixedUpdate;
             }
@@ -378,16 +398,11 @@ public class Boss_Archer : EnemyCharacter
         rigid.gravityScale = 1f;
         while (!CheckGround())
         {
-            rigid.velocity = Vector2.down * stat.speed;
+            rigid.velocity = Vector2.down * characterStat.speed;
             yield return YieldCache.WaitForFixedUpdate;
         }
         rigid.velocity = Vector2.zero;
         state = State.SUCCESS;
-    }
-
-    private Vector2 GetDirection()
-    {
-        return targetTransform.position.x - transform.position.x < 0 ? Vector2.left : Vector2.right;
     }
     
     private Vector2 GetEndPosition(float distance, bool reverse)

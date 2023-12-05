@@ -12,7 +12,7 @@ public class EnemyStatusHandler :StatHandler
 
     protected override void Awake()
     {
-        enemyMaxStat = baseStatSO as EnemyStat;
+        enemyMaxStat = currentStatSO as EnemyStat;
         base.Awake();
     }
 
@@ -22,7 +22,6 @@ public class EnemyStatusHandler :StatHandler
             return;
         damage -= currentStat.defense;
         currentStat.hp -= damage;
-        Debug.Log("currentStat.hp:" + currentStat.hp);
     }
    
     protected override void SetStat()
@@ -30,13 +29,16 @@ public class EnemyStatusHandler :StatHandler
         currentStat = ScriptableObject.CreateInstance<EnemyStat>();
         currentStat.hp = enemyMaxStat.hp;
         currentStat.damage = enemyMaxStat.damage;
+        currentStat.defense = enemyMaxStat.defense;
         currentStat.speed = enemyMaxStat.speed;
         currentStat.delay = enemyMaxStat.delay;
-        currentStat.defense = enemyMaxStat.defense;
+        currentStat.attackRange = enemyMaxStat.attackRange;
         currentStat.propertyDamage = enemyMaxStat.propertyDamage;
         currentStat.propertyDefense = enemyMaxStat.propertyDefense;
         currentStat.detectRange = enemyMaxStat.detectRange;
-        currentStat.patternDelay = enemyMaxStat.patternDelay;
         currentStat.target = enemyMaxStat.target;
+        currentStat.closeRange = enemyMaxStat.closeRange;
+        currentStat.mediumRange = enemyMaxStat.mediumRange;
+        currentStat.longRange = enemyMaxStat.longRange;
     }
 }
