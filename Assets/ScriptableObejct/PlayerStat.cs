@@ -19,16 +19,17 @@ public class PlayerStat : BaseStat
     public int luxStat;
     
     [Header("Player Stats")]
-    public int stemina;
+
     public int weight;
     public int spellPower; // 주문력
     public int regainHp; //재생체력
+    public float stemina;
     public float invincibleTime;
     public float parryTime;
     public float extraMoveSpeed; // 1.5f
     public float soulDropRate; 
     public float criticalChance; // 크리티컬 확률
-
+    public int mana;
     public void CopyBaseStat(PlayerStat basestat)
     {
         base.CopyStat(basestat);
@@ -50,6 +51,7 @@ public class PlayerStat : BaseStat
         extraMoveSpeed = basestat.extraMoveSpeed;
         soulDropRate = basestat.soulDropRate;
         criticalChance = basestat.criticalChance;
+        mana = basestat.mana;
     }
    
     public void DetailedStat(PlayerStat stat) 
