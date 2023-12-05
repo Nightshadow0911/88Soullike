@@ -7,21 +7,34 @@ using System;
 public class Buff : MonoBehaviour
 {
     public BuffSO buff;
-    
+    private PlayerStatusHandler playerStatusHandler;
+
+    private void Awake()
+    {
+        playerStatusHandler = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
+    }
+
     public void Activated(object obj, Action cbDone) // obj = 버프가 적용될 객체, cbDone 버프가 끝났음을 obj에게 알리기 위함
     {
         StartCoroutine(SC_Timer(obj, cbDone));
     }
+    public void Activated2(PlayerStat obj, Action cbDone) {
+        StartCoroutine(SC_Timer2(obj, cbDone));
 
-    protected IEnumerator SC_Timer2(object obj, Action cbDone)
+    }
+
+    protected IEnumerator SC_Timer2(PlayerStat obj, Action cbDone)
     {
-        var fi = obj.GetType().GetTypeInfo().GetDeclaredProperty(buff.StatName); // Reflection으로 obj에 선언된 프로퍼티를 가져옴
-
-        int v = (int)fi.GetValue(obj); // 현재 값 => 현재값으로 하니까 여러개 먹었을때 버그
+        // 버프스탯에서 buff.StatName과 같은 애를 찾아와야 하는데 damage나 defense를 찾지 못함
+        
+        var fi = obj.GetType().GetTypeInfo().GetDeclaredField(buff.StatName); // Reflection으로 obj에 선언된 프로퍼티를 가져옴
+        int v = (int)fi.GetValue(obj);
 
         int buffed = v + buff.Value; // 버프가 적용된 값
 
         fi.SetValue(obj, buffed); // obj에 버프된 스탯을 적용
+
+        playerStatusHandler.UpdateStat();
 
         float elapsed = 0; // 버프 시간(durTime)동안 대기, 버프 지속시간
 
@@ -31,13 +44,14 @@ public class Buff : MonoBehaviour
             yield return null;
         }
         fi.SetValue(obj, v); // obj의 값을 원래대로 되돌림
+        playerStatusHandler.UpdateStat();
+
         cbDone.Invoke(); // 버프가 끝났음을 알림
     }
 
     protected IEnumerator SC_Timer(object obj, Action cbDone)
     {
         var fi = obj.GetType().GetTypeInfo().GetDeclaredField(buff.StatName); // Reflection으로 obj에 선언된 변수를 가져옴
-
         int v = (int)fi.GetValue(obj); // 현재 값
 
         int buffed = v + buff.Value; // 버프가 적용된 값

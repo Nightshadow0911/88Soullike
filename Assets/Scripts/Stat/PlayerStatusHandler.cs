@@ -21,16 +21,19 @@ public class PlayerStatusHandler :StatHandler
     private PlayerStat playerGrowStat;
     private PlayerStat playerMaxStat; // MAX 수치 저장 데이터
     private PlayerStat playerCurrentStat; // 현재 수치 저장 데이터 
+    private PlayerStat playerBuffStat; 
     public PlayerStat GetStat() => playerCurrentStat;
     public PlayerStat GetMaxStat() => playerMaxStat;
     public PlayerStat growStatSO;
     public PlayerStat baseStatSO;
+    public PlayerStat buffStatSO;
     
     protected override void Awake()
     {
         playerCurrentStat = currentStatSO as PlayerStat;
         playerBaseStat = baseStatSO;
         playerGrowStat = growStatSO;
+        playerBuffStat = buffStatSO;
         base.Awake();
         SetStat();
     }
@@ -59,6 +62,7 @@ public class PlayerStatusHandler :StatHandler
         playerCurrentStat = ScriptableObject.CreateInstance<PlayerStat>();
         playerBaseStat = ScriptableObject.CreateInstance<PlayerStat>();
         playerGrowStat = ScriptableObject.CreateInstance<PlayerStat>();
+        playerBuffStat = ScriptableObject.CreateInstance<PlayerStat>();
         UpdateStat();
     }
 
@@ -66,7 +70,7 @@ public class PlayerStatusHandler :StatHandler
     {
         playerGrowStat.DetailedStat(playerGrowStat);
         playerBaseStat.DetailedStat(playerBaseStat);
-        playerCurrentStat.PlusStatToMax(playerBaseStat, playerGrowStat);
+        playerCurrentStat.PlusStatToMax(playerBaseStat, playerGrowStat, playerBuffStat);
         playerMaxStat.CopyBaseStat(playerCurrentStat);
     }
 
@@ -97,7 +101,6 @@ public class PlayerStatusHandler :StatHandler
         }
         return true;
     }
-    
     
     public void UpdateWeapon(int power, float attackSpeed, float attackRange, int weight, int propertyAmount)
     {
