@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class LastPlayerController : MonoBehaviour
 {
-    private SoundManager soundManager;
+    //[SerializeField] private AudioClip dash;
+
     private PlayerStatusHandler playerStatusHandler;
+    private PlayerStat PlayerStat;
+
     private Animator anim;
     private Rigidbody2D rb;
     private PlayerAttack playerAttack;
@@ -18,6 +21,7 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 10;
 
     private bool canMove = true;
+    private bool isMoving = true;
 
     private bool canWallSlide;
     private bool isWallSliding;
@@ -72,18 +76,24 @@ public class LastPlayerController : MonoBehaviour
     private bool canPressS = true;
     private float pressCooldown = 2f;
 
-
+    private TestAudio testAudio;
+    private SoundManager soundManager;
+    public float minMoveDistance = 1f;
+    private Vector3 previousPosition;
     void Start()
     {
-        soundManager = SoundManager.instance;
+        PlayerStat = playerStatusHandler.GetStat();
+        previousPosition = transform.position;
     }
 
     private void Awake()
     {
-       
+        soundManager = SoundManager.instance;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
+        testAudio = GetComponent<TestAudio>();
+
     }
     void Update()
     {
@@ -105,11 +115,11 @@ public class LastPlayerController : MonoBehaviour
         else
         {
             Move();
+            MoveSound();
             Dash();
             CheckForLedge();
         }
         Death();
-
         if (Input.GetKeyDown(KeyCode.G)) UseSkill();
     }
 
@@ -147,10 +157,7 @@ public class LastPlayerController : MonoBehaviour
     }
     void UseSkill()
     {
-
         transform.GetComponent<Equipment>().skillSlotList[skillIndex].Use();
-
-
     }
     public void ChangeSkill()
     {
@@ -224,16 +231,31 @@ public class LastPlayerController : MonoBehaviour
     private void Move()
     {
         if (canMove)
-        { 
+        {
+
             Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
-            rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
+            rb.velocity = new Vector2(movingInput * PlayerStat.speed, rb.velocity.y);
+            Debug.Log("zz" + rb.velocity.x);
             if (isSitting)
             {
-                rb.velocity = new Vector2(movingInput * playerStatusHandler.GetStat().speed, rb.velocity.y);
-                Debug.Log(playerStatusHandler.GetStat().speed);
+                rb.velocity = new Vector2(movingInput * PlayerStat.speed, rb.velocity.y);
             }
         }
     }
+    private void MoveSound()
+    {
+        if (rb.velocity.x >4)
+        {
+            float moveDistance = Vector3.Distance(transform.position, previousPosition);
+            if (moveDistance >= minMoveDistance)
+            {
+                Debug.Log("test");
+                soundManager.PlayClip(testAudio.runSound);
+                previousPosition = transform.position;
+            } 
+        }
+    }
+
 
     private void Dash()
     {
@@ -241,9 +263,10 @@ public class LastPlayerController : MonoBehaviour
         {
             if (canDash)
             {
-                if (playerStatusHandler.GetStat().stemina >= dashStaminaCost)
+                if (PlayerStat.stemina >= dashStaminaCost)
                 {
-                    playerStatusHandler.GetStat().stemina -= dashStaminaCost;
+                    soundManager.PlayClip(testAudio.dashSound);
+                    PlayerStat.stemina -= dashStaminaCost;
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
@@ -264,15 +287,16 @@ public class LastPlayerController : MonoBehaviour
 
     private void RegenStamina()
     {
-        playerStatusHandler.GetStat().stemina += staminaRegenRate * Time.deltaTime;
-        playerStatusHandler.GetStat().stemina = Mathf.Clamp(playerStatusHandler.GetStat().stemina, 0f, 100f);
+        PlayerStat.stemina += staminaRegenRate * Time.deltaTime;
+        PlayerStat.stemina = Mathf.Clamp(PlayerStat.stemina, 0f, 100f);
         //Debug.Log("currentStamina ::" + playerStatusHandler.GetStat().stemina);
     }
 
     private void Death()
     {
-        if (playerStatusHandler.GetStat().hp <= 0)
+        if (PlayerStat.hp <= 0)
         {
+            soundManager.PlayClip(testAudio.deathSound);
             Debug.Log("DeathAnim");
             anim.SetBool("isDeath", true);
             canMove = false;
@@ -295,6 +319,7 @@ public class LastPlayerController : MonoBehaviour
 
     private void Jump()
     {
+        soundManager.PlayClip(testAudio.jumpSound);
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
@@ -329,7 +354,7 @@ public class LastPlayerController : MonoBehaviour
         {
             float verticalInput = Input.GetAxis("Vertical");
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.GetStat().speed);
+            rb.velocity = new Vector2(rb.velocity.x, verticalInput * PlayerStat.speed);
             isGrounded = false;
             canWallSlide = false;
         }

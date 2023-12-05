@@ -14,10 +14,12 @@ public class PetBuff : MonoBehaviour
     }
     
 
+
     IEnumerator RepeatSkillTimer()
     {
         yield return new WaitForEndOfFrame();
         while(true)
+
         {
             yield return StartCoroutine(UseSkill());
             yield return seconds;
@@ -28,9 +30,10 @@ public class PetBuff : MonoBehaviour
     {
         petSkill.CurSkill = petSkills[Random.Range(0, petSkills.Count)];
         petSkill.Init();
-        Debug.Log("½ºÅ³¸í" + petSkill.SkillName);
+        Debug.Log("ï¿½ï¿½Å³ï¿½ï¿½" + petSkill.SkillName);
         petSkill.Use();
 
         yield return null;
     }
+
 }
