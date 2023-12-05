@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class OpenMapDoor : BaseGimmick
 {
-    public GameObject MovedDoor;
+    public List<GameObject> MovedDoors;
     private Coroutine currentCoroutine;
-    public Collider2D DoorCollider;
+    public List<Collider2D> DoorCollider;
     
     protected override void Start()
     {
-        DoorCollider = MovedDoor.GetComponent<Collider2D>();
+        DoorCollider = new List<Collider2D>();
+        foreach (var moveDoor in MovedDoors)
+        {
+            Collider2D doorCollider = moveDoor.GetComponent<Collider2D>();
+            DoorCollider.Add((doorCollider));
+        }
         base.Start();
     }
     
@@ -19,6 +24,7 @@ public class OpenMapDoor : BaseGimmick
         if (Input.GetKeyDown(KeyCode.E))
         {
             bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
+            Debug.Log("문열림");
             if (isCollision)
             {
                 currentCoroutine = StartCoroutine(OpenTheDoorCoroutine());
@@ -28,14 +34,18 @@ public class OpenMapDoor : BaseGimmick
 
     private IEnumerator OpenTheDoorCoroutine()
     {
-        GameObject moveableObject = MovedDoor;
-        if (moveableObject != null)
+        for (int i = 0; i < MovedDoors.Count; i++)
         {
-            mapGimmickAction.MoveInDirection(moveableObject.transform, Vector2.up, 1.0f);
-            mapGimmickAction.ToggleCollider(DoorCollider, false);
-            yield return StartCoroutine(mapGimmickAction.ProcessDelay(3));
-            mapGimmickAction.ToggleObjectSetActive(MovedDoor, false);
-            currentCoroutine = null;
+            GameObject moveableObject = MovedDoors[i];
+            Collider2D doorCollider = DoorCollider[i];
+            if (moveableObject != null)
+            {
+                mapGimmickAction.MoveInDirection(moveableObject.transform, Vector2.up, 1.0f);
+                mapGimmickAction.ToggleCollider(doorCollider, false);
+                yield return StartCoroutine(mapGimmickAction.ProcessDelay(3));
+                mapGimmickAction.ToggleObjectSetActive(moveableObject, false);
+            }
         }
+        currentCoroutine = null;
     }
 }

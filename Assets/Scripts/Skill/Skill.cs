@@ -19,18 +19,26 @@ public class Skill : MonoBehaviour
     [SerializeField] private PropertyType skillProperty;
     [SerializeField] private int price; // 가격(상점에서 살때의 가격임, 상점판매가 불가능한 경우 0)
 
-    CharacterStats characterStats;
+    private PlayerStatusHandler characterStats;
+    private PlayerStat playerStat;
     Vector3 dir;
+
+    private void Awake()
+    {
+        characterStats = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
+    }
     private void Start()
     {
         Init();
-        characterStats = GameManager.Instance.playerStats;
+        playerStat = characterStats.GetStat();
         dir = new Vector3(GameManager.Instance.lastPlayerController.facingDirection, 0, 0);
+        Debug.Log(this.SkillName);
 
     }
     private void Update()
     {
-        StartCoroutine(move());
+        if(type == SkillType.Active) 
+        StartCoroutine(SkillActivation());
     }
 
     public void Init()
@@ -50,7 +58,11 @@ public class Skill : MonoBehaviour
 
     public bool Use()
     {
-        if (characterStats.characterMana <= 0) return false;
+        Debug.Log("1"+playerStat.mana);
+
+        if (playerStat.mana <= 0) return false;
+        Debug.Log("2"+playerStat.mana);
+       // if (CostDecrease()) return false;
 
         bool isUsed = false;
 
@@ -60,7 +72,7 @@ public class Skill : MonoBehaviour
             isUsed = eft.ExcuteRole(power, type);
         }
 
-        if (isUsed)
+        if (isUsed && type != SkillType.Buff)
         {
             CostDecrease();
         }
@@ -69,18 +81,23 @@ public class Skill : MonoBehaviour
         return isUsed; // 스킬 사용 성공 여부
     }
 
-    void CostDecrease()
+    bool CostDecrease()
     {
-        if (characterStats.characterMana >= cost)
+        if (playerStat.mana >= cost)
         {
-            characterStats.characterMana -= cost;
+            playerStat.mana -= cost;
+            return true;
         }
+        else {
+            return false;
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<skeletonEnemy>().TakeDamage(power + characterStats.NormalSkillDamage);
+            collision.GetComponent<EnemyStatusHandler>().TakeDamage(power + playerStat.spellPower);
             //power와 플레이어 주문력을 기반으로 데미지를 줌 collision.getComponent<Enemy>().TakeDamage??
             if (activeType)
             {
@@ -90,7 +107,7 @@ public class Skill : MonoBehaviour
 
     }
 
-    IEnumerator move()
+    IEnumerator SkillActivation()
     {
         if (dir.x > 0)
         {
@@ -119,6 +136,7 @@ public class Skill : MonoBehaviour
     }
 
     #region 프로퍼티
+    public SkillSO CurSkill { get { return curSkill;  } set { curSkill = value;  } }
     public SkillType Type { get { return type; } }
     public bool ActiveType { get { return activeType; } set { activeType = value; } }
     public string SkillName { get { return skillName; } set { skillName = value; } }

@@ -24,7 +24,7 @@ public class weaponColliderRange : MonoBehaviour
 
     void Update()
     {
-      playerAttack.CheckDefense();
+      playerAttack.CheckDeffense();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

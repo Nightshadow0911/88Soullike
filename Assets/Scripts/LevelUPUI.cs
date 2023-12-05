@@ -52,17 +52,17 @@ public class LevelUpUI : MonoBehaviour
     {
         for (int i = 0; i < statTexts.Length; i++)
         {
-            //statTexts[i].text = statTexts[i].name + ": " + GetStatValue((StatType)i);
+            statTexts[i].text = statTexts[i].name + ": " + GetStatValue((StatType)i);
         }
-        // levelText.text = "Level: " + playerStat.level;
-        // pointsText.text = "Points: " + playerStat.levelPoint;
+        levelText.text = "Level: " + playerStat.level;
+        pointsText.text = "Points: " + playerStat.levelPoint;
     }
 
     public void LevelUp()
     {
         if (selectedStat != StatType.None)
         {
-            // if (playerStatusHandler.GrowUpStat(1, ConvertToStatus(selectedStat)))
+            if (playerStatusHandler.GrowUpStat(1, ConvertToStatus(selectedStat)))
             {
                 UpdateUI();
             }
@@ -99,24 +99,24 @@ public class LevelUpUI : MonoBehaviour
         Debug.Log("Selected Stat: " + selectedStat);
     }
 
-    // private int GetStatValue(StatType statType)
-    // {
-    //     switch (statType)
-    //     {
-    //         case StatType.Health:
-    //             return playerStat.healthStat;
-    //         case StatType.Stemina:
-    //             return playerStat.steminaStat;
-    //         case StatType.Str:
-    //             return playerStat.strStat;
-    //         case StatType.Dex:
-    //             return playerStat.dexStat;
-    //         case StatType.Int:
-    //             return playerStat.intStat;
-    //         case StatType.Lux:
-    //             return playerStat.luxStat;
-    //         default:
-    //             return 0;
-    //     }
-    // }
+    private int GetStatValue(StatType statType)
+    {
+        switch (statType)
+        {
+            case StatType.Health:
+                return playerStat.healthStat;
+            case StatType.Stemina:
+                return playerStat.steminaStat;
+            case StatType.Str:
+                return playerStat.strStat;
+            case StatType.Dex:
+                return playerStat.dexStat;
+            case StatType.Int:
+                return playerStat.intStat;
+            case StatType.Lux:
+                return playerStat.luxStat;
+            default:
+                return 0;
+        }
+    }
 }
