@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerBuff : MonoBehaviour
 {    
     public static PlayerBuff Instance;
-    public PlayerStatusHandler playerBuffStat;
+    public PlayerStatusHandler playerStatusHandler;
     [SerializeField] private GameObject buffUIPrefab;
     [SerializeField] private Transform buffUIHolder;
     //[SerializeField] private List<Buff> buffs = new List<Buff>();
@@ -16,7 +16,7 @@ public class PlayerBuff : MonoBehaviour
 
     private void Start()
     {
-        playerBuffStat = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
+        playerStatusHandler = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
     }
 
 
@@ -25,7 +25,7 @@ public class PlayerBuff : MonoBehaviour
         if (!buffs.ContainsKey(buff))
         {
             buffs.Add(buff, true); // activated this, ()
-            buff.Activated(playerBuffStat, () =>
+            buff.Activated(playerStatusHandler, () =>
             { //공격력 버프는 아직 PlayerAttack에서 하는게 맞는가? 버프로 조정되는 모든 스탯이 하나의 스크립트에 모여있어야 좋은데
                 buffs.Remove(buff);
                 Destroy(buff.gameObject);

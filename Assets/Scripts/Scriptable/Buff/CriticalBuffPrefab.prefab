@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1553006849376801241}
   - component: {fileID: 4718570072945290265}
   m_Layer: 0
-  m_Name: CostBuffPrefab
+  m_Name: CriticalBuffPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
