@@ -132,6 +132,7 @@ public class PlayerAttack : MonoBehaviour
                     nextAttackTime = Time.time + 1f; // / sp  <= 삭제함( 수정 필요 )
                     if (playerStatusHandler.currentStemina >= attackStaminaCost)
                     {
+                        playerStatusHandler.currentStemina -= attackStaminaCost;
                         anim.SetTrigger("attack");
 
                         ApplyDamage();
@@ -155,8 +156,7 @@ public class PlayerAttack : MonoBehaviour
         int modifiedAttackDamage = playerStatusHandler.currentDamage;
         if (comboAttackClickCount != 3)
         {
-
-            playerStatusHandler.currentStemina -= attackStaminaCost;
+            //playerStatusHandler.currentStemina -= attackStaminaCost;
             comboAttack = false;
         }
         else
