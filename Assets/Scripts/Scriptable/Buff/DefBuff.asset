@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1414155932e29ac4a9dd1ba4a6c8d043, type: 3}
   m_Name: DefBuff
   m_EditorClassIdentifier: 
-  durTime: 20
-  value: 10
-  statName: CharacterDeffense
+  durTime: 30
+  value: 15
+  statName: currentDefense
   buffImage: {fileID: 21300000, guid: 439a0c7dd838846b4922a64a5f418e2e, type: 3}
