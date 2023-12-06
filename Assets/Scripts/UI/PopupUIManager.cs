@@ -48,7 +48,15 @@ public class PopupUIManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(escapeKey))
+        if (activePopupLList.Count > 0)
+        {
+            GameManager.Instance.CantAttack();
+        } else
+        {
+            GameManager.Instance.CanAttack();
+        }
+
+        if (Input.GetKeyDown(escapeKey))
         {
             if(activePopupLList.Count > 0)
             {
@@ -64,6 +72,7 @@ public class PopupUIManager : MonoBehaviour
                     optionPopup.SetActive(true);
                 }
             }
+
         }
 
         ToggleKeyDownAction(inventoryKey, inventoryPopup);

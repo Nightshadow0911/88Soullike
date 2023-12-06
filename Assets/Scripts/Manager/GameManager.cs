@@ -38,4 +38,13 @@ public class GameManager : MonoBehaviour
         lastPlayerController = player.GetComponent<LastPlayerController>();
         playerAttack = player.GetComponent<PlayerAttack>();
     }
+
+    public void CanAttack()
+    {
+        playerAttack.canAttack =  true;
+    }
+    public void CantAttack()
+    {
+        playerAttack.canAttack = false;
+    }
 }
