@@ -28,15 +28,19 @@ public class MagnetItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
+            Debug.Log("¾È" + collision.gameObject.name);
+        }
+        Debug.Log("¹Û" + collision.gameObject.name);
+
         if (collision.CompareTag("MagnetField"))
         {
             target = collision.gameObject;
             magnetTime = true;
         }
-        if (collision.CompareTag("Player"))
-        {
-            gameObject.SetActive(false);
-        }
+
     }
 
     void ApplyRandomForce()
