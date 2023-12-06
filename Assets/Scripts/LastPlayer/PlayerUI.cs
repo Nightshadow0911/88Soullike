@@ -18,16 +18,14 @@ public class PlayerUI : MonoBehaviour
     public Text manaText;
     void Start()
     {
+        playerStatusHandler = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
         healthSlider.value = 1;
         staminaSlider.value = 1;
         regainSlider.value = 1;
         manaSlider.value = 1;
         maxStat = playerStatusHandler.GetStat();
     }
-    private void Awake()
-    {
-        playerStatusHandler = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
-    }
+ 
     void Update()
     {
 
@@ -55,7 +53,7 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateManaUI()
     {
-        int maxMana = playerStatusHandler.curretMana;
+        int maxMana = playerStatusHandler.currentMana;
         int currentMana = maxStat.mana;
         manaText.text = currentMana + " / " + maxMana;
         //Debug.Log("maxMana ::" + maxMana);

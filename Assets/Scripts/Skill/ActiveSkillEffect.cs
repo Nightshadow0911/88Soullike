@@ -7,12 +7,12 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 [CreateAssetMenu(fileName = "Scriptable", menuName = "Scriptable/SkillEft/ActiveEft")]
 public class ActiveSkillEffect : SkillEffect
 {
-    [SerializeField] private bool type; // false ±Ù°Å¸®, true ¿ø°Å¸®
-    public GameObject skillPrefab; // false ±Ù°Å¸®, true ¿ø°Å¸®
+    [SerializeField] private bool type; // false ï¿½Ù°Å¸ï¿½, true ï¿½ï¿½ï¿½Å¸ï¿½
+    public GameObject skillPrefab; // false ï¿½Ù°Å¸ï¿½, true ï¿½ï¿½ï¿½Å¸ï¿½
     public Vector3 skillPosition;
     public override bool ExcuteRole(int power, SkillType type) 
     {
-        skillPosition = GameManager.Instance.playerAttack.attackPoint.transform.position;
+        skillPosition = GameManager.instance.playerAttack.attackPoint.transform.position;
         GameObject go = Instantiate(skillPrefab, skillPosition, Quaternion.identity);
 
         return true;

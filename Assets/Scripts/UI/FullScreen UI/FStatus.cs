@@ -12,7 +12,7 @@ public class FStatus : MonoBehaviour
 
     protected void Awake()
     {
-        playerStatusHandler = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
+        playerStatusHandler = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
         playerMaxStat = playerStatusHandler.GetStat();
         playerBaseStat = playerStatusHandler.baseStatSO;
         playerGrowStat = playerStatusHandler.growStatSO;

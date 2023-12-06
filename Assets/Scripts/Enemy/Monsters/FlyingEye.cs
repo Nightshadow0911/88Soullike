@@ -37,7 +37,7 @@ public class FlyingEye : EnemyCharacter
             Vector2.right, 0, characterStat.target);
         if (hit.collider != null)
         {
-            targetTransform = GameManager.Instance.player.transform;
+            targetTransform = GameManager.instance.player.transform;
             detected = true;
         }
     }

@@ -15,10 +15,10 @@ public class weaponColliderRange : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameManager.Instance;
+        gameManager = GameManager.instance;
         lastPlayerController = gameManager.lastPlayerController;
         playerAttack = gameManager.playerAttack;
-        particle = GameManager.Instance.GetComponent<Particle>();
+        particle = GameManager.instance.GetComponent<Particle>();
         
     }
 

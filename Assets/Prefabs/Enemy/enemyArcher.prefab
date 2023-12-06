@@ -156,7 +156,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 4.266667, y: 4.266667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
-  attackPosition: {fileID: 0}
+  attackPosition: {fileID: 5094375063330245699}
   uniqueStats: {fileID: 11400000, guid: 393e32642d447bd4ea1b598a4bc42494, type: 2}
   tileLayer:
     serializedVersion: 2
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad43152f68c5484e871d3ab6f00da02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPosition: {fileID: 0}
+  attackPosition: {fileID: 5094375063330245699}
 --- !u!1 &6154355871352643499
 GameObject:
   m_ObjectHideFlags: 0
