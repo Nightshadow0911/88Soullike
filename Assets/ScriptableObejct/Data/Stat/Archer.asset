@@ -23,7 +23,7 @@ MonoBehaviour:
   detectRange: 15
   target:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   closeRange: 3
   mediumRange: 13
   longRange: 0
