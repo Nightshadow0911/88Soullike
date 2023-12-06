@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class FBasicStatusUI : FStatus
 {
-    [Header("ÀÏ¹Ý´É·Â")]
+    [Header("ï¿½Ï¹Ý´É·ï¿½")]
     [SerializeField] private TMP_Text healthValue;
     [SerializeField] private TMP_Text manaValue;
     [SerializeField] private TMP_Text steminaValue;
@@ -14,7 +14,7 @@ public class FBasicStatusUI : FStatus
     [SerializeField] private TMP_Text regainValue;
     [SerializeField] private TMP_Text moveSpeedValue;
 
-    [Header("°ø°Ý´É·Â")]
+    [Header("ï¿½ï¿½ï¿½Ý´É·ï¿½")]
     [SerializeField] private TMP_Text attackDamageValue;
     [SerializeField] private TMP_Text spellPowerValue;
     [SerializeField] private TMP_Text propertyDamageValue;
@@ -33,14 +33,14 @@ public class FBasicStatusUI : FStatus
         manaValue.text = $"{playerStatusHandler.curretMana} / {playerMaxStat.mana}";
         steminaValue.text = $"{playerStatusHandler.currentStemina} / {playerMaxStat.stemina}";
         weightValue.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}";
-        regainValue.text = $"{playerStatusHandler.curretRegainHp}";
+        regainValue.text = $"{playerStatusHandler.currentRegainHp}";
         moveSpeedValue.text = $"{playerStatusHandler.currentSpeed}";
 
         attackDamageValue.text = $"{playerStatusHandler.currentDamage}";
         spellPowerValue.text = $"{playerStatusHandler.currentSpellPower}";
         propertyDamageValue.text = $"{playerStatusHandler.currentpropertyDamage}";
         criticalRateValue.text = $"{playerStatusHandler.currentCritical}";
-        //attackSpeed.text = $"{}"; => ¾îÅÃ ½ºÇÇµå
+        //attackSpeed.text = $"{}"; => ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½
 
     }
 }

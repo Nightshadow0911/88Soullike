@@ -145,7 +145,7 @@ public class PlayerAttack : MonoBehaviour
     private void RegainHp(int damage)
     {
         int heal = damage;
-        if (playerStatusHandler.currentHp < playerStatusHandler.curretRegainHp)
+        if (playerStatusHandler.currentHp < playerStatusHandler.currentRegainHp)
         {
             playerStatusHandler.currentHp += heal / 4;
         }

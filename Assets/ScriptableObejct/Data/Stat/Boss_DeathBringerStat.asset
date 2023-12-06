@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss_DeathBringerStat
   m_EditorClassIdentifier: 
   hp: 500
-  damage: 10
+  damage: 50
   defense: 5
   speed: 3
   delay: 1

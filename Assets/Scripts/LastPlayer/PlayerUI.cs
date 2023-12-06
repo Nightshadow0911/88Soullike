@@ -64,10 +64,11 @@ public class PlayerUI : MonoBehaviour
 
     public void UpdateRegainHpUI()
     {
-        int characterRegainHp = playerStatusHandler.curretRegainHp;
-        int maxHealth = maxStat.hp;
-        int currentHealth = playerStatusHandler.currentHp;
-        if (characterRegainHp < currentHealth)
+        int characterRegainHp = playerStatusHandler.currentRegainHp; //(현재값 )
+        int maxHealth = maxStat.hp; // max 값
+        int currentHealth = playerStatusHandler.currentHp;//(현재값 )
+        Debug.Log("currentRegainHp:" + characterRegainHp);
+        if (characterRegainHp < currentHealth) 
         {
             characterRegainHp = currentHealth;
         }
