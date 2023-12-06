@@ -10,22 +10,19 @@ using Random = UnityEngine.Random;
 public class EnemyArcherControl : EnemyCharacter
 {
     [SerializeField] private ArcherUniqueStat uniqueStats;
-    [SerializeField] private Vector2 meleeAttackRange;
     [SerializeField] private LayerMask tileLayer;
 
     private RangedAttack rangedAttack;
-    private PositionAttack positionAttack;
-    private bool isRage = false;
+
 
     protected override void Awake()
     {
         base.Awake();
         rangedAttack = GetComponent<RangedAttack>();
-        positionAttack = GetComponent<PositionAttack>();
 
 
         #region CloseRangedPattern
-        pattern.AddPattern(Distance.CloseRange, ArrowShot);
+        pattern.AddPattern(Distance.CloseRange, ArrowCloseShot);
         #endregion
 
         #region MediumRangePattern
@@ -33,7 +30,7 @@ public class EnemyArcherControl : EnemyCharacter
         #endregion
 
         #region LongRangePattern
-        pattern.AddPattern(Distance.LongRange, ArrowShot);
+        pattern.AddPattern(Distance.LongRange, ArrowLongShot);
         #endregion
     }
 
@@ -89,13 +86,24 @@ public class EnemyArcherControl : EnemyCharacter
         state = State.FAILURE;
     }
 
-    private IEnumerator ArrowShot()
+    private IEnumerator ArrowLongShot()
     {
         RunningPattern();
-        anim.StringTrigger("ArrowShot");
-        yield return YieldCache.WaitForSeconds(1.0f);
+        anim.StringTrigger("ArrowLongShot");
+        yield return YieldCache.WaitForSeconds(2f);
         Vector2 position = targetTransform.position + (Vector3.up * 3.5f);
-        positionAttack.CreateProjectile(position, uniqueStats.spawnArrow);
+        rangedAttack.CreateProjectile(GetDirection(), uniqueStats.BA_Arrow);
+        yield return YieldCache.WaitForSeconds(0.6f);
+        state = State.SUCCESS;
+        yield return null;
+    }
+    private IEnumerator ArrowCloseShot()
+    {
+        RunningPattern();
+        anim.StringTrigger("ArrowCloseShot");
+        yield return YieldCache.WaitForSeconds(2f);
+        Vector2 position = targetTransform.position + (Vector3.up * 3.5f);
+        rangedAttack.CreateProjectile(GetDirection(), uniqueStats.BA_Arrow);
         yield return YieldCache.WaitForSeconds(0.6f);
         state = State.SUCCESS;
         yield return null;
@@ -113,5 +121,6 @@ public class EnemyArcherControl : EnemyCharacter
     protected override void Death()
     {
         anim.StringTrigger("death");
+        gameObject.SetActive(false);
     }
 }

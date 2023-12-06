@@ -15,10 +15,6 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
 
     private RangedAttack rangedAttack;
     private PositionAttack positionAttack;
-    private bool isRage = false;
-
-    private int spellCount; //���� ��� Ƚ��
-    private int maxSpellCount = 3; //�ִ� ���� ��� Ƚ��
 
     protected override void Awake()
     {
@@ -137,7 +133,6 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         Vector2 position = targetTransform.position + (Vector3.up * 3.5f);
         positionAttack.CreateProjectile(position, uniqueStats.spawnSpell);
         yield return YieldCache.WaitForSeconds(0.6f); // �ִ� ��ũ
-        spellCount++;
         state = State.SUCCESS;
     }
 

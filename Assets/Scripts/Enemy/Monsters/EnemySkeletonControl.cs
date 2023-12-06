@@ -12,15 +12,9 @@ public class SkeletonEnemy : EnemyCharacter
     [SerializeField] private Vector2 meleeAttackRange;
     [SerializeField] private LayerMask tileLayer;
 
-    private RangedAttack rangedAttack;
-    private PositionAttack positionAttack;
-    private bool isRage = false;
-
     protected override void Awake()
     {
         base.Awake();
-        rangedAttack = GetComponent<RangedAttack>();
-        positionAttack = GetComponent<PositionAttack>();
 
 
         #region CloseRangedPattern

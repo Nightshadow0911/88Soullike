@@ -44,7 +44,7 @@ public class RangedAttackController : MonoBehaviour
         }
     }
 
-    public void InitializeAttack(Vector2 direction, RangedAttackData attackData)
+    public virtual void InitializeAttack(Vector2 direction, RangedAttackData attackData)
     {
         this.attackData = attackData;
         this.direction = direction;
