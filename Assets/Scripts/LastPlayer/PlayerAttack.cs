@@ -20,12 +20,14 @@ public class PlayerAttack : MonoBehaviour
     public bool canAttack = true;
 
     private int comboAttackClickCount = 0;
-    private int manaRegainClickCount = 1;
+    private int manaRegainClickCount = 0;
     [SerializeField] public bool monsterToPlayerDamage;
     public Transform attackPoint;
     [SerializeField] private LayerMask enemyLayer;
     public bool comboAttack;
     private Test test;
+    private int comboCount=1;
+
     // Start is called before the first frame update
 
     void Start()
@@ -47,7 +49,6 @@ public class PlayerAttack : MonoBehaviour
     {
         CheckDeffense();
         CheckAttackTime();
-        ResetClickCount();
     }
 
 
@@ -100,15 +101,15 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    private void ResetClickCount()
+    private void ManaPlus()
     {
-        if (manaRegainClickCount == 10)
+        Debug.Log("comboCount:" + comboCount);
+        if (comboCount %3 ==0)
         {
-            if (playerStatusHandler.curretMana < max.mana)
+            if (max.mana < playerStatusHandler.curretMana)//(현재마나  < 맥스마나 )
             {
-                playerStatusHandler.curretMana += 1;
+                max.mana += 1;
             }
-            manaRegainClickCount = 1;
         }
     }
 
@@ -116,7 +117,6 @@ public class PlayerAttack : MonoBehaviour
     {
         comboAttackClickCount += 1;
         lastClickTime = Time.time;
-        manaRegainClickCount += 1;
     }
 
     private void CheckAttackTime()
@@ -167,6 +167,8 @@ public class PlayerAttack : MonoBehaviour
             modifiedAttackDamage *= 2;
             comboAttackClickCount = 0;
             comboAttack = true;
+            comboCount += 1;
+            ManaPlus();
         }
         modifiedAttackDamage = playerStatusHandler.CriticalCheck(modifiedAttackDamage);
         return modifiedAttackDamage;
