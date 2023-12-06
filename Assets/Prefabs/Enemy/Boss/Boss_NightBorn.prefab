@@ -91,6 +91,8 @@ GameObject:
   - component: {fileID: 2753417058823859565}
   - component: {fileID: 2252726217185499169}
   - component: {fileID: 1513084008973565711}
+  - component: {fileID: 1273979105052822705}
+  - component: {fileID: 5089766405465432064}
   - component: {fileID: 5429057769090658166}
   - component: {fileID: 4494698404013491045}
   - component: {fileID: 6848149543802111638}
@@ -117,7 +119,7 @@ Transform:
   - {fileID: 1657755521677915222}
   - {fileID: 8215696892229329923}
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6459419513943032045
 Rigidbody2D:
@@ -245,6 +247,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStatSO: {fileID: 11400000, guid: c3dff12d9257c437d823da3ab89a5630, type: 2}
   currentHp: 0
+--- !u!114 &1273979105052822705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972623587484420255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c749464aa5ae1840a8ff34d64b94cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  textUI: {fileID: 0}
+  bossName: "\uB098\uC774\uD2B8 \uBCF8"
+--- !u!114 &5089766405465432064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972623587484420255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58b9a94bcd78d74c98e2e158c3d873b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSprite: {fileID: 1938017129840126694}
+  flashMaterial: {fileID: 2100000, guid: d3caa2290fa00d74cab618bbaef04cd7, type: 2}
+  originalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &5429057769090658166
 MonoBehaviour:
   m_ObjectHideFlags: 0

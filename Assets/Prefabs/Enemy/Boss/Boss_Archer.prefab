@@ -133,6 +133,8 @@ GameObject:
   - component: {fileID: 5144808923018816717}
   - component: {fileID: 3181530040030206276}
   - component: {fileID: 5658020677484353115}
+  - component: {fileID: 2193381852182541071}
+  - component: {fileID: 2380903413493211130}
   - component: {fileID: 9178313139778652197}
   - component: {fileID: 3784721396427862338}
   - component: {fileID: 910569754565661679}
@@ -160,7 +162,7 @@ Transform:
   - {fileID: 2286751427095356880}
   - {fileID: 6027363796339740217}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8555316646024781539
 Rigidbody2D:
@@ -278,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d207ea01b5937ad4d9dcdcc89d6cd535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStatSO: {fileID: 11400000, guid: 25b6f4bba14ee284b8d78dac9de73fe8, type: 2}
+  currentStatSO: {fileID: 0}
   currentHp: 0
 --- !u!114 &5658020677484353115
 MonoBehaviour:
@@ -293,6 +295,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 2286751427095356880}
+--- !u!114 &2193381852182541071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7470434121842117839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58b9a94bcd78d74c98e2e158c3d873b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSprite: {fileID: 8522134448258764995}
+  flashMaterial: {fileID: 2100000, guid: d3caa2290fa00d74cab618bbaef04cd7, type: 2}
+  originalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &2380903413493211130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7470434121842117839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c749464aa5ae1840a8ff34d64b94cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  textUI: {fileID: 0}
+  bossName: "\uD638\uD06C\uC544\uC774"
 --- !u!114 &9178313139778652197
 MonoBehaviour:
   m_ObjectHideFlags: 0
