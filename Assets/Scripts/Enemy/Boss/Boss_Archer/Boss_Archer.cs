@@ -38,8 +38,8 @@ public class Boss_Archer : EnemyCharacter
 
         #region MediumRangePattern
         pattern.AddPattern(Distance.MediumRange, LeapShot);
-        // pattern.AddPattern(Distance.MediumRange, TrackingAttack);
-        // pattern.AddPattern(Distance.MediumRange, Run);
+        pattern.AddPattern(Distance.MediumRange, TrackingAttack);
+        pattern.AddPattern(Distance.MediumRange, Run);
         #endregion
 
         #region LongRangePattern
