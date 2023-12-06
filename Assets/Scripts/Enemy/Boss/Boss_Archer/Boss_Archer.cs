@@ -100,7 +100,7 @@ public class Boss_Archer : EnemyCharacter
             rangedAttack.CreateProjectile(GetDirection(), uniqueStats.arrowData);
     }
 
-    private void ShootSpecialArrow(Vector3 dir, RangzedAttackData data)
+    private void ShootSpecialArrow(Vector3 dir, RangedAttackData data)
     {
         soundManager.PlayClip(uniqueStats.arrowAttackSound);
         rangedAttack.CreateProjectile(dir, data);
