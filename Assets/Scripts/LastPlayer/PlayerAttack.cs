@@ -8,11 +8,11 @@ public class PlayerAttack : MonoBehaviour
     private PlayerStat max;
     private Animator anim;
     public LastPlayerController player;
-
+    private SoundManager soundManager;
     private float comboResetTime = 1.5f;
     private float lastClickTime;
     [SerializeField] public int attackStaminaCost = 5; // 민열님과 얘기
-    double nextAttackTime = 0f; // 어디서 쓰는지?
+    double nextAttackTime = 0f;
 
     public bool isParrying = false;
     public bool isGuarding = false;
@@ -22,24 +22,24 @@ public class PlayerAttack : MonoBehaviour
     private int comboAttackClickCount = 0;
     private int manaRegainClickCount = 1;
     [SerializeField] public bool monsterToPlayerDamage;
-    //public int damage;
-
     public Transform attackPoint;
-    //public float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
     public bool comboAttack;
-
+    private Test test;
     // Start is called before the first frame update
 
     void Start()
     {
         canAttack = true;
         max = playerStatusHandler.GetStat();
+        soundManager = SoundManager.instance;
     }
     private void Awake()
     {
+
         anim = GetComponent<Animator>();
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
+        test = GetComponent<Test>();
     }
 
     // Update is called once per frame
@@ -134,7 +134,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         playerStatusHandler.currentStemina -= attackStaminaCost;
                         anim.SetTrigger("attack");
-
+                        soundManager.PlayClip(test.attackSound);
                         ApplyDamage();
                     }
                 }
@@ -142,7 +142,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void RegainAttack(int damage)
+    private void RegainHp(int damage)
     {
         int heal = damage;
         if (playerStatusHandler.currentHp < playerStatusHandler.curretRegainHp)
@@ -156,12 +156,13 @@ public class PlayerAttack : MonoBehaviour
         int modifiedAttackDamage = playerStatusHandler.currentDamage;
         if (comboAttackClickCount != 3)
         {
-            //playerStatusHandler.currentStemina -= attackStaminaCost;
+//            soundManager.PlayClip(test.attackSound);
             comboAttack = false;
         }
         else
         {
             anim.SetTrigger("combo");
+            soundManager.PlayClip(test.comboAttackSound);
             playerStatusHandler.currentStemina -= attackStaminaCost * 2;
             modifiedAttackDamage *= 2;
             comboAttackClickCount = 0;
@@ -174,23 +175,21 @@ public class PlayerAttack : MonoBehaviour
     private void ApplyDamage() // Add damage To Monster
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, playerStatusHandler.currentAttackRange, enemyLayer);
-
-        Debug.Log("enemyLayer : " + enemyLayer);
-        Debug.Log("hitEnemy : " + hitEnemies.Length);
+        //Debug.Log("enemyLayer : " + enemyLayer);
+        //Debug.Log("hitEnemy : " + hitEnemies.Length);
         if (hitEnemies.Length != 0)
         {
-
             ClickCount();
             int damage = DamageCalculator();
             foreach (Collider2D enemyCollider in hitEnemies)
             {
                 EnemyStatusHandler enemyhandler = enemyCollider.GetComponent<EnemyStatusHandler>();
                 enemyhandler.TakeDamage(damage);
-                RegainAttack(damage);
-                PlayerEvents.playerDamaged.Invoke(gameObject, damage);
+                RegainHp(damage);
             }
         }
     }
+
 
     //private void OnDrawGizmos()
     //{
