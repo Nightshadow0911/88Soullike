@@ -20,7 +20,6 @@ public class Skill : MonoBehaviour
     [SerializeField] private int price; // ����(�������� �춧�� ������, �����ǸŰ� �Ұ����� ��� 0)
 
     private PlayerStatusHandler characterStats;
-    private PlayerStat playerStat;
     Vector3 dir;
 
     private void Awake()
@@ -30,7 +29,6 @@ public class Skill : MonoBehaviour
     private void Start()
     {
         Init();
-        playerStat = characterStats.GetStat();
         dir = new Vector3(GameManager.Instance.lastPlayerController.facingDirection, 0, 0);
 
     }
@@ -96,7 +94,7 @@ public class Skill : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyStatusHandler>().TakeDamage(power + playerStat.spellPower);
+            collision.GetComponent<EnemyStatusHandler>().TakeDamage(power + characterStats.currentSpellPower);
             //power�� �÷��̾� �ֹ����� ������� �������� �� collision.getComponent<Enemy>().TakeDamage??
             if (activeType)
             {

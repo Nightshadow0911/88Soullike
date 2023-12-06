@@ -13,6 +13,7 @@ TagManager:
   - Boss_Archer
   - MagnetField
   - Ladder
+  - pet
   layers:
   - Default
   - TransparentFX

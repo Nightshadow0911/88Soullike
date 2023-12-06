@@ -10,7 +10,7 @@ public class FStatus : MonoBehaviour
     [SerializeField] protected PlayerStat playerGrowStat;
     [SerializeField] protected Inventory inven;
 
-    private void Awake()
+    protected void Awake()
     {
         playerStatusHandler = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
         playerMaxStat = playerStatusHandler.GetStat();
@@ -18,5 +18,10 @@ public class FStatus : MonoBehaviour
         playerGrowStat = playerStatusHandler.growStatSO;
         inven = Inventory.instance;
       
+    }
+
+    protected virtual void Update()
+    {
+
     }
 }

@@ -28,12 +28,11 @@ public class MagnetItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("pet"))
         {
             gameObject.SetActive(false);
-            Debug.Log("¾È" + collision.gameObject.name);
+            //
         }
-        Debug.Log("¹Û" + collision.gameObject.name);
 
         if (collision.CompareTag("MagnetField"))
         {
