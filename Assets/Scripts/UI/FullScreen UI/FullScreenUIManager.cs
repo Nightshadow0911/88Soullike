@@ -56,7 +56,8 @@ public class FullScreenUIManager : MonoBehaviour
         {
             Destroy(gameObject);
             return;
-        } 
+        }
+        activeFullScreenUILList = new LinkedList<FullScreenUI>();
 
         Init();
         InitCloseAll();
@@ -109,7 +110,17 @@ public class FullScreenUIManager : MonoBehaviour
         shopList = new List<FullScreenUI>() {shopUI, itemInformationUI, mainStatusUI, basicStatusUI, abillityStatusUI };
         levelUpList = new List<FullScreenUI>() { levelUpUI, basicStatusUI, abillityStatusUI };
         mapList = new List<FullScreenUI>() { mapUI, travelUI};
-        
+
+
+        foreach (FullScreenUI fscreen in allFullScreenUIList) // 모든 팝업에 이벤트 등록
+        {
+            fscreen.OnFocus += () => //헤더 포커스 이벤트
+            {
+                activeFullScreenUILList.Remove(fscreen);
+                activeFullScreenUILList.AddFirst(fscreen);
+                RefreshAllPopupDepth();
+            };
+        }
 
     }
 
