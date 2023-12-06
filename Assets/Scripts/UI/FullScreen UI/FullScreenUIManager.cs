@@ -13,6 +13,7 @@ public class FullScreenUIManager : MonoBehaviour
     [SerializeField] private GameObject fullScreenBase;
 
     public List<FullScreenUI> currentUI; // 현재 켜진 UIList 확인 => 아이콘과 메뉴 이름 변경해주기 위함?
+    public int uiIndex;
 
     [Space]
     public KeyCode escapeKey = KeyCode.Escape;
@@ -44,10 +45,10 @@ public class FullScreenUIManager : MonoBehaviour
     [SerializeField] private List<FullScreenUI> levelUpList;
     [SerializeField] private List<FullScreenUI> mapList;
 
-    public LinkedList<FullScreenUI> activeFullScreenUILList;
+    [SerializeField] private LinkedList<FullScreenUI> activeFullScreenUILList;
 
     // 전체 UI 목록
-    private List<FullScreenUI> allFullScreenUIList;
+    [SerializeField] private List<FullScreenUI> allFullScreenUIList;
 
     private void Awake()
     {
@@ -55,7 +56,8 @@ public class FullScreenUIManager : MonoBehaviour
         {
             Destroy(gameObject);
             return;
-        } 
+        }
+        activeFullScreenUILList = new LinkedList<FullScreenUI>();
 
         Init();
         InitCloseAll();
@@ -109,14 +111,27 @@ public class FullScreenUIManager : MonoBehaviour
         levelUpList = new List<FullScreenUI>() { levelUpUI, basicStatusUI, abillityStatusUI };
         mapList = new List<FullScreenUI>() { mapUI, travelUI};
 
+
+        foreach (FullScreenUI fscreen in allFullScreenUIList) // 모든 팝업에 이벤트 등록
+        {
+            fscreen.OnFocus += () => //헤더 포커스 이벤트
+            {
+                activeFullScreenUILList.Remove(fscreen);
+                activeFullScreenUILList.AddFirst(fscreen);
+                RefreshAllPopupDepth();
+            };
+        }
+
     }
 
     private void InitCloseAll() // 시작시 모든 팝업 닫기
     {
-        foreach (FullScreenUI fScreen in allFullScreenUIList)
+        CloseUIList(allFullScreenUIList);
+        /*foreach (FullScreenUI fScreen in allFullScreenUIList)
         {
             CloseUI(fScreen);
-        }
+        }*/
+        //fullScreenBase.SetActive(false);
     }
 
     // 단축키 입력에 따라 팝업 열거나 닫기
@@ -182,22 +197,22 @@ public class FullScreenUIManager : MonoBehaviour
     // 팝업을 닫고 링크드리스트에서 제거
     private void CloseUI(FullScreenUI fScreen)
     {
-        fullScreenBase.SetActive(false);
         activeFullScreenUILList.Remove(fScreen);
         fScreen.gameObject.SetActive(false);
         RefreshAllPopupDepth();
+        fullScreenBase.SetActive(false);
     }
     private void CloseUIList(List<FullScreenUI> fScreens)
     {
         if (fScreens == null) return;
 
-        fullScreenBase.SetActive(false);
         foreach (FullScreenUI fScreen in fScreens)
         {
             activeFullScreenUILList.Remove(fScreen);
             fScreen.gameObject.SetActive(false);
         }
         RefreshAllPopupDepth();
+        fullScreenBase.SetActive(false);
     }
 
     //링크드리스트 내 모든 팝업의 자식 순서 재배치

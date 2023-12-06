@@ -9,11 +9,14 @@ public class Crouch : MonoBehaviour
     public float crouchHeight;
     public LastPlayerController LastPlayerController;
     private GameManager gameManager;
+    private PlayerStatusHandler playerStatusHandler;
+    float sitSpeed;
     // Start is called before the first frame update
     void Start()
     {
         normalHeight = transform.localScale;
         gameManager = GameManager.Instance;
+        playerStatusHandler = GetComponent<PlayerStatusHandler>();
     }
 
     // Update is called once per frame
@@ -24,6 +27,7 @@ public class Crouch : MonoBehaviour
 
     private void Sit()
     {
+
         yInput = Input.GetAxisRaw("Vertical");
         if (yInput < 0 && LastPlayerController.isGrounded && Input.GetKey(KeyCode.S))
         {
@@ -31,8 +35,7 @@ public class Crouch : MonoBehaviour
             {
                 transform.localScale = new Vector2(normalHeight.x, crouchHeight);
                 LastPlayerController.isSitting =true;
-                gameManager.playerStats.ExtraCharacterSpeed=1.5f;
-                Debug.Log(" gameManager.playerStats.ExtraCharacterSpeed :" + gameManager.playerStats.ExtraCharacterSpeed);
+                sitSpeed = playerStatusHandler.currentSpeed*0.5f;
             }
         }
         else
@@ -46,7 +49,7 @@ public class Crouch : MonoBehaviour
                     LastPlayerController.isSitting = false;
                     LastPlayerController.canDash = true;
                     transform.localScale = normalHeight;
-                    gameManager.playerStats.CharacterSpeed = gameManager.playerStats.CharacterSpeed;
+                    sitSpeed = playerStatusHandler.currentSpeed;
                 }
 
             }

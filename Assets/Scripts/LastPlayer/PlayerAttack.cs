@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public bool isParrying = false;
     public bool isGuarding = false;
     private float parryWindowEndTime = 0f;
-    private bool canAttack = true;
+    public bool canAttack = true;
 
     private int comboAttackClickCount = 0;
     private int manaRegainClickCount = 1;
