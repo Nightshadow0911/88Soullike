@@ -29,9 +29,9 @@ public class EnemyStatusHandler :StatHandler
     {
         if (enemyCurrentStat == null || currentHp <= 0)
             return;
-        //damage -= enemyCurrentStat.defense;dsdd
+        //damage -= enemyCurrentStat.defense;
         currentHp -= damage;
-        PlayerEvents.enemyDamaged.Invoke(gameObject, damage);
+        //PlayerEvents.enemyDamaged.Invoke(gameObject, damage);
         OnDamage?.Invoke();
         
         if (currentHp <= 0)

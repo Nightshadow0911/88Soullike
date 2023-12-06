@@ -53,13 +53,9 @@ public class SkeletonEnemy : EnemyCharacter
         {
             pattern.SetDistance(Distance.CloseRange);
         }
-        else if (distance < characterStat.mediumRange)
-        {
-            pattern.SetDistance(Distance.MediumRange);
-        }
         else
         {
-            pattern.SetDistance(Distance.LongRange);
+            pattern.SetDistance(Distance.MediumRange);
         }
     }
 
