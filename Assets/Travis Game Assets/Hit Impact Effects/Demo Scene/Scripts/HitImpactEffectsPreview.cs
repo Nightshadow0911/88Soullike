@@ -77,7 +77,7 @@ namespace TravisGameAssets
 				NextHit();
 			}
 			
-			if(Input.GetMouseButtonDown(0))
+			if(Input.GetMouseButtonDown(0) && GameManager.Instance.playerAttack)
 			{
 				if(!EventSystem.current.IsPointerOverGameObject())
 				{

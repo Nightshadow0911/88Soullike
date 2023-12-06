@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class FAbillityStatusUI : MonoBehaviour
+public class FAbillityStatusUI : FStatus
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("방어능력")]
+    [SerializeField] private TMP_Text deffenseValue;
+    [SerializeField] private TMP_Text propertyDeffenseValue;
+    [SerializeField] private TMP_Text parryTimeValue;
+
+    [Header("특수능력")]
+    [SerializeField] private TMP_Text soulDropValue;
+
+    private void Start()
     {
-        
+        Init();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Init()
     {
-        
+        deffenseValue.text = $"{playerStatusHandler.currentHp} / {playerMaxStat.hp}";
+        propertyDeffenseValue.text = $"{playerStatusHandler.currentHp} / {playerMaxStat.hp}";
+        parryTimeValue.text = $"{playerStatusHandler.currentHp} / {playerMaxStat.hp}";
+
+
     }
 }

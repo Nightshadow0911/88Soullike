@@ -69,7 +69,7 @@ public class CharacterInfoUI : MonoBehaviour
     {
         levelTxt.text = $"LV.{playerMaxStat.level}";
         healthTxt.text = $"{playerStatHandler.currentHp} / {playerMaxStat.hp}";
-        steminaTxt.text = $"{playerStatHandler.currentStemina} / {playerMaxStat.stemina}";
+        steminaTxt.text = $"{playerStatHandler.currentStemina}:F0 / {playerMaxStat.stemina}";
         int equipWeight = 0;
         foreach (Item ew in Equipment.instance.equipItemList)
         {
