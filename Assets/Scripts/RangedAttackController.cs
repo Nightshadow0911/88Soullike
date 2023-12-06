@@ -39,12 +39,12 @@ public class RangedAttackController : MonoBehaviour
         else if (attackData.target.value == (attackData.target.value | (1 << collision.gameObject.layer)))
         {
             // 데미지 주기
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(attackData.damage);
             DestroyProjectile(transform.position);
         }
     }
 
-    public void InitializeAttack(Vector2 direction, RangedAttackData attackData)
+    public virtual void InitializeAttack(Vector2 direction, RangedAttackData attackData)
     {
         this.attackData = attackData;
         this.direction = direction;

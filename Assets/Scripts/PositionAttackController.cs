@@ -25,7 +25,7 @@ public class PositionAttackController : MonoBehaviour
         if (!attackData.AoE && attackData.target.value == (attackData.target.value | (1 << collision.gameObject.layer)))
         {
             // 데미지 주기
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(attackData.damage);
         }
     }
 
@@ -34,7 +34,7 @@ public class PositionAttackController : MonoBehaviour
         if (attackData.AoE && attackData.target.value == (attackData.target.value | (1 << collision.gameObject.layer)))
         {
             // 데미지 주기
-            Debug.Log("poison hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(attackData.damage);
         }
     }
 

@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 7651277435799159720}
   - component: {fileID: 5138710019770687764}
   - component: {fileID: 729150299934101174}
-  - component: {fileID: 6028718587676751784}
   - component: {fileID: 4538989473501866103}
+  - component: {fileID: -2293529096211982364}
   - component: {fileID: 6114394636886025098}
+  - component: {fileID: 339043943492434067}
+  - component: {fileID: -7531694902894254134}
   m_Layer: 7
   m_Name: skeleton
   m_TagString: skeleton
@@ -161,27 +163,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1709313, y: 1.878463}
   m_EdgeRadius: 0
---- !u!114 &6028718587676751784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4131467677953457577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c465a60818559342927faaa49c98aed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
-  skeletonWeapon: {fileID: 311243272039578616, guid: fbb9b12827e78694696dc6c452ccb92d, type: 3}
-  maxHealth: 100
-  selfPosition: {fileID: 5048235138083051449}
-  soulDrop: {fileID: 7428717623223419327, guid: 9a9b3036750ae9b4fad0d4ca145d0d0c, type: 3}
-  applyKnockback: 1
-  knockbackSpeedX: 1
-  knockbackSpeedY: 2
-  knockbackDuration: 1
 --- !u!95 &4538989473501866103
 Animator:
   serializedVersion: 5
@@ -203,6 +184,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2293529096211982364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4131467677953457577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d0478107a2e344586ce145e3289fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 0}
+  attackPosition: {fileID: 0}
+  meleeAttackRange: {x: 0, y: 0}
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 1536
 --- !u!114 &6114394636886025098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,5 +214,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d207ea01b5937ad4d9dcdcc89d6cd535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStatSO: {fileID: 11400000, guid: c3dff12d9257c437d823da3ab89a5630, type: 2}
+  currentStatSO: {fileID: 11400000, guid: 0fd7124fb21688d4198ca51ccc5f1ecf, type: 2}
   currentHp: 0
+--- !u!114 &339043943492434067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4131467677953457577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86806cc9fdcaf845b938c883e72cabf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7531694902894254134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4131467677953457577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 270e104093d71c3458485c4cc303fb27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

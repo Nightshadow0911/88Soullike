@@ -41,46 +41,56 @@ public class Chase : MonoBehaviour
         Vector2 direction = player.position - transform.position;
         if (lastPlayerController.isGrounded==true)
         {
-            // 플레이어와 고양이의 y축 거리가 -5에서 10 사이인 경우
-            if (-5 < direction.y && direction.y < 10)
+            if (lastPlayerController.isSitting==true)
             {
-                // x축 거리가 17 이상이면 순간이동
-                if (Mathf.Abs(direction.x) >= 17)
-                {
-                    transform.position = player.position;
-                }
-                else if (Mathf.Abs(direction.x) >= 4)
-                {
-                    // 플레이어와의 거리가 4 이상이면 뛰기
-                    MoveWithSpeed(5);
-                    canWalk = false;
-                    canRun = true;
-                }
-                else if (Mathf.Abs(direction.x) > 1.5 && Mathf.Abs(direction.x) <= 4)
-                {
-                    // 거리가 2에서 4 사이이면 걷기
-                    MoveWithSpeed(2);
-                    canWalk = true;
-                    canRun = false;
-                }
-                else
-                {
-                    // 그 외의 경우는 정지
-                    MoveWithSpeed(0);
-                    canWalk = false;
-                    canRun = false;
-                }
+                MoveWithSpeed(2);
+                canWalk = true;
+                canRun = false;
             }
             else
             {
-                // y축 거리가 범위를 벗어난 경우 순간이동
-                transform.position = player.position;
+                // 플레이어와 고양이의 y축 거리가 -5에서 10 사이인 경우
+                if (-5 < direction.y && direction.y < 10)
+                {
+                    // x축 거리가 17 이상이면 순간이동
+                    if (Mathf.Abs(direction.x) >= 17)
+                    {
+                        transform.position = player.position;
+                    }
+                    else if (Mathf.Abs(direction.x) >= 4)
+                    {
+                        // 플레이어와의 거리가 4 이상이면 뛰기
+                        MoveWithSpeed(5);
+                        canWalk = false;
+                        canRun = true;
+                    }
+                    else if (Mathf.Abs(direction.x) > 1.5 && Mathf.Abs(direction.x) <= 4)
+                    {
+                        // 거리가 2에서 4 사이이면 걷기
+                        MoveWithSpeed(2);
+                        canWalk = true;
+                        canRun = false;
+                    }
+                    else
+                    {
+                        // 그 외의 경우는 정지
+                        MoveWithSpeed(0);
+                        canWalk = false;
+                        canRun = false;
+                    }
+                }
+                else
+                {
+                    // y축 거리가 범위를 벗어난 경우 순간이동
+                    transform.position = player.position;
+                }
             }
+
         }
         else
         {
-            MoveWithSpeed(0);
-            canWalk = false;
+            MoveWithSpeed(2);
+            canWalk = true;
             canRun = false;
         }
 

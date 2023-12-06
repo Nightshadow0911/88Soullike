@@ -55,11 +55,11 @@ public class Skill : MonoBehaviour
 
     public bool Use()
     {
-        // Debug.Log("1"+playerStat.mana);
-        //
+        Debug.Log("mana" + playerStat.mana);
+
         // if (playerStat.mana <= 0) return false;
-        // Debug.Log("2"+playerStat.mana);
-       // if (CostDecrease()) return false;
+        Debug.Log("mana" + playerStat.mana);
+        if (!CostDecrease()) return false;
 
         bool isUsed = false;
 
@@ -71,25 +71,26 @@ public class Skill : MonoBehaviour
 
         if (isUsed && type != SkillType.Buff)
         {
-            //CostDecrease();
+            CostDecrease();
         }
 
 
         return isUsed; // ��ų ��� ���� ����
     }
 
-    // bool CostDecrease()
-    // {
-    //     if (playerStat.mana >= cost)
-    //     {
-    //         playerStat.mana -= cost;
-    //         return true;
-    //     }
-    //     else {
-    //         return false;
-    //     }
-    //
-    // }
+    bool CostDecrease()
+    {
+        if (playerStat.mana >= cost)
+        {
+            playerStat.mana -= cost;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
