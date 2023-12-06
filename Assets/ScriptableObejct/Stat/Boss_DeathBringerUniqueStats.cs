@@ -9,23 +9,13 @@ public class Boss_DeathBringerUniqueStat : ScriptableObject
     public Vector2 meleeAttackRange;
 
     [Header("meleeAttack")]
-    public float dodgeDistance;
-    public float dodgeTime;
-    public float secondAttackDistance;
-    public float secondAttackTime;
+
 
     [Header("UseSpell")]
     public PositionAttackData spawnSpell;
 
     [Header("Projectile")]
     public List<ObjectPool.Pool> projectiles;
-
-    [Header("ArrowData")]
-    public RangedAttackData arrowData;
-    public RangedAttackData bombArrowData;
-    public RangedAttackData poisonArrowData;
-    public RangedAttackData scatterArrowData;
-    public PositionAttackData poisonFlaskData;
 
     [Header("Sound")]
     public AudioClip runSound;

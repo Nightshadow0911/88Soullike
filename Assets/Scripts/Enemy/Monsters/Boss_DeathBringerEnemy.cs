@@ -50,6 +50,12 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         }
     }
 
+    protected override void Rotate()
+    {
+        transform.rotation = targetTransform.position.x < transform.position.x
+            ? Quaternion.Euler(0, 0, 0)
+            : Quaternion.Euler(0, 180, 0);
+    }
     protected override void SetPatternDistance() //芭府俊 蝶弗 菩畔 炼例
     {
         float distance = Mathf.Abs(targetTransform.position.x - transform.position.x);
@@ -90,7 +96,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         // soundManager.PlayClip(uniqueStats.runSound);
         anim.HashBool(anim.run, true);
         float distance = float.MaxValue;
-        while (Mathf.Abs(distance) > characterStat.closeRange)
+        while (Mathf.Abs(distance) > characterStat.closeRange && Mathf.Abs(distance) < characterStat.mediumRange)
         {
             distance = targetTransform.position.x - transform.position.x;
             rigid.velocity = GetDirection() * characterStat.speed;
@@ -109,17 +115,17 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         yield return YieldCache.WaitForSeconds(1.8f); // 局聪 教农
         MeleeAttack();
         state = State.SUCCESS;
+        
     }
 
     private IEnumerator Blink()
     {
         RunningPattern();
         anim.StringTrigger("disappear");
-        yield return YieldCache.WaitForSeconds(1f); // 局聪 教农
+        yield return YieldCache.WaitForSeconds(1.5f); // 局聪 教农
         Vector3 position = transform.position += (targetTransform.position.x - transform.position.x) * Vector3.right;
         transform.position = position;
         anim.StringTrigger("appear");
-        yield return YieldCache.WaitForSeconds(1f); // 局聪 教农
         state = State.SUCCESS;
     }
 
@@ -128,7 +134,6 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         RunningPattern();
         anim.StringTrigger("cast");
         yield return YieldCache.WaitForSeconds(1.0f); // 局聪 教农
-        anim.StringTrigger("idle");
         Vector2 position = targetTransform.position;
         positionAttack.CreateProjectile(position, uniqueStats.spawnSpell);
         yield return YieldCache.WaitForSeconds(0.6f); // 局聪 教农
@@ -147,6 +152,6 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
 
     protected override void Death()
     {
-        anim.StringTrigger("disappear");
+        anim.StringTrigger("death");
     }
 }

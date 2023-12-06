@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6023699306122393440}
   - component: {fileID: 1545655811218041974}
   - component: {fileID: -2954430728767222184}
+  - component: {fileID: 5251851004957825185}
+  - component: {fileID: -3706821728178150912}
   m_Layer: 0
   m_Name: spellAttackEffect
   m_TagString: Untagged
@@ -106,3 +108,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5251851004957825185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690192561225792519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9388788a17a7b9849839df822a78c9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3706821728178150912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690192561225792519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5674f0e19b93fc046862724c3f7504f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellSpawnData: {fileID: 11400000, guid: 63fab2085f8a5df4a9b0c8ee13bb8309, type: 2}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6023699306122393440}
   - component: {fileID: 1545655811218041974}
   - component: {fileID: 3208032642834681835}
-  - component: {fileID: 4801194771586503625}
+  - component: {fileID: 8060453911096132608}
   m_Layer: 0
   m_Name: spellAttackRange
   m_TagString: Untagged
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.33, y: 0.6}
   m_EdgeRadius: 0
---- !u!114 &4801194771586503625
+--- !u!114 &8060453911096132608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,8 +140,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1690192561225792519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e861dcdb05fe632408b5398095b47d37, type: 3}
+  m_Script: {fileID: 11500000, guid: fbdc0b7569a7fd04c99284176b18adaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  test: 0

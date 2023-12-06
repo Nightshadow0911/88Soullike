@@ -13,19 +13,13 @@ MonoBehaviour:
   m_Name: Boss_DBUniqueStats
   m_EditorClassIdentifier: 
   meleeAttackRange: {x: 2, y: 2}
-  dodgeDistance: 0
-  dodgeTime: 0
-  secondAttackDistance: 0
-  secondAttackTime: 0
-  spawnSpell: {fileID: 0}
+  spawnSpell: {fileID: 11400000, guid: b98cd503966f3c1468efacd4ff59779e, type: 2}
   projectiles:
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  arrowData: {fileID: 0}
-  bombArrowData: {fileID: 0}
-  poisonArrowData: {fileID: 0}
-  scatterArrowData: {fileID: 0}
-  poisonFlaskData: {fileID: 0}
+  - tag: spawnSpell
+    prefab: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
+    size: 5
+  - tag: spellSpawnData
+    prefab: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
+    size: 5
   runSound: {fileID: 0}
   meleeAttackSound: {fileID: 0}
