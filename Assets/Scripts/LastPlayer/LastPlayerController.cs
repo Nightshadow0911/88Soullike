@@ -78,13 +78,12 @@ public class LastPlayerController : MonoBehaviour
 
     void Start()
     {
-
+        soundManager = SoundManager.instance;
     }
 
     private void Awake()
     {
 
-        soundManager = SoundManager.instance;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
