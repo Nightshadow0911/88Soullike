@@ -22,14 +22,12 @@ public class Skill : MonoBehaviour
     private PlayerStatusHandler characterStats;
     Vector3 dir;
 
-    private void Awake()
-    {
-        characterStats = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
-    }
+
     private void Start()
     {
         Init();
-        dir = new Vector3(GameManager.Instance.lastPlayerController.facingDirection, 0, 0);
+        dir = new Vector3(GameManager.instance.lastPlayerController.facingDirection, 0, 0);
+        characterStats = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
 
     }
     private void Update()
@@ -78,9 +76,9 @@ public class Skill : MonoBehaviour
 
     bool CostDecrease()
     {
-        if (characterStats.curretMana >= cost)
+        if (characterStats.currentMana >= cost)
         {
-            characterStats.curretMana -= cost;
+            characterStats.currentMana -= cost;
             return true;
         }
         else
