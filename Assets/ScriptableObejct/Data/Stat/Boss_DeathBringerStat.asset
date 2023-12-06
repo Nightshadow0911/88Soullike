@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14589f9a940f864a9375cc533e3f9f8, type: 3}
   m_Name: Boss_DeathBringerStat
   m_EditorClassIdentifier: 
-  hp: 500
+  hp: 10
   damage: 50
   defense: 5
   speed: 3

@@ -15,7 +15,7 @@ MonoBehaviour:
   hp: 100
   damage: 10
   defense: 5
-  speed: 10
+  speed: 8
   delay: 1
   attackRange: 0.8
   propertyDamage: 0

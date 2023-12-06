@@ -8,6 +8,7 @@ public class FlyingEye : EnemyCharacter
 {
     [SerializeField] private Vector2 meleeAttackRange;
     [SerializeField] private GameObject effect;
+    [SerializeField] private LayerMask ignoreLayer;
     
      private bool find;
 
@@ -65,6 +66,7 @@ public class FlyingEye : EnemyCharacter
             {
                 find = true;
             }
+            Rotate();
             Vector3 direction = (targetTransform.position + Vector3.up * 1.5f) - transform.position;
             rigid.velocity = direction.normalized * characterStat.speed;
             yield return YieldCache.WaitForFixedUpdate;
