@@ -21,5 +21,8 @@ MonoBehaviour:
   - tag: spellAttack
     prefab: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
     size: 5
+  - tag: BA_Arrow
+    prefab: {fileID: 913579387397932168, guid: 29bb8d684145c6740b97f0344e7e15b0, type: 3}
+    size: 5
   runSound: {fileID: 0}
   meleeAttackSound: {fileID: 0}

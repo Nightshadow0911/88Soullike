@@ -12,7 +12,7 @@ public class ArcherUniqueStat : ScriptableObject
 
 
     [Header("UseSpell")]
-    public PositionAttackData spawnArrow;
+    public RangedAttackData BA_Arrow;
 
     [Header("Projectile")]
     public List<ObjectPool.Pool> projectiles;
