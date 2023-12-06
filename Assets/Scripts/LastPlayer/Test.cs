@@ -9,7 +9,8 @@ public class Test : MonoBehaviour
     public AudioClip runSound;
     public AudioClip dashSound;
     public AudioClip jumpSound;
-    //public AudioClip attackSound;
-    //public AudioClip comboAttackSound;
+    public AudioClip attackSound;
+    public AudioClip Block;
+    public AudioClip comboAttackSound;
     //public AudioClip deathSound;
 }
