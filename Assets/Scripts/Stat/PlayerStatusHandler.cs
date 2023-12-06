@@ -39,7 +39,7 @@ public class PlayerStatusHandler :StatHandler
     [HideInInspector]
     public int currentWeight;
     [HideInInspector]
-    public int curretRegainHp;
+    public int currentRegainHp;
     [HideInInspector]
     public int curretMana;
     [HideInInspector]
@@ -77,6 +77,7 @@ public class PlayerStatusHandler :StatHandler
         if (playerCurrentStat == null)
             return;
         damage = damage <= currentDefense ? 0 : damage - currentDefense;
+        currentRegainHp -= damage / 2;
         currentHp -= damage;
         Debug.Log(currentHp);
     }
@@ -92,7 +93,7 @@ public class PlayerStatusHandler :StatHandler
         currentpropertyDamage = playerCurrentStat.propertyDamage;
         currentpropertyDefense = playerCurrentStat.propertyDefense;
         currentWeight = playerCurrentStat.weight;
-        curretRegainHp = playerCurrentStat.regainHp;
+        currentRegainHp = currentHp;
         curretMana = playerCurrentStat.mana;
         currentSpeed = playerCurrentStat.speed;
         currentCritical = playerCurrentStat.criticalChance;
