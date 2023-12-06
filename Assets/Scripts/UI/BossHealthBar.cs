@@ -21,7 +21,7 @@ public class BossHealthBar : MonoBehaviour
         handler.OnDeath += UnDoHealthBar;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         maxHealth = handler.GetStat().hp;
         ChangeHealth();
