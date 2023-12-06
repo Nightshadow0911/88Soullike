@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: spawnSpell
   m_EditorClassIdentifier: 
   tag: spawnSpell
-  damage: 10
-  duration: 0.8
+  damage: 0
+  duration: 1
   target:
     serializedVersion: 2
     m_Bits: 64

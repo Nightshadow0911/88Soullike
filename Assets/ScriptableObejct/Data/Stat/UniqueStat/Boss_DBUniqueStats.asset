@@ -18,7 +18,7 @@ MonoBehaviour:
   - tag: spawnSpell
     prefab: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
     size: 5
-  - tag: spellSpawnData
+  - tag: spellAttack
     prefab: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
     size: 5
   runSound: {fileID: 0}
