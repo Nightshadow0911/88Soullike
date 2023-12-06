@@ -9,7 +9,7 @@ public class SpikeTrap : BaseGimmick
     private Animator animator;
     protected override void Start()
     {
-        gameManager = GameManager.Instance;
+        gameManager = GameManager.instance;
         animator = GetComponent<Animator>();
         base.Start();
     }

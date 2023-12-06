@@ -26,7 +26,7 @@ public class DarkSpirit : EnemyCharacter
 
     protected override void DetectPlayer()
     {
-        targetTransform = GameManager.Instance.player.transform;
+        targetTransform = GameManager.instance.player.transform;
         Invoke("DetectedTrue", 0.5f);
     }
 

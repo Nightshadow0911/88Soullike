@@ -15,7 +15,7 @@ public class MonsterKnockBack : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gameManager = GameManager.Instance;
+        gameManager = GameManager.instance;
     }
 
     // Update is called once per frame

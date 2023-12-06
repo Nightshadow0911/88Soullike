@@ -38,8 +38,8 @@ public class Boss_Archer : EnemyCharacter
 
         #region MediumRangePattern
         pattern.AddPattern(Distance.MediumRange, LeapShot);
-        pattern.AddPattern(Distance.MediumRange, TrackingAttack);
-        pattern.AddPattern(Distance.MediumRange, Run);
+        // pattern.AddPattern(Distance.MediumRange, TrackingAttack);
+        // pattern.AddPattern(Distance.MediumRange, Run);
         #endregion
 
         #region LongRangePattern
@@ -76,7 +76,7 @@ public class Boss_Archer : EnemyCharacter
     
     protected override void DetectPlayer()
     {
-        targetTransform = GameManager.Instance.player.transform;
+        targetTransform = GameManager.instance.player.transform;
         detected = true;
     }
 
@@ -365,7 +365,12 @@ public class Boss_Archer : EnemyCharacter
         Vector3 direction;
         for (int i = 0; i < uniqueStats.numberOfLeapShot; i++)
         {
-            float ran = Random.Range(0, 10);
+            // float ran = Random.Range(0, 10);
+            float ran = 0;
+            if (i == 0)
+                ran = 4;
+            else
+                ran = 6;
             yield return YieldCache.WaitForSeconds(0.2f);
             //soundManager.PlayClip();
             if (ran < 5)

@@ -50,10 +50,10 @@ public class PopupUIManager : MonoBehaviour
     {
         if (activePopupLList.Count > 0)
         {
-            GameManager.Instance.CantAttack();
+            GameManager.instance.CantAttack();
         } else
         {
-            GameManager.Instance.CanAttack();
+            GameManager.instance.CanAttack();
         }
 
         if (Input.GetKeyDown(escapeKey))

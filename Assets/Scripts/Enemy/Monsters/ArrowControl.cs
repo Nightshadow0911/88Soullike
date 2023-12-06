@@ -13,7 +13,7 @@ public class ArrowControl : MonoBehaviour
     
     void Start()
     {
-        gameManager = GameManager.Instance;
+        gameManager = GameManager.instance;
     }
 
     void Update()

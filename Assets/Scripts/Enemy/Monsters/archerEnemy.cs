@@ -32,9 +32,9 @@ public class archerEnemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        player = GameManager.Instance.player.transform;
+        player = GameManager.instance.player.transform;
         currentHealth = maxHealth;
-        gameManager = GameManager.Instance;
+        gameManager = GameManager.instance;
     }
 
     void Update()

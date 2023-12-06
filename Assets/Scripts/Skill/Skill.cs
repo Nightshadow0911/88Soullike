@@ -23,15 +23,13 @@ public class Skill : MonoBehaviour
     private PlayerStat playerStat;
     Vector3 dir;
 
-    private void Awake()
-    {
-        characterStats = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
-    }
     private void Start()
     {
+        characterStats = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
+
         Init();
         playerStat = characterStats.GetStat();
-        dir = new Vector3(GameManager.Instance.lastPlayerController.facingDirection, 0, 0);
+        dir = new Vector3(GameManager.instance.lastPlayerController.facingDirection, 0, 0);
 
     }
     private void Update()
