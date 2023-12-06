@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
-  attackPosition: {fileID: 0}
+  attackPosition: {fileID: 5048235138083051449}
   meleeAttackRange: {x: 0, y: 0}
   tileLayer:
     serializedVersion: 2
