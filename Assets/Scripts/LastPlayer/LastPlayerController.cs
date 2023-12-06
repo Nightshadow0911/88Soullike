@@ -152,8 +152,11 @@ public class LastPlayerController : MonoBehaviour
     }
     void UseSkill()
     {
-
-        transform.GetComponent<Equipment>().skillSlotList[skillIndex].Use();
+        Skill sk = new Skill();
+        sk.CurSkill = transform.GetComponent<Equipment>().skillSlotList[skillIndex];
+        sk.Init();
+        sk.Use();
+        
 
 
     }

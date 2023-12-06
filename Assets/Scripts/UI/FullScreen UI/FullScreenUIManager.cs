@@ -25,18 +25,20 @@ public class FullScreenUIManager : MonoBehaviour
     public KeyCode mapKey = KeyCode.M;
 
     [Header("UI목록")]
-    [SerializeField] private FullScreenUI mainStatusUI;
-    [SerializeField] private FullScreenUI basicStatusUI;
-    [SerializeField] private FullScreenUI abillityStatusUI;
-    [SerializeField] private FullScreenUI playerImageUI;
-    [SerializeField] private FullScreenUI inventoryUI;
-    [SerializeField] private FullScreenUI itemInformationUI;
-    [SerializeField] private FullScreenUI equipmentUI;
-    [SerializeField] private FullScreenUI shopUI;
-    [SerializeField] private FullScreenUI levelUpUI;
-    [SerializeField] private FullScreenUI optionUI;
-    [SerializeField] private FullScreenUI mapUI; //
-    [SerializeField] private FullScreenUI travelUI; //
+    public FullScreenUI mainStatusUI;
+    public FullScreenUI basicStatusUI;
+    public FullScreenUI abillityStatusUI;
+    public FullScreenUI playerImageUI;
+    public FullScreenUI inventoryUI;
+    public FullScreenUI itemInformationUI;
+    public FullScreenUI equipmentUI;
+    public FullScreenUI shopUI;
+    public FullScreenUI levelUpUI;
+    public FullScreenUI optionUI;
+    public FullScreenUI mapUI; //
+    public FullScreenUI travelUI; //
+    public FullScreenUI itemSelectUI; 
+    public FullScreenUI switchPanelUI; 
 
     [Header("UI 그룹")] // 여러개의 UI를 넣어두고 0, 1, 2를 처음에 세팅 ... 표시전환 누르면 n번째가 현재 들어와있는것 중 다음거를 부름?
     [SerializeField] private List<FullScreenUI> statusList;
@@ -48,7 +50,6 @@ public class FullScreenUIManager : MonoBehaviour
 
     [SerializeField] private LinkedList<FullScreenUI> activeFullScreenUILList;
 
-    // 전체 UI 목록
     [SerializeField] private List<FullScreenUI> allFullScreenUIList;
     [SerializeField] private Vector2 leftPanelPosition;
     [SerializeField] private Vector2 centerPanelPosition;

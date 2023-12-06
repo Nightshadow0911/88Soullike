@@ -34,7 +34,7 @@ public class FBasicStatusUI : FStatus
         steminaValue.text = $"{playerStatusHandler.currentStemina:F0} / {playerMaxStat.stemina}";
         weightValue.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}" +
             $"({(playerStatusHandler.currentWeight / playerMaxStat.weight * 100):F1}%)";
-        regainValue.text = $"{playerStatusHandler.curretRegainHp}";
+        regainValue.text = $"{playerStatusHandler.currentRegainHp}";
         moveSpeedValue.text = $"{playerStatusHandler.currentSpeed}";
 
         attackDamageValue.text = $"{playerStatusHandler.currentDamage}";

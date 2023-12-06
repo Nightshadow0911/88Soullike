@@ -55,10 +55,8 @@ public class Skill : MonoBehaviour
 
     public bool Use()
     {
-        Debug.Log("mana" + playerStat.mana);
-
         // if (playerStat.mana <= 0) return false;
-        Debug.Log("mana" + playerStat.mana);
+
         if (!CostDecrease()) return false;
 
         bool isUsed = false;
@@ -80,9 +78,9 @@ public class Skill : MonoBehaviour
 
     bool CostDecrease()
     {
-        if (playerStat.mana >= cost)
+        if (characterStats.curretMana >= cost)
         {
-            playerStat.mana -= cost;
+            characterStats.curretMana -= cost;
             return true;
         }
         else

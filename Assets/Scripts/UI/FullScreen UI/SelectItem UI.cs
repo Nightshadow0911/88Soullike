@@ -1,18 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectItemUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Button useBtn;
+    public Button dropBtn;
+    public Button deleteBtn;
+    public Button dropAllBtn;
+    public Button deleteAllBtn;
+
+    public Action anyAction;
+
+    public void SetFunc(Action func)
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    /*void Init()
     {
-        
-    }
+        useBtn.onClick.AddListener(SetFunc(anyAction));
+    }*/
 }

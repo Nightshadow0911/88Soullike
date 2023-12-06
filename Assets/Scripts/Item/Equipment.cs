@@ -5,6 +5,20 @@ using UnityEngine.UI;
 
 public class Equipment : MonoBehaviour
 {
+
+    private const int WEAPON = 0, ARMOR = 1;
+
+    public Item[] equipItemList = new Item[2];
+    public Item[] quickSlotList = new Item[3];
+    //public Skill[] skillSlotList = new Skill[2]; // ��ų ����, 0���� ���� �տ� ����
+    public SkillSO[] skillSlotList = new SkillSO[2]; // ��ų ����, 0���� ���� �տ� ����
+    public GameObject[] skillIcons = new GameObject[2];
+    public Transform skillHolder;
+
+    private PlayerStatusHandler playerStatusHandler;
+    private FEquipmentUI fEquipUI;
+    private FullScreenUIManager fManager;
+
     #region Singleton
     public static Equipment instance;
 
@@ -16,22 +30,19 @@ public class Equipment : MonoBehaviour
             return;
         }
         instance = this;
+
+        playerStatusHandler = transform.GetComponent<PlayerStatusHandler>();
+        fManager = FullScreenUIManager.instance;
+        skillSlotList[0] = SkillDatabase.instance.skillDB[0];
+        skillSlotList[1] = SkillDatabase.instance.skillDB[1];
     }
     #endregion
-    private const int WEAPON = 0, ARMOR = 1;
-
-    public Item[] equipItemList = new Item[2];
-    public Item[] quickSlotList = new Item[3];
-    public Skill[] skillSlotList = new Skill[3]; // ��ų ����, 0���� ���� �տ� ����
-    public GameObject[] skillIcons = new GameObject[3];
-    public Transform skillHolder;
-
-    private PlayerStatusHandler playerStatusHandler;
 
 
     private void Start()
     {
-        playerStatusHandler = transform.GetComponent<PlayerStatusHandler>(); //
+
+
         for (int i = 0; i < skillIcons.Length; i++)
         {
           skillIcons[i] = skillHolder.GetChild(i).gameObject;
@@ -92,7 +103,7 @@ public class Equipment : MonoBehaviour
             default:
                 return;
         }
-        EquipmentUI.instance.DrawEquipSlot();
+        fManager.equipmentUI.GetComponent<FEquipmentUI>().DrawEquipSlot();
     }
     public void EquipItem(int equipIndex) //
     {
