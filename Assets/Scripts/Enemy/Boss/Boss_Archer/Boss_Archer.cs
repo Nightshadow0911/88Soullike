@@ -86,7 +86,8 @@ public class Boss_Archer : EnemyCharacter
             attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
         if (collision != null)
         {
-            collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
+            // 데미지 주기
+            Debug.Log("player hit");
         }
     }
 
@@ -99,7 +100,7 @@ public class Boss_Archer : EnemyCharacter
             rangedAttack.CreateProjectile(GetDirection(), uniqueStats.arrowData);
     }
 
-    private void ShootSpecialArrow(Vector3 dir, RangedAttackData data)
+    private void ShootSpecialArrow(Vector3 dir, RangzedAttackData data)
     {
         soundManager.PlayClip(uniqueStats.arrowAttackSound);
         rangedAttack.CreateProjectile(dir, data);
@@ -327,8 +328,9 @@ public class Boss_Archer : EnemyCharacter
                         attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
                     if (collision != null)
                     {
+                        // 데미지 주기
                         hit = true;
-                        collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
+                        Debug.Log("player hit");
                     }
                 }
                 yield return YieldCache.WaitForFixedUpdate;
