@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 4933381492808349410}
   - component: {fileID: 4879434061709390884}
   - component: {fileID: 4925477720479702634}
+  - component: {fileID: 2264255326447654608}
+  - component: {fileID: 3006810237016818768}
   - component: {fileID: 4915891181226424195}
   - component: {fileID: 5318222126922654149}
   - component: {fileID: 7306486615108811805}
@@ -38,7 +40,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1705715553120706534
 SpriteRenderer:
@@ -217,6 +219,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStatSO: {fileID: 11400000, guid: 55e86fc16665e4247bca5e81383ae448, type: 2}
   currentHp: 0
+--- !u!114 &2264255326447654608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045820309081120241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58b9a94bcd78d74c98e2e158c3d873b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSprite: {fileID: 1705715553120706534}
+  flashMaterial: {fileID: 2100000, guid: d3caa2290fa00d74cab618bbaef04cd7, type: 2}
+  originalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &3006810237016818768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045820309081120241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c749464aa5ae1840a8ff34d64b94cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  textUI: {fileID: 0}
+  bossName: 
 --- !u!114 &4915891181226424195
 MonoBehaviour:
   m_ObjectHideFlags: 0
