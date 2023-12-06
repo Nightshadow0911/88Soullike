@@ -86,7 +86,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         if (collision != null)
         {
             // ������ �ֱ�
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
         }
     }
 
