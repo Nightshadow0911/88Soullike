@@ -8,21 +8,22 @@ public class positionAttack2 : PositionAttackController
     [SerializeField] private PositionAttackData spellSpawnData;
     private PositionAttack positionAttack;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        positionAttack = GetComponent<PositionAttack>();
     }
 
     protected override void DestroyProjectile()
     {
-        Vector3 position = Vector3.down;
+        Vector3 position = transform.position;
         positionAttack.CreateProjectile(position, spellSpawnData);
+        Invoke("DeActive", 1f);
+    }
+
+    private void DeActive()
+    {
+        gameObject.SetActive(false);
     }
 }
 

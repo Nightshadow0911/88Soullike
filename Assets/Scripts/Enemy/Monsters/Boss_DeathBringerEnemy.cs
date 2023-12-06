@@ -17,8 +17,8 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
     private PositionAttack positionAttack;
     private bool isRage = false;
 
-    private int spellCount; //½ºÆç »ç¿ë È½¼ö
-    private int maxSpellCount = 3; //ÃÖ´ë ½ºÆç »ç¿ë È½¼ö
+    private int spellCount; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È½ï¿½ï¿½
+    private int maxSpellCount = 3; //ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È½ï¿½ï¿½
 
     protected override void Awake()
     {
@@ -36,7 +36,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         #endregion
 
         #region LongRangePattern
-        pattern.AddPattern(Distance.LongRange, Blink);
+        // pattern.AddPattern(Distance.LongRange, Blink);
         pattern.AddPattern(Distance.LongRange, UseSpell);
         #endregion
     }
@@ -56,7 +56,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
             ? Quaternion.Euler(0, 0, 0)
             : Quaternion.Euler(0, 180, 0);
     }
-    protected override void SetPatternDistance() //°Å¸®¿¡ µû¸¥ ÆÐÅÏ Á¶Àý
+    protected override void SetPatternDistance() //ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         float distance = Mathf.Abs(targetTransform.position.x - transform.position.x);
         if (distance < characterStat.closeRange)
@@ -73,7 +73,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         }
     }
 
-    protected override void DetectPlayer() //ÇÃ·¹ÀÌ¾î ÃßÀû
+    protected override void DetectPlayer() //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         targetTransform = GameManager.Instance.player.transform;
         detected = true;
@@ -85,7 +85,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
             attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
         if (collision != null)
         {
-            // µ¥¹ÌÁö ÁÖ±â
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
             Debug.Log("player hit");
         }
     }
@@ -112,7 +112,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
     {
         RunningPattern();
         anim.StringTrigger("attack");
-        yield return YieldCache.WaitForSeconds(1.8f); // ¾Ö´Ï ½ÌÅ©
+        yield return YieldCache.WaitForSeconds(1.8f); // ï¿½Ö´ï¿½ ï¿½ï¿½Å©
         MeleeAttack();
         state = State.SUCCESS;
         
@@ -122,7 +122,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
     {
         RunningPattern();
         anim.StringTrigger("disappear");
-        yield return YieldCache.WaitForSeconds(1.5f); // ¾Ö´Ï ½ÌÅ©
+        yield return YieldCache.WaitForSeconds(1.5f); // ï¿½Ö´ï¿½ ï¿½ï¿½Å©
         Vector3 position = transform.position += (targetTransform.position.x - transform.position.x) * Vector3.right;
         transform.position = position;
         anim.StringTrigger("appear");
@@ -133,10 +133,10 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
     {
         RunningPattern();
         anim.StringTrigger("cast");
-        yield return YieldCache.WaitForSeconds(1.0f); // ¾Ö´Ï ½ÌÅ©
-        Vector2 position = targetTransform.position;
+        yield return YieldCache.WaitForSeconds(1.0f); // ï¿½Ö´ï¿½ ï¿½ï¿½Å©
+        Vector2 position = targetTransform.position + (Vector3.up * 2);
         positionAttack.CreateProjectile(position, uniqueStats.spawnSpell);
-        yield return YieldCache.WaitForSeconds(0.6f); // ¾Ö´Ï ½ÌÅ©
+        yield return YieldCache.WaitForSeconds(0.6f); // ï¿½Ö´ï¿½ ï¿½ï¿½Å©
         spellCount++;
         state = State.SUCCESS;
     }
