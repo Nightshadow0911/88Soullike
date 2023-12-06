@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c96b6c815948f445b30e71e23ab7a82, type: 3}
+  m_Name: Boss_DBUniqueStats
+  m_EditorClassIdentifier: 
+  meleeAttackRange: {x: 2, y: 2}
+  spawnSpell: {fileID: 11400000, guid: b98cd503966f3c1468efacd4ff59779e, type: 2}
+  projectiles:
+  - tag: spawnSpell
+    prefab: {fileID: 1690192561225792519, guid: d6fd411615dde8f4f813d98baf60b33d, type: 3}
+    size: 5
+  - tag: spellAttack
+    prefab: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
+    size: 5
+  runSound: {fileID: 0}
+  meleeAttackSound: {fileID: 0}
