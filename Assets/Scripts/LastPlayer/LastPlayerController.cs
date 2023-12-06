@@ -262,6 +262,7 @@ public class LastPlayerController : MonoBehaviour
             {
                 if (playerStatusHandler.currentStemina >= dashStaminaCost)
                 {
+                    soundManager.PlayClip(test.dashSound);
                     playerStatusHandler.currentStemina -= dashStaminaCost;
                     Debug.Log("playerStatusHandler.currentStemina:" + playerStatusHandler.currentStemina);
                     fadeOut.makeFadeOut = true;
@@ -316,6 +317,7 @@ public class LastPlayerController : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        soundManager.PlayClip(test.jumpSound);
     }
 
     private void wallJump()

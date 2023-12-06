@@ -14,7 +14,7 @@ public class Chase : MonoBehaviour
 
     void Start()
     {
-        lastPlayerController = FindObjectOfType<LastPlayerController>();
+        lastPlayerController = GameManager.Instance.player.GetComponent<LastPlayerController>();
     }
     private void Awake()
     {

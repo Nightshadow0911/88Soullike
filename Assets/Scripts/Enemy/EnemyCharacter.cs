@@ -33,6 +33,7 @@ public abstract class EnemyCharacter : MonoBehaviour
         anim = GetComponent<EnemyAnimationController>();
         pattern = GetComponent<EnemyPattern>();
         rigid = GetComponent<Rigidbody2D>();
+        statusHandler.OnDeath += Death;
     }
 
     protected virtual void Start()
@@ -100,12 +101,10 @@ public abstract class EnemyCharacter : MonoBehaviour
         return targetTransform.position.x - transform.position.x < 0 ? Vector2.left : Vector2.right;
     }
 
-    private void AllStop()
+    protected virtual void Death()
     {
         StopCoroutine(currentPattern);
-        state = State.FAILURE;
         rigid.velocity = Vector2.zero;
+        anim.HashTrigger(anim.death);
     }
-
-    protected abstract void Death();
 }

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 2998202955324148258}
   - component: {fileID: 1071108768902339945}
   - component: {fileID: 5739536484228162517}
+  - component: {fileID: 5682848981969694676}
   - component: {fileID: 381330883576202917}
   - component: {fileID: 5355653882174470889}
   - component: {fileID: 96629448778321710}
@@ -123,7 +124,7 @@ Transform:
   - {fileID: 1106473450356677422}
   - {fileID: 7755571230192199201}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6207161771000986134
 Rigidbody2D:
@@ -223,6 +224,7 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   attackPosition: {fileID: 7755571230192199201}
   meleeAttackRange: {x: 2.5, y: 0.6}
+  boss: {fileID: 0}
 --- !u!114 &5739536484228162517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +239,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStatSO: {fileID: 11400000, guid: a83f81fa0dad92e4eae57fa24bc04644, type: 2}
   currentHp: 0
+--- !u!114 &5682848981969694676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312591019256831547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58b9a94bcd78d74c98e2e158c3d873b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSprite: {fileID: 7214233125252984458}
+  flashMaterial: {fileID: 2100000, guid: d3caa2290fa00d74cab618bbaef04cd7, type: 2}
+  originalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &381330883576202917
 MonoBehaviour:
   m_ObjectHideFlags: 0

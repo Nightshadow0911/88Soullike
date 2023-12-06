@@ -12,25 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62dd1ea70e37bc47b84df84f2b33954, type: 3}
   m_Name: Boss_NightBornUniqueStats
   m_EditorClassIdentifier: 
-  hp: 1000
-  damage: 15
-  defense: 20
-  speed: 8
-  delay: 2
-  attackRange: 0
-  propertyDamage: 0
-  propertyDefense: 0
-  detectRange: 0
-  patternDelay: 0
-  target:
-    serializedVersion: 2
-    m_Bits: 64
-  closeRange: 0
-  mediumRange: 0
-  longRange: 0
   meleeAttackRange: {x: 5, y: 7}
-  minX: -13
-  maxX: 13
+  minX: 290
+  maxX: 320
   fowardDashSlashDistance: 6.5
   fowardDashSlashSpeed: 30
   projectiles:

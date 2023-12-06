@@ -8,16 +8,17 @@ public class Boss_NightBorn : EnemyCharacter
     [SerializeField] private Boss_NightBornUniqueStat uniqueStats;
     [SerializeField] private GameObject backLight;
     [SerializeField] private LayerMask wallLayer;
-
     private PositionAttack positionAttack;
-    public static int spiritNum;
     private bool isRage = false;
+
+    public static List<GameObject> spiritList = new();
 
     protected override void Awake()
     {
         base.Awake();
         positionAttack = GetComponent<PositionAttack>();
         backLight.SetActive(false);
+        
         
         #region CloseRangedPattern
         pattern.AddPattern(Distance.CloseRange, Slash);
@@ -178,7 +179,7 @@ public class Boss_NightBorn : EnemyCharacter
     private IEnumerator SpwanMonster()
     {
         RunningPattern();   
-        if (isRage || spiritNum >= 5)
+        if (isRage || spiritList.Count >= 5)
         {
             state = State.FAILURE;
             yield break;
@@ -203,6 +204,16 @@ public class Boss_NightBorn : EnemyCharacter
 
     protected override void Death()
     {
-        anim.HashTrigger(anim.death);
+        base.Death();
+        for (int i = 0; i < spiritList.Count; i++)
+        {
+            Destroy(spiritList[i]);
+        }
+        spiritList.Clear();
+    }
+
+    public void DestroyThis()
+    {
+        Destroy(gameObject);
     }
 }

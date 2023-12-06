@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SpawnBall : PositionAttackController
@@ -14,8 +15,7 @@ public class SpawnBall : PositionAttackController
 
     protected override void DestroyProjectile()
     {
-        Instantiate(monster, transform.position + (Vector3.down), Quaternion.identity);
-        Boss_NightBorn.spiritNum++;
+        Boss_NightBorn.spiritList.Add(Instantiate(monster, transform.position + Vector3.down, Quaternion.identity));
         base.DestroyProjectile();
     }
 }

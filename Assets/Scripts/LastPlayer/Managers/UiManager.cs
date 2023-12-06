@@ -19,47 +19,20 @@ public class UiManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerEvents.playerDamaged+=(PlayerTookDamage);
-        PlayerEvents.playerHealed += (PlayerHealed);
-        PlayerEvents.monsterDamaged += (MonsterTookDamage);
-        
+        PlayerEvents.enemyDamaged+=(EnemyTookDamage);
     }
     private void OnDisable()
     {
-
-        PlayerEvents.playerDamaged-=(PlayerTookDamage);
-        PlayerEvents.playerHealed-=(PlayerHealed);
-        PlayerEvents.monsterDamaged -= (MonsterTookDamage);
+        PlayerEvents.enemyDamaged-=(EnemyTookDamage);
     }
 
-    public void PlayerTookDamage(GameObject player, int damageReceived)
+    public void EnemyTookDamage(GameObject enemy, int damageReceived)
     {
-        Vector3 spawnPosition = Camera.main.WorldToScreenPoint(player.transform.position);
+        Vector3 spawnPosition = Camera.main.WorldToScreenPoint(enemy.transform.position);
         spawnPosition.y += 100f;
         TMP_Text tmpText = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity, gameCanvas.transform)
             .GetComponent<TMP_Text>();
 
         tmpText.text = damageReceived.ToString();
-    }
-    public void PlayerHealed(GameObject player, int healthRestored)
-    {
-        Vector3 spawnPosition = Camera.main.WorldToScreenPoint(player.transform.position);
-
-        TMP_Text tmpText = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity, gameCanvas.transform)
-            .GetComponent<TMP_Text>();
-
-        tmpText.text = healthRestored.ToString();
-    }
-    public void MonsterTookDamage(GameObject[] monsters, int damageReceived)
-    {
-        foreach (GameObject monster in monsters)
-        {
-            Vector3 spawnPosition = Camera.main.WorldToScreenPoint(monster.transform.position);
-            spawnPosition.y += 100f;
-            TMP_Text tmpText = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity, gameCanvas.transform)
-                .GetComponent<TMP_Text>();
-
-            tmpText.text = damageReceived.ToString();
-        }
     }
 }

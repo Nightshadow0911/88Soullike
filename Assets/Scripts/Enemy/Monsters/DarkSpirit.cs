@@ -7,6 +7,7 @@ public class DarkSpirit : EnemyCharacter
 {
     [Header("Unique Setting")]
     [SerializeField] private Vector2 meleeAttackRange;
+    [SerializeField] private GameObject boss;
 
     protected override void Awake()
     {
@@ -75,13 +76,21 @@ public class DarkSpirit : EnemyCharacter
         yield return YieldCache.WaitForSeconds(0.4f);// 애니메이션 싱크
         MeleeAttack();
         state = State.SUCCESS;
-        yield return null;
     }
 
     protected override void Death()
     {
-        anim.HashTrigger(anim.death);
-        Boss_NightBorn.spiritNum--;
+        base.Death();
+        List<GameObject> list = Boss_NightBorn.spiritList;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Equals(gameObject))
+                list.RemoveAt(i);
+        }
+    }
+
+    public void DestroyThis()
+    {
         Destroy(gameObject);
     }
 }
