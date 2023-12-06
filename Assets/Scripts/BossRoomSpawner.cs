@@ -15,7 +15,7 @@ public class BossRoomSpawner : BaseGimmick
     public Collider2D door2Collider;
     private SpriteRenderer door2sprite;
     private Coroutine currentCoroutine;
-
+    public GameObject bossUI;
 
     protected override void Start()
     {
@@ -23,14 +23,25 @@ public class BossRoomSpawner : BaseGimmick
         door2sprite = door2.GetComponent<SpriteRenderer>();
         dBSpawnCount = 0;
         deathBringer.SetActive(false);
+        bossUI.SetActive(false);
         base.Start();
     }
-    
+
+    private void Update()
+    {
+        if (deathBringer == null)
+        {
+            mapGimmickAction.ToggleSpriteAndCollider(door1sprite, door1Collider, false);
+            mapGimmickAction.ToggleSpriteAndCollider(door2sprite, door2Collider , false);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player")&& dBSpawnCount == 0) //플레이어가 입장하면 보스 활성화
         {
             deathBringer.SetActive(true);
+            bossUI.SetActive(true);
             dBSpawnCount++;
             DoorClose();
         }

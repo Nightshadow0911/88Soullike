@@ -148,6 +148,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
     protected override void Death()
     {
         anim.StringTrigger("death");
+        Invoke("DestroyThis",1.5f);
     }
 
     private void DestroyThis()
