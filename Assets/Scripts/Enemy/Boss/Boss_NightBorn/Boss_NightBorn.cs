@@ -8,10 +8,10 @@ public class Boss_NightBorn : EnemyCharacter
     [SerializeField] private Boss_NightBornUniqueStat uniqueStats;
     [SerializeField] private GameObject backLight;
     [SerializeField] private LayerMask wallLayer;
-
     private PositionAttack positionAttack;
-    public static int spiritNum;
     private bool isRage = false;
+
+    public static List<GameObject> spiritList = new();
 
     protected override void Awake()
     {
@@ -42,8 +42,6 @@ public class Boss_NightBorn : EnemyCharacter
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
         }
-
-        spiritNum = 0;
     }
 
     protected override void SetPatternDistance()
@@ -180,9 +178,8 @@ public class Boss_NightBorn : EnemyCharacter
 
     private IEnumerator SpwanMonster()
     {
-        Debug.Log("시작");
         RunningPattern();   
-        if (isRage || spiritNum >= 5)
+        if (isRage || spiritList.Count >= 5)
         {
             state = State.FAILURE;
             yield break;
@@ -194,7 +191,6 @@ public class Boss_NightBorn : EnemyCharacter
         positionAttack.CreateProjectile(position, uniqueStats.spwanBall);
         yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
         state = State.SUCCESS;
-        Debug.Log("끝");
     }
     
     private bool CheckTile(Vector2 dir)
@@ -208,6 +204,16 @@ public class Boss_NightBorn : EnemyCharacter
 
     protected override void Death()
     {
-        anim.HashTrigger(anim.death);
+        base.Death();
+        for (int i = 0; i < spiritList.Count; i++)
+        {
+            Destroy(spiritList[i]);
+        }
+        spiritList.Clear();
+    }
+
+    public void DestroyThis()
+    {
+        Destroy(gameObject);
     }
 }

@@ -451,8 +451,8 @@ public class Boss_Archer : EnemyCharacter
             type.SetActive(false);
     }
 
-    protected override void Death()
+    public void DestroyThis()
     {
-        anim.HashTrigger(anim.death);
+        Destroy(gameObject);
     }
 }
