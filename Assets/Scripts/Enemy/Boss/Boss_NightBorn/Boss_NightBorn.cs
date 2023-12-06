@@ -70,7 +70,7 @@ public class Boss_NightBorn : EnemyCharacter
         if (collision != null)
         {
             // 데미지 주기
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
         }
     }
 
@@ -131,7 +131,7 @@ public class Boss_NightBorn : EnemyCharacter
                 {
                     // 데미지 주기
                     hit = true;
-                    Debug.Log("player hit");
+                    collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
                 }
             }
             yield return YieldCache.WaitForFixedUpdate;

@@ -72,7 +72,7 @@ public class SkeletonEnemy : EnemyCharacter
         if (collision != null)
         {
             // ������ �ֱ�
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
         }
     }
 
