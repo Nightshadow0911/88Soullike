@@ -56,7 +56,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
             ? Quaternion.Euler(0, 0, 0)
             : Quaternion.Euler(0, 180, 0);
     }
-    protected override void SetPatternDistance() //�Ÿ��� ���� ���� ����
+    protected override void SetPatternDistance()
     {
         float distance = Mathf.Abs(targetTransform.position.x - transform.position.x);
         if (distance < characterStat.closeRange)
@@ -73,7 +73,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         }
     }
 
-    protected override void DetectPlayer() //�÷��̾� ����
+    protected override void DetectPlayer()
     {
         targetTransform = GameManager.Instance.player.transform;
         detected = true;
@@ -134,7 +134,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         RunningPattern();
         anim.StringTrigger("cast");
         yield return YieldCache.WaitForSeconds(1.0f); // �ִ� ��ũ
-        Vector2 position = targetTransform.position + (Vector3.up * 2);
+        Vector2 position = targetTransform.position + (Vector3.up * 3.5f);
         positionAttack.CreateProjectile(position, uniqueStats.spawnSpell);
         yield return YieldCache.WaitForSeconds(0.6f); // �ִ� ��ũ
         spellCount++;
