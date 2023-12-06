@@ -32,7 +32,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         #endregion
 
         #region LongRangePattern
-        // pattern.AddPattern(Distance.LongRange, Blink);
+        pattern.AddPattern(Distance.LongRange, Blink);
         pattern.AddPattern(Distance.LongRange, UseSpell);
         #endregion
     }
@@ -82,7 +82,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         if (collision != null)
         {
             // ������ �ֱ�
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
         }
     }
 
@@ -148,5 +148,10 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
     protected override void Death()
     {
         anim.StringTrigger("death");
+    }
+
+    private void DestroyThis()
+    {
+        Destroy(gameObject);
     }
 }

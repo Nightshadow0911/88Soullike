@@ -55,8 +55,8 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateManaUI()
     {
-        int currentMana = playerStatusHandler.curretMana;
-        int maxMana = maxStat.mana;
+        int maxMana = playerStatusHandler.curretMana;
+        int currentMana = maxStat.mana;
         manaText.text = currentMana + " / " + maxMana;
         //Debug.Log("maxMana ::" + maxMana);
         manaSlider.value = calculaterManaPercentage(currentMana, maxMana);

@@ -86,8 +86,7 @@ public class Boss_Archer : EnemyCharacter
             attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
         if (collision != null)
         {
-            // 데미지 주기
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
         }
     }
 
@@ -328,9 +327,8 @@ public class Boss_Archer : EnemyCharacter
                         attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
                     if (collision != null)
                     {
-                        // 데미지 주기
                         hit = true;
-                        Debug.Log("player hit");
+                        collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
                     }
                 }
                 yield return YieldCache.WaitForFixedUpdate;
