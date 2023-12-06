@@ -20,7 +20,7 @@ public class MinimapUI : MonoBehaviour
         //var inst = Instantiate(minimapImage.material);
         //minimapImage.material = inst;
 
-        targetPlayer = GameManager.Instance.lastPlayerController;
+        targetPlayer = GameManager.instance.lastPlayerController;
     }
 
     private void Update()

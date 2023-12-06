@@ -13,7 +13,7 @@ public class ArrowTrapArrow : BaseGimmick
     
     protected override void Start()
     {
-        gameManager = GameManager.Instance;
+        gameManager = GameManager.instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
         arrowCollider = GetComponent<Collider2D>();
         base.Start();

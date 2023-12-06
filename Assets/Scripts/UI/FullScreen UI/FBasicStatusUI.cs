@@ -30,7 +30,7 @@ public class FBasicStatusUI : FStatus
     private void Init()
     {
         healthValue.text = $"{playerStatusHandler.currentHp} / {playerMaxStat.hp}";
-        manaValue.text = $"{playerStatusHandler.curretMana} / {playerMaxStat.mana}";
+        manaValue.text = $"{playerStatusHandler.currentMana} / {playerMaxStat.mana}";
         steminaValue.text = $"{playerStatusHandler.currentStemina} / {playerMaxStat.stemina}";
         weightValue.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}";
         regainValue.text = $"{playerStatusHandler.currentRegainHp}";

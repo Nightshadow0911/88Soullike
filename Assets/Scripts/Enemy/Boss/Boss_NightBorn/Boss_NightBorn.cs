@@ -59,7 +59,7 @@ public class Boss_NightBorn : EnemyCharacter
     
     protected override void DetectPlayer()
     {
-        targetTransform = GameManager.Instance.player.transform;
+        targetTransform = GameManager.instance.player.transform;
         detected = true;
     }
 

@@ -106,7 +106,7 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("comboCount:" + comboCount);
         if (comboCount %3 ==0)
         {
-            if (max.mana < playerStatusHandler.curretMana)//(현재마나  < 맥스마나 )
+            if (max.mana < playerStatusHandler.currentMana)//(현재마나  < 맥스마나 )
             {
                 max.mana += 1;
             }

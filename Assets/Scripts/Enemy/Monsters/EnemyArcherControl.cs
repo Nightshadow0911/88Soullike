@@ -64,7 +64,7 @@ public class EnemyArcherControl : EnemyCharacter
 
     protected override void DetectPlayer()
     {
-        targetTransform = GameManager.Instance.player.transform;
+        targetTransform = GameManager.instance.player.transform;
         detected = true;
     }
 

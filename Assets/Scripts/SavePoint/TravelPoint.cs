@@ -42,7 +42,7 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         if (isReady)
         {
-            GameManager.Instance.player.transform.position = position;
+            GameManager.instance.player.transform.position = position;
         }
     }
 
