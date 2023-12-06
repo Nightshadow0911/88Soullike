@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5138710019770687764}
   - component: {fileID: 729150299934101174}
   - component: {fileID: 4538989473501866103}
-  - component: {fileID: 6114394636886025098}
   - component: {fileID: -2293529096211982364}
+  - component: {fileID: 6114394636886025098}
   - component: {fileID: 339043943492434067}
   - component: {fileID: -7531694902894254134}
   m_Layer: 7
@@ -184,20 +184,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6114394636886025098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4131467677953457577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d207ea01b5937ad4d9dcdcc89d6cd535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentStatSO: {fileID: 11400000, guid: 0fd7124fb21688d4198ca51ccc5f1ecf, type: 2}
-  currentHp: 0
 --- !u!114 &-2293529096211982364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +202,20 @@ MonoBehaviour:
   tileLayer:
     serializedVersion: 2
     m_Bits: 1536
+--- !u!114 &6114394636886025098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4131467677953457577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d207ea01b5937ad4d9dcdcc89d6cd535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentStatSO: {fileID: 11400000, guid: 0fd7124fb21688d4198ca51ccc5f1ecf, type: 2}
+  currentHp: 0
 --- !u!114 &339043943492434067
 MonoBehaviour:
   m_ObjectHideFlags: 0

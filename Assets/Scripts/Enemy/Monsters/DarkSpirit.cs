@@ -49,7 +49,7 @@ public class DarkSpirit : EnemyCharacter
         if (collision != null)
         {
             // 데미지 주기
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
         }
     }
 

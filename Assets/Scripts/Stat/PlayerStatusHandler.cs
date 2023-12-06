@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -21,22 +22,39 @@ public class PlayerStatusHandler :StatHandler
     public PlayerStat growStatSO;
     public PlayerStat baseStatSO;
 
+    [HideInInspector]
     public int currentHp;
+    [HideInInspector]
     public float currentStemina;
+    [HideInInspector]
     public int currentDamage;
+    [HideInInspector]
     public int currentSpellPower;
+    [HideInInspector]
     public int currentDefense;
+    [HideInInspector]
     public int currentpropertyDamage;
+    [HideInInspector]
     public int currentpropertyDefense;
+    [HideInInspector]
     public int currentWeight;
+    [HideInInspector]
     public int curretRegainHp;
+    [HideInInspector]
     public int curretMana;
+    [HideInInspector]
     public float currentSpeed;
+    [HideInInspector]
     public float currentCritical;
+    [HideInInspector]
     public float currentDelay;
+    [HideInInspector]
     public float currentParryTime;
+    [HideInInspector]
     public float currentSoulDrop;
+    [HideInInspector]
     public float currentAttackRange;
+    
     private void Awake()
     {
         playerCurrentStat = currentStatSO as PlayerStat;
@@ -58,8 +76,9 @@ public class PlayerStatusHandler :StatHandler
     {
         if (playerCurrentStat == null)
             return;
-        damage -= currentDefense;
+        damage = damage <= currentDefense ? 0 : damage - currentDefense;
         currentHp -= damage;
+        Debug.Log(currentHp);
     }
     
     protected override void SetStat()
