@@ -23,7 +23,7 @@ public class EnemyWizardControl : EnemyCharacter
 
         #region CloseRangedPattern
         pattern.AddPattern(Distance.CloseRange, MoveBack);
-        pattern.AddPattern(Distance.MediumRange, FireMissile);
+        pattern.AddPattern(Distance.CloseRange, FireMissile);
         #endregion
 
         #region MediumRangePattern
@@ -65,7 +65,7 @@ public class EnemyWizardControl : EnemyCharacter
 
     protected override void DetectPlayer()
     {
-        targetTransform = GameManager.Instance.player.transform;
+        targetTransform = GameManager.instance.player.transform;
         detected = true;
     }
 
