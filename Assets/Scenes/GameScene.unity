@@ -2346,7 +2346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: BA_Arrow
+  - tag: HE_Arrow
     prefab: {fileID: 913579387397932168, guid: 29bb8d684145c6740b97f0344e7e15b0, type: 3}
     size: 10
 --- !u!114 &1088751608
