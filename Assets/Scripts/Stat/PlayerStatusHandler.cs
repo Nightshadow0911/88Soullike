@@ -81,6 +81,13 @@ public class PlayerStatusHandler :StatHandler
         currentHp -= damage;
         Debug.Log(currentHp);
     }
+
+    public void TakeTrueDamage(int damage)
+    {
+        if (playerCurrentStat == null)
+            return;
+        currentHp -= damage;
+    }
     
     protected override void SetStat()
     {
