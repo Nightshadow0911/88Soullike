@@ -9,6 +9,7 @@ public class ArrowTrapArrow : BaseGimmick
     public Collider2D arrowCollider;
     public int moveforce = 30;
     public Vector2 direction;
+    public PlayerStatusHandler playerHandlerArrowTrap;
     
     
     protected override void Start()
@@ -29,6 +30,7 @@ public class ArrowTrapArrow : BaseGimmick
         }
         
         bool isLayer = mapGimmickInteraction.CollisionChecktoLayerBased("Wall", transform.position);
+        isLayer = mapGimmickInteraction.CollisionChecktoLayerBased("Enemy", transform.position);
         if (isLayer)
         {
             Destroy(gameObject);
@@ -38,7 +40,7 @@ public class ArrowTrapArrow : BaseGimmick
 
     private void TrapArrowAction()
     {
-        gameManager.playerStats.TakeDamage(10);
+        mapGimmickInteraction.CollisionCheckToPlayerTakeDamage("Player",transform.position, 10 );
         Destroy(gameObject);
     }
 }
