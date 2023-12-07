@@ -26,6 +26,7 @@ public class Boss_Archer : EnemyCharacter
         base.Awake();
         rangedAttack = GetComponent<RangedAttack>();
         positionAttack = GetComponent<PositionAttack>();
+        statusHandler.OnRage += Rage;
         bomb.SetActive(false);
         scatter.SetActive(false);
         poison.SetActive(false);
@@ -80,14 +81,18 @@ public class Boss_Archer : EnemyCharacter
         detected = true;
     }
 
+    private void Rage()
+    {
+        isRage = true;
+    }
+
     private void MeleeAttack()
     {
         Collider2D collision = Physics2D.OverlapBox(
             attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
         if (collision != null)
         {
-            // 데미지 주기
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
         }
     }
 
@@ -214,7 +219,7 @@ public class Boss_Archer : EnemyCharacter
             state = State.FAILURE;
             yield break;
         }
-        //soundManager.PlayClip();
+        soundManager.PlayClip(uniqueStats.jumpSound);
         anim.StringTrigger("BackstepAttack");
         Vector3 startPosition = transform.position;
         Vector3 endPosition = GetEndPosition(uniqueStats.backstepDistance, true);
@@ -284,7 +289,7 @@ public class Boss_Archer : EnemyCharacter
             state = State.FAILURE;
             yield break;
         }
-        //soundManager.PlayClip(uniqueStats.);
+        soundManager.PlayClip(uniqueStats.dodgeSound);
         anim.StringTrigger("BackTumbling");
         if (!isRage)
         {
@@ -313,7 +318,7 @@ public class Boss_Archer : EnemyCharacter
             Rotate();
             direction = GetDirection();
             yield return YieldCache.WaitForSeconds(0.5f);
-            //soundManager.PlayClip(uniqueStats.);
+            soundManager.PlayClip(uniqueStats.spinAttackSound);
             float moveDistance;
             bool hit = false;
             startPosition = transform.position;
@@ -330,7 +335,7 @@ public class Boss_Archer : EnemyCharacter
                     {
                         // 데미지 주기
                         hit = true;
-                        Debug.Log("player hit");
+                        collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
                     }
                 }
                 yield return YieldCache.WaitForFixedUpdate;
@@ -349,7 +354,7 @@ public class Boss_Archer : EnemyCharacter
             state = State.FAILURE;
             yield break;
         }
-        //soundManager.PlayClip(uniqueStats.);
+        soundManager.PlayClip(uniqueStats.jumpSound);
         anim.StringTrigger("OnLeapShot");
         rigid.gravityScale = 0f;
         Vector3 startPosition = transform.position;
@@ -365,14 +370,8 @@ public class Boss_Archer : EnemyCharacter
         Vector3 direction;
         for (int i = 0; i < uniqueStats.numberOfLeapShot; i++)
         {
-            // float ran = Random.Range(0, 10);
-            float ran = 0;
-            if (i == 0)
-                ran = 4;
-            else
-                ran = 6;
+            float ran = Random.Range(0, 10);
             yield return YieldCache.WaitForSeconds(0.2f);
-            //soundManager.PlayClip();
             if (ran < 5)
                 SpecialArrowEffect(bomb);
             else

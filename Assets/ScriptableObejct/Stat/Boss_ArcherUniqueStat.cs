@@ -57,9 +57,6 @@ public class Boss_ArcherUniqueStat : ScriptableObject
     public AudioClip jumpSound;
     public AudioClip meleeAttackSound;
     public AudioClip arrowAttackSound;
-    public AudioClip ScatterArroSound;
+    public AudioClip ScatterArrowSound;
     public AudioClip spinAttackSound;
-    public AudioClip bombSound;
-    public AudioClip aimingSound;
-    public AudioClip flaskSound;
 }

@@ -8,11 +8,13 @@ public class DarkSpirit : EnemyCharacter
     [Header("Unique Setting")]
     [SerializeField] private Vector2 meleeAttackRange;
     [SerializeField] private GameObject boss;
+    [SerializeField] private LayerMask ignoreLayer;
+    private Collider2D coll;
 
     protected override void Awake()
     {
         base.Awake();
-        Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
+        coll = GetComponent<Collider2D>();
         
         #region Pattern
         pattern.AddPattern(Distance.Default, Run);
@@ -60,8 +62,14 @@ public class DarkSpirit : EnemyCharacter
         float distance = float.MaxValue;
         while (Mathf.Abs(distance) > characterStat.closeRange)
         {
+            Vector2 direction = GetDirection();
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 1f, ignoreLayer);
+            if (hit.collider != null)
+            {
+                Physics2D.IgnoreCollision(coll ,hit.collider);
+            }
             distance = targetTransform.position.x - transform.position.x;
-            rigid.velocity = GetDirection() * characterStat.speed;
+            rigid.velocity = direction * characterStat.speed;
             yield return YieldCache.WaitForFixedUpdate;
         }
         anim.HashBool(anim.run, false);

@@ -104,6 +104,7 @@ MonoBehaviour:
   baseCollision:
     serializedVersion: 2
     m_Bits: 1536
+  soundData: {fileID: 8300000, guid: bc6ddc6072139c948b9e7c5b259c8936, type: 3}
   smallArrowData: {fileID: 11400000, guid: 8a5a7ef65f59c7f4cb08650b90e12ed2, type: 2}
   rayBoxSize: {x: 0.5, y: 0.5}
 --- !u!114 &3927850398406077550

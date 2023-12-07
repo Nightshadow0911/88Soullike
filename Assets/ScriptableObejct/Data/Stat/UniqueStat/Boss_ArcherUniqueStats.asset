@@ -12,21 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfba037d0a4fcb542bc0c8e8860c3cc6, type: 3}
   m_Name: Boss_ArcherUniqueStats
   m_EditorClassIdentifier: 
-  hp: 1000
-  damage: 15
-  defense: 10
-  speed: 10
-  delay: 1
-  attackRange: 0
-  propertyDamage: 0
-  propertyDefense: 0
-  detectRange: 0
-  target:
-    serializedVersion: 2
-    m_Bits: 64
-  closeRange: 3
-  mediumRange: 13
-  longRange: 0
   meleeAttackRange: {x: 2, y: 2}
   dodgeDistance: 4
   dodgeTime: 0.4
@@ -82,11 +67,9 @@ MonoBehaviour:
   poisonFlaskData: {fileID: 11400000, guid: 9278b740a5b49bb4da1deb0284fc1e0b, type: 2}
   runSound: {fileID: 8300000, guid: 5233bf45cf0644246ba2c1e2a828fc67, type: 3}
   dodgeSound: {fileID: 8300000, guid: 5b6a15884510cc744b3c0316f8a64335, type: 3}
-  jumpSound: {fileID: 0}
+  jumpSound: {fileID: 8300000, guid: e7d57f877a362934f95c36164ad920e9, type: 3}
   meleeAttackSound: {fileID: 8300000, guid: 6e9d4934c626b6b45bb9a0e2a48c25ca, type: 3}
   arrowAttackSound: {fileID: 8300000, guid: f602d2346b7fc714aab9bb2175621f30, type: 3}
-  ScatterArroSound: {fileID: 0}
+  ScatterArrowSound: {fileID: 0}
   spinAttackSound: {fileID: 8300000, guid: 0131a44445c70ae4db90aa3e86fae48b, type: 3}
-  bombSound: {fileID: 0}
-  aimingSound: {fileID: 0}
-  flaskSound: {fileID: 0}
+  flaskSound: {fileID: 8300000, guid: 2524962d620aa4d4094aaea61f134e87, type: 3}
