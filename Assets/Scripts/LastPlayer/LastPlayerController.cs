@@ -276,7 +276,7 @@ public class LastPlayerController : MonoBehaviour
                 {
                     soundManager.PlayClip(test.dashSound);
                     currentStamina -= dashStaminaCost;
-                    Debug.Log("playerStatusHandler.currentStemina:" + currentStamina);
+                    //Debug.Log("playerStatusHandler.currentStemina:" + currentStamina);
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
