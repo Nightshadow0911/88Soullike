@@ -14,12 +14,12 @@ public class Chase : MonoBehaviour
 
     void Start()
     {
-        lastPlayerController = GameManager.Instance.player.GetComponent<LastPlayerController>();
+        lastPlayerController = GameManager.instance.player.GetComponent<LastPlayerController>();
     }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameManager.Instance.player.transform;
+        player = GameManager.instance.player.transform;
         anim = GetComponent<Animator>();
     }
 

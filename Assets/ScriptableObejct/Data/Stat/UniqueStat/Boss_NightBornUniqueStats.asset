@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Boss_NightBornUniqueStats
   m_EditorClassIdentifier: 
   meleeAttackRange: {x: 5, y: 7}
-  minX: 290
-  maxX: 320
+  minX: -12
+  maxX: 12
   fowardDashSlashDistance: 6.5
   fowardDashSlashSpeed: 30
   projectiles:

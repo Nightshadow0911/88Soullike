@@ -22,12 +22,12 @@ public class ScatterArrowController : RangedAttackController
             rayBoxSize, Mathf.Atan2(direction.y, direction.x), direction, 0.1f, baseCollision.value);
         if (baseCollision.value == (baseCollision.value | (1 << collision.gameObject.layer)))
         {
-            DestroyProjectile(collision.ClosestPoint(transform.position) - direction * 0.2f);
+            SoundManager.instance.PlayClip(soundData);
             rangedAttack.CreateMultipleProjectile(Vector2.Reflect(direction, hit.normal), smallArrowData);
+            DestroyProjectile(collision.ClosestPoint(transform.position) - direction * 0.2f);
         }
         else if (attackData.target.value == (attackData.target.value | (1 << collision.gameObject.layer)))
         {
-            // 데미지 주기
             collision.GetComponent<PlayerStatusHandler>().TakeDamage(attackData.damage);
             DestroyProjectile(transform.position);
         }

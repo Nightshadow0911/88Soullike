@@ -11,10 +11,10 @@ public class BuffSkillEffect : SkillEffect
 
     private PlayerBuff pb;
 
-    public override bool ExcuteRole(int power, SkillType type) //¾ÆÀÌÅÛÀÇ È¿°ú, ÀÌ´ë·Î¸é power´Â ¾µ¸ð¾ø±ä ÇÑµ¥..
+    public override bool ExcuteRole(int power, SkillType type) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½, ï¿½Ì´ï¿½Î¸ï¿½ powerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñµï¿½..
     {
         var buff = Instantiate(buffPrefab);
-        pb = GameManager.Instance.player.GetComponent<PlayerBuff>();
+        pb = GameManager.instance.player.GetComponent<PlayerBuff>();
 
         pb.AddBuff(buff.GetComponent<Buff>());
 

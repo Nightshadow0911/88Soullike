@@ -30,17 +30,23 @@ public class FBasicStatusUI : FStatus
     private void Init()
     {
         healthValue.text = $"{playerStatusHandler.currentHp} / {playerMaxStat.hp}";
-        manaValue.text = $"{playerStatusHandler.curretMana} / {playerMaxStat.mana}";
-        steminaValue.text = $"{playerStatusHandler.currentStemina} / {playerMaxStat.stemina}";
-        weightValue.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}";
+        manaValue.text = $"{playerStatusHandler.currentMana} / {playerMaxStat.mana}";
+        steminaValue.text = $"{playerStatusHandler.currentStemina:F0} / {playerMaxStat.stemina}";
+        weightValue.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}" +
+            $"({(playerStatusHandler.currentWeight / playerMaxStat.weight * 100):F1}%)";
         regainValue.text = $"{playerStatusHandler.currentRegainHp}";
         moveSpeedValue.text = $"{playerStatusHandler.currentSpeed}";
 
         attackDamageValue.text = $"{playerStatusHandler.currentDamage}";
         spellPowerValue.text = $"{playerStatusHandler.currentSpellPower}";
         propertyDamageValue.text = $"{playerStatusHandler.currentpropertyDamage}";
-        criticalRateValue.text = $"{playerStatusHandler.currentCritical}";
-        //attackSpeed.text = $"{}"; => ���� ���ǵ�
+        criticalRateValue.text = $"{playerStatusHandler.currentCritical*100:F0}%";
+        attackSpeed.text = $"{playerStatusHandler.currentDelay}";
 
+    }
+
+    protected override void Update()
+    {
+        Init();
     }
 }

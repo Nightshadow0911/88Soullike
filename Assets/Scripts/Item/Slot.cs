@@ -13,11 +13,29 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public Image itemIcon;
     [SerializeField] private string descriptions;
 
-    public void UpdateSlotUI()
+    FullScreenUIManager fManager;
+
+    void Start()
     {
+        Init();
+    }
+
+    void Init()
+    {
+        itemIcon.gameObject.SetActive(true);
+        amountTxt.text = "";
+
+        if (item == null) return;
 
         itemIcon.sprite = item.Sprite;
-        itemIcon.transform.localScale = Vector3.one * 0.7f;
+        itemIcon.transform.localScale = Vector3.one * 0.9f;
+        
+    }
+
+    public void UpdateSlotUI()
+    {
+        itemIcon.sprite = item.Sprite;
+        itemIcon.transform.localScale = Vector3.one * 0.9f;
         itemIcon.gameObject.SetActive(true);
 
         if (item.CurItem.IsStackable())
@@ -27,14 +45,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         else
         {
             amountTxt.text = "";
-            if ((item == Equipment.instance.equipItemList[0]) || item == Equipment.instance.equipItemList[1]) //플레이어가 현재 장착중인 아이템
-            {
-                amountTxt.text = "E";
-            }
+            
         }
 
-        //if(GetComponentInChildren<DraggableItem>().parentPreviousDrag == null)
-        //GetComponentInChildren<DraggableItem>().parentPreviousDrag = transform;
     }
     public void RemoveSlot()
     {
@@ -42,7 +55,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         amountTxt.text = "";
         itemIcon.gameObject.SetActive(false);
     }
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData) // 아이템 선택
     {
         if (item == null)
         {
@@ -53,14 +66,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler
             if (item.CurItem == null) return;
         }
 
-        InventoryUI.instance.usePanel.gameObject.SetActive(true);
+        fManager.itemSelectUI.gameObject.SetActive(true);
 
         for (int i = 0; i < item.Description.Count; i++)
         {
             descriptions += $"{item.Description[i]}\n";
 
         }
-        InventoryUI.instance.usePanel.GetComponent<UsePopup>().SetPopup(item.ItemName, descriptions, slotnum);
+        //InventoryUI.instance.usePanel.GetComponent<UsePopup>().SetPopup(item.ItemName, descriptions, slotnum);
+        // 아이템 세팅
+        //fManager.itemSelectUI.
+        ShowItemInformation();
+        //fManager.itemSelectUI.SetFunc(Action ddd);
     }
 
     public void ApplyUse()
@@ -77,6 +94,13 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         {
             UpdateSlotUI();
         }
+    }
+
+    void ShowItemInformation()
+    {
+        Item selectedItem = fManager.itemInformationUI.GetComponent<FItemInformationUI>().selectedItem;
+        selectedItem = item;
+        selectedItem.Init();
     }
 
 

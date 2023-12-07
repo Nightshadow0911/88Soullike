@@ -18,17 +18,23 @@ public class BossHealthBar : MonoBehaviour
     {
         handler = GetComponent<EnemyStatusHandler>();
         handler.OnDamage += ChangeHealth;
-        textUI.text = bossName;
+        handler.OnDeath += UnDoHealthBar;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         maxHealth = handler.GetStat().hp;
         ChangeHealth();
+        textUI.text = bossName;
     }
 
     private void ChangeHealth()
     {
         healthBar.value = (float)handler.currentHp / maxHealth;
+    }
+
+    private void UnDoHealthBar()
+    {
+        textUI.transform.parent.gameObject.SetActive(false);
     }
 }

@@ -41,7 +41,7 @@ public class PlayerStatusHandler :StatHandler
     [HideInInspector]
     public int currentRegainHp;
     [HideInInspector]
-    public int curretMana;
+    public int currentMana;
     [HideInInspector]
     public float currentSpeed;
     [HideInInspector]
@@ -81,6 +81,13 @@ public class PlayerStatusHandler :StatHandler
         currentHp -= damage;
         Debug.Log(currentHp);
     }
+
+    public void TakeTrueDamage(int damage)
+    {
+        if (playerCurrentStat == null)
+            return;
+        currentHp -= damage;
+    }
     
     protected override void SetStat()
     {
@@ -94,7 +101,7 @@ public class PlayerStatusHandler :StatHandler
         currentpropertyDefense = playerCurrentStat.propertyDefense;
         currentWeight = playerCurrentStat.weight;
         currentRegainHp = currentHp;
-        curretMana = playerCurrentStat.mana;
+        currentMana = playerCurrentStat.mana;
         currentSpeed = playerCurrentStat.speed;
         currentCritical = playerCurrentStat.criticalChance;
         currentDelay = playerCurrentStat.delay;
@@ -152,5 +159,13 @@ public class PlayerStatusHandler :StatHandler
         playerCurrentStat.defense += power;
         playerCurrentStat.weight += weight;
         playerCurrentStat.propertyDefense += propertyAmount;
+    }
+
+    public void FullCondition()
+    {
+        currentHp = playerCurrentStat.hp;
+        currentStemina = playerCurrentStat.stemina;
+        currentMana = playerCurrentStat.mana;
+        currentRegainHp = currentHp;
     }
 }

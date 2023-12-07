@@ -7,9 +7,12 @@ public class SpikeTrap : BaseGimmick
     private Coroutine currentCoroutine;
     private GameManager gameManager;
     private Animator animator;
+    public PlayerStatusHandler playerHandlerspikeTrap;
+    [SerializeField]
+    private AudioSource spikeTrapAudioSource;
     protected override void Start()
     {
-        gameManager = GameManager.Instance;
+        gameManager = GameManager.instance;
         animator = GetComponent<Animator>();
         base.Start();
     }
@@ -31,11 +34,8 @@ public class SpikeTrap : BaseGimmick
         {
             PlayAnimation();
             yield return StartCoroutine(mapGimmickAction.ProcessDelay(1));
-            bool isCollision3 = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
-            if (isCollision3)
-            {
-                gameManager.playerStats.TakeDamage(10);
-            }
+            spikeTrapAudioSource.Play();
+            mapGimmickInteraction.CollisionCheckToPlayerTakeDamage("Player",transform.position, 10 );
             
         }
         yield return StartCoroutine(mapGimmickAction.ProcessDelay(1));

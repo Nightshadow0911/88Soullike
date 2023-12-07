@@ -8,12 +8,15 @@ public class FlyingEye : EnemyCharacter
 {
     [SerializeField] private Vector2 meleeAttackRange;
     [SerializeField] private GameObject effect;
+    [SerializeField] private LayerMask ignoreLayer;
+    private Collider2D coll;
     
-     private bool find;
+    private bool closed;
 
      protected override void Awake()
     {
         base.Awake();
+        coll = GetComponent<Collider2D>();
         effect.SetActive(false);
         
         #region Pattern
@@ -25,7 +28,7 @@ public class FlyingEye : EnemyCharacter
      
     protected override void SetPatternDistance()
     {
-        if (find)
+        if (closed)
             pattern.SetDistance(Distance.CloseRange);
         else 
             pattern.SetDistance(Distance.Default);
@@ -37,7 +40,7 @@ public class FlyingEye : EnemyCharacter
             Vector2.right, 0, characterStat.target);
         if (hit.collider != null)
         {
-            targetTransform = GameManager.Instance.player.transform;
+            targetTransform = GameManager.instance.player.transform;
             detected = true;
         }
     }
@@ -57,14 +60,19 @@ public class FlyingEye : EnemyCharacter
     {
         RunningPattern();
         RaycastHit2D hit;
-        while (!find)
+        while (!closed)
         {
             hit = Physics2D.CircleCast(transform.position, characterStat.attackRange,
-                Vector2.right, 0, characterStat.target);
-            if (hit.collider != null)
+                Vector2.right, 0);
+            if (((1 << hit.collider.gameObject.layer) & ignoreLayer.value) != 0)
             {
-                find = true;
+                Physics2D.IgnoreCollision(coll ,hit.collider);
             }
+            else if (1 << hit.collider.gameObject.layer == (1 << hit.collider.gameObject.layer| characterStat.target))
+            {
+                closed = true;
+            }
+            Rotate();
             Vector3 direction = (targetTransform.position + Vector3.up * 1.5f) - transform.position;
             rigid.velocity = direction.normalized * characterStat.speed;
             yield return YieldCache.WaitForFixedUpdate;
@@ -80,7 +88,7 @@ public class FlyingEye : EnemyCharacter
         anim.HashTrigger(anim.attack);
         yield return YieldCache.WaitForSeconds(0.5f);// 애니메이션 싱크
         MeleeAttack((Vector2)transform.position + direction);
-        find = false;
+        closed = false;
         state = State.SUCCESS;
     }
     
@@ -94,7 +102,7 @@ public class FlyingEye : EnemyCharacter
             yield return YieldCache.WaitForSeconds(0.2f);
             MeleeAttack(transform.position);
         }
-        find = false;
+        closed = false;
         state = State.SUCCESS;
     }
 }

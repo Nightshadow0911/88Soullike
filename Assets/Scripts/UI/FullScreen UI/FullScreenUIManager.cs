@@ -9,6 +9,7 @@ public class FullScreenUIManager : MonoBehaviour
     public static FullScreenUIManager instance;
 
     [SerializeField] private Image menuIcon;
+    [SerializeField] private List<Sprite> menuIconList;
     [SerializeField] private TMP_Text menuName;
     [SerializeField] private GameObject fullScreenBase;
 
@@ -24,18 +25,20 @@ public class FullScreenUIManager : MonoBehaviour
     public KeyCode mapKey = KeyCode.M;
 
     [Header("UI목록")]
-    [SerializeField] private FullScreenUI mainStatusUI;
-    [SerializeField] private FullScreenUI basicStatusUI;
-    [SerializeField] private FullScreenUI abillityStatusUI;
-    [SerializeField] private FullScreenUI playerImageUI;
-    [SerializeField] private FullScreenUI inventoryUI;
-    [SerializeField] private FullScreenUI itemInformationUI;
-    [SerializeField] private FullScreenUI equipmentUI;
-    [SerializeField] private FullScreenUI shopUI;
-    [SerializeField] private FullScreenUI levelUpUI;
-    [SerializeField] private FullScreenUI optionUI;
-    [SerializeField] private FullScreenUI mapUI; //
-    [SerializeField] private FullScreenUI travelUI; //
+    public FullScreenUI mainStatusUI;
+    public FullScreenUI basicStatusUI;
+    public FullScreenUI abillityStatusUI;
+    public FullScreenUI playerImageUI;
+    public FullScreenUI inventoryUI;
+    public FullScreenUI itemInformationUI;
+    public FullScreenUI equipmentUI;
+    public FullScreenUI shopUI;
+    public FullScreenUI levelUpUI;
+    public FullScreenUI optionUI;
+    public FullScreenUI mapUI; //
+    public FullScreenUI travelUI; //
+    public FullScreenUI itemSelectUI; 
+    public FullScreenUI switchPanelUI; 
 
     [Header("UI 그룹")] // 여러개의 UI를 넣어두고 0, 1, 2를 처음에 세팅 ... 표시전환 누르면 n번째가 현재 들어와있는것 중 다음거를 부름?
     [SerializeField] private List<FullScreenUI> statusList;
@@ -47,8 +50,10 @@ public class FullScreenUIManager : MonoBehaviour
 
     [SerializeField] private LinkedList<FullScreenUI> activeFullScreenUILList;
 
-    // 전체 UI 목록
     [SerializeField] private List<FullScreenUI> allFullScreenUIList;
+    [SerializeField] private Vector2 leftPanelPosition;
+    [SerializeField] private Vector2 centerPanelPosition;
+    [SerializeField] private Vector2 rightPanelPosition;
 
     private void Awake()
     {
@@ -58,6 +63,7 @@ public class FullScreenUIManager : MonoBehaviour
             return;
         }
         activeFullScreenUILList = new LinkedList<FullScreenUI>();
+        //menuIconList = new List<Sprite>(); Resources/,...
 
         Init();
         InitCloseAll();
@@ -69,13 +75,13 @@ public class FullScreenUIManager : MonoBehaviour
         {
             if (activeFullScreenUILList.Count > 0)
             {
-                CloseUI(activeFullScreenUILList.First.Value);
+                CloseUIList(allFullScreenUIList);
             }
             else
             {
                 if (optionUI.gameObject.activeSelf)
                 {
-                    optionUI.gameObject.SetActive(true);
+                    optionUI.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -83,11 +89,14 @@ public class FullScreenUIManager : MonoBehaviour
                 }
             }
         }
+        if(activeFullScreenUILList.Count == 0) // 닫기는 esc로 관리 List에 중복된 패널이 존재하기 때문
+        {
+            ToggleKeyDownAction(inventoryKey, inventoryList);
+            ToggleKeyDownAction(equipmentKey, equipmentList);
+            ToggleKeyDownAction(charInfoKey, statusList);
+            ToggleKeyDownAction(mapKey, mapList);
+        }
 
-        ToggleKeyDownAction(inventoryKey, inventoryList);
-        ToggleKeyDownAction(equipmentKey, equipmentList);
-        ToggleKeyDownAction(charInfoKey, statusList);
-        ToggleKeyDownAction(mapKey, mapList);
 
         if ((Inventory.instance.currentNPC != null) && (Inventory.instance.currentNPC.isInteractable)) //inventory.instance.currentNPC는 Player.currentNPC로 변경 예정
         {
@@ -104,12 +113,12 @@ public class FullScreenUIManager : MonoBehaviour
         {
             mainStatusUI, basicStatusUI, abillityStatusUI, playerImageUI, inventoryUI, itemInformationUI, equipmentUI, shopUI, levelUpUI
         };
-        statusList = new List<FullScreenUI>() {mainStatusUI, basicStatusUI, playerImageUI, abillityStatusUI };
-        inventoryList = new List<FullScreenUI>() { inventoryUI, itemInformationUI, mainStatusUI, basicStatusUI, abillityStatusUI };
-        equipmentList = new List<FullScreenUI>() { equipmentUI, itemInformationUI, mainStatusUI, basicStatusUI, abillityStatusUI };
-        shopList = new List<FullScreenUI>() {shopUI, itemInformationUI, mainStatusUI, basicStatusUI, abillityStatusUI };
-        levelUpList = new List<FullScreenUI>() { levelUpUI, basicStatusUI, abillityStatusUI };
-        mapList = new List<FullScreenUI>() { mapUI, travelUI};
+        statusList = new List<FullScreenUI>() { abillityStatusUI,playerImageUI, basicStatusUI, mainStatusUI };
+        inventoryList = new List<FullScreenUI>() { abillityStatusUI,basicStatusUI, mainStatusUI, itemInformationUI, inventoryUI };
+        equipmentList = new List<FullScreenUI>() { abillityStatusUI,basicStatusUI, mainStatusUI, itemInformationUI, equipmentUI };
+        shopList = new List<FullScreenUI>() { abillityStatusUI,basicStatusUI, mainStatusUI, itemInformationUI, shopUI };
+        levelUpList = new List<FullScreenUI>() { abillityStatusUI,basicStatusUI, levelUpUI };
+        mapList = new List<FullScreenUI>() { travelUI, mapUI };
 
 
         foreach (FullScreenUI fscreen in allFullScreenUIList) // 모든 팝업에 이벤트 등록
@@ -137,9 +146,22 @@ public class FullScreenUIManager : MonoBehaviour
     // 단축키 입력에 따라 팝업 열거나 닫기
     private void ToggleKeyDownAction(in KeyCode key, List<FullScreenUI> fScreens)
     {
+        
+
         if (Input.GetKeyDown(key))
         {
             ToggleOpenCloseUIList(fScreens);
+
+            if(fScreens != null) SetBase(key);
+
+        }
+
+        if(activeFullScreenUILList.Count > 0)
+        {
+            fullScreenBase.gameObject.SetActive(true);
+        } else
+        {
+            fullScreenBase.gameObject.SetActive(false);
         }
     }
 
@@ -176,7 +198,6 @@ public class FullScreenUIManager : MonoBehaviour
     // 팝업을 열고 링크드리스트의 상단에 추가
     private void OpenUI(FullScreenUI fScreen)
     {
-        fullScreenBase.SetActive(true);
         activeFullScreenUILList.AddFirst(fScreen);
         fScreen.gameObject.SetActive(true);
         RefreshAllPopupDepth();
@@ -185,12 +206,13 @@ public class FullScreenUIManager : MonoBehaviour
     {
         if (fScreens == null) return;
 
-        fullScreenBase.SetActive(true);
         foreach (FullScreenUI fScreen in fScreens)
         {
             activeFullScreenUILList.AddFirst(fScreen);
             fScreen.gameObject.SetActive(true);
+
         }
+
         RefreshAllPopupDepth();
     }
 
@@ -200,7 +222,6 @@ public class FullScreenUIManager : MonoBehaviour
         activeFullScreenUILList.Remove(fScreen);
         fScreen.gameObject.SetActive(false);
         RefreshAllPopupDepth();
-        fullScreenBase.SetActive(false);
     }
     private void CloseUIList(List<FullScreenUI> fScreens)
     {
@@ -212,7 +233,6 @@ public class FullScreenUIManager : MonoBehaviour
             fScreen.gameObject.SetActive(false);
         }
         RefreshAllPopupDepth();
-        fullScreenBase.SetActive(false);
     }
 
     //링크드리스트 내 모든 팝업의 자식 순서 재배치
@@ -223,5 +243,27 @@ public class FullScreenUIManager : MonoBehaviour
             fScreen.transform.SetAsFirstSibling();
         }
     }
+    void SetBase(in KeyCode key)
+    {
+        switch(key)
+        {
+            case KeyCode.C:
+                SetBaseInform("스테이터스", menuIconList[0]);
+                break;
+            case KeyCode.I:
+                SetBaseInform("인벤토리", menuIconList[1]);
+                break;
+            case KeyCode.E:
+                SetBaseInform("장비", menuIconList[2]);
+                break;
+            default:
+                break;
+        }
 
+    }
+    void SetBaseInform(string name, Sprite icon)
+    {
+        menuName.text = name;
+        menuIcon.sprite = icon;
+    }
 }

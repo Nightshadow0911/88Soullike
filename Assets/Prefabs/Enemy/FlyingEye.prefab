@@ -224,6 +224,9 @@ MonoBehaviour:
   attackPosition: {fileID: 0}
   meleeAttackRange: {x: 2, y: 2}
   effect: {fileID: 5359502257765423112}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 1664
 --- !u!114 &3314986218966096222
 MonoBehaviour:
   m_ObjectHideFlags: 0

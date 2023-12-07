@@ -15,7 +15,7 @@ public class Crouch : MonoBehaviour
     void Start()
     {
         normalHeight = transform.localScale;
-        gameManager = GameManager.Instance;
+        gameManager = GameManager.instance;
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
     }
 

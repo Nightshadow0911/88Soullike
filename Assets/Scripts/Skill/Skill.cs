@@ -20,18 +20,14 @@ public class Skill : MonoBehaviour
     [SerializeField] private int price; // ����(�������� �춧�� ������, �����ǸŰ� �Ұ����� ��� 0)
 
     private PlayerStatusHandler characterStats;
-    private PlayerStat playerStat;
     Vector3 dir;
 
-    private void Awake()
-    {
-        characterStats = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
-    }
+
     private void Start()
     {
         Init();
-        playerStat = characterStats.GetStat();
-        dir = new Vector3(GameManager.Instance.lastPlayerController.facingDirection, 0, 0);
+        dir = new Vector3(GameManager.instance.lastPlayerController.facingDirection, 0, 0);
+        characterStats = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
 
     }
     private void Update()
@@ -57,10 +53,8 @@ public class Skill : MonoBehaviour
 
     public bool Use()
     {
-        Debug.Log("mana" + playerStat.mana);
-
         // if (playerStat.mana <= 0) return false;
-        Debug.Log("mana" + playerStat.mana);
+
         if (!CostDecrease()) return false;
 
         bool isUsed = false;
@@ -82,9 +76,9 @@ public class Skill : MonoBehaviour
 
     bool CostDecrease()
     {
-        if (playerStat.mana >= cost)
+        if (characterStats.currentMana >= cost)
         {
-            playerStat.mana -= cost;
+            characterStats.currentMana -= cost;
             return true;
         }
         else
@@ -97,7 +91,7 @@ public class Skill : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyStatusHandler>().TakeDamage(power + playerStat.spellPower);
+            collision.GetComponent<EnemyStatusHandler>().TakeDamage(power + characterStats.currentSpellPower);
             //power�� �÷��̾� �ֹ����� ������� �������� �� collision.getComponent<Enemy>().TakeDamage??
             if (activeType)
             {

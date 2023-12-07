@@ -78,7 +78,7 @@ public abstract class EnemyCharacter : MonoBehaviour
             Vector2.right, characterStat.detectRange * 2, characterStat.target);
         if (hit.collider != null)
         {
-            targetTransform = GameManager.Instance.player.transform;
+            targetTransform = GameManager.instance.player.transform;
             detected = true;
         }
     }

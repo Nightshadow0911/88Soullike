@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
@@ -65,7 +66,10 @@ public class RoomManager : MonoBehaviour
         // 전체 방 비활성화
         foreach (var room in rooms)
         {
-            room.gameObject.SetActive(false);
+            if (!roomIndexesToActivate.Contains(room.roomNumber))
+            {
+                room.gameObject.SetActive(false);
+            }
         }
 
         // 특정 방들 활성화
@@ -78,6 +82,7 @@ public class RoomManager : MonoBehaviour
             }
         }
     }
+    
 }
 
 public interface IRoomObserver

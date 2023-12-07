@@ -52,11 +52,10 @@ public class CharacterInfoUI : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        playerStatHandler = GameManager.Instance.player.GetComponent<PlayerStatusHandler>();
-        
     }
     private void Start()
     {
+        playerStatHandler = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
         playerMaxStat = playerStatHandler.GetStat();
     }
     private void Update()

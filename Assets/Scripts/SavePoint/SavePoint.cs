@@ -34,9 +34,7 @@ public class SavePoint : MonoBehaviour
                 TravelEvent?.Invoke(true);
                 isAwake = true;
             }
-            CharacterStats stats = GameManager.Instance.playerStats;
-            // stats.characterHp = stats.MaxHP;
-            // stats.characterStamina = stats.MaxStemina;
+            GameManager.instance.player.GetComponent<PlayerStatusHandler>().FullCondition();          
         }
     }
 

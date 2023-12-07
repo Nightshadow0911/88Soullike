@@ -13,12 +13,12 @@ public class ItemBuffEft : ItemEffect
     {
         //ps = GameManager.Instance.playerStats;
     }
-    public override bool ExcuteRole(int power) //¾ÆÀÌÅÛÀÇ È¿°ú, ÀÌ´ë·Î¸é power´Â ¾µ¸ð¾ø±ä ÇÑµ¥..
+    public override bool ExcuteRole(int power) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½, ï¿½Ì´ï¿½Î¸ï¿½ powerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñµï¿½..
     {
-        // PlayerBuff.Instance´Â ³ªÁß¿¡ PlayerStatÀ¸·Î µé¾î°¡¾ßÇÔ
-       // PlayerBuff.Instance.AddBuff(curBuff); // Buff - BuffSO - StatName¿¡ µû¶ó È¿°ú°¡ ´Þ¶óÁü
+        // PlayerBuff.Instanceï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ PlayerStatï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ï¿½ï¿½
+       // PlayerBuff.Instance.AddBuff(curBuff); // Buff - BuffSO - StatNameï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¶ï¿½ï¿½ï¿½
         var buff = Instantiate(buffPrefab);
-        pb = GameManager.Instance.player.GetComponent<PlayerBuff>();
+        pb = GameManager.instance.player.GetComponent<PlayerBuff>();
         pb.AddBuff(buff.GetComponent<Buff>());
         return true;
     }

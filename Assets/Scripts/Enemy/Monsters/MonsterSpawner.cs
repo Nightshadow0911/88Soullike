@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour 
 {
-    public GameObject[] monster; // ¼ÒÈ¯ÇÒ ÀÏ¹Ý ¸ó½ºÅÍ ÇÁ¸®ÆÕ ¹è¿­
+    public GameObject[] monster; // ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
     public GameObject Playerprefab;
 
     // Start is called before the first frame update
-    void Start() //¸Ê¿¡ ¼ÒÈ¯ÇÒ ¸ó½ºÅÍ¿Í ÁÂÇ¥¸¦ ÀÔ·ÂÇØ¼­ Ãß°¡
+    void Start() //ï¿½Ê¿ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ø¼ï¿½ ï¿½ß°ï¿½
     {
         SpawnMonster(monster[0], new Vector3(1.0f, 1.0f, 1.0f));
         SpawnMonster(monster[1], new Vector3(8.0f, 3.0f, 1.0f));
         SpawnMonster(monster[2], new Vector3(15.0f, 3.0f, 1.0f));
-        GameManager.Instance.player = Instantiate(Playerprefab, new Vector2(-15f, 3f),Quaternion.identity);
+        GameManager.instance.player = Instantiate(Playerprefab, new Vector2(-15f, 3f),Quaternion.identity);
     }
 
     public void SpawnMonster(GameObject curmonster, Vector3 spawnPosition)

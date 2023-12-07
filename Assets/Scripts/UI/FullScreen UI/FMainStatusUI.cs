@@ -17,6 +17,9 @@ public class FMainStatusUI : FStatus
     [SerializeField] private TMP_Text intStatValue;
     [SerializeField] private TMP_Text luxStatValue;
 
+    int needSoul = 0;
+
+
     private void Start()
     {
         Init();
@@ -25,14 +28,22 @@ public class FMainStatusUI : FStatus
     private void Init()
     {
         playerName.text = "기사";
-        levelValue.text = $"{playerMaxStat.level}";
-        haveSoulValue.text = $"{inven.SoulCount}";
-        //needSoulValue.text = $"{}"; => 현재 growStat을 얼마나 올렸냐에 따라 달라짐, 수식 적용(100개 * 몇번?) 한번 적용할때마다 10퍼센트씩 상승?
-        healthStatValue.text = $"{playerBaseStat.healthStat + playerGrowStat.healthStat}";
+        levelValue.text = $"Lv.{playerMaxStat.level}";
+        haveSoulValue.text = $"{inven.SoulCount:N0}";
+        
+        needSoul = (int)(100 * Mathf.Pow(1.1f, playerMaxStat.level - 1));
+        needSoulValue.text = $"{needSoul:N0}";
+
+        healthStatValue.text = $"{playerMaxStat.healthStat}";
         steminaStatValue.text = $"{playerBaseStat.steminaStat + playerGrowStat.steminaStat}";
         strStatValue.text = $"{playerBaseStat.strStat + playerGrowStat.strStat}";
         dexStatValue.text = $"{playerBaseStat.dexStat + playerGrowStat.dexStat}";
         intStatValue.text = $"{playerBaseStat.intStat + playerGrowStat.intStat}";
         luxStatValue.text = $"{playerBaseStat.luxStat + playerGrowStat.luxStat}";
     }
+    protected override void Update()
+    {
+        Init();
+    }
+
 }

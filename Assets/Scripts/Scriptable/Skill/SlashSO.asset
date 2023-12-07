@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de6f87c417638644d90868bcd6c3fa79, type: 3}
-  m_Name: BashSO
+  m_Name: SlashSO
   m_EditorClassIdentifier: 
   type: 0
   activeType: 0

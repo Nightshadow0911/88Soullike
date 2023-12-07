@@ -71,7 +71,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
 
     protected override void DetectPlayer()
     {
-        targetTransform = GameManager.Instance.player.transform;
+        targetTransform = GameManager.instance.player.transform;
         detected = true;
     }
 
@@ -148,6 +148,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
     protected override void Death()
     {
         anim.StringTrigger("death");
+        Invoke("DestroyThis",1.5f);
     }
 
     private void DestroyThis()

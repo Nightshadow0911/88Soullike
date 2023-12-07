@@ -20,10 +20,14 @@ public class FAbillityStatusUI : FStatus
 
     private void Init()
     {
-        deffenseValue.text = $"{playerStatusHandler.currentHp} / {playerMaxStat.hp}";
-        propertyDeffenseValue.text = $"{playerStatusHandler.currentHp} / {playerMaxStat.hp}";
-        parryTimeValue.text = $"{playerStatusHandler.currentHp} / {playerMaxStat.hp}";
+        deffenseValue.text = $"{playerStatusHandler.currentDefense}";
+        propertyDeffenseValue.text = $"{playerStatusHandler.currentpropertyDefense}";
+        parryTimeValue.text = $"{playerStatusHandler.currentParryTime}";
+        soulDropValue.text = $"{playerStatusHandler.currentSoulDrop}%";
 
-
+    }
+    protected override void Update()
+    {
+        Init();
     }
 }
