@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
 
-    public PlayerStatusHandler playerStatusHandler;
+    private PlayerStatusHandler playerStatusHandler;
     private PlayerStat PlayerStat;
     private PlayerStat maxStat;
     public Text healthText;
@@ -18,7 +18,8 @@ public class PlayerUI : MonoBehaviour
     public Slider manaSlider;
     public Text manaText;
     public Text soulText;
-    public int soul;
+    private int soul;
+
     void Start()
     {
         playerStatusHandler = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
@@ -27,7 +28,7 @@ public class PlayerUI : MonoBehaviour
         regainSlider.value = 1;
         manaSlider.value = 1;
         maxStat = playerStatusHandler.GetStat();
-        soul=Inventory.instance.SoulCount;
+        soul = Inventory.instance.SoulCount;
     }
  
     void Update()
