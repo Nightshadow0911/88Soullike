@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HE_SmallArrow
   m_EditorClassIdentifier: 
   tag: SmallArrow
-  damage: 15
+  damage: 25
   speed: 40
   duration: 2
   spread: 0
