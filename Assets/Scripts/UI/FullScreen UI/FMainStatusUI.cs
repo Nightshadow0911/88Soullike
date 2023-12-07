@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class FMainStatusUI : FStatus
 {
+
     [Header("기본능력")]
     [SerializeField] private TMP_Text playerName;
     [SerializeField] private TMP_Text levelValue;
@@ -18,12 +19,6 @@ public class FMainStatusUI : FStatus
     [SerializeField] private TMP_Text luxStatValue;
 
     int needSoul = 0;
-
-
-    private void Start()
-    {
-        Init();
-    }
 
     private void Init()
     {

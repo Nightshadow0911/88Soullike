@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class FMapUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public FMapUI instance;
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
     }
 }

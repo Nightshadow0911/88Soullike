@@ -11,20 +11,13 @@ public class ShopSlot : MonoBehaviour
     //public TMP_Text itemDescription;
     public TMP_Text itemValue;
 
-    [SerializeField] private FullScreenUIManager fManager;
     [SerializeField] private FItemInformationUI fInformManager;
     [SerializeField] private Item shopItem;
     [SerializeField] private Inventory inven;
 
-    private void Awake()
-    {
-
-    }
-
     private void Start()
     {
-        fManager = FullScreenUIManager.instance;
-        fInformManager = fManager.itemInformationUI.GetComponent<FItemInformationUI>();
+        fInformManager = FItemInformationUI.instance;
         inven = Inventory.instance;
     }
 
@@ -47,10 +40,11 @@ public class ShopSlot : MonoBehaviour
         }
     }
 
-    void ShowInformation() // Onclick 이벤트
+    public void ShowInformation() // Onclick 이벤트
     {
         fInformManager.selectedItem = shopItem;
         fInformManager.selectedItem.Init();
+        fInformManager.Init();
 
     }
 }

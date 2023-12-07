@@ -202,6 +202,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8963905856883664307}
         m_TargetAssemblyTypeName: ShopSlot, Assembly-CSharp
+        m_MethodName: ShowInformation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8963905856883664307}
+        m_TargetAssemblyTypeName: ShopSlot, Assembly-CSharp
         m_MethodName: BuyItem
         m_Mode: 1
         m_Arguments:
@@ -226,6 +238,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 963585024335484629}
   itemValue: {fileID: 3434456065061603236}
+  fManager: {fileID: 0}
+  fInformManager: {fileID: 0}
   shopItem:
     curItem: {fileID: 0}
     type: 0

@@ -54,7 +54,10 @@ public class PlayerStatusHandler :StatHandler
     public float currentSoulDrop;
     [HideInInspector]
     public float currentAttackRange;
-    
+    [HideInInspector]
+    public int currentLevel;
+
+
     private void Awake()
     {
         playerCurrentStat = currentStatSO as PlayerStat;
@@ -135,6 +138,7 @@ public class PlayerStatusHandler :StatHandler
                 growStatSO.luxStat += num;
                 break;
         }
+        UpdateStat();
         return true;
     }
     

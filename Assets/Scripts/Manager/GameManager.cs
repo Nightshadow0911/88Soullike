@@ -13,11 +13,16 @@ public class GameManager : MonoBehaviour
     public CharacterStats playerStats;
     public LastPlayerController lastPlayerController;
     public PlayerAttack playerAttack;
+
+    //UI
+    public FullScreenUIManager uiManager;
+
     private void Awake()
     {
         instance = this;
         lastPlayerController = player.GetComponent<LastPlayerController>();
         playerAttack = player.GetComponent<PlayerAttack>();
+        uiManager = FullScreenUIManager.instance;
     }
 
     public void CanAttack()

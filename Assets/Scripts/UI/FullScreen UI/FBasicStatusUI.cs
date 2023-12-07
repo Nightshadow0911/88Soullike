@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class FBasicStatusUI : FStatus
 {
+    //
     [Header("일반능력")]
     [SerializeField] private TMP_Text healthValue;
     [SerializeField] private TMP_Text manaValue;
@@ -21,19 +22,13 @@ public class FBasicStatusUI : FStatus
     [SerializeField] private TMP_Text criticalRateValue;
     [SerializeField] private TMP_Text attackSpeed;
 
-
-    private void Start()
-    {
-        Init();
-    }
-
     private void Init()
     {
         healthValue.text = $"{playerStatusHandler.currentHp} / {playerMaxStat.hp}";
         manaValue.text = $"{playerStatusHandler.currentMana} / {playerMaxStat.mana}";
         steminaValue.text = $"{playerStatusHandler.currentStemina:F0} / {playerMaxStat.stemina}";
         weightValue.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}" +
-            $"({(playerStatusHandler.currentWeight / playerMaxStat.weight * 100):F1}%)";
+            $"({(playerStatusHandler.currentWeight / playerMaxStat.weight * 100):F0}%)";
         regainValue.text = $"{playerStatusHandler.currentRegainHp}";
         moveSpeedValue.text = $"{playerStatusHandler.currentSpeed}";
 
