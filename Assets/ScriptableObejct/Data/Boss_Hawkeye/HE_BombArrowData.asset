@@ -9,21 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14589f9a940f864a9375cc533e3f9f8, type: 3}
-  m_Name: FlyingEye
+  m_Script: {fileID: 11500000, guid: 00de8c94dc0226f429d38b9ac2a77b38, type: 3}
+  m_Name: HE_BombArrowData
   m_EditorClassIdentifier: 
-  hp: 100
-  damage: 10
-  defense: 5
-  speed: 8
-  delay: 1
-  attackRange: 1
-  propertyDamage: 0
-  propertyDefense: 0
-  detectRange: 10
+  tag: BombArrow
+  damage: 20
+  speed: 30
+  duration: 2
+  spread: 0
   target:
     serializedVersion: 2
     m_Bits: 64
-  closeRange: 0
-  mediumRange: 0
-  longRange: 0
+  numberofProjectilesPerShot: 2
+  multipleProjectilesAngle: 0

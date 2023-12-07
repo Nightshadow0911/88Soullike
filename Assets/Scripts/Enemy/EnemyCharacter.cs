@@ -13,8 +13,8 @@ public abstract class EnemyCharacter : MonoBehaviour
     
     [Header("Base Setting")]
     [Space(10)]
-    [SerializeField] protected Transform targetTransform;
     [SerializeField] protected Transform attackPosition;
+    protected Transform targetTransform;
     protected EnemyStatusHandler statusHandler;
     protected EnemyStat characterStat;
     protected EnemyAnimationController anim;
