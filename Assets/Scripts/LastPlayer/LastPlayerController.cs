@@ -249,7 +249,7 @@ public class LastPlayerController : MonoBehaviour
             {
                 if (Time.time - lastPlayTime > playAudioTime)
                 {
-                    soundManager.PlayClip(test.runSound);
+                    //soundManager.PlayClip(test.runSound);
                     lastPlayTime = Time.time;
                 }
             }

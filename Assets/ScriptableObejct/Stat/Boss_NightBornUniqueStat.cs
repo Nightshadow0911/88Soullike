@@ -24,4 +24,7 @@ public class Boss_NightBornUniqueStat : ScriptableObject
     
     [Header("Sound")] 
     public AudioClip runSound;
+    public AudioClip slashSound;
+    public AudioClip warpSound;
+    public AudioClip roarSound;
 }
