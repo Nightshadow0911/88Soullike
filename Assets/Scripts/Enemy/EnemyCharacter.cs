@@ -14,9 +14,10 @@ public abstract class EnemyCharacter : MonoBehaviour
     [Header("Base Setting")]
     [Space(10)]
     [SerializeField] protected Transform attackPosition;
+    private Vector3 characterPosition;
+    protected EnemyStat characterStat;
     protected Transform targetTransform;
     protected EnemyStatusHandler statusHandler;
-    protected EnemyStat characterStat;
     protected EnemyAnimationController anim;
     protected EnemyPattern pattern;
     protected Rigidbody2D rigid;
@@ -33,7 +34,9 @@ public abstract class EnemyCharacter : MonoBehaviour
         anim = GetComponent<EnemyAnimationController>();
         pattern = GetComponent<EnemyPattern>();
         rigid = GetComponent<Rigidbody2D>();
+        characterPosition = transform.position;
         statusHandler.OnDeath += Death;
+        GameManager.instance.PlayerDeath += ResetEnemy;
     }
 
     protected virtual void Start()
@@ -88,6 +91,14 @@ public abstract class EnemyCharacter : MonoBehaviour
         state = State.RUNNING;
         Rotate();
     }
+
+    private void ResetEnemy()
+    {
+        StopEnemy();
+        detected = false;
+        transform.position = characterPosition;
+        statusHandler.ResetHealth();
+    }
     
     protected virtual void Rotate()
     {
@@ -103,8 +114,16 @@ public abstract class EnemyCharacter : MonoBehaviour
 
     protected virtual void Death()
     {
+        StopEnemy();
+        anim.HashTrigger(anim.death);
+    }
+
+    private void StopEnemy()
+    {
         StopCoroutine(currentPattern);
         rigid.velocity = Vector2.zero;
-        anim.HashTrigger(anim.death);
+        state = State.FAILURE;
+        currentPattern = null;
+        currentTime = 0f;
     }
 }

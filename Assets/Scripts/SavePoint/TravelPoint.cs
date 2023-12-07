@@ -19,7 +19,6 @@ public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     private void Awake()
     {
-        SavePoint.TravelEvent += ChangeReady;
         changeColor = imageUI.color;
         CloseText();
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HE_BombExplosionData
   m_EditorClassIdentifier: 
   tag: BombExplosion
-  damage: 20
+  damage: 30
   duration: 0.5
   target:
     serializedVersion: 2
@@ -22,5 +22,4 @@ MonoBehaviour:
   numberofPositionAttack: 3
   followUpDirection: {x: 1.5, y: 0}
   delayTime: 0.5
-  bothSide: 1
   AoE: 0
