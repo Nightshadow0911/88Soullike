@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HE_ScatterArrowData
   m_EditorClassIdentifier: 
   tag: ScatterArrow
-  damage: 15
+  damage: 30
   speed: 30
   duration: 2
   spread: 0

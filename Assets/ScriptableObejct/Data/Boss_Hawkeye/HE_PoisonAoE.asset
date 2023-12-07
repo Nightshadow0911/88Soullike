@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HE_PoisonAoE
   m_EditorClassIdentifier: 
   tag: PoisonAoE
-  damage: 5
+  damage: 20
   duration: 5
   target:
     serializedVersion: 2
@@ -22,5 +22,4 @@ MonoBehaviour:
   numberofPositionAttack: 0
   followUpDirection: {x: 0, y: 0}
   delayTime: 0
-  bothSide: 0
   AoE: 1

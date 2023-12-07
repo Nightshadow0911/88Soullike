@@ -79,6 +79,9 @@ public class LastPlayerController : MonoBehaviour
     float currentSpeed;
     float currentStamina;
     int currentHp;
+    
+    private Vector2 savePosition;
+    
     void Start()
     {
         soundManager = SoundManager.instance;
@@ -301,12 +304,14 @@ public class LastPlayerController : MonoBehaviour
 
     private void Death()
     {
-        if (currentHp <= 0)
+        if (playerStatusHandler.currentHp <= 0)
         {
             Debug.Log("DeathAnim");
             anim.SetBool("isDeath", true);
             canMove = false;
             rb.velocity = Vector2.zero;
+            GameManager.instance.PlayerDeathCheck();
+            Invoke("PlayerRevive", 3f);
         }
     }
 
@@ -425,5 +430,18 @@ public class LastPlayerController : MonoBehaviour
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + ceilCheckDistance));
+    }
+
+    private void PlayerRevive()
+    {
+        anim.SetBool("isDeath", false);
+        anim.SetTrigger("Revive");
+        playerStatusHandler.FullCondition();
+        transform.position = savePosition;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        savePosition = transform.position;
     }
 }
