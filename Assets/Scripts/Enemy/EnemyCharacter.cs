@@ -36,11 +36,11 @@ public abstract class EnemyCharacter : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         characterPosition = transform.position;
         statusHandler.OnDeath += Death;
-        GameManager.instance.PlayerDeath += ResetEnemy;
     }
 
     protected virtual void Start()
     {
+        GameManager.instance.PlayerDeath += ResetEnemy;
         soundManager = SoundManager.instance;
         characterStat = statusHandler.GetStat();
     }
@@ -120,10 +120,11 @@ public abstract class EnemyCharacter : MonoBehaviour
 
     private void StopEnemy()
     {
-        StopCoroutine(currentPattern);
+        if (currentPattern != null)
+            StopCoroutine(currentPattern);
+        currentPattern = null;
         rigid.velocity = Vector2.zero;
         state = State.FAILURE;
-        currentPattern = null;
         currentTime = 0f;
     }
 }

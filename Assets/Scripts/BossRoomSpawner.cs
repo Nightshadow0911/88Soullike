@@ -17,16 +17,11 @@ public class BossRoomSpawner : BaseGimmick
     private Coroutine currentCoroutine;
     public GameObject bossUI;
 
-    private void Awake()
-    {
-        GameManager.instance.PlayerDeath += ResetBoss;
-    }
-
     protected override void Start()
     {
+        GameManager.instance.PlayerDeath += ResetBoss;
         door1sprite = door1.GetComponent<SpriteRenderer>();
         door2sprite = door2.GetComponent<SpriteRenderer>();
-        dBSpawnCount = 0;
         boss.SetActive(false);
         bossUI.SetActive(false);
         base.Start();
@@ -43,7 +38,7 @@ public class BossRoomSpawner : BaseGimmick
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")&& dBSpawnCount == 0) //플레이어가 입장하면 보스 활성화
+        if (collision.gameObject.CompareTag("Player")) //플레이어가 입장하면 보스 활성화
         {
             boss.SetActive(true);
             bossUI.SetActive(true);

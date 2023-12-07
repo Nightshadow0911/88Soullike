@@ -80,13 +80,8 @@ public class LastPlayerController : MonoBehaviour
     float currentStamina;
     int currentHp;
     
-    private Vector2 savePosition;
+    private Vector2 savePosition = Vector2.zero;
     
-    void Start()
-    {
-        soundManager = SoundManager.instance;
-    }
-
     private void Awake()
     {
 
@@ -99,6 +94,14 @@ public class LastPlayerController : MonoBehaviour
         currentHp = playerStatusHandler.currentHp;
 
     }
+    
+    void Start()
+    {
+        soundManager = SoundManager.instance;
+        if (savePosition == Vector2.zero)
+            savePosition = transform.position;
+    }
+
     void Update()
     {
         CheckInput();
@@ -435,7 +438,6 @@ public class LastPlayerController : MonoBehaviour
     private void PlayerRevive()
     {
         anim.SetBool("isDeath", false);
-        anim.SetTrigger("Revive");
         playerStatusHandler.FullCondition();
         transform.position = savePosition;
     }
