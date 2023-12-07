@@ -75,14 +75,9 @@ public class LastPlayerController : MonoBehaviour
     private SoundManager soundManager;
     private float lastPlayTime = 0f;
     [SerializeField] private float playAudioTime;
-  
-    private Vector2 savePosition;
-    
-    void Start()
-    {
-        soundManager = SoundManager.instance;
-    }
 
+    private Vector2 savePosition = Vector2.zero;
+    
     private void Awake()
     {
 
@@ -91,6 +86,14 @@ public class LastPlayerController : MonoBehaviour
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
         test = GetComponent<Test>();
     }
+    
+    void Start()
+    {
+        soundManager = SoundManager.instance;
+        if (savePosition == Vector2.zero)
+            savePosition = transform.position;
+    }
+
     void Update()
     {
         CheckInput();
@@ -427,7 +430,6 @@ public class LastPlayerController : MonoBehaviour
     private void PlayerRevive()
     {
         anim.SetBool("isDeath", false);
-        anim.SetTrigger("Revive");
         playerStatusHandler.FullCondition();
         transform.position = savePosition;
     }
