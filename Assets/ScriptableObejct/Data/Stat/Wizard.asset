@@ -15,15 +15,15 @@ MonoBehaviour:
   hp: 80
   damage: 10
   defense: 2
-  speed: 2
+  speed: 5
   delay: 1
-  attackRange: 0
+  attackRange: 3
   propertyDamage: 0
   propertyDefense: 0
-  detectRange: 12
+  detectRange: 15
   target:
     serializedVersion: 2
     m_Bits: 64
-  closeRange: 2
+  closeRange: 3
   mediumRange: 10
   longRange: 15

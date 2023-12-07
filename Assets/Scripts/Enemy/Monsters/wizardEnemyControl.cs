@@ -75,7 +75,7 @@ public class EnemyWizardControl : EnemyCharacter
         // soundManager.PlayClip(uniqueStats.runSound);
         anim.HashBool(anim.run, true);
         float distance = float.MaxValue;
-        while (Mathf.Abs(distance) > characterStat.closeRange && Mathf.Abs(distance) < characterStat.longRange)
+        while (Mathf.Abs(distance) > characterStat.mediumRange)
         {
             distance = targetTransform.position.x - transform.position.x;
             rigid.velocity = GetDirection() * characterStat.speed;
@@ -106,25 +106,12 @@ public class EnemyWizardControl : EnemyCharacter
 
     private IEnumerator FireMissile()
     {
+        
         RunningPattern();
         anim.StringTrigger("FireMissile");
         yield return YieldCache.WaitForSeconds(2f);
-        int spellPoint = Random.Range(0, 10);
-        if(spellPoint <4)
-        {
-            Vector2 position = targetTransform.position;
-            rangedAttack.CreateProjectile(GetDirection(), uniqueStats.FireMissile);
-        }
-        else if(spellPoint < 8)
-        {
-            Vector2 position = targetTransform.position + (Vector3.up * 0.2f);
-            rangedAttack.CreateProjectile(GetDirection(), uniqueStats.FireMissile);
-        }
-        else
-        {
-            Vector2 position = targetTransform.position + (Vector3.up * 0.4f);
-            rangedAttack.CreateProjectile(GetDirection(), uniqueStats.FireMissile);
-        }
+        Vector2 position = targetTransform.position;
+        rangedAttack.CreateProjectile(GetDirection(), uniqueStats.FireMissile);
         yield return YieldCache.WaitForSeconds(0.6f);
         state = State.SUCCESS;
         yield return null;
