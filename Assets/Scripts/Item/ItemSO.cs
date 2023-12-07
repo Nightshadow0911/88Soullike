@@ -67,7 +67,8 @@ public enum ItemType
     Weapon,
     Armor,
     Potion,
-    Buff
+    Buff,
+    Skill
 }
 
 public enum PropertyType

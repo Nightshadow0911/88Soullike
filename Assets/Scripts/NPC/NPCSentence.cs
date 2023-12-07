@@ -30,11 +30,9 @@ public class NPCSentence : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-
             isInteractable = true;
             collision.GetComponent<Inventory>().currentNPC = this;
             TalkNpc();
-            if(npcName.Equals("Stat")) charInfoUI.growPopupBtn.GetComponent<Button>().interactable = true;
 
         }
     }
@@ -44,11 +42,6 @@ public class NPCSentence : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isInteractable = false;
-            if (npcName.Equals("Stat"))
-            {
-                charInfoUI.growthPopup.SetActive(false);
-                charInfoUI.growPopupBtn.GetComponent<Button>().interactable = false;
-            }
         }
     }
 

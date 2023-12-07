@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeOutDeley: 0.05
-  fadeOut: {fileID: 7029570754534539861}
+  fadeOut: {fileID: 0}
   makeFadeOut: 0
 --- !u!114 &2491328609635162135
 MonoBehaviour:
@@ -380,7 +380,6 @@ MonoBehaviour:
   skillSlotList:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   skillIcons:
   - {fileID: 0}
   - {fileID: 0}
@@ -461,8 +460,8 @@ MonoBehaviour:
   currentpropertyDamage: 0
   currentpropertyDefense: 0
   currentWeight: 0
-  curretRegainHp: 0
-  curretMana: 0
+  currentRegainHp: 0
+  currentMana: 0
   currentSpeed: 0
   currentCritical: 0
   currentDelay: 0
@@ -873,10 +872,5 @@ PrefabInstance:
 --- !u!4 &1045476135644684567 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7479439186654911213, guid: 0ccdd23ecd5d14d2091dd317d6bdc631, type: 3}
-  m_PrefabInstance: {fileID: 7588012654548761594}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7029570754534539861 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 630508436241365423, guid: 0ccdd23ecd5d14d2091dd317d6bdc631, type: 3}
   m_PrefabInstance: {fileID: 7588012654548761594}
   m_PrefabAsset: {fileID: 0}

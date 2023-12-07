@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionUI : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Button statusBtn;
+    public Button inventoryBtn;
+    public Button equipmentBtn;
+    public Button optionBtn;
+
+    FullScreenUIManager fManager;
+
     void Start()
+    {
+        fManager = FullScreenUIManager.instance;
+    }
+    public void clickBtn(Button currentBtn)
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

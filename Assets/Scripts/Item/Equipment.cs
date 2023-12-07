@@ -10,13 +10,13 @@ public class Equipment : MonoBehaviour
 
     public Item[] equipItemList = new Item[2];
     public Item[] quickSlotList = new Item[3];
-    //public Skill[] skillSlotList = new Skill[2]; // ��ų ����, 0���� ���� �տ� ����
-    public SkillSO[] skillSlotList = new SkillSO[2]; // ��ų ����, 0���� ���� �տ� ����
+
+    public SkillSO[] skillSlotList = new SkillSO[2]; // ��ų ���, 0���� ���� �տ� ����
     public GameObject[] skillIcons = new GameObject[2];
     public Transform skillHolder;
 
     private PlayerStatusHandler playerStatusHandler;
-    private FEquipmentUI fEquipUI;
+    [SerializeField] private FEquipmentUI fEquipUI;
     private FullScreenUIManager fManager;
 
     #region Singleton
@@ -32,16 +32,19 @@ public class Equipment : MonoBehaviour
         instance = this;
 
         playerStatusHandler = transform.GetComponent<PlayerStatusHandler>();
-        fManager = FullScreenUIManager.instance;
-        skillSlotList[0] = SkillDatabase.instance.skillDB[0];
-        skillSlotList[1] = SkillDatabase.instance.skillDB[1];
+
     }
     #endregion
 
 
     private void Start()
     {
+        fManager = FullScreenUIManager.instance;
+        //fEquipUI = FEquipmentUI.instance; 초기화가 안됨... 끄고 에디터에서 직접 넣으면 됨.. 왜??
 
+        skillSlotList[0] = SkillDatabase.instance.skillDB[0];
+        skillSlotList[1] = SkillDatabase.instance.skillDB[1];
+        //
 
         for (int i = 0; i < skillIcons.Length; i++)
         {
@@ -103,7 +106,9 @@ public class Equipment : MonoBehaviour
             default:
                 return;
         }
-        fManager.equipmentUI.GetComponent<FEquipmentUI>().DrawEquipSlot();
+
+        fEquipUI.DrawEquipSlot();
+        
     }
     public void EquipItem(int equipIndex) //
     {

@@ -201,6 +201,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8486992137540256629}
         m_TargetAssemblyTypeName: EquipmentSlot, Assembly-CSharp
+        m_MethodName: ShowInformation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8486992137540256629}
+        m_TargetAssemblyTypeName: EquipmentSlot, Assembly-CSharp
         m_MethodName: showInventory
         m_Mode: 1
         m_Arguments:
@@ -241,3 +253,4 @@ MonoBehaviour:
     price: 0
   itemIcon: {fileID: 8214791422278178156}
   skill: {fileID: 0}
+  fInformManager: {fileID: 0}
