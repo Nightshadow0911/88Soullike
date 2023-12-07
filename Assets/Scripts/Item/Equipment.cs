@@ -33,6 +33,7 @@ public class Equipment : MonoBehaviour
 
         playerStatusHandler = transform.GetComponent<PlayerStatusHandler>();
         fManager = FullScreenUIManager.instance;
+
         skillSlotList[0] = SkillDatabase.instance.skillDB[0];
         skillSlotList[1] = SkillDatabase.instance.skillDB[1];
     }

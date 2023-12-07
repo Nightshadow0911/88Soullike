@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillDB:
   - {fileID: 11400000, guid: 471e1964a2efbba4cbe220ac8f6bc467, type: 2}
+  - {fileID: 11400000, guid: 783e0edfc49cd0d4299a9fc9b2939427, type: 2}
+  - {fileID: 11400000, guid: e05e15a3561e4a94fba4930e20d80e64, type: 2}
   - {fileID: 11400000, guid: 016b8df5357e9574f87b6066c121bc22, type: 2}
 --- !u!1001 &8100240880774748766
 PrefabInstance:

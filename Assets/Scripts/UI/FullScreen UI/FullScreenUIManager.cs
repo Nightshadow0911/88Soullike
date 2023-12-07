@@ -136,17 +136,13 @@ public class FullScreenUIManager : MonoBehaviour
     private void InitCloseAll() // 시작시 모든 팝업 닫기
     {
         CloseUIList(allFullScreenUIList);
-        /*foreach (FullScreenUI fScreen in allFullScreenUIList)
-        {
-            CloseUI(fScreen);
-        }*/
-        //fullScreenBase.SetActive(false);
     }
 
     // 단축키 입력에 따라 팝업 열거나 닫기
     private void ToggleKeyDownAction(in KeyCode key, List<FullScreenUI> fScreens)
     {
-        
+
+
 
         if (Input.GetKeyDown(key))
         {
@@ -155,14 +151,15 @@ public class FullScreenUIManager : MonoBehaviour
             if(fScreens != null) SetBase(key);
 
         }
-
-        if(activeFullScreenUILList.Count > 0)
+        if (activeFullScreenUILList.Count > 0)
         {
             fullScreenBase.gameObject.SetActive(true);
-        } else
+        }
+        else
         {
             fullScreenBase.gameObject.SetActive(false);
         }
+
     }
 
     // 팝업의 상태에 따라 열거나 닫기(opened / closed)
@@ -255,6 +252,10 @@ public class FullScreenUIManager : MonoBehaviour
                 break;
             case KeyCode.E:
                 SetBaseInform("장비", menuIconList[2]);
+                break;
+            case KeyCode.F:
+                if(Inventory.instance.currentNPC.npcName == "Shop")
+                SetBaseInform("상점", menuIconList[3]);
                 break;
             default:
                 break;

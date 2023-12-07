@@ -64,6 +64,8 @@ public class FEquipmentUI : MonoBehaviour
             {
                 if (equipment.skillSlotList[i] == null) break;
 
+                skillSlot[i].skill = new Skill();
+
                 skillSlot[i].skill.CurSkill = equipment.skillSlotList[i];
                 skillSlot[i].skill.Init();
                 skillSlot[i].UpdateSkillUI();
