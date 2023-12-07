@@ -17,6 +17,7 @@ public class Boss_NightBorn : EnemyCharacter
     {
         base.Awake();
         positionAttack = GetComponent<PositionAttack>();
+        statusHandler.OnRage += Rage;
         backLight.SetActive(false);
         
         
@@ -25,7 +26,7 @@ public class Boss_NightBorn : EnemyCharacter
         pattern.AddPattern(Distance.CloseRange, ForwardDashSlash);
         pattern.AddPattern(Distance.CloseRange, SpwanMonster);
         #endregion
-        
+
         #region MediumRangePattern
         pattern.AddPattern(Distance.MediumRange, ForwardDashSlash);
         pattern.AddPattern(Distance.MediumRange, StraightExplosion);
@@ -42,6 +43,8 @@ public class Boss_NightBorn : EnemyCharacter
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
         }
+        int layer = gameObject.layer;
+        Physics2D.IgnoreLayerCollision(layer,layer, true);
     }
 
     protected override void SetPatternDistance()
@@ -63,8 +66,14 @@ public class Boss_NightBorn : EnemyCharacter
         detected = true;
     }
 
+    private void Rage()
+    {
+        isRage = true;
+    }
+
     private void MeleeAttack()
     {
+        soundManager.PlayClip(uniqueStats.slashSound);
         Collider2D collision = Physics2D.OverlapBox(
             attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
         if (collision != null)
@@ -77,7 +86,7 @@ public class Boss_NightBorn : EnemyCharacter
     private IEnumerator Run()
     {
         RunningPattern();
-        // soundManager.PlayClip(uniqueStats.runSound);
+        soundManager.PlayLoopClip(uniqueStats.runSound, uniqueStats.runSound.GetInstanceID());
         anim.HashBool(anim.run, true);
         float distance = float.MaxValue;
         while (Mathf.Abs(distance) > characterStat.closeRange)
@@ -86,7 +95,7 @@ public class Boss_NightBorn : EnemyCharacter
             rigid.velocity = GetDirection() * characterStat.speed;
             yield return YieldCache.WaitForFixedUpdate;
         }
-        // soundManager.StopClip();
+        soundManager.StopLoopClip(uniqueStats.runSound.GetInstanceID());
         anim.HashBool(anim.run, false);
         rigid.velocity = Vector2.zero;
         state = State.FAILURE;
@@ -111,13 +120,13 @@ public class Boss_NightBorn : EnemyCharacter
     private IEnumerator ForwardDashSlash()
     {
         RunningPattern();
-        //soundManager.PlayClip(uniqueStats.);
         anim.StringTrigger("ForwardDashSlash");
         Vector2 direction = GetDirection();
         yield return YieldCache.WaitForSeconds(1f);
         float moveDistance;
         bool hit = false;
         Vector2 startPosition = transform.position;
+        soundManager.PlayClip(uniqueStats.slashSound);
         do 
         {
             Vector3 position = transform.position;
@@ -165,9 +174,11 @@ public class Boss_NightBorn : EnemyCharacter
     private IEnumerator BlinkExplosion()
     {
         RunningPattern();
+        soundManager.PlayClip(uniqueStats.warpSound);
         anim.StringTrigger("OnBlinkExplosion");
         yield return YieldCache.WaitForSeconds(0.7f); // 애니 싱크
         Vector3 position = transform.position += (targetTransform.position.x - transform.position.x) * Vector3.right;
+        soundManager.PlayClip(uniqueStats.warpSound);
         yield return YieldCache.WaitForSeconds(1f); // 애니 싱크
         positionAttack.CreateBothSideProjectile(position + Vector3.up,
             uniqueStats.bothSideExplosion);
@@ -179,11 +190,12 @@ public class Boss_NightBorn : EnemyCharacter
     private IEnumerator SpwanMonster()
     {
         RunningPattern();   
-        if (isRage || spiritList.Count >= 5)
+        if (!isRage || spiritList.Count >= 5)
         {
             state = State.FAILURE;
             yield break;
         }
+        soundManager.PlayClip(uniqueStats.roarSound);
         anim.StringTrigger("SpwanMonster");
         yield return YieldCache.WaitForSeconds(0.5f); // 애니 싱크
         float ran = Random.Range(uniqueStats.minX, uniqueStats.maxX);
@@ -210,6 +222,8 @@ public class Boss_NightBorn : EnemyCharacter
             Destroy(spiritList[i]);
         }
         spiritList.Clear();
+        int layer = gameObject.layer;
+        Physics2D.IgnoreLayerCollision(layer,layer, false);
     }
 
     public void DestroyThis()

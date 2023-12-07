@@ -17,7 +17,7 @@ MonoBehaviour:
   defense: 5
   speed: 8
   delay: 1
-  attackRange: 0.8
+  attackRange: 1
   propertyDamage: 0
   propertyDefense: 0
   detectRange: 10

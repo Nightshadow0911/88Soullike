@@ -33,7 +33,7 @@ public class EnemyStatusHandler :StatHandler
         damage = damage <= enemyCurrentStat.defense ? 0 : damage - enemyCurrentStat.defense;
         currentHp -= damage;
         OnDamage?.Invoke();
-        if (currentHp == enemyCurrentStat.hp / 2)
+        if (currentHp < enemyCurrentStat.hp / 2)
             OnRage?.Invoke();
         if (currentHp <= 0)
             OnDeath?.Invoke();
