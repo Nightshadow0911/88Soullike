@@ -18,6 +18,7 @@ public class PoisonFlakeController : PositionAttackController
     {
         if (attackData.target.value == (attackData.target.value | (1 << collision.gameObject.layer)))
         {
+            SoundManager.instance.PlayClip(soundData);
             Vector2 position = transform.position;
             positionAttack.CreateProjectile(position + Vector2.up / 2, explosionData);
             positionAttack.CreateProjectile(position + Vector2.down / 2, poisonData);

@@ -218,7 +218,7 @@ MonoBehaviour:
   pools:
   - tag: SoundSource
     prefab: {fileID: 5851402161387569055, guid: 21da67b9c4fd56e439350bb26c1265a2, type: 3}
-    size: 5
+    size: 10
 --- !u!82 &75501297
 AudioSource:
   m_ObjectHideFlags: 0
