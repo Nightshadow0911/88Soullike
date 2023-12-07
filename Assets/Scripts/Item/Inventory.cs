@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
     public List<Item> items = new List<Item>();
 
     private int slotCount;
-    [SerializeField] private int soulCount = 10000;
+    [SerializeField] private int soulCount = 1000;
     public int SlotCount
     {
         get => slotCount;

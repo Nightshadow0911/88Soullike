@@ -183,5 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85cd6adc0c4ef724fac83b853655289a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundData: {fileID: 8300000, guid: d457efe668c2f5d479b6efecd2211e3b, type: 3}
+  playStartSound: 1
+  delaySound: 0
   monster: {fileID: 5312591019256831547, guid: d1c6c49787b823d4693be222ba9890d9, type: 3}
-  duration: 1

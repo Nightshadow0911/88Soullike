@@ -9,6 +9,7 @@ public class EnemyStatusHandler :StatHandler
     private EnemyStat enemyCurrentStat;
     public EnemyStat GetStat() => enemyCurrentStat; // 현재 스탯 가져오기
     public event Action OnDamage; 
+    public event Action OnRage; 
     public event Action OnDeath; 
         
     [HideInInspector]
@@ -32,8 +33,14 @@ public class EnemyStatusHandler :StatHandler
         damage = damage <= enemyCurrentStat.defense ? 0 : damage - enemyCurrentStat.defense;
         currentHp -= damage;
         OnDamage?.Invoke();
+        if (currentHp < enemyCurrentStat.hp / 2)
+            OnRage?.Invoke();
         if (currentHp <= 0)
             OnDeath?.Invoke();
-        Debug.Log(currentHp);
     }
+
+    public void ResetHealth()
+    {
+        currentHp = enemyCurrentStat.hp;
+    } 
 }

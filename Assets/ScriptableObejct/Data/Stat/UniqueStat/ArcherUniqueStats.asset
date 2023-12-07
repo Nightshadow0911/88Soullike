@@ -15,7 +15,7 @@ MonoBehaviour:
   meleeAttackRange: {x: 0, y: 0}
   BA_Arrow: {fileID: 11400000, guid: 43ca5f370f37fb646a34e66936784530, type: 2}
   projectiles:
-  - tag: Arrow
+  - tag: HE_Arrow
     prefab: {fileID: 913579387397932168, guid: 29bb8d684145c6740b97f0344e7e15b0, type: 3}
     size: 5
   runSound: {fileID: 0}

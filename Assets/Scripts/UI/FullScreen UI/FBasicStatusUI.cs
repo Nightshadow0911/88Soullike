@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class FBasicStatusUI : FStatus
 {
+
     //
     [Header("일반능력")]
     [SerializeField] private TMP_Text healthValue;

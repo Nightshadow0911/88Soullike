@@ -22,10 +22,6 @@ public class Skill : MonoBehaviour
     private PlayerStatusHandler characterStats;
     Vector3 dir;
 
-    private void Awake()
-    {
-        
-    }
     private void Start()
     {
         characterStats = GameManager.instance.player.GetComponent<PlayerStatusHandler>(); //원래 어웨이크

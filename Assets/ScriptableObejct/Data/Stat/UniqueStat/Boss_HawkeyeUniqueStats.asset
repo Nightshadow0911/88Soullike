@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfba037d0a4fcb542bc0c8e8860c3cc6, type: 3}
+  m_Name: Boss_HawkeyeUniqueStats
+  m_EditorClassIdentifier: 
+  meleeAttackRange: {x: 2, y: 2}
+  dodgeDistance: 4
+  dodgeTime: 0.4
+  secondAttackDistance: 1.5
+  secondAttackTime: 0.1
+  backstepDistance: 8
+  backstepTime: 0.8
+  backstepJumpPosition: 4
+  trackingDistance: 6
+  trackingSpeed: 30
+  numberOfTrackingAttacks: 4
+  trackingAttacksWaitTime: 0.05
+  backTumblingDistance: 4
+  backTumblingTime: 0.4
+  spinDashAttackDistance: 4
+  spinDashAttackSpeed: 20
+  leapPosition: 4.5
+  leapTime: 0.3
+  numberOfLeapShot: 2
+  aimingTime: 1
+  projectiles:
+  - tag: HE_Arrow
+    prefab: {fileID: 913579387397932168, guid: 29bb8d684145c6740b97f0344e7e15b0, type: 3}
+    size: 3
+  - tag: BombArrow
+    prefab: {fileID: 1541699905658841087, guid: 2aaeceab9d0cc04498f9d53c1e267b79, type: 3}
+    size: 3
+  - tag: BombExplosion
+    prefab: {fileID: 169576513809505338, guid: b1c9aab4cd60d8547acd094aafa78e9a, type: 3}
+    size: 6
+  - tag: ScatterArrow
+    prefab: {fileID: 16419201612604955, guid: c4dd58311da2b90459946a91725caf16, type: 3}
+    size: 3
+  - tag: SmallArrow
+    prefab: {fileID: 335960726170392620, guid: 36a39b83fa57a18419ae7811ac15b408, type: 3}
+    size: 6
+  - tag: PoisonArrow
+    prefab: {fileID: 7968759150108742984, guid: cb81f6f9a3da5c34cbda89e625a43a82, type: 3}
+    size: 3
+  - tag: PoisonFlask
+    prefab: {fileID: 473537946730957710, guid: bbe8525482f6b3243b72abae4f677bae, type: 3}
+    size: 3
+  - tag: PoisonExplosion
+    prefab: {fileID: 12934609602784747, guid: 9bed057aa9e0eaa44ab4f99439d9c9eb, type: 3}
+    size: 3
+  - tag: PoisonAoE
+    prefab: {fileID: 4358163393702817439, guid: 2a8b5a9f30619104ab972e218bf9e7d6, type: 3}
+    size: 5
+  arrowData: {fileID: 11400000, guid: 43ca5f370f37fb646a34e66936784530, type: 2}
+  bombArrowData: {fileID: 11400000, guid: ddab564edde01c64880107232d5dbee2, type: 2}
+  poisonArrowData: {fileID: 11400000, guid: 68a19d6d747d8ff4895a09279f82c5a1, type: 2}
+  scatterArrowData: {fileID: 11400000, guid: a22d2a2d2b558ea4799da6e772bc2a12, type: 2}
+  poisonFlaskData: {fileID: 11400000, guid: 9278b740a5b49bb4da1deb0284fc1e0b, type: 2}
+  runSound: {fileID: 8300000, guid: 5233bf45cf0644246ba2c1e2a828fc67, type: 3}
+  dodgeSound: {fileID: 8300000, guid: 5b6a15884510cc744b3c0316f8a64335, type: 3}
+  jumpSound: {fileID: 8300000, guid: e7d57f877a362934f95c36164ad920e9, type: 3}
+  meleeAttackSound: {fileID: 8300000, guid: 6e9d4934c626b6b45bb9a0e2a48c25ca, type: 3}
+  arrowAttackSound: {fileID: 8300000, guid: f602d2346b7fc714aab9bb2175621f30, type: 3}
+  ScatterArrowSound: {fileID: 0}
+  spinAttackSound: {fileID: 8300000, guid: 0131a44445c70ae4db90aa3e86fae48b, type: 3}

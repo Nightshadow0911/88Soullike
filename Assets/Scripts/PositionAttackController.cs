@@ -5,15 +5,33 @@ using UnityEngine;
 
 public class PositionAttackController : MonoBehaviour
 {
+    [SerializeField] protected AudioClip soundData;
+    [SerializeField] private bool playStartSound;
+    [SerializeField] private float delaySound;
     protected PositionAttackData attackData;
     private float currentDuration;
-    private bool isReady;
     
+    private bool soundReady;
+    private bool isReady;
+
+    private void Start()
+    {
+        if (playStartSound && soundReady)
+            SoundManager.instance.PlayClip(soundData);
+    }
+
     private void Update()
     {
         if (!isReady)
             return;
+        
         currentDuration += Time.deltaTime;
+
+        if (soundReady && delaySound != 0 && delaySound < currentDuration)
+        {
+            SoundManager.instance.PlayClip(soundData);
+            soundReady = false;
+        }
 
         if (currentDuration > attackData.duration) {
             DestroyProjectile();
@@ -44,6 +62,7 @@ public class PositionAttackController : MonoBehaviour
         transform.position = position;
         currentDuration = 0;
         isReady = true;
+        soundReady = true;
     }
 
     protected virtual void DestroyProjectile()

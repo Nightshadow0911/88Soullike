@@ -7,13 +7,20 @@ using UnityEngine;
 public class FlyingEye : EnemyCharacter
 {
     [SerializeField] private Vector2 meleeAttackRange;
+    [SerializeField] private float rollingAttackTime;
     [SerializeField] private GameObject effect;
+    [SerializeField] private LayerMask ignoreLayer;
+
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip rollingAttackSound;
+    private Collider2D coll;
     
-     private bool find;
+    private bool closed;
 
      protected override void Awake()
     {
         base.Awake();
+        coll = GetComponent<Collider2D>();
         effect.SetActive(false);
         
         #region Pattern
@@ -25,7 +32,7 @@ public class FlyingEye : EnemyCharacter
      
     protected override void SetPatternDistance()
     {
-        if (find)
+        if (closed)
             pattern.SetDistance(Distance.CloseRange);
         else 
             pattern.SetDistance(Distance.Default);
@@ -57,15 +64,20 @@ public class FlyingEye : EnemyCharacter
     {
         RunningPattern();
         RaycastHit2D hit;
-        while (!find)
+        while (!closed)
         {
+            Rotate();
             hit = Physics2D.CircleCast(transform.position, characterStat.attackRange,
-                Vector2.right, 0, characterStat.target);
+                Vector2.zero, 0f, ignoreLayer.value | characterStat.target.value);
             if (hit.collider != null)
             {
-                find = true;
+                if (1 << hit.collider.gameObject.layer == (1 << hit.collider.gameObject.layer | characterStat.target.value))
+                {
+                    closed = true;
+                }
+                Physics2D.IgnoreCollision(coll, hit.collider);
             }
-            Vector3 direction = (targetTransform.position + Vector3.up * 1.5f) - transform.position;
+            Vector3 direction = (targetTransform.position + Vector3.up * 1.2f) - transform.position;
             rigid.velocity = direction.normalized * characterStat.speed;
             yield return YieldCache.WaitForFixedUpdate;
         }
@@ -79,8 +91,9 @@ public class FlyingEye : EnemyCharacter
         Vector2 direction = GetDirection();
         anim.HashTrigger(anim.attack);
         yield return YieldCache.WaitForSeconds(0.5f);// 애니메이션 싱크
+        soundManager.PlayClip(attackSound);
         MeleeAttack((Vector2)transform.position + direction);
-        find = false;
+        closed = false;
         state = State.SUCCESS;
     }
     
@@ -88,13 +101,30 @@ public class FlyingEye : EnemyCharacter
     {
         RunningPattern();
         anim.StringTrigger("RollingAttack");
-        yield return YieldCache.WaitForSeconds(0.3f);// 애니메이션 싱크
-        for (int i = 0; i < 2; i++)
+        Vector2 direction = GetDirection();
+        yield return YieldCache.WaitForSeconds(0.5f);
+        soundManager.PlayClip(rollingAttackSound);
+        bool hit = false;
+        float elapsedTime = 0f;
+        while(elapsedTime < rollingAttackTime)
         {
-            yield return YieldCache.WaitForSeconds(0.2f);
-            MeleeAttack(transform.position);
+            elapsedTime += Time.deltaTime;
+            rigid.velocity = direction * characterStat.speed;
+            if (!hit)
+            {
+                Collider2D collision = Physics2D.OverlapBox(
+                    transform.position, meleeAttackRange, 0, characterStat.target);
+                if (collision != null)
+                {
+                    // 데미지 주기
+                    hit = true;
+                    collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
+                }
+            }
+            yield return YieldCache.WaitForFixedUpdate;
         }
-        find = false;
+        rigid.velocity = Vector2.zero;
+        closed = false;
         state = State.SUCCESS;
     }
 }

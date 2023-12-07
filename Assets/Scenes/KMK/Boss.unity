@@ -201,8 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmClip: {fileID: 8300000, guid: f5cf3bf8e8762e64bb88e5c1ed67ebea, type: 3}
-  bgmVolume: 0.1
-  sfxVolume: 0.3
+  bgmVolume: 0.5
+  sfxVolume: 0.5
 --- !u!114 &75501296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   pools:
   - tag: SoundSource
     prefab: {fileID: 5851402161387569055, guid: 21da67b9c4fd56e439350bb26c1265a2, type: 3}
-    size: 5
+    size: 20
 --- !u!82 &75501297
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1470,7 +1470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -5.49
       objectReference: {fileID: 0}
     - target: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2344,11 +2344,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7470434121842117839, guid: 582b5a4e73c36e34d9ca3154066411f4, type: 3}
       propertyPath: m_Name
-      value: Boss_Archer
+      value: Boss_Hawkeye
       objectReference: {fileID: 0}
     - target: {fileID: 7470434121842117839, guid: 582b5a4e73c36e34d9ca3154066411f4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

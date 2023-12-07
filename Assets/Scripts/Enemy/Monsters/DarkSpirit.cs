@@ -7,12 +7,14 @@ public class DarkSpirit : EnemyCharacter
 {
     [Header("Unique Setting")]
     [SerializeField] private Vector2 meleeAttackRange;
-    [SerializeField] private GameObject boss;
+    [SerializeField] private LayerMask ignoreLayer;
+    [SerializeField] private AudioClip attackSound;
+    private Collider2D coll;
 
     protected override void Awake()
     {
         base.Awake();
-        Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
+        coll = GetComponent<Collider2D>();
         
         #region Pattern
         pattern.AddPattern(Distance.Default, Run);
@@ -44,6 +46,7 @@ public class DarkSpirit : EnemyCharacter
     
     private void MeleeAttack()
     {
+        soundManager.PlayClip(attackSound);
         Collider2D collision = Physics2D.OverlapBox(
             attackPosition.position, meleeAttackRange, 0, characterStat.target);
         if (collision != null)

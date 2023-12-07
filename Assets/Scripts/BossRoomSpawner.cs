@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class BossRoomSpawner : BaseGimmick
 {
-    public GameObject deathBringer;
+    public GameObject boss;
     private int dBSpawnCount;
     public GameObject door1;
     public Collider2D door1Collider;
@@ -15,22 +15,33 @@ public class BossRoomSpawner : BaseGimmick
     public Collider2D door2Collider;
     private SpriteRenderer door2sprite;
     private Coroutine currentCoroutine;
-
+    public GameObject bossUI;
 
     protected override void Start()
     {
+        GameManager.instance.PlayerDeath += ResetBoss;
         door1sprite = door1.GetComponent<SpriteRenderer>();
         door2sprite = door2.GetComponent<SpriteRenderer>();
-        dBSpawnCount = 0;
-        deathBringer.SetActive(false);
+        boss.SetActive(false);
+        bossUI.SetActive(false);
         base.Start();
     }
-    
+
+    private void Update()
+    {
+        if (boss == null)
+        {
+            mapGimmickAction.ToggleSpriteAndCollider(door1sprite, door1Collider, false);
+            mapGimmickAction.ToggleSpriteAndCollider(door2sprite, door2Collider , false);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")&& dBSpawnCount == 0) //플레이어가 입장하면 보스 활성화
+        if (collision.gameObject.CompareTag("Player")) //플레이어가 입장하면 보스 활성화
         {
-            deathBringer.SetActive(true);
+            boss.SetActive(true);
+            bossUI.SetActive(true);
             dBSpawnCount++;
             DoorClose();
         }
@@ -40,5 +51,13 @@ public class BossRoomSpawner : BaseGimmick
     {
         mapGimmickAction.ToggleSpriteAndCollider(door1sprite, door1Collider , true);
         mapGimmickAction.ToggleSpriteAndCollider(door2sprite, door2Collider , true);
+    }
+
+    private void ResetBoss()
+    {
+        boss.SetActive(false);
+        bossUI.SetActive(false);
+        mapGimmickAction.ToggleSpriteAndCollider(door1sprite, door1Collider , false);
+        mapGimmickAction.ToggleSpriteAndCollider(door2sprite, door2Collider , false);
     }
 }
