@@ -76,9 +76,6 @@ public class LastPlayerController : MonoBehaviour
     private float lastPlayTime = 0f;
     [SerializeField] private float playAudioTime;
 
-    float currentSpeed;
-    float currentStamina;
-    int currentHp;
     void Start()
     {
         soundManager = SoundManager.instance;
@@ -91,10 +88,6 @@ public class LastPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
         test = GetComponent<Test>();
-        currentSpeed = playerStatusHandler.currentSpeed;
-        currentStamina = playerStatusHandler.currentStemina;
-        currentHp = playerStatusHandler.currentHp;
-
     }
     void Update()
     {
@@ -241,10 +234,10 @@ public class LastPlayerController : MonoBehaviour
         if (canMove)
         { 
             Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
-            rb.velocity = new Vector2(movingInput * currentSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(movingInput * playerStatusHandler.currentSpeed, rb.velocity.y);
             if (isSitting)
             {
-                rb.velocity = new Vector2(movingInput * currentSpeed/2, rb.velocity.y);
+                rb.velocity = new Vector2(movingInput * playerStatusHandler.currentSpeed/2, rb.velocity.y);
             }
         }
     }
@@ -269,11 +262,11 @@ public class LastPlayerController : MonoBehaviour
         {
             if (canDash)
             {
-                if (currentStamina >= dashStaminaCost)
+                if (playerStatusHandler.currentStemina >= dashStaminaCost)
                 {
                     soundManager.PlayClip(test.dashSound);
-                    currentStamina -= dashStaminaCost;
-                    Debug.Log("playerStatusHandler.currentStemina:" + currentStamina);
+                    playerStatusHandler.currentStemina -= dashStaminaCost;
+                    Debug.Log("playerStatusHandler.currentStemina:" + playerStatusHandler.currentStemina);
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
@@ -294,14 +287,14 @@ public class LastPlayerController : MonoBehaviour
 
     private void RegenStamina()
     {
-        currentStamina += staminaRegenRate * Time.deltaTime;
-        currentStamina = Mathf.Clamp(currentStamina, 0f, 100f);
+        playerStatusHandler.currentStemina += staminaRegenRate * Time.deltaTime;
+        playerStatusHandler.currentStemina = Mathf.Clamp(playerStatusHandler.currentStemina, 0f, 100f);
         //Debug.Log("currentStamina ::" + playerStatusHandler.currentStemina);
     }
 
     private void Death()
     {
-        if (currentHp <= 0)
+        if (playerStatusHandler.currentHp <= 0)
         {
             Debug.Log("DeathAnim");
             anim.SetBool("isDeath", true);
@@ -360,7 +353,7 @@ public class LastPlayerController : MonoBehaviour
         {
             float verticalInput = Input.GetAxis("Vertical");
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(rb.velocity.x, verticalInput * currentSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.currentSpeed);
             isGrounded = false;
             canWallSlide = false;
         }
