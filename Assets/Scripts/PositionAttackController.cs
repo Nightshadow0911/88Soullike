@@ -5,10 +5,18 @@ using UnityEngine;
 
 public class PositionAttackController : MonoBehaviour
 {
+    [SerializeField] protected AudioClip soundData;
+    [SerializeField] private bool playStartSound;
     protected PositionAttackData attackData;
     private float currentDuration;
     private bool isReady;
-    
+
+    private void Start()
+    {
+        if (playStartSound)
+            SoundManager.instance.PlayClip(soundData);
+    }
+
     private void Update()
     {
         if (!isReady)
