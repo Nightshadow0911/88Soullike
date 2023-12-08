@@ -34,7 +34,7 @@ public class OpenMapDoor : BaseGimmick
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !isWork)
+        if (Input.GetKeyDown(KeyCode.F) && !isWork)
         {
             OpenDoor();
         }
