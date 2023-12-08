@@ -11,6 +11,7 @@ public class FItemInformationUI : MonoBehaviour
     public Item selectedItem;
     public Skill selectedSkill;
     [SerializeField] private GameObject[] itemPanel = new GameObject[2];
+    [SerializeField] private GameObject centerPanel;
 
     [Header("장비 아이템")]
     [SerializeField] private Image itemImage;
@@ -47,10 +48,15 @@ public class FItemInformationUI : MonoBehaviour
 
     public void Init()
     {
-        if (selectedItem.CurItem == null) return;
+        Debug.Log(selectedItem.CurItem.ItemName);
+        //if (selectedItem.CurItem == null) return;
         if ((selectedItem.Type == ItemType.Weapon) || (selectedItem.Type == ItemType.Armor))
         {
+            Debug.Log("ff"+selectedItem.ItemName);
+
             OpenPanel(0);
+            Debug.Log(selectedItem.ItemName);
+
             itemImage.sprite = selectedItem.Sprite;
             itemName.text = $"{selectedItem.ItemName}";
 
@@ -82,7 +88,10 @@ public class FItemInformationUI : MonoBehaviour
             }
         } else
         {
+            Debug.Log("dd"+selectedItem.ItemName);
+
             OpenPanel(1);
+            Debug.Log(selectedItem.ItemName);
             secondItemImage.sprite = selectedItem.Sprite;
             secondItemName.text = $"{selectedItem.ItemName}";
 
@@ -122,14 +131,16 @@ public class FItemInformationUI : MonoBehaviour
             panel.SetActive(false);
         }
         itemPanel[index].SetActive(true);
+        centerPanel.SetActive(false);
 
     }
     public void ClearInform()
     {
-        foreach (GameObject panel in itemPanel)
-        {
-            panel.SetActive(false);
-        }
+        /*        foreach (GameObject panel in itemPanel)
+                {
+                    panel.SetActive(false);
+                }*/
+       // centerPanel.SetActive(true);
     }
 
 

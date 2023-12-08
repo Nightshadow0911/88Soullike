@@ -41,17 +41,11 @@ public class UISwitch : MonoBehaviour
     public void Init()
     {
         activeUI.Clear();
-                foreach (FullScreenUI df in fManager.activeFullScreenUILList)
-                {
-                    activeUI.Add(df);
-                }
-        /*        foreach (FullScreenUI df in fManager.allFullScreenUIList)
-                {
-                    if(df.gameObject.activeSelf)
-                    {
-                        activeUI.Add(df);
-                    }
-                }*/
+        foreach (FullScreenUI df in fManager.activeFullScreenUILList)
+        {
+            activeUI.Add(df);
+        }
+
     }
 
 

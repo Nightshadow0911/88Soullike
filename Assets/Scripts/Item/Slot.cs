@@ -97,9 +97,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public void ShowItemInformation()
     {
-
         fInformManager.selectedItem = item;
-        //fInformManager.selectedItem.Init();
         fInformManager.Init();
     }
 }
