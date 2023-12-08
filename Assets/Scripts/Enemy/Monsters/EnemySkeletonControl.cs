@@ -71,10 +71,10 @@ public class SkeletonEnemy : EnemyCharacter
         anim.HashBool(anim.run, true);
         float distance = float.MaxValue;
         while (Mathf.Abs(distance) > characterStat.closeRange)
-        {         
-                distance = targetTransform.position.x - transform.position.x;
-                rigid.velocity = GetDirection() * characterStat.speed;
-                yield return YieldCache.WaitForFixedUpdate;
+        {
+            distance = targetTransform.position.x - transform.position.x;
+            rigid.velocity = GetDirection() * characterStat.speed;
+            yield return YieldCache.WaitForFixedUpdate;
         }
         // soundManager.StopClip();
         anim.HashBool(anim.run, false);
@@ -102,5 +102,10 @@ public class SkeletonEnemy : EnemyCharacter
         if (hit.collider != null)
             return true;
         return false;
+    }
+
+    public void DestroyThis()
+    {
+        Destroy(gameObject);
     }
 }
