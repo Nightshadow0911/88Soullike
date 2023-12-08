@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AtkBuff
   m_EditorClassIdentifier: 
   durTime: 30
-  value: 20
+  value: 3
   statName: currentDamage
   buffImage: {fileID: 21300000, guid: 7505af19d271848398df6ae91b3227c6, type: 3}
