@@ -21,8 +21,8 @@ public class PlayerStatusHandler :StatHandler
     public PlayerStat GetStat() => playerCurrentStat;  // 현재 수치 가져오기 
     public PlayerStat growStatSO;
     public PlayerStat baseStatSO;
-
     private PlayerAttack playerAttack;
+    private Test test;
 
     [HideInInspector]
     public int currentHp;
@@ -65,6 +65,8 @@ public class PlayerStatusHandler :StatHandler
         playerCurrentStat = currentStatSO as PlayerStat;
         SetStat();
         playerAttack = GetComponent<PlayerAttack>();
+        test = GetComponent<Test>();
+
     }
 
     
@@ -83,7 +85,10 @@ public class PlayerStatusHandler :StatHandler
         if (playerCurrentStat == null)
             return;
         if (playerAttack.isParrying)
+        {
+            SoundManager.instance.PlayClip(test.parrySound);
             return;
+        }
         if (playerAttack.isGuarding)
             damage /= 2;
         damage = damage <= currentDefense ? 0 : damage - currentDefense;
