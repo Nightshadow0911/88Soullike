@@ -35,6 +35,7 @@ public class Crouch : MonoBehaviour
             {
                 transform.localScale = new Vector2(normalHeight.x, crouchHeight);
                 LastPlayerController.isSitting =true;
+                LastPlayerController.canDash = false;
                 sitSpeed = playerStatusHandler.currentSpeed*0.5f;
             }
         }

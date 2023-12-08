@@ -11,11 +11,13 @@ public class ShopSlot : MonoBehaviour
     //public TMP_Text itemDescription;
     public TMP_Text itemValue;
 
+    [SerializeField] private FItemInformationUI fInformManager;
     [SerializeField] private Item shopItem;
     [SerializeField] private Inventory inven;
 
     private void Start()
     {
+        fInformManager = FItemInformationUI.instance;
         inven = Inventory.instance;
     }
 
@@ -34,6 +36,15 @@ public class ShopSlot : MonoBehaviour
         {
             inven.SoulCount -= shopItem.Price;
             inven.AddItem(shopItem);
+            
         }
+    }
+
+    public void ShowInformation() // Onclick 이벤트
+    {
+        fInformManager.selectedItem = shopItem;
+        fInformManager.selectedItem.Init();
+        fInformManager.Init();
+
     }
 }

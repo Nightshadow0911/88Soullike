@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
     public List<Item> items = new List<Item>();
 
     private int slotCount;
-    [SerializeField] private int soulCount = 10000;
+    [SerializeField] private int soulCount = 1000;
     public int SlotCount
     {
         get => slotCount;
@@ -44,11 +44,10 @@ public class Inventory : MonoBehaviour
         get { return soulCount; }
         set { soulCount = value; }
     }
-    // Start is called before the first frame update
+
     void Start()
     {
-        slotCount = 6;
-        StartItem();
+        StartCoroutine(StartItem());
     }
 
     public bool AddItem(Item item)
@@ -101,21 +100,21 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void StartItem() // 시작할때 얻을 기본 아이템
+    public IEnumerator StartItem()
     {
+        yield return new WaitForEndOfFrame();
+
         ItemDatabase Ib = ItemDatabase.instance;
         Item newItem = new Item();
 
         for (int i = 0; i < Ib.itemDB.Count; i++)
         {
-            if(!Ib.itemDB[i].Buyable() && Ib.itemDB[i].Type == ItemType.Potion)
+            if (!Ib.itemDB[i].Buyable() && Ib.itemDB[i].Type == ItemType.Potion)
             {
                 newItem.CurItem = Ib.itemDB[i];
                 newItem.Init();
                 AddItem(newItem);
             }
-            
         }
-
     }
 }

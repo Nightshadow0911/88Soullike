@@ -5,35 +5,43 @@ using UnityEngine.UI;
 
 public class FEquipmentUI : MonoBehaviour
 {
+    public static FEquipmentUI instance;
     public int setSlotIndex;
 
     public EquipmentSlot weaponSlot;
     public EquipmentSlot armorSlot;
     public EquipmentSlot potionSlot;
     public EquipmentSlot[] skillSlot = new EquipmentSlot[2];
-    public GameObject itemSlots; // Equipment Slot¿ª ¥´∏£∏È itemSlots.gameObject.setActive true
-    //æ∆¿Ã≈€ ΩΩ∑‘ø° inventoryUI
+    public GameObject itemSlots; 
 
     private Equipment equipment;
     private Inventory inven;
 
     private void Awake()
     {
-        equipment = Equipment.instance;
-        inven = Inventory.instance;
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
     }
     private void Start()
     {
+        equipment = Equipment.instance;
+        inven = Inventory.instance;
+
         DrawEquipSlot();
         DrawSkillSlot();
     }
 
     public void DrawEquipSlot()
     {
-        /*Debug.Log(equipment.equipItemList[0].CurItem.ItemName);
         if (equipment.equipItemList[0].CurItem != null)
         {
-            weaponSlot.item = equipment.equipItemList[0];
+            //weaponSlot.item = equipment.equipItemList[0];
+            weaponSlot.item.CurItem = equipment.equipItemList[0].CurItem;
+            weaponSlot.item.Init();
             weaponSlot.UpdateSlotUI();
         }
 
@@ -41,7 +49,7 @@ public class FEquipmentUI : MonoBehaviour
         {
             armorSlot.item = equipment.equipItemList[1];
             armorSlot.UpdateSlotUI();
-        }*/
+        }
 
         foreach(Item it in inven.items)
         {
@@ -63,6 +71,8 @@ public class FEquipmentUI : MonoBehaviour
             for(int i = 0; i < equipment.skillSlotList.Length; i++)
             {
                 if (equipment.skillSlotList[i] == null) break;
+
+                skillSlot[i].skill = new Skill();
 
                 skillSlot[i].skill.CurSkill = equipment.skillSlotList[i];
                 skillSlot[i].skill.Init();

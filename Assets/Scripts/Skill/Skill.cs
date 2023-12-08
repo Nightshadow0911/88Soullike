@@ -22,12 +22,11 @@ public class Skill : MonoBehaviour
     private PlayerStatusHandler characterStats;
     Vector3 dir;
 
-
     private void Start()
     {
+        characterStats = GameManager.instance.player.GetComponent<PlayerStatusHandler>(); //원래 어웨이크
         Init();
         dir = new Vector3(GameManager.instance.lastPlayerController.facingDirection, 0, 0);
-        characterStats = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
 
     }
     private void Update()

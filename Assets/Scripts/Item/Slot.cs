@@ -11,22 +11,33 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public TMP_Text amountTxt;
     public Item item;
     public Image itemIcon;
-    [SerializeField] private string descriptions;
 
     FullScreenUIManager fManager;
+    FItemInformationUI fInformManager;
+    SelectItemUI fSelectUI;
+    
 
+    void Awake()
+    {
+
+    }
     void Start()
     {
+        fManager = FullScreenUIManager.instance;
+        fInformManager = fManager.itemInformationUI.GetComponent<FItemInformationUI>();
+        fSelectUI = fManager.itemSelectUI.GetComponent<SelectItemUI>();
         Init();
     }
 
     void Init()
     {
+        if (item == null) return;
         itemIcon.gameObject.SetActive(true);
         amountTxt.text = "";
-
-        if (item == null) return;
-
+        if(item != null)
+        {
+            amountTxt.text = $"{item.Amount}";
+        }
         itemIcon.sprite = item.Sprite;
         itemIcon.transform.localScale = Vector3.one * 0.9f;
         
@@ -40,7 +51,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
         if (item.CurItem.IsStackable())
         {
-            amountTxt.text = item.Amount.ToString();
+            amountTxt.text = $"{item.Amount}";
         }
         else
         {
@@ -55,29 +66,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         amountTxt.text = "";
         itemIcon.gameObject.SetActive(false);
     }
-    public void OnPointerClick(PointerEventData eventData) // 아이템 선택
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (item == null)
+        if (item.CurItem == null)
         {
             return;
         }
-        else
-        {
-            if (item.CurItem == null) return;
-        }
 
-        fManager.itemSelectUI.gameObject.SetActive(true);
-
-        for (int i = 0; i < item.Description.Count; i++)
-        {
-            descriptions += $"{item.Description[i]}\n";
-
-        }
-        //InventoryUI.instance.usePanel.GetComponent<UsePopup>().SetPopup(item.ItemName, descriptions, slotnum);
-        // 아이템 세팅
-        //fManager.itemSelectUI.
+        fManager.itemSelectUI.SetActive(true);
+        fSelectUI.SetFunc(slotnum);
+        fSelectUI.Init();
         ShowItemInformation();
-        //fManager.itemSelectUI.SetFunc(Action ddd);
     }
 
     public void ApplyUse()
@@ -96,12 +95,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    void ShowItemInformation()
+    public void ShowItemInformation()
     {
-        Item selectedItem = fManager.itemInformationUI.GetComponent<FItemInformationUI>().selectedItem;
-        selectedItem = item;
-        selectedItem.Init();
+
+        fInformManager.selectedItem = item;
+        //fInformManager.selectedItem.Init();
+        fInformManager.Init();
     }
-
-
 }

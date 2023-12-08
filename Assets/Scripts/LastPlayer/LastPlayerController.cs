@@ -76,11 +76,8 @@ public class LastPlayerController : MonoBehaviour
     private float lastPlayTime = 0f;
     [SerializeField] private float playAudioTime;
 
-    void Start()
-    {
-        soundManager = SoundManager.instance;
-    }
-
+    private Vector2 savePosition = Vector2.zero;
+    
     private void Awake()
     {
 
@@ -89,6 +86,14 @@ public class LastPlayerController : MonoBehaviour
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
         test = GetComponent<Test>();
     }
+    
+    void Start()
+    {
+        soundManager = SoundManager.instance;
+        if (savePosition == Vector2.zero)
+            savePosition = transform.position;
+    }
+
     void Update()
     {
         CheckInput();
@@ -237,7 +242,7 @@ public class LastPlayerController : MonoBehaviour
             rb.velocity = new Vector2(movingInput * playerStatusHandler.currentSpeed, rb.velocity.y);
             if (isSitting)
             {
-                rb.velocity = new Vector2(movingInput * playerStatusHandler.currentSpeed/2, rb.velocity.y);
+                rb.velocity = new Vector2(movingInput * playerStatusHandler.currentSpeed / 2, rb.velocity.y);
             }
         }
     }
@@ -266,7 +271,7 @@ public class LastPlayerController : MonoBehaviour
                 {
                     soundManager.PlayClip(test.dashSound);
                     playerStatusHandler.currentStemina -= dashStaminaCost;
-                    Debug.Log("playerStatusHandler.currentStemina:" + playerStatusHandler.currentStemina);
+                    //Debug.Log("playerStatusHandler.currentStemina:" + currentStamina);
                     fadeOut.makeFadeOut = true;
                     isDashing = true;
                     dashStartTime = Time.time;
@@ -300,6 +305,8 @@ public class LastPlayerController : MonoBehaviour
             anim.SetBool("isDeath", true);
             canMove = false;
             rb.velocity = Vector2.zero;
+            GameManager.instance.PlayerDeathCheck();
+            Invoke("PlayerRevive", 3f);
         }
     }
 
@@ -353,7 +360,7 @@ public class LastPlayerController : MonoBehaviour
         {
             float verticalInput = Input.GetAxis("Vertical");
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.currentSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.currentStemina);
             isGrounded = false;
             canWallSlide = false;
         }
@@ -418,5 +425,17 @@ public class LastPlayerController : MonoBehaviour
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + ceilCheckDistance));
+    }
+
+    private void PlayerRevive()
+    {
+        anim.SetBool("isDeath", false);
+        playerStatusHandler.FullCondition();
+        transform.position = savePosition;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        savePosition = transform.position;
     }
 }

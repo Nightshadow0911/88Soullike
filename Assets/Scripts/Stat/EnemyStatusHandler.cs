@@ -37,6 +37,10 @@ public class EnemyStatusHandler :StatHandler
             OnRage?.Invoke();
         if (currentHp <= 0)
             OnDeath?.Invoke();
-        Debug.Log(currentHp);
     }
+
+    public void ResetHealth()
+    {
+        currentHp = enemyCurrentStat.hp;
+    } 
 }
