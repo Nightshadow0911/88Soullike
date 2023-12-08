@@ -30,6 +30,7 @@ public class NPCSentence : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log(FItemInformationUI.instance.selectedItem.ItemName);
             isInteractable = true;
             collision.GetComponent<Inventory>().currentNPC = this;
             TalkNpc();
@@ -42,24 +43,6 @@ public class NPCSentence : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isInteractable = false;
-        }
-    }
-
-    public void InteractWithNPC(string npcName)
-    {
-        switch (npcName)
-        {
-            case "Shop":
-                invenUI.shopPanel.SetActive(true);
-                break;
-            case "Stat":
-                charInfoUI.growPopupBtn.SetActive(true);
-                break;
-            default:
-                invenUI.shopPanel.SetActive(true);
-                break;
-
-
         }
     }
 }
