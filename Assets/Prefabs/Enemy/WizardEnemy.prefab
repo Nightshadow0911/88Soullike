@@ -81,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1272850009, guid: 0dfe72bc431a7d542a3a4445568934ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -224,7 +224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb2d6866ef0ad74bb4b9ea4f7bd8ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
   attackPosition: {fileID: 2776498045523588648}
   uniqueStats: {fileID: 11400000, guid: 37c3f0fca76a6d74baca4bd246a23d71, type: 2}
   tileLayer:

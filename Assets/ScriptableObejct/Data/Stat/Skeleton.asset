@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Skeleton
   m_EditorClassIdentifier: 
   hp: 50
-  damage: 10
+  damage: 5
   defense: 0
   speed: 5
   delay: 1
   attackRange: 3
   propertyDamage: 0
   propertyDefense: 0
-  detectRange: 10
+  detectRange: 15
   target:
     serializedVersion: 2
     m_Bits: 64

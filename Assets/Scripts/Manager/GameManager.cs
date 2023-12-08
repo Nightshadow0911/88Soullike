@@ -15,12 +15,15 @@ public class GameManager : MonoBehaviour
     public LastPlayerController lastPlayerController;
     public PlayerAttack playerAttack;
 
+
     public event Action PlayerDeath;
+
     private void Awake()
     {
         instance = this;
         lastPlayerController = player.GetComponent<LastPlayerController>();
         playerAttack = player.GetComponent<PlayerAttack>();
+
     }
 
     public void PlayerDeathCheck()

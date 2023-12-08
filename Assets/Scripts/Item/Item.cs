@@ -24,7 +24,7 @@ public class Item
 
     public void Init()
     {
-        //if (curItem == null) return;
+        if (curItem == null) return;
 
         type = curItem.Type;
         itemName = curItem.ItemName;

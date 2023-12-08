@@ -61,8 +61,6 @@ public class PlayerUI : MonoBehaviour
     {
         float currentStamina = playerStatusHandler.currentStemina;
         float maxStamina = maxStat.stemina;
-        Debug.Log("cStamina" + currentStamina);
-        Debug.Log("maxStamina" + maxStamina);
         staminaSlider.value = currentStamina / maxStamina;
     }
 

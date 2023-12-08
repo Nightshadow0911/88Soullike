@@ -23,6 +23,7 @@ public class PlayerStatusHandler :StatHandler
     public PlayerStat baseStatSO;
     private PlayerAttack playerAttack;
     private Test test;
+
     [HideInInspector]
     public int currentHp;
     [HideInInspector]
@@ -55,13 +56,17 @@ public class PlayerStatusHandler :StatHandler
     public float currentSoulDrop;
     [HideInInspector]
     public float currentAttackRange;
-    
+    [HideInInspector]
+    public int currentLevel;
+
+
     private void Awake()
     {
         playerCurrentStat = currentStatSO as PlayerStat;
         SetStat();
         playerAttack = GetComponent<PlayerAttack>();
         test = GetComponent<Test>();
+
     }
 
     
@@ -81,18 +86,15 @@ public class PlayerStatusHandler :StatHandler
             return;
         if (playerAttack.isParrying)
         {
-                SoundManager.instance.PlayClip(test.parrySound);
+            SoundManager.instance.PlayClip(test.parrySound);
             return;
         }
-
-
         if (playerAttack.isGuarding)
             damage /= 2;
-
         damage = damage <= currentDefense ? 0 : damage - currentDefense;
         currentRegainHp -= damage / 2;
         currentHp -= damage;
-        Debug.Log(currentHp);
+        OnDamage?.Invoke();
     }
 
     public void TakeTrueDamage(int damage)
@@ -104,7 +106,7 @@ public class PlayerStatusHandler :StatHandler
     
     protected override void SetStat()
     {
-        UpdateStat();
+        //UpdateStat();
         currentHp = playerCurrentStat.hp;
         currentStemina = playerCurrentStat.stemina;
         currentDamage = playerCurrentStat.damage;
@@ -122,14 +124,14 @@ public class PlayerStatusHandler :StatHandler
         currentSoulDrop = playerCurrentStat.soulDropRate;
         currentAttackRange = playerCurrentStat.attackRange;
     }
-
+    
     public void UpdateStat()
     {
-        growStatSO.DetailedStat(growStatSO);
-        playerCurrentStat.PlusStatToMax(baseStatSO, growStatSO);
-        playerCurrentStat.DetailedStat(playerCurrentStat);
+        // growStatSO.DetailedStat(growStatSO);
+        // playerCurrentStat.PlusStatToMax(baseStatSO, growStatSO);
+        // playerCurrentStat.DetailedStat(playerCurrentStat);
     }
-
+    
     public bool GrowUpStat(int num, Status status) // 레벨업 메서드
     {
         if (growStatSO == null)
@@ -155,6 +157,7 @@ public class PlayerStatusHandler :StatHandler
                 growStatSO.luxStat += num;
                 break;
         }
+        UpdateStat();
         return true;
     }
     

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: spellAttack
   m_EditorClassIdentifier: 
   tag: spellAttack
-  damage: 10
+  damage: 30
   duration: 0.2
   target:
     serializedVersion: 2

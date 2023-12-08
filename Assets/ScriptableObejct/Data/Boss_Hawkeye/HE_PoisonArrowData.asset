@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HE_PoisonArrowData
   m_EditorClassIdentifier: 
   tag: PoisonArrow
-  damage: 30
+  damage: 5
   speed: 30
   duration: 2
   spread: 0

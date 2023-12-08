@@ -62,12 +62,6 @@ public class EnemyArcherControl : EnemyCharacter
         }
     }
 
-    protected override void DetectPlayer()
-    {
-        targetTransform = GameManager.instance.player.transform;
-        detected = true;
-    }
-
     private IEnumerator Run()
     {
         RunningPattern();
@@ -120,7 +114,7 @@ public class EnemyArcherControl : EnemyCharacter
 
     protected override void Death()
     {
-        anim.StringTrigger("death");
-        gameObject.SetActive(false);
+        base.Death();
+        Destroy(gameObject);
     }
 }

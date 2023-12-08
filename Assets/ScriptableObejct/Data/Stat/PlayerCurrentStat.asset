@@ -13,28 +13,28 @@ MonoBehaviour:
   m_Name: PlayerCurrentStat
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStat
   hp: 100
-  damage: 30
-  defense: 20
+  damage: 10
+  defense: 0
   speed: 8
   delay: 1
   attackRange: 1.5
-  propertyDamage: 5
+  propertyDamage: 1
   propertyDefense: 0
   level: 1
   levelPoint: 0
-  healthStat: 10
-  steminaStat: 20
-  strStat: 5
-  dexStat: 5
-  intStat: 5
-  luxStat: 5
+  healthStat: 0
+  steminaStat: 0
+  strStat: 0
+  dexStat: 0
+  intStat: 0
+  luxStat: 0
   weight: 60
-  spellPower: 5
+  spellPower: 1
   regainHp: 0
   stemina: 100
-  invincibleTime: 0.049999997
-  parryTime: 0.049999997
+  invincibleTime: 0.01
+  parryTime: 0.01
   extraMoveSpeed: 5
-  soulDropRate: 50
-  criticalChance: 0.5
+  soulDropRate: 10
+  criticalChance: 0.1
   mana: 4

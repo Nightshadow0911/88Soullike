@@ -7,6 +7,7 @@ using UnityEngine;
 public class FlyingEye : EnemyCharacter
 {
     [SerializeField] private Vector2 meleeAttackRange;
+    [SerializeField] private Vector2 detectBox;
     [SerializeField] private float rollingAttackTime;
     [SerializeField] private GameObject effect;
     [SerializeField] private LayerMask ignoreLayer;
@@ -40,8 +41,8 @@ public class FlyingEye : EnemyCharacter
 
     protected override void DetectPlayer()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, characterStat.detectRange,
-            Vector2.right, 0, characterStat.target);
+        RaycastHit2D hit = Physics2D.BoxCast(transform.position, detectBox, 0,
+            Vector2.down, 3, characterStat.target);
         if (hit.collider != null)
         {
             targetTransform = GameManager.instance.player.transform;
@@ -126,5 +127,10 @@ public class FlyingEye : EnemyCharacter
         rigid.velocity = Vector2.zero;
         closed = false;
         state = State.SUCCESS;
+    }
+
+    public void DestroyThis()
+    {
+        Destroy(gameObject);
     }
 }

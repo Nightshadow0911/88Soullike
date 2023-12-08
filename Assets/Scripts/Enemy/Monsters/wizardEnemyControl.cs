@@ -63,12 +63,6 @@ public class EnemyWizardControl : EnemyCharacter
         }
     }
 
-    protected override void DetectPlayer()
-    {
-        targetTransform = GameManager.instance.player.transform;
-        detected = true;
-    }
-
     private IEnumerator Run()
     {
         RunningPattern();
@@ -127,9 +121,8 @@ public class EnemyWizardControl : EnemyCharacter
         return false;
     }
 
-    protected override void Death()
+    public void DestroyThis()
     {
-        anim.StringTrigger("death");
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
