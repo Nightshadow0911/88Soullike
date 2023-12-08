@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,12 @@ public class OpenMapDoor : BaseGimmick
     public List<Rigidbody2D> DoorRigidBody;
     public SpriteRenderer Img_Render;
     public Sprite Sprite01;
+
+    [SerializeField] private CinemachineVirtualCamera cameraOne;
+    [SerializeField] private CinemachineVirtualCamera cameraTwo;
+    [SerializeField] private float waitTime;
+
+    private bool isWork = false;
  
     
     protected override void Start()
@@ -27,14 +34,9 @@ public class OpenMapDoor : BaseGimmick
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !isWork)
         {
-            Img_Render.sprite = Sprite01;
-            bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
-            if (isCollision)
-            {
-                currentCoroutine = StartCoroutine(OpenTheDoorCoroutine());
-            }
+            OpenDoor();
         }
     }
 
@@ -70,4 +72,16 @@ public class OpenMapDoor : BaseGimmick
         mapGimmickAction.ToggleObjectSetActive(moveableObject, false);
     }
 
+    private void OpenDoor()
+    {
+        CameraManager.instance.CutSenceCamera(cameraOne, cameraTwo, waitTime);
+        Img_Render.sprite = Sprite01;
+        bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
+        if (isCollision)
+        {
+            currentCoroutine = StartCoroutine(OpenTheDoorCoroutine());
+        }
+
+        isWork = true;
+    }
 }
