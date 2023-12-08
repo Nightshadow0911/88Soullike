@@ -27,6 +27,8 @@ public class CameraManager : MonoBehaviour
     private Coroutine panCameraCoroutine;
     private Vector2 startingTrackedObjectOffset;
 
+    private Coroutine cutSenceCoroutine;
+
     private void Awake()
     {
         instance = this;
@@ -145,5 +147,24 @@ public class CameraManager : MonoBehaviour
             currentCamera = cameraFromLeft;
             framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
         }
+    }
+    
+    public void CutSenceCamera(CinemachineVirtualCamera cameraFromLeft, CinemachineVirtualCamera cameraFromRight, float waitTime)
+    {
+        cutSenceCoroutine = StartCoroutine(CutSenceAction(cameraFromLeft, cameraFromRight, waitTime));
+    }
+
+    private IEnumerator CutSenceAction(CinemachineVirtualCamera cameraFromLeft, CinemachineVirtualCamera cameraFromRight, float waitTime)
+    {
+        cameraFromRight.enabled = true;
+        cameraFromLeft.enabled = false;
+        currentCamera = cameraFromRight;
+        framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        yield return YieldCache.WaitForSeconds(waitTime);
+        
+        cameraFromLeft.enabled = true;
+        cameraFromRight.enabled = false;
+        currentCamera = cameraFromLeft;
+        framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 }
