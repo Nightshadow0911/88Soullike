@@ -34,12 +34,12 @@ public class FInventoryUI : MonoBehaviour
         inven = Inventory.instance;
         inven.onSlotCountChange += SlotChange;
         inven.onChangeItem += RedrawSlotUI;
-        AddSlot(28);
         slots = slotHolder.GetComponentsInChildren<Slot>();
+        AddSlot(28);
     }
     private void SlotChange(int val)
     {
-        if (inven.items.Count <= 0) return;
+        //if (inven.items.Count <= 0) return;
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].slotnum = i;
@@ -65,10 +65,10 @@ public class FInventoryUI : MonoBehaviour
     public void AddSlot(int addCount)
     {
         inven.SlotCount += addCount;
-        for(int i = 0; i < addCount; i++)
+/*        for(int i = 0; i < addCount; i++)
         {
             Instantiate(slotPrefab, slotHolder);
-        }
+        }*/
 
     }
 

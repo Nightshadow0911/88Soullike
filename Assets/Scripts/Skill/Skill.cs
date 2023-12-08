@@ -24,7 +24,7 @@ public class Skill : MonoBehaviour
 
     private void Start()
     {
-        characterStats = GameManager.instance.player.GetComponent<PlayerStatusHandler>(); //원래 어웨이크
+        //characterStats = GameManager.instance.player.GetComponent<PlayerStatusHandler>(); //원래 어웨이크
         Init();
         dir = new Vector3(GameManager.instance.lastPlayerController.facingDirection, 0, 0);
 
@@ -48,13 +48,14 @@ public class Skill : MonoBehaviour
         descriptiion = curSkill.Description;
         skillProperty = curSkill.SkillProperty;
         price = curSkill.Price;
+
+        characterStats = GameManager.instance.player.GetComponent<PlayerStatusHandler>(); //원래 Start인데 초기화가 안되는 현상이 있어 옮겨봄
     }
 
     public bool Use()
     {
-        // if (playerStat.mana <= 0) return false;
+         if (characterStats.currentMana <= 0) return false;
 
-        if (!CostDecrease()) return false;
 
         bool isUsed = false;
 
@@ -75,6 +76,8 @@ public class Skill : MonoBehaviour
 
     bool CostDecrease()
     {
+       
+        Debug.Log(cost);
         if (characterStats.currentMana >= cost)
         {
             characterStats.currentMana -= cost;
