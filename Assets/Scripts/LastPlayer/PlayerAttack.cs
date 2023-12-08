@@ -9,7 +9,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator anim;
     public LastPlayerController player;
     private SoundManager soundManager;
-    private float comboResetTime = 1.5f;
+    private float comboResetTime = 2f;
     private float lastClickTime;
     [SerializeField] public int attackStaminaCost = 5; // 민열님과 얘기
     double nextAttackTime = 0f;
@@ -49,6 +49,7 @@ public class PlayerAttack : MonoBehaviour
     {
         CheckDeffense();
         CheckAttackTime();
+        ResetClickCount();
     }
 
 
@@ -66,13 +67,13 @@ public class PlayerAttack : MonoBehaviour
             transform.Find("Parrying").gameObject.SetActive(true);
             parryWindowEndTime = Time.time + 0.5f;// playerStatusHandler.currentParryTime;
 
-            Debug.Log("Parry Start"+ playerStatusHandler.currentParryTime);
+            //Debug.Log("Parry Start"+ playerStatusHandler.currentParryTime);
         }
         else if (Input.GetMouseButtonUp(1) && isParrying)
         {
             isParrying = false;
             transform.Find("Parrying").gameObject.SetActive(false);
-            Debug.Log("Parry Success");
+            //Debug.Log("Parry Success");
         }
 
         // 가드가 활성화되지 않은 상태에서 가드 가능한지 체크
@@ -80,14 +81,14 @@ public class PlayerAttack : MonoBehaviour
         {
             canAttack = false;
             isGuarding = true;
-            Debug.Log("Guard Start");
+            //Debug.Log("Guard Start");
             transform.Find("Shield").gameObject.SetActive(true);
         }
         else if (Input.GetMouseButtonUp(1) && isGuarding)
         {
             canAttack = true;
             isGuarding = false;
-            Debug.Log("Guard End");
+            //Debug.Log("Guard End");
             transform.Find("Shield").gameObject.SetActive(false);
         }
 
@@ -103,7 +104,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void ManaPlus()
     {
-        Debug.Log("comboCount:" + comboCount);
+        //Debug.Log("comboCount:" + comboCount);
         if (comboCount %3 ==0)
         {
             if (max.mana < playerStatusHandler.currentMana)//(현재마나  < 맥스마나 )
@@ -117,8 +118,16 @@ public class PlayerAttack : MonoBehaviour
     {
         comboAttackClickCount += 1;
         lastClickTime = Time.time;
+        //Debug.Log(comboAttackClickCount);
     }
-
+    private void ResetClickCount()
+    {
+        // 클릭 카운터 초기화
+        if (Time.time - lastClickTime > comboResetTime)
+        {
+            comboAttackClickCount = 0;
+        }
+    }
     private void CheckAttackTime()
     {
 
@@ -182,6 +191,7 @@ public class PlayerAttack : MonoBehaviour
         if (hitEnemies.Length != 0)
         {
             ClickCount();
+            Debug.Log(comboAttackClickCount);
             int damage = DamageCalculator();
             foreach (Collider2D enemyCollider in hitEnemies)
             {
