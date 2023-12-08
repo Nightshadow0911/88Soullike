@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14589f9a940f864a9375cc533e3f9f8, type: 3}
   m_Name: DarkSpiritStat
   m_EditorClassIdentifier: 
-  hp: 100
-  damage: 15
-  defense: 5
+  hp: 50
+  damage: 5
+  defense: 0
   speed: 4
   delay: 1
   attackRange: 2.5

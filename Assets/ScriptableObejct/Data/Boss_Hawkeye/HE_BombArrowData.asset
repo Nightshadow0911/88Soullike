@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HE_BombArrowData
   m_EditorClassIdentifier: 
   tag: BombArrow
-  damage: 30
+  damage: 5
   speed: 30
   duration: 2
   spread: 0
