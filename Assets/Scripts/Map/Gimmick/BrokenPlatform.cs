@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class BrokenPlatform : BaseGimmick
