@@ -85,8 +85,8 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         RunningPattern();
         // soundManager.PlayClip(uniqueStats.runSound);
         anim.HashBool(anim.run, true);
-        float distance = float.MaxValue;
-        while (Mathf.Abs(distance) > characterStat.closeRange && Mathf.Abs(distance) < characterStat.mediumRange)
+        float distance = characterStat.mediumRange;
+        while (Mathf.Abs(distance) > characterStat.closeRange && Mathf.Abs(distance) <= characterStat.mediumRange)
         {
             distance = targetTransform.position.x - transform.position.x;
             rigid.velocity = GetDirection() * characterStat.speed;
