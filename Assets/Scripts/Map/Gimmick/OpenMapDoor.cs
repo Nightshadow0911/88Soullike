@@ -21,7 +21,7 @@ public class OpenMapDoor : BaseGimmick
     
     protected override void Start()
     {
-
+        
         DoorCollider = new List<Collider2D>();
         foreach (var moveDoor in MovedDoors)
         {
