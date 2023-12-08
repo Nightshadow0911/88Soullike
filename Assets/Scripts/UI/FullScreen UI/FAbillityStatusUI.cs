@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class FAbillityStatusUI : FStatus
 {
+
     [Header("방어능력")]
     [SerializeField] private TMP_Text deffenseValue;
     [SerializeField] private TMP_Text propertyDeffenseValue;
@@ -12,11 +13,6 @@ public class FAbillityStatusUI : FStatus
 
     [Header("특수능력")]
     [SerializeField] private TMP_Text soulDropValue;
-
-    private void Start()
-    {
-        Init();
-    }
 
     private void Init()
     {
