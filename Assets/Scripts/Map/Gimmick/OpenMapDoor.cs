@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
 
 public class OpenMapDoor : BaseGimmick
@@ -11,12 +10,7 @@ public class OpenMapDoor : BaseGimmick
     public List<Rigidbody2D> DoorRigidBody;
     public SpriteRenderer Img_Render;
     public Sprite Sprite01;
-
-    public CinemachineVirtualCamera camera001;
-    public CinemachineVirtualCamera camera002;
-    [SerializeField]
-    public float Waittime;
-    
+ 
     
     protected override void Start()
     {
@@ -35,7 +29,6 @@ public class OpenMapDoor : BaseGimmick
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            CameraManager.instance.CutSenceCamera(camera001, camera002, Waittime);
             Img_Render.sprite = Sprite01;
             bool isCollision = mapGimmickInteraction.CollisionChecktoTagBased("Player", transform.position);
             if (isCollision)
