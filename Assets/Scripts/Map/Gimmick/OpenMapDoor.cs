@@ -21,7 +21,7 @@ public class OpenMapDoor : BaseGimmick
     
     protected override void Start()
     {
-
+        
         DoorCollider = new List<Collider2D>();
         foreach (var moveDoor in MovedDoors)
         {
@@ -34,7 +34,7 @@ public class OpenMapDoor : BaseGimmick
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !isWork)
+        if (Input.GetKeyDown(KeyCode.F) && !isWork)
         {
             OpenDoor();
         }
