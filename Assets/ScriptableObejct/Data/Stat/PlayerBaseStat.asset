@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18910ed4730bca48a5e1ed9333f06e4, type: 3}
   m_Name: PlayerBaseStat
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStat
-  hp: 0
-  damage: 0
+  hp: 100
+  damage: 1
   defense: 0
-  speed: 0
-  delay: 0
-  attackRange: 0
+  speed: 8
+  delay: 1.5
+  attackRange: 1
   propertyDamage: 0
   propertyDefense: 0
   level: 0
@@ -28,13 +28,13 @@ MonoBehaviour:
   dexStat: 0
   intStat: 0
   luxStat: 0
-  weight: 0
+  weight: 50
   spellPower: 0
   regainHp: 0
-  stemina: 0
+  stemina: 100
   invincibleTime: 0
-  parryTime: 1
-  extraMoveSpeed: 0
-  soulDropRate: 0
-  criticalChance: 0
-  mana: 0
+  parryTime: 0.5
+  extraMoveSpeed: 5
+  soulDropRate: 3
+  criticalChance: 25
+  mana: 4
