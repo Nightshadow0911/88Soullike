@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class EnemyStatusHandler :StatHandler
@@ -28,6 +29,7 @@ public class EnemyStatusHandler :StatHandler
 
     public override void TakeDamage(int damage)
     {
+        Debug.Log("Damaged" + currentHp);
         if (enemyCurrentStat == null || currentHp <= 0)
             return;
         damage = damage <= enemyCurrentStat.defense ? 0 : damage - enemyCurrentStat.defense;
