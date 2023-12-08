@@ -255,6 +255,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 5094375063330245699}
+<<<<<<< Updated upstream
+=======
+--- !u!114 &7780018638247020690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841641793866658279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58b9a94bcd78d74c98e2e158c3d873b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSprite: {fileID: 4098110391875240276}
+  flashMaterial: {fileID: 2100000, guid: d3caa2290fa00d74cab618bbaef04cd7, type: 2}
+  originalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+>>>>>>> Stashed changes
 --- !u!1 &6154355871352643499
 GameObject:
   m_ObjectHideFlags: 0
