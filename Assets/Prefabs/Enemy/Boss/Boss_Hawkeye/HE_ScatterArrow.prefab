@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1659413568, guid: 5444aa16b5aa86a43ae83c7b1e367ec0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1536
   soundData: {fileID: 8300000, guid: bc6ddc6072139c948b9e7c5b259c8936, type: 3}
+  playStartSound: 0
   smallArrowData: {fileID: 11400000, guid: 8a5a7ef65f59c7f4cb08650b90e12ed2, type: 2}
   rayBoxSize: {x: 0.5, y: 0.5}
 --- !u!114 &3927850398406077550

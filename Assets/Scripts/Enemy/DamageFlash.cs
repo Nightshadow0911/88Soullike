@@ -14,7 +14,11 @@ public class DamageFlash : MonoBehaviour
 
     private void Awake()
     {
-        GetComponent<EnemyStatusHandler>().OnDamage += Flash;
+        if (gameObject.CompareTag("Player"))
+            GetComponent<PlayerStatusHandler>().OnDamage += Flash;
+        else
+            GetComponent<EnemyStatusHandler>().OnDamage += Flash;
+
     }
 
     private void Update()

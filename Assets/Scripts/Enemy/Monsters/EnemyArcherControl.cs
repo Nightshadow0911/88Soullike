@@ -114,7 +114,7 @@ public class EnemyArcherControl : EnemyCharacter
 
     protected override void Death()
     {
-        anim.StringTrigger("death");
-        gameObject.SetActive(false);
+        base.Death();
+        Destroy(gameObject);
     }
 }

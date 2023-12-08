@@ -26,7 +26,7 @@ public class Boss_Hawkeye : EnemyCharacter
         base.Awake();
         rangedAttack = GetComponent<RangedAttack>();
         positionAttack = GetComponent<PositionAttack>();
-        statusHandler.OnRage += Rage;
+        statusHandler.OnRage += OnRage;
         bomb.SetActive(false);
         scatter.SetActive(false);
         poison.SetActive(false);
@@ -52,6 +52,7 @@ public class Boss_Hawkeye : EnemyCharacter
     protected override void Start()
     {
         base.Start();
+        GameManager.instance.PlayerDeath += OffRage;
         foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
@@ -81,9 +82,14 @@ public class Boss_Hawkeye : EnemyCharacter
         detected = true;
     }
 
-    private void Rage()
+    private void OnRage()
     {
         isRage = true;
+    }
+    
+    private void OffRage()
+    {
+        isRage = false;
     }
 
     private void MeleeAttack()

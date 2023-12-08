@@ -16,8 +16,9 @@ public class Boss_NightBorn : EnemyCharacter
     protected override void Awake()
     {
         base.Awake();
+        GameManager.instance.PlayerDeath += ResetDarkSpirit;
         positionAttack = GetComponent<PositionAttack>();
-        statusHandler.OnRage += Rage;
+        statusHandler.OnRage += OnRage;
         backLight.SetActive(false);
         
         
@@ -39,6 +40,7 @@ public class Boss_NightBorn : EnemyCharacter
     protected override void Start()
     {
         base.Start();
+        GameManager.instance.PlayerDeath += OffRage;
         foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
@@ -66,9 +68,14 @@ public class Boss_NightBorn : EnemyCharacter
         detected = true;
     }
 
-    private void Rage()
+    private void OnRage()
     {
         isRage = true;
+    }
+
+    private void OffRage()
+    {
+        isRage = false;
     }
 
     private void MeleeAttack()
@@ -214,18 +221,22 @@ public class Boss_NightBorn : EnemyCharacter
         return false;
     }
 
-    protected override void Death()
+    private void ResetDarkSpirit()
     {
-        base.Death();
         for (int i = 0; i < spiritList.Count; i++)
         {
             Destroy(spiritList[i]);
         }
         spiritList.Clear();
         int layer = gameObject.layer;
-        Physics2D.IgnoreLayerCollision(layer,layer, false);
+        Physics2D.IgnoreLayerCollision(layer, layer, false);
     }
 
+    protected override void Death()
+    {
+        base.Death();
+        ResetDarkSpirit();
+    }
     public void DestroyThis()
     {
         Destroy(gameObject);

@@ -89,7 +89,7 @@ public class PlayerStatusHandler :StatHandler
         damage = damage <= currentDefense ? 0 : damage - currentDefense;
         currentRegainHp -= damage / 2;
         currentHp -= damage;
-        Debug.Log(currentHp);
+        OnDamage?.Invoke();
     }
 
     public void TakeTrueDamage(int damage)
