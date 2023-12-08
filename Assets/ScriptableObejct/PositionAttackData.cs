@@ -21,4 +21,5 @@ public class PositionAttackData : ScriptableObject
 
     [Header("Area of Effect")] 
     public bool AoE;
+    public float damageInterval;
 }

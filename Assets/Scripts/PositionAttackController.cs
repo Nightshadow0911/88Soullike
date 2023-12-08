@@ -10,7 +10,8 @@ public class PositionAttackController : MonoBehaviour
     [SerializeField] private float delaySound;
     protected PositionAttackData attackData;
     private float currentDuration;
-    
+    private float currentInterval = float.MaxValue;
+    private bool contactPlayer;
     private bool soundReady;
     private bool isReady;
 
@@ -26,6 +27,9 @@ public class PositionAttackController : MonoBehaviour
             return;
         
         currentDuration += Time.deltaTime;
+
+        if (contactPlayer)
+            currentInterval += Time.deltaTime;
 
         if (soundReady && delaySound != 0 && delaySound < currentDuration)
         {
@@ -49,9 +53,12 @@ public class PositionAttackController : MonoBehaviour
 
     protected virtual void OnTriggerStay2D(Collider2D collision)
     {
-        if (attackData.AoE && attackData.target.value == (attackData.target.value | (1 << collision.gameObject.layer)))
+        contactPlayer = true;
+        if (attackData.AoE && attackData.target.value == (attackData.target.value | (1 << collision.gameObject.layer)) 
+            && currentInterval > attackData.damageInterval)
         {
             // 데미지 주기
+            currentInterval = 0f;
             collision.GetComponent<PlayerStatusHandler>().TakeDamage(attackData.damage);
         }
     }
