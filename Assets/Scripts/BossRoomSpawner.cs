@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class BossRoomSpawner : BaseGimmick
 {
     public GameObject boss;
-    private int dBSpawnCount;
+    private int dBSpawnCount = 0;
     public GameObject door1;
     public Collider2D door1Collider;
     private SpriteRenderer door1sprite;
@@ -38,7 +38,7 @@ public class BossRoomSpawner : BaseGimmick
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) //플레이어가 입장하면 보스 활성화
+        if (collision.gameObject.CompareTag("Player") && dBSpawnCount == 0) //플레이어가 입장하면 보스 활성화
         {
             boss.SetActive(true);
             bossUI.SetActive(true);
@@ -59,5 +59,6 @@ public class BossRoomSpawner : BaseGimmick
         bossUI.SetActive(false);
         mapGimmickAction.ToggleSpriteAndCollider(door1sprite, door1Collider , false);
         mapGimmickAction.ToggleSpriteAndCollider(door2sprite, door2Collider , false);
+        dBSpawnCount = 0;
     }
 }
