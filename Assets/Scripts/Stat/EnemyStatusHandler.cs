@@ -28,7 +28,7 @@ public class EnemyStatusHandler :StatHandler
 
     public override void TakeDamage(int damage)
     {
-        Debug.Log("Damaged" + currentHp);
+        //Debug.Log("Damaged" + currentHp);
         if (enemyCurrentStat == null || currentHp <= 0)
             return;
         damage = damage <= enemyCurrentStat.defense ? 0 : damage - enemyCurrentStat.defense;

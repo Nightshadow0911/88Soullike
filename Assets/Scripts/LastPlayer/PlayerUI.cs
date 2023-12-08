@@ -11,6 +11,7 @@ public class PlayerUI : MonoBehaviour
     private PlayerStatusHandler playerStatusHandler;
     private PlayerStat PlayerStat;
     private PlayerStat maxStat;
+    private Inventory inven;
     public Text healthText;
     public Slider healthSlider;
     public Slider staminaSlider;
@@ -23,12 +24,12 @@ public class PlayerUI : MonoBehaviour
     void Start()
     {
         playerStatusHandler = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
+        inven = Inventory.instance;
         healthSlider.value = 1;
         staminaSlider.value = 1;
         regainSlider.value = 1;
         manaSlider.value = 1;
         maxStat = playerStatusHandler.GetStat();
-        soul = Inventory.instance.SoulCount;
     }
  
     void Update()
@@ -44,7 +45,8 @@ public class PlayerUI : MonoBehaviour
 
     private void SoulText()
     {
-        soulText.text = "SOUL : " + soul;
+        soulText.text = $"SOUL : {inven.SoulCount:N0}";
+
     }
     private void UpdateHpUI()
     {
