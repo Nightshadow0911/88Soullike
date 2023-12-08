@@ -791,11 +791,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: ce14a0ce-e217-4f76-ba79-00b8ac83f044
+  cloudProjectId: f0e6b80b-a2ac-4f9f-896b-6ec8b31ba493
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 88Soullike
-  organizationId: whqudgh0911
+  projectName: 88SoulLight
+  organizationId: naplan
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
