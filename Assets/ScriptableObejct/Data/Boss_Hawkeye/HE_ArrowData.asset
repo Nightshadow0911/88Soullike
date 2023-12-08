@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HE_ArrowData
   m_EditorClassIdentifier: 
   tag: HE_Arrow
-  damage: 30
+  damage: 5
   speed: 20
   duration: 2
   spread: 0

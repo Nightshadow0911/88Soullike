@@ -101,7 +101,7 @@ public class PlayerStatusHandler :StatHandler
     
     protected override void SetStat()
     {
-        UpdateStat();
+        //UpdateStat();
         currentHp = playerCurrentStat.hp;
         currentStemina = playerCurrentStat.stemina;
         currentDamage = playerCurrentStat.damage;
@@ -119,14 +119,14 @@ public class PlayerStatusHandler :StatHandler
         currentSoulDrop = playerCurrentStat.soulDropRate;
         currentAttackRange = playerCurrentStat.attackRange;
     }
-
+    
     public void UpdateStat()
     {
-        growStatSO.DetailedStat(growStatSO);
-        playerCurrentStat.PlusStatToMax(baseStatSO, growStatSO);
-        playerCurrentStat.DetailedStat(playerCurrentStat);
+        // growStatSO.DetailedStat(growStatSO);
+        // playerCurrentStat.PlusStatToMax(baseStatSO, growStatSO);
+        // playerCurrentStat.DetailedStat(playerCurrentStat);
     }
-
+    
     public bool GrowUpStat(int num, Status status) // 레벨업 메서드
     {
         if (growStatSO == null)
