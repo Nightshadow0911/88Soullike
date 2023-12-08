@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skeleton
   m_EditorClassIdentifier: 
   hp: 50
-  damage: 10
+  damage: 5
   defense: 0
   speed: 5
   delay: 1
