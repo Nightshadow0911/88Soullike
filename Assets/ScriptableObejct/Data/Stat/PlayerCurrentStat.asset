@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStat
   hp: 100
   damage: 10
-  defense: 0
+  defense: 140
   speed: 8
-  delay: 1
+  delay: 18
   attackRange: 1.5
-  propertyDamage: 1
+  propertyDamage: 38
   propertyDefense: 0
   level: 1
   levelPoint: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
   dexStat: 0
   intStat: 0
   luxStat: 0
-  weight: 60
+  weight: 100
   spellPower: 1
   regainHp: 0
   stemina: 100

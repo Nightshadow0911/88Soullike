@@ -146,7 +146,7 @@ public class FullScreenUIManager : MonoBehaviour
     {
         allFullScreenUIList = new List<FullScreenUI>() // 리스트 초기화
         {
-            mainStatusUI, basicStatusUI, playerImageUI, abillityStatusUI, inventoryUI, itemInformationUI, equipmentUI, shopUI, levelUpUI
+            mainStatusUI, basicStatusUI, playerImageUI, abillityStatusUI, inventoryUI, itemInformationUI, equipmentUI, shopUI, levelUpUI, travelUI, mapUI
         };
         statusList = new List<FullScreenUI>() { abillityStatusUI,playerImageUI, basicStatusUI, mainStatusUI };
         inventoryList = new List<FullScreenUI>() { abillityStatusUI,basicStatusUI, mainStatusUI, itemInformationUI, inventoryUI };
@@ -192,10 +192,12 @@ public class FullScreenUIManager : MonoBehaviour
         {
             fullScreenBase.gameObject.SetActive(true);
             weightTxt.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}" +
-            $"({(playerStatusHandler.currentWeight / playerMaxStat.weight * 100):F0})%";
+            $"({((playerStatusHandler.currentWeight * 100f) / playerMaxStat.weight):F0}%)";
             soulCount.text = $"{inven.SoulCount:N0}";
-/*                weightValue.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}" +
-            $"({(playerStatusHandler.currentWeight / playerMaxStat.weight * 100):F0}%)";*/
+
+            
+            /*                weightValue.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}" +
+                        $"({(playerStatusHandler.currentWeight / playerMaxStat.weight * 100):F0}%)";*/
         }
         else
         {
@@ -305,6 +307,9 @@ public class FullScreenUIManager : MonoBehaviour
                 if(inven.currentNPC.npcName == "Stat")
                     SetBaseInform("레벨업", menuIconList[4]);
                 break;
+            case KeyCode.M:
+                SetBaseInform("지도", menuIconList[5]);
+                break;
             default:
                 break;
         }
@@ -320,29 +325,42 @@ public class FullScreenUIManager : MonoBehaviour
     {
         uiSwitch.ClearSwitch();
         int length = fScreens.Count-1;
-        for(int i = fScreens.Count-1; i >= 0; i--)
+
+        if(fScreens.Count < 3)
         {
-            if(i == length)
+            fScreens[1].GetComponent<RectTransform>().SetPositionAndRotation(leftPanelPosition + new Vector2(300, 0), Quaternion.identity);
+            fScreens[0].GetComponent<RectTransform>().SetPositionAndRotation(rightPanelPosition, Quaternion.identity);
+        } else
+        {
+            for (int i = fScreens.Count - 1; i >= 0; i--)
             {
-                fScreens[length].GetComponent<RectTransform>().SetPositionAndRotation(leftPanelPosition, Quaternion.identity);
-            } else if(i == length-1) {
-                fScreens[length - 1].GetComponent<RectTransform>().SetPositionAndRotation(centerPanelPosition, Quaternion.identity);
-            } else
-            {
-                fScreens[i].GetComponent<RectTransform>().SetPositionAndRotation(rightPanelPosition, Quaternion.identity);
-            }
+                if (i == length)
+                {
+                    fScreens[length].GetComponent<RectTransform>().SetPositionAndRotation(leftPanelPosition, Quaternion.identity);
+                }
+                else if (i == length - 1)
+                {
+                    fScreens[length - 1].GetComponent<RectTransform>().SetPositionAndRotation(centerPanelPosition, Quaternion.identity);
+                }
+                else
+                {
+                    fScreens[i].GetComponent<RectTransform>().SetPositionAndRotation(rightPanelPosition, Quaternion.identity);
+                }
 
 
-            if (fScreens.Count >= 4)
-            {
-                uiSwitch.AddSwitch(fScreens.Count - 2);
-                //패널 생성
+                if (fScreens.Count >= 4)
+                {
+                    uiSwitch.AddSwitch(fScreens.Count - 2);
+                    //패널 생성
+                }
+                //마지막이 left
+                //마지막-1이 센터
+                // 나머지가 라이트
+
             }
-            //마지막이 left
-            //마지막-1이 센터
-            // 나머지가 라이트
-            
         }
+
+
         // 위치를 정해주고
         // switch를 3번째 위치 패널 개수마다 생성해주고(2개 이상일때) or 모든 개수를 셋을때 4이상일때부터 생성
         // switch의 색깔을 정해주는건 Switch 스크립트에서 하자 FF4242
