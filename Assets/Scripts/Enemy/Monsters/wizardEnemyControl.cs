@@ -121,9 +121,8 @@ public class EnemyWizardControl : EnemyCharacter
         return false;
     }
 
-    protected override void Death()
+    public void DestroyThis()
     {
-        anim.StringTrigger("death");
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
