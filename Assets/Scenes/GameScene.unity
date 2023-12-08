@@ -1257,19 +1257,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5081810482714444610, guid: 236e0745a86cd7e4cb6cdb1c0931a5eb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.2
+      value: 113.4
       objectReference: {fileID: 0}
     - target: {fileID: 5081810482714444610, guid: 236e0745a86cd7e4cb6cdb1c0931a5eb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.2
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: 6567680563358980314, guid: 236e0745a86cd7e4cb6cdb1c0931a5eb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.2
+      value: 113.4
       objectReference: {fileID: 0}
     - target: {fileID: 6567680563358980314, guid: 236e0745a86cd7e4cb6cdb1c0931a5eb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.2
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: 7797628856844943222, guid: 236e0745a86cd7e4cb6cdb1c0931a5eb, type: 3}
       propertyPath: m_Name
@@ -57746,7 +57746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8511846264109224393, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
       propertyPath: m_EdgeRadius
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8607456933194346251, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
       propertyPath: m_SortingOrder
@@ -59892,11 +59892,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 41.2
+      value: 112.4
       objectReference: {fileID: 0}
     - target: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.2
+      value: -2.7
       objectReference: {fileID: 0}
     - target: {fileID: 6667032804102120429, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
       propertyPath: m_LocalPosition.z
@@ -59930,6 +59930,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7183166718667996228, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
+      propertyPath: fadeOut
+      value: 
+      objectReference: {fileID: 2057497111}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -79219,6 +79223,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.6125793, y: 4.9751587}
   m_EdgeRadius: 0
+--- !u!1 &2057497111 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7029570754534539861, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
+  m_PrefabInstance: {fileID: 2011378353}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2085407539
 GameObject:
   m_ObjectHideFlags: 0
