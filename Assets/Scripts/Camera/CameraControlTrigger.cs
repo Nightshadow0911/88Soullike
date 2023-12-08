@@ -15,14 +15,18 @@ public class CameraControlTrigger : MonoBehaviour
 
     private void Awake()
     {
-        _cameraManager = CameraManager.instance;
         coll = GetComponent<Collider2D>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Start()
     {
-        if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
+        _cameraManager = CameraManager.instance;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (playerLayer == (playerLayer | (1 << collision.gameObject.layer)))
         {
             if (customInspectorObjects.panCameraOnContact)
             {
@@ -32,12 +36,12 @@ public class CameraControlTrigger : MonoBehaviour
         }
     }
     
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
        
-        if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
+        if (playerLayer == (playerLayer | (1 << collision.gameObject.layer)))
         {
-            Vector2 exitDirection = (other.transform.position - coll.bounds.center).normalized;
+            Vector2 exitDirection = (collision.transform.position - coll.bounds.center).normalized;
             
             if (customInspectorObjects.swapCameras && customInspectorObjects.cameraOnLeft != null &&
                 customInspectorObjects.cameraOnRight != null)
