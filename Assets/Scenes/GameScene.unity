@@ -406,10 +406,6 @@ PrefabInstance:
       propertyPath: petSkill
       value: 
       objectReference: {fileID: 785809280}
-    - target: {fileID: 2080311139203343036, guid: 0382b1059f7fe8a419bb5a3d011bf8b9, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3056681724442440447, guid: 0382b1059f7fe8a419bb5a3d011bf8b9, type: 3}
       propertyPath: player
       value: 
@@ -417,18 +413,6 @@ PrefabInstance:
     - target: {fileID: 4987961807971356780, guid: 0382b1059f7fe8a419bb5a3d011bf8b9, type: 3}
       propertyPath: m_Name
       value: Cat
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987961807971356780, guid: 0382b1059f7fe8a419bb5a3d011bf8b9, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987961807971356780, guid: 0382b1059f7fe8a419bb5a3d011bf8b9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8834677037730149300, guid: 0382b1059f7fe8a419bb5a3d011bf8b9, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8851439501584690851, guid: 0382b1059f7fe8a419bb5a3d011bf8b9, type: 3}
       propertyPath: m_RootOrder
@@ -4221,65 +4205,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2830834144320232314, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134455491934958831, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: playerStatusHandler
-      value: 
-      objectReference: {fileID: 1887607280}
-    - target: {fileID: 3366637957164329311, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366637957164329311, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3366637957164329311, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1887607281}
-    - target: {fileID: 3366637957164329311, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366637957164329311, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeSkill
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366637957164329311, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: LastPlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4013515539289340521, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_Text
-      value: 'Souls : 0'
-      objectReference: {fileID: 0}
     - target: {fileID: 4153891610950256528, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
       propertyPath: m_Name
       value: PlayerUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 4153891610950256528, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5161109216903100965, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_Name
-      value: Souls
-      objectReference: {fileID: 0}
-    - target: {fileID: 5161109216903100965, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5613477803872177678, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 309.17
-      objectReference: {fileID: 0}
-    - target: {fileID: 5613477803872177678, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 5.5051
       objectReference: {fileID: 0}
     - target: {fileID: 5753832113023864715, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4620,10 +4552,6 @@ PrefabInstance:
     - target: {fileID: 2481354842346008258, guid: 273b347c1f89d8c4c8b2dfded98bf7ce, type: 3}
       propertyPath: m_Name
       value: ItemDataBase
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481354842346008258, guid: 273b347c1f89d8c4c8b2dfded98bf7ce, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -66940,10 +66868,6 @@ PrefabInstance:
     - target: {fileID: 1269623617930255229, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
       propertyPath: m_Name
       value: Player2_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5966949363283453218, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6113475548300559220, guid: 68c13b83de156fb45a580cf0d2362c45, type: 3}
       propertyPath: playerUI
