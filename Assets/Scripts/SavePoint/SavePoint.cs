@@ -10,6 +10,7 @@ public class SavePoint : MonoBehaviour
     [SerializeField] private GameObject alert;
     [SerializeField] private GameObject awakeEffect;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private AudioClip soundData;
     private bool isAwake = false;
     
     private void Awake()
@@ -25,6 +26,7 @@ public class SavePoint : MonoBehaviour
             if (!isAwake)
             {
                 awakeEffect.SetActive(true);
+                SoundManager.instance.PlayClip(soundData);
                 isAwake = true;
             }
             GameObject player = GameManager.instance.player;
