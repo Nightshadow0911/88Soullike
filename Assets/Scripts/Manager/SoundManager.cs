@@ -30,6 +30,13 @@ public class SoundManager : MonoBehaviour
         ChangeBGMAudio(bgmClip);
     }
 
+    public void ChangeOriginalBGMAudio()
+    {
+        bgmAudioSource.Stop();
+        bgmAudioSource.clip = bgmClip;
+        bgmAudioSource.Play();
+    }
+
     public void ChangeBGMAudio(AudioClip clip)
     {
         bgmAudioSource.Stop();

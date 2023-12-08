@@ -12,15 +12,16 @@ public class Chase : MonoBehaviour
     private bool canWalk = true;
     private bool canRun;
 
-    void Start()
-    {
-        lastPlayerController = GameManager.instance.player.GetComponent<LastPlayerController>();
-    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameManager.instance.player.transform;
         anim = GetComponent<Animator>();
+    }
+
+    void Start()
+    {
+        lastPlayerController = GameManager.instance.player.GetComponent<LastPlayerController>();
+        player = GameManager.instance.player.transform;
     }
 
     // Update is called once per frame
