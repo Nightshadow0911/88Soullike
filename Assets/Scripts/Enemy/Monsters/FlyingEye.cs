@@ -127,4 +127,9 @@ public class FlyingEye : EnemyCharacter
         closed = false;
         state = State.SUCCESS;
     }
+
+    private void Destroythis()
+    {
+        Destroy(gameObject);
+    }
 }
