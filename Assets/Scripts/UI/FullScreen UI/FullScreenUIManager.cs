@@ -177,6 +177,7 @@ public class FullScreenUIManager : MonoBehaviour
     // 단축키 입력에 따라 팝업 열거나 닫기
     private void ToggleKeyDownAction(in KeyCode key, List<FullScreenUI> fScreens)
     {
+        
         if (Input.GetKeyDown(key))
         {
             ToggleOpenCloseUIList(fScreens);
@@ -202,6 +203,7 @@ public class FullScreenUIManager : MonoBehaviour
         }
         uiSwitch.Init();
         fInform.ClearInform();
+
 
     }
 
