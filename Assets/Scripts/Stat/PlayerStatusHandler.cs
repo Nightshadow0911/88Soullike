@@ -114,7 +114,7 @@ public class PlayerStatusHandler :StatHandler
         currentDefense = playerCurrentStat.defense;
         currentpropertyDamage = playerCurrentStat.propertyDamage;
         currentpropertyDefense = playerCurrentStat.propertyDefense;
-        currentWeight = playerCurrentStat.weight;
+        currentWeight = 0;
         currentRegainHp = currentHp;
         currentMana = playerCurrentStat.mana;
         currentSpeed = playerCurrentStat.speed;
@@ -165,16 +165,16 @@ public class PlayerStatusHandler :StatHandler
     public void UpdateWeapon(int power, float attackSpeed, float attackRange, int weight, int propertyAmount)
     {
         currentDamage += power;
-        playerCurrentStat.delay += attackSpeed;
+        currentDelay += attackSpeed;
         currentAttackRange += attackRange;
-        playerCurrentStat.weight += weight;
-        playerCurrentStat.propertyDamage += propertyAmount;
+        currentWeight += weight;
+        currentpropertyDamage += propertyAmount;
     }
     public void UpdateArmor(int power, int weight, int propertyAmount)
     {
-        playerCurrentStat.defense += power;
-        playerCurrentStat.weight += weight;
-        playerCurrentStat.propertyDefense += propertyAmount;
+        currentDefense += power;
+        currentWeight += weight;
+        currentpropertyDefense += propertyAmount;
     }
 
     public void FullCondition()
