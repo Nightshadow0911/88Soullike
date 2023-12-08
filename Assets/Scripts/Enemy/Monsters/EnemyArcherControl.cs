@@ -62,12 +62,6 @@ public class EnemyArcherControl : EnemyCharacter
         }
     }
 
-    protected override void DetectPlayer()
-    {
-        targetTransform = GameManager.instance.player.transform;
-        detected = true;
-    }
-
     private IEnumerator Run()
     {
         RunningPattern();

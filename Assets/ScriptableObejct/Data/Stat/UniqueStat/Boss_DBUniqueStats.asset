@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c96b6c815948f445b30e71e23ab7a82, type: 3}
   m_Name: Boss_DBUniqueStats
   m_EditorClassIdentifier: 
-  meleeAttackRange: {x: 2, y: 2}
+  meleeAttackRange: {x: 5, y: 5}
   spawnSpell: {fileID: 11400000, guid: b98cd503966f3c1468efacd4ff59779e, type: 2}
   projectiles:
   - tag: spawnSpell
@@ -20,7 +20,7 @@ MonoBehaviour:
     size: 5
   - tag: spellAttack
     prefab: {fileID: 1690192561225792519, guid: e226252c233796446815251e9acd4763, type: 3}
-    size: 5
+    size: 1
   - tag: BA_Arrow
     prefab: {fileID: 913579387397932168, guid: 29bb8d684145c6740b97f0344e7e15b0, type: 3}
     size: 5

@@ -69,12 +69,6 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
         }
     }
 
-    protected override void DetectPlayer()
-    {
-        targetTransform = GameManager.instance.player.transform;
-        detected = true;
-    }
-
     private void MeleeAttack()
     {
         Collider2D collision = Physics2D.OverlapBox(
