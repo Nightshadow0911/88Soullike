@@ -915,7 +915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &827990349379351303
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1218,7 +1218,7 @@ RectTransform:
   - {fileID: 836903944859815577}
   - {fileID: 7375162987284541612}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1307,8 +1307,6 @@ MonoBehaviour:
   regainSlider: {fileID: 7095413627459467585}
   manaSlider: {fileID: 1571966542950867389}
   manaText: {fileID: 7057047196091813141}
-  soulText: {fileID: 4013515539289340521}
-  soul: 0
 --- !u!1 &4240814143850083116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1537,7 +1535,7 @@ GameObject:
   - component: {fileID: 2997679504640455751}
   - component: {fileID: 4013515539289340521}
   m_Layer: 5
-  m_Name: Souls
+  m_Name: 'Gem Value '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1604,7 +1602,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Souls : 0'
+  m_Text: 'Gems : 0'
 --- !u!1 &5231919770090305246
 GameObject:
   m_ObjectHideFlags: 0

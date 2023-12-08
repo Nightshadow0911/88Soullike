@@ -20,7 +20,7 @@ MonoBehaviour:
   attackRange: 2.5
   propertyDamage: 0
   propertyDefense: 0
-  detectRange: 2
+  detectRange: 100
   target:
     serializedVersion: 2
     m_Bits: 64

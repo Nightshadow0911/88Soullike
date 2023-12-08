@@ -7,15 +7,20 @@ using UnityEngine.UI;
 
 public class SavePoint : MonoBehaviour
 {
+    [SerializeField] private string pointName;
+    [SerializeField] private GameObject travelPoint;
     [SerializeField] private GameObject alert;
     [SerializeField] private GameObject awakeEffect;
     [SerializeField] private LayerMask playerLayer;
     private bool isAwake = false;
     
+    public static event Action<bool> TravelEvent;
+
     private void Awake()
     {
         alert.SetActive(false);
         awakeEffect.SetActive(false);
+        travelPoint.SetActive(false);
     }
 
     private void Update()
@@ -24,12 +29,12 @@ public class SavePoint : MonoBehaviour
         {
             if (!isAwake)
             {
+                travelPoint.GetComponent<TravelPoint>().SetTravel(name, transform.position);
                 awakeEffect.SetActive(true);
+                TravelEvent?.Invoke(true);
                 isAwake = true;
             }
-            GameObject player = GameManager.instance.player;
-            player.GetComponent<PlayerStatusHandler>().FullCondition();          
-            player.GetComponent<LastPlayerController>().SetPosition(transform.position);          
+            GameManager.instance.player.GetComponent<PlayerStatusHandler>().FullCondition();          
         }
     }
 
@@ -38,6 +43,8 @@ public class SavePoint : MonoBehaviour
         if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
         {
             alert.SetActive(true);
+            if (isAwake)
+                TravelEvent?.Invoke(true);
         }
     }
     
@@ -46,6 +53,7 @@ public class SavePoint : MonoBehaviour
         if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
         {
             alert.SetActive(false);
+            TravelEvent?.Invoke(false);
         }
     }
 }

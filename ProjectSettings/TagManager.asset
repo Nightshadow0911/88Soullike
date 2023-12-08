@@ -23,13 +23,13 @@ TagManager:
   - UI
   - Player
   - Enemy
-  - FlightEnemy
+  - Ladder
   - Wall
   - Ground
   - Ceil
   - Ledge
   - Cat
-  - Ladder
+  - 
   - 
   - 
   - 

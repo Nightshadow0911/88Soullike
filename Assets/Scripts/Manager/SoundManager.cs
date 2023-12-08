@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float bgmVolume;
     [SerializeField] [Range(0f, 1f)] private float sfxVolume;
 
-    private Dictionary<int, SoundSource> soundSource = new();
+    private SoundSource soundSource;
     
     private void Awake()
     {
@@ -41,21 +41,12 @@ public class SoundManager : MonoBehaviour
     {
         GameObject obj = instance.objectPool.SpawnFromPool("SoundSource");
         obj.SetActive(true);
-        obj.GetComponent<SoundSource>().Play(clip, sfxVolume, false);
-    }
-    
-    public void PlayLoopClip(AudioClip clip, int key)
-    {
-        GameObject obj = instance.objectPool.SpawnFromPool("SoundSource");
-        obj.SetActive(true);
-        SoundSource source = obj.GetComponent<SoundSource>();
-        source.Play(clip, sfxVolume, true);
-        soundSource.Add(key, source);
+        soundSource = obj.GetComponent<SoundSource>();
+        soundSource.Play(clip, sfxVolume);
     }
 
-    public void StopLoopClip(int key)
+    public void StopClip()
     {
-        soundSource[key].Disable();
-        soundSource.Remove(key);
+        soundSource.Disable();
     }
 }

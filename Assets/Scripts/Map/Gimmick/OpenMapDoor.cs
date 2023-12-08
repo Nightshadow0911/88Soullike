@@ -7,7 +7,6 @@ public class OpenMapDoor : BaseGimmick
     public List<GameObject> MovedDoors;
     private Coroutine currentCoroutine;
     public List<Collider2D> DoorCollider;
-    public List<Rigidbody2D> DoorRigidBody;
     
     protected override void Start()
     {
@@ -28,7 +27,6 @@ public class OpenMapDoor : BaseGimmick
             Debug.Log("문열림");
             if (isCollision)
             {
-                
                 currentCoroutine = StartCoroutine(OpenTheDoorCoroutine());
             }
         }
@@ -40,15 +38,12 @@ public class OpenMapDoor : BaseGimmick
         {
             GameObject moveableObject = MovedDoors[i];
             Collider2D doorCollider = DoorCollider[i];
-            Rigidbody2D doorRigidbody = DoorRigidBody[i];
             if (moveableObject != null)
             {
-                doorRigidbody.bodyType = RigidbodyType2D.Dynamic;
                 mapGimmickAction.MoveInDirection(moveableObject.transform, Vector2.up, 1.0f);
                 mapGimmickAction.ToggleCollider(doorCollider, false);
                 yield return StartCoroutine(mapGimmickAction.ProcessDelay(3));
                 mapGimmickAction.ToggleObjectSetActive(moveableObject, false);
-                
             }
         }
         currentCoroutine = null;

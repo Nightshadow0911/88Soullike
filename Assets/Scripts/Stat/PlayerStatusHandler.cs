@@ -22,8 +22,6 @@ public class PlayerStatusHandler :StatHandler
     public PlayerStat growStatSO;
     public PlayerStat baseStatSO;
 
-    private PlayerAttack playerAttack;
-
     [HideInInspector]
     public int currentHp;
     [HideInInspector]
@@ -64,7 +62,6 @@ public class PlayerStatusHandler :StatHandler
     {
         playerCurrentStat = currentStatSO as PlayerStat;
         SetStat();
-        playerAttack = GetComponent<PlayerAttack>();
     }
 
     
@@ -82,21 +79,10 @@ public class PlayerStatusHandler :StatHandler
     {
         if (playerCurrentStat == null)
             return;
-        if (playerAttack.isParrying)
-            return;
-        if (playerAttack.isGuarding)
-            damage /= 2;
         damage = damage <= currentDefense ? 0 : damage - currentDefense;
         currentRegainHp -= damage / 2;
         currentHp -= damage;
         Debug.Log(currentHp);
-    }
-
-    public void TakeTrueDamage(int damage)
-    {
-        if (playerCurrentStat == null)
-            return;
-        currentHp -= damage;
     }
     
     protected override void SetStat()

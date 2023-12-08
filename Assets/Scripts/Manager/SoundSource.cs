@@ -6,16 +6,11 @@ public class SoundSource : MonoBehaviour
 {
     private AudioSource _audioSource;
 
-    public void Play(AudioClip clip, float sfxVolume, bool loop)
+    public void Play(AudioClip clip, float sfxVolume)
     {
         if (_audioSource == null)
             _audioSource = GetComponent<AudioSource>();
 
-        if (loop)
-            _audioSource.loop = true;
-        else
-            _audioSource.loop = false;
-        
         CancelInvoke();
         _audioSource.clip = clip;
         _audioSource.volume = sfxVolume;
@@ -23,7 +18,7 @@ public class SoundSource : MonoBehaviour
 
         Invoke("Disable", clip.length + 2);
     }
-    
+
     public void Disable()
     {
         _audioSource.Stop();

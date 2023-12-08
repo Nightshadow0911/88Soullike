@@ -6,8 +6,6 @@ using UnityEngine;
 public class RangedAttackController : MonoBehaviour
 {
     [SerializeField] protected LayerMask baseCollision;
-    [SerializeField] protected AudioClip soundData;
-    [SerializeField] private bool playStartSound;
     protected RangedAttackData attackData;
     protected Vector2 direction;
     private float currentDuration;
@@ -20,12 +18,6 @@ public class RangedAttackController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
-        if (playStartSound)
-            SoundManager.instance.PlayClip(soundData);
-    }
-    
     protected virtual void Update()
     {
         if (!isReady)

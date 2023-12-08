@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,20 +14,15 @@ public class GameManager : MonoBehaviour
     public LastPlayerController lastPlayerController;
     public PlayerAttack playerAttack;
 
-
-    public event Action PlayerDeath;
+    //UI
+    public FullScreenUIManager uiManager;
 
     private void Awake()
     {
         instance = this;
         lastPlayerController = player.GetComponent<LastPlayerController>();
         playerAttack = player.GetComponent<PlayerAttack>();
-
-    }
-
-    public void PlayerDeathCheck()
-    {
-        PlayerDeath?.Invoke();   
+        uiManager = FullScreenUIManager.instance;
     }
 
     public void CanAttack()

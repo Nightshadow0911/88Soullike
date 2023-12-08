@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Boss_NightBornUniqueStats
   m_EditorClassIdentifier: 
   meleeAttackRange: {x: 5, y: 7}
-  minX: 290
-  maxX: 315
+  minX: -12
+  maxX: 12
   fowardDashSlashDistance: 6.5
   fowardDashSlashSpeed: 30
   projectiles:
@@ -30,7 +30,4 @@ MonoBehaviour:
   bornExplosion: {fileID: 11400000, guid: 081506eb5670c724195c2522802b267f, type: 2}
   bothSideExplosion: {fileID: 11400000, guid: 5ffd875bb1400094eb7123beb95ccd11, type: 2}
   spwanBall: {fileID: 11400000, guid: cefa47807177746478f967667ee0f70f, type: 2}
-  runSound: {fileID: 8300000, guid: 243182587ef930f49b86d0e383611f9b, type: 3}
-  slashSound: {fileID: 8300000, guid: bd88e8e8abb7cb1499bf7a465e09cab7, type: 3}
-  warpSound: {fileID: 8300000, guid: d457efe668c2f5d479b6efecd2211e3b, type: 3}
-  roarSound: {fileID: 8300000, guid: ec955622f12494f4ea719b0626c78970, type: 3}
+  runSound: {fileID: 8300000, guid: 5233bf45cf0644246ba2c1e2a828fc67, type: 3}

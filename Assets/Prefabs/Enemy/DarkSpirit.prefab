@@ -225,9 +225,6 @@ MonoBehaviour:
   attackPosition: {fileID: 7755571230192199201}
   meleeAttackRange: {x: 2.5, y: 0.6}
   boss: {fileID: 0}
-  ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &5739536484228162517
 MonoBehaviour:
   m_ObjectHideFlags: 0

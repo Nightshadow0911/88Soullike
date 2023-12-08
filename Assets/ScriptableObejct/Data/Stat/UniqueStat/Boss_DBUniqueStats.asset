@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c96b6c815948f445b30e71e23ab7a82, type: 3}
   m_Name: Boss_DBUniqueStats
   m_EditorClassIdentifier: 
-  meleeAttackRange: {x: 5, y: 5}
+  meleeAttackRange: {x: 2, y: 2}
   spawnSpell: {fileID: 11400000, guid: b98cd503966f3c1468efacd4ff59779e, type: 2}
   projectiles:
   - tag: spawnSpell

@@ -3807,27 +3807,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Door
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 288
-        width: 32
-        height: 149
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a08bba260fa80aa4fa18eb5980c598a8
-      internalID: -61953879
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -3840,7 +3819,6 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       123: 532547498
-      Door: -61953879
       Sprite_Pillar: -1177622424
       The Sidescroller's Dungeon Tiles 32x32_0: -1933623728
       The Sidescroller's Dungeon Tiles 32x32_1: 1515591412
