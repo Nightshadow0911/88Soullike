@@ -104,8 +104,8 @@ public class SkeletonEnemy : EnemyCharacter
         return false;
     }
 
-    protected override void Death()
+    public void DestroyThis()
     {
-        anim.StringTrigger("death");
+        Destroy(gameObject);
     }
 }

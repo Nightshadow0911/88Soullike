@@ -126,5 +126,5 @@ public abstract class EnemyCharacter : MonoBehaviour
         rigid.velocity = Vector2.zero;
         state = State.FAILURE;
         currentTime = 0f;
-    }
+    } 
 }

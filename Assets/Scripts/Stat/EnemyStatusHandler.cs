@@ -9,7 +9,6 @@ public class EnemyStatusHandler :StatHandler
 {
     private EnemyStat enemyCurrentStat;
     public EnemyStat GetStat() => enemyCurrentStat; // 현재 스탯 가져오기
-    public event Action OnDamage; 
     public event Action OnRage; 
     public event Action OnDeath; 
         

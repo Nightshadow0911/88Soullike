@@ -119,7 +119,7 @@ Transform:
   - {fileID: 1657755521677915222}
   - {fileID: 8215696892229329923}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6459419513943032045
 Rigidbody2D:
@@ -180,7 +180,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.2}
+  m_Offset: {x: 0, y: 1.2234397}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.65, y: 0}
@@ -191,7 +191,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 3.5}
+  m_Size: {x: 3, y: 3.4531207}
   m_EdgeRadius: 0
 --- !u!95 &2753417058823859565
 Animator:
@@ -226,7 +226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f20010e0f32214d83d2bb162fa5443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
   attackPosition: {fileID: 1657755521677915222}
   uniqueStats: {fileID: 11400000, guid: c5409c2814314df4881b5d224036ad3b, type: 2}
   backLight: {fileID: 8878730732387862798}
@@ -385,7 +384,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1748008469, guid: b40827bf75e341a4cbaf935a033be835, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
