@@ -41,11 +41,13 @@ public class Boss_Hawkeye : EnemyCharacter
         pattern.AddPattern(Distance.MediumRange, LeapShot);
         pattern.AddPattern(Distance.MediumRange, TrackingAttack);
         pattern.AddPattern(Distance.MediumRange, Run);
+
         #endregion
 
         #region LongRangePattern
         pattern.AddPattern(Distance.LongRange, LeapShot);
         pattern.AddPattern(Distance.LongRange, RangedAttack);
+
         #endregion
     }
 

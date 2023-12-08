@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HE_PoisonExplosion
   m_EditorClassIdentifier: 
   tag: PoisonExplosion
-  damage: 20
+  damage: 15
   duration: 0.5
   target:
     serializedVersion: 2
@@ -23,3 +23,4 @@ MonoBehaviour:
   followUpDirection: {x: 0, y: 0}
   delayTime: 0
   AoE: 0
+  damageInterval: 0
