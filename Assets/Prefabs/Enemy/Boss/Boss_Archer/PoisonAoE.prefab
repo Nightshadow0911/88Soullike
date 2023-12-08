@@ -165,3 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbdc0b7569a7fd04c99284176b18adaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundData: {fileID: 0}
+  playStartSound: 0
+  delaySound: 0

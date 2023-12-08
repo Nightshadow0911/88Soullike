@@ -184,8 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6c9ccf31ffbad4d8ef908925701190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseCollision:
-    serializedVersion: 2
-    m_Bits: 1024
+  soundData: {fileID: 8300000, guid: 2524962d620aa4d4094aaea61f134e87, type: 3}
+  playStartSound: 0
+  delaySound: 0
   poisonData: {fileID: 11400000, guid: 36bd2ebb278ac2747862bb3ee3a0bb51, type: 2}
   explosionData: {fileID: 11400000, guid: cd9cc58a0e377f04dbe857ed98d07512, type: 2}

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1136002501, guid: d28b6cafc7cad8042a99f4fe6266c215, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -221,10 +221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4fa48482b6385f42866cc35df12062b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
   attackPosition: {fileID: 7755571230192199201}
   meleeAttackRange: {x: 2.5, y: 0.6}
-  boss: {fileID: 0}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  attackSound: {fileID: 8300000, guid: 300e94daca33669498259581bef8af5b, type: 3}
 --- !u!114 &5739536484228162517
 MonoBehaviour:
   m_ObjectHideFlags: 0

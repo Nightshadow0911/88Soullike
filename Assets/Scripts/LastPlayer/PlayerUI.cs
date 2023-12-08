@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    public PlayerStatusHandler playerStatusHandler;
+
+    private PlayerStatusHandler playerStatusHandler;
     private PlayerStat PlayerStat;
     private PlayerStat maxStat;
     public Text healthText;
@@ -16,6 +17,9 @@ public class PlayerUI : MonoBehaviour
     public Slider regainSlider;
     public Slider manaSlider;
     public Text manaText;
+    public Text soulText;
+    private int soul;
+
     void Start()
     {
         playerStatusHandler = GameManager.instance.player.GetComponent<PlayerStatusHandler>();
@@ -24,6 +28,7 @@ public class PlayerUI : MonoBehaviour
         regainSlider.value = 1;
         manaSlider.value = 1;
         maxStat = playerStatusHandler.GetStat();
+        soul = Inventory.instance.SoulCount;
     }
  
     void Update()
@@ -33,9 +38,14 @@ public class PlayerUI : MonoBehaviour
         UpdateStaminaUI();
         UpdateRegainHpUI();
         UpdateManaUI();
+        SoulText();
     }
     //gameManager.playerStats.characterStamina
 
+    private void SoulText()
+    {
+        soulText.text = "SOUL : " + soul;
+    }
     private void UpdateHpUI()
     {
         int currentHealth = playerStatusHandler.currentHp;// current값 
@@ -47,7 +57,6 @@ public class PlayerUI : MonoBehaviour
     {
         float currentStamina = playerStatusHandler.currentStemina;
         float maxStamina = maxStat.stemina;
-
         staminaSlider.value = currentStamina / maxStamina;
     }
 
@@ -65,7 +74,7 @@ public class PlayerUI : MonoBehaviour
         int characterRegainHp = playerStatusHandler.currentRegainHp; //(현재값 )
         int maxHealth = maxStat.hp; // max 값
         int currentHealth = playerStatusHandler.currentHp;//(현재값 )
-        Debug.Log("currentRegainHp:" + characterRegainHp);
+        //Debug.Log("currentRegainHp:" + characterRegainHp);
         if (characterRegainHp < currentHealth) 
         {
             characterRegainHp = currentHealth;

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00de8c94dc0226f429d38b9ac2a77b38, type: 3}
-  m_Name: BA_SmallArrow
+  m_Name: HE_SmallArrow
   m_EditorClassIdentifier: 
   tag: SmallArrow
-  damage: 15
+  damage: 2
   speed: 40
   duration: 2
   spread: 0

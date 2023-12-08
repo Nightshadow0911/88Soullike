@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: dc499ba4d014ae74f9665bf19e0b5b42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -132,4 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5674f0e19b93fc046862724c3f7504f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundData: {fileID: 0}
+  playStartSound: 0
+  delaySound: 0
   spellSpawnData: {fileID: 11400000, guid: 63fab2085f8a5df4a9b0c8ee13bb8309, type: 2}

@@ -6,10 +6,10 @@ using UnityEngine.UIElements;
 using UnityEngine.Video;
 using Random = UnityEngine.Random;
 
-public class Boss_Archer : EnemyCharacter
+public class Boss_Hawkeye : EnemyCharacter
 {
     [Header("Unique Setting")]
-    [SerializeField] private Boss_ArcherUniqueStat uniqueStats;
+    [SerializeField] private Boss_HawkeyeUniqueStat uniqueStats;
     [SerializeField] private LayerMask tileLayer;
     
     [Header("ArrowEffects Type")]
@@ -26,6 +26,7 @@ public class Boss_Archer : EnemyCharacter
         base.Awake();
         rangedAttack = GetComponent<RangedAttack>();
         positionAttack = GetComponent<PositionAttack>();
+        statusHandler.OnRage += OnRage;
         bomb.SetActive(false);
         scatter.SetActive(false);
         poison.SetActive(false);
@@ -38,8 +39,8 @@ public class Boss_Archer : EnemyCharacter
 
         #region MediumRangePattern
         pattern.AddPattern(Distance.MediumRange, LeapShot);
-        // pattern.AddPattern(Distance.MediumRange, TrackingAttack);
-        // pattern.AddPattern(Distance.MediumRange, Run);
+        pattern.AddPattern(Distance.MediumRange, TrackingAttack);
+        pattern.AddPattern(Distance.MediumRange, Run);
         #endregion
 
         #region LongRangePattern
@@ -51,6 +52,7 @@ public class Boss_Archer : EnemyCharacter
     protected override void Start()
     {
         base.Start();
+        GameManager.instance.PlayerDeath += OffRage;
         foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
         {
             ProjectileManager.instance.InsertObjectPool(projectile);
@@ -80,14 +82,23 @@ public class Boss_Archer : EnemyCharacter
         detected = true;
     }
 
+    private void OnRage()
+    {
+        isRage = true;
+    }
+    
+    private void OffRage()
+    {
+        isRage = false;
+    }
+
     private void MeleeAttack()
     {
         Collider2D collision = Physics2D.OverlapBox(
             attackPosition.position, uniqueStats.meleeAttackRange, 0, characterStat.target);
         if (collision != null)
         {
-            // 데미지 주기
-            Debug.Log("player hit");
+            collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
         }
     }
 
@@ -109,7 +120,7 @@ public class Boss_Archer : EnemyCharacter
     private IEnumerator Run()
     {
         RunningPattern();
-        soundManager.PlayClip(uniqueStats.runSound);
+        soundManager.PlayLoopClip(uniqueStats.runSound, uniqueStats.runSound.GetInstanceID());
         anim.HashBool(anim.run, true);
         float distance = float.MaxValue;
         while (Mathf.Abs(distance) > characterStat.closeRange)
@@ -118,7 +129,7 @@ public class Boss_Archer : EnemyCharacter
             rigid.velocity = GetDirection() * characterStat.speed;
             yield return YieldCache.WaitForFixedUpdate;
         }
-        soundManager.StopClip();
+        soundManager.StopLoopClip(uniqueStats.runSound.GetInstanceID());
         anim.HashBool(anim.run, false);
         rigid.velocity = Vector2.zero;
         state = State.FAILURE;
@@ -214,7 +225,7 @@ public class Boss_Archer : EnemyCharacter
             state = State.FAILURE;
             yield break;
         }
-        //soundManager.PlayClip();
+        soundManager.PlayClip(uniqueStats.jumpSound);
         anim.StringTrigger("BackstepAttack");
         Vector3 startPosition = transform.position;
         Vector3 endPosition = GetEndPosition(uniqueStats.backstepDistance, true);
@@ -284,9 +295,9 @@ public class Boss_Archer : EnemyCharacter
             state = State.FAILURE;
             yield break;
         }
-        //soundManager.PlayClip(uniqueStats.);
+        soundManager.PlayClip(uniqueStats.dodgeSound);
         anim.StringTrigger("BackTumbling");
-        if (!isRage)
+        if (isRage)
         {
             positionAttack.CreateProjectile((Vector2)transform.position + (Vector2.up * 2f)
                                             , uniqueStats.poisonFlaskData);
@@ -313,7 +324,7 @@ public class Boss_Archer : EnemyCharacter
             Rotate();
             direction = GetDirection();
             yield return YieldCache.WaitForSeconds(0.5f);
-            //soundManager.PlayClip(uniqueStats.);
+            soundManager.PlayClip(uniqueStats.spinAttackSound);
             float moveDistance;
             bool hit = false;
             startPosition = transform.position;
@@ -330,7 +341,7 @@ public class Boss_Archer : EnemyCharacter
                     {
                         // 데미지 주기
                         hit = true;
-                        Debug.Log("player hit");
+                        collision.GetComponent<PlayerStatusHandler>().TakeDamage(characterStat.damage);
                     }
                 }
                 yield return YieldCache.WaitForFixedUpdate;
@@ -344,12 +355,12 @@ public class Boss_Archer : EnemyCharacter
     private IEnumerator LeapShot()
     {
         RunningPattern();
-        if (isRage)
+        if (!isRage)
         {
             state = State.FAILURE;
             yield break;
         }
-        //soundManager.PlayClip(uniqueStats.);
+        soundManager.PlayClip(uniqueStats.jumpSound);
         anim.StringTrigger("OnLeapShot");
         rigid.gravityScale = 0f;
         Vector3 startPosition = transform.position;
@@ -365,14 +376,8 @@ public class Boss_Archer : EnemyCharacter
         Vector3 direction;
         for (int i = 0; i < uniqueStats.numberOfLeapShot; i++)
         {
-            // float ran = Random.Range(0, 10);
-            float ran = 0;
-            if (i == 0)
-                ran = 4;
-            else
-                ran = 6;
+            float ran = Random.Range(0, 10);
             yield return YieldCache.WaitForSeconds(0.2f);
-            //soundManager.PlayClip();
             if (ran < 5)
                 SpecialArrowEffect(bomb);
             else

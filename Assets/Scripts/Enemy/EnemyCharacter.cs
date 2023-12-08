@@ -13,10 +13,11 @@ public abstract class EnemyCharacter : MonoBehaviour
     
     [Header("Base Setting")]
     [Space(10)]
-    [SerializeField] protected Transform targetTransform;
     [SerializeField] protected Transform attackPosition;
-    protected EnemyStatusHandler statusHandler;
+    private Vector3 characterPosition;
     protected EnemyStat characterStat;
+    protected Transform targetTransform;
+    protected EnemyStatusHandler statusHandler;
     protected EnemyAnimationController anim;
     protected EnemyPattern pattern;
     protected Rigidbody2D rigid;
@@ -33,11 +34,13 @@ public abstract class EnemyCharacter : MonoBehaviour
         anim = GetComponent<EnemyAnimationController>();
         pattern = GetComponent<EnemyPattern>();
         rigid = GetComponent<Rigidbody2D>();
+        characterPosition = transform.position;
         statusHandler.OnDeath += Death;
     }
 
     protected virtual void Start()
     {
+        GameManager.instance.PlayerDeath += ResetEnemy;
         soundManager = SoundManager.instance;
         characterStat = statusHandler.GetStat();
     }
@@ -74,8 +77,8 @@ public abstract class EnemyCharacter : MonoBehaviour
 
     protected virtual void DetectPlayer()
     {
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position - (Vector2.right * characterStat.detectRange),
-            Vector2.right, characterStat.detectRange * 2, characterStat.target);
+        RaycastHit2D hit = Physics2D.Raycast(((Vector2)transform.position + Vector2.up) + (Vector2.right * characterStat.detectRange),
+            Vector2.left, characterStat.detectRange * 2, characterStat.target);
         if (hit.collider != null)
         {
             targetTransform = GameManager.instance.player.transform;
@@ -87,6 +90,14 @@ public abstract class EnemyCharacter : MonoBehaviour
     {
         state = State.RUNNING;
         Rotate();
+    }
+
+    private void ResetEnemy()
+    {
+        StopEnemy();
+        detected = false;
+        transform.position = characterPosition;
+        statusHandler.ResetHealth();
     }
     
     protected virtual void Rotate()
@@ -103,8 +114,17 @@ public abstract class EnemyCharacter : MonoBehaviour
 
     protected virtual void Death()
     {
-        StopCoroutine(currentPattern);
-        rigid.velocity = Vector2.zero;
+        StopEnemy();
         anim.HashTrigger(anim.death);
     }
+
+    private void StopEnemy()
+    {
+        if (currentPattern != null)
+            StopCoroutine(currentPattern);
+        currentPattern = null;
+        rigid.velocity = Vector2.zero;
+        state = State.FAILURE;
+        currentTime = 0f;
+    } 
 }

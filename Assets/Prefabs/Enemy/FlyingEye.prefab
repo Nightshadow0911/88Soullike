@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6227707141210882123}
   - component: {fileID: 8141242172737193822}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: MainSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 734906416, guid: 7d32741f63a7aab46a9815e229afaf78, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: -3833315015432985601}
   - component: {fileID: 7287756449401388575}
   - component: {fileID: 4709359324906669310}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: FlyingEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ Transform:
   - {fileID: 6227707141210882123}
   - {fileID: 42755287243813987}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6457598130111808765
 Rigidbody2D:
@@ -184,8 +184,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07367969, y: 0.0033051884}
-  m_Size: {x: 1.5375676, y: 1.1067804}
+  m_Offset: {x: 0.09700717, y: 0.0149239795}
+  m_Size: {x: 1.1940148, y: 1.0298502}
   m_Direction: 1
 --- !u!95 &7519619288191827616
 Animator:
@@ -220,10 +220,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1553790b1cd8c9e45b9f9e53ac56d9ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
-  attackPosition: {fileID: 0}
+  attackPosition: {fileID: 3683699928806455186}
   meleeAttackRange: {x: 2, y: 2}
+  detectBox: {x: 15, y: 10}
+  rollingAttackTime: 0.5
   effect: {fileID: 5359502257765423112}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  attackSound: {fileID: 8300000, guid: 0ba6a677cd874f040ad91f7537cdd149, type: 3}
+  rollingAttackSound: {fileID: 8300000, guid: c18d7fdb04e41f34b8c80632975ff728, type: 3}
 --- !u!114 &3314986218966096222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +294,7 @@ GameObject:
   - component: {fileID: 42755287243813987}
   - component: {fileID: 3361963124026625502}
   - component: {fileID: 6620417328656375023}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

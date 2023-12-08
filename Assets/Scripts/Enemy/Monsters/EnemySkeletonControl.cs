@@ -53,12 +53,6 @@ public class SkeletonEnemy : EnemyCharacter
         }
     }
 
-    protected override void DetectPlayer()
-    {
-        targetTransform = GameManager.instance.player.transform;
-        detected = true;
-    }
-
     private void MeleeAttack()
     {
         Collider2D collision = Physics2D.OverlapBox(
@@ -110,8 +104,8 @@ public class SkeletonEnemy : EnemyCharacter
         return false;
     }
 
-    protected override void Death()
+    public void DestroyThis()
     {
-        anim.StringTrigger("death");
+        Destroy(gameObject);
     }
 }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00de8c94dc0226f429d38b9ac2a77b38, type: 3}
-  m_Name: BA_BombArrowData
+  m_Name: HE_BombArrowData
   m_EditorClassIdentifier: 
   tag: BombArrow
-  damage: 20
+  damage: 5
   speed: 30
   duration: 2
   spread: 0

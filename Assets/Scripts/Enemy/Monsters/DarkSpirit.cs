@@ -18,7 +18,13 @@ public class DarkSpirit : EnemyCharacter
         pattern.AddPattern(Distance.Default, Run);
         #endregion
     }
-    
+
+    protected override void Start()
+    {
+        soundManager = SoundManager.instance;
+        characterStat = statusHandler.GetStat();
+    }
+
     protected override void SetPatternDistance()
     {
         pattern.SetDistance(Distance.Default);

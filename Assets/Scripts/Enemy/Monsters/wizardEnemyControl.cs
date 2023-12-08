@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +7,9 @@ using UnityEngine.Video;
 using static Unity.Collections.AllocatorManager;
 using Random = UnityEngine.Random;
 
-public class EnemyArcherControl : EnemyCharacter
+public class EnemyWizardControl : EnemyCharacter
 {
-    [SerializeField] private ArcherUniqueStat uniqueStats;
+    [SerializeField] private WizardUniqueStat uniqueStats;
     [SerializeField] private LayerMask tileLayer;
 
     private RangedAttack rangedAttack;
@@ -22,15 +22,16 @@ public class EnemyArcherControl : EnemyCharacter
 
 
         #region CloseRangedPattern
-        pattern.AddPattern(Distance.CloseRange, ArrowCloseShot);
+        pattern.AddPattern(Distance.CloseRange, MoveBack);
+        pattern.AddPattern(Distance.CloseRange, FireMissile);
         #endregion
 
         #region MediumRangePattern
-        pattern.AddPattern(Distance.MediumRange, Run);
+        pattern.AddPattern(Distance.MediumRange, FireMissile);
         #endregion
 
         #region LongRangePattern
-        pattern.AddPattern(Distance.LongRange, ArrowLongShot);
+        pattern.AddPattern(Distance.LongRange, Run);
         #endregion
     }
 
@@ -68,7 +69,7 @@ public class EnemyArcherControl : EnemyCharacter
         // soundManager.PlayClip(uniqueStats.runSound);
         anim.HashBool(anim.run, true);
         float distance = float.MaxValue;
-        while (Mathf.Abs(distance) > characterStat.closeRange && Mathf.Abs(distance) < characterStat.longRange)
+        while (Mathf.Abs(distance) > characterStat.mediumRange)
         {
             distance = targetTransform.position.x - transform.position.x;
             rigid.velocity = GetDirection() * characterStat.speed;
@@ -79,29 +80,37 @@ public class EnemyArcherControl : EnemyCharacter
         rigid.velocity = Vector2.zero;
         state = State.FAILURE;
     }
+    private IEnumerator MoveBack()
+    {
+        RunningPattern();
+        // soundManager.PlayClip(uniqueStats.runSound);
+        anim.HashBool(anim.run, true);
+        float distance = float.MaxValue;
+        while (Mathf.Abs(distance) < characterStat.closeRange)
+        {
+            distance = targetTransform.position.x - transform.position.x;
+            rigid.velocity = -GetDirection() * characterStat.speed;
+            yield return YieldCache.WaitForFixedUpdate;
+        }
+        // soundManager.StopClip();
+        anim.HashBool(anim.run, false);
+        rigid.velocity = Vector2.zero;
+        state = State.FAILURE;
+    }
 
-    private IEnumerator ArrowLongShot()
+    private IEnumerator FireMissile()
     {
+        
         RunningPattern();
-        anim.StringTrigger("ArrowLongShot");
+        anim.StringTrigger("FireMissile");
         yield return YieldCache.WaitForSeconds(2f);
-        Vector2 position = targetTransform.position + (Vector3.up * 3.5f);
-        rangedAttack.CreateProjectile(GetDirection(), uniqueStats.BA_Arrow);
+        Vector2 position = targetTransform.position;
+        rangedAttack.CreateProjectile(GetDirection(), uniqueStats.FireMissile);
         yield return YieldCache.WaitForSeconds(0.6f);
         state = State.SUCCESS;
         yield return null;
     }
-    private IEnumerator ArrowCloseShot()
-    {
-        RunningPattern();
-        anim.StringTrigger("ArrowCloseShot");
-        yield return YieldCache.WaitForSeconds(2f);
-        Vector2 position = targetTransform.position + (Vector3.up * 3.5f);
-        rangedAttack.CreateProjectile(GetDirection(), uniqueStats.BA_Arrow);
-        yield return YieldCache.WaitForSeconds(0.6f);
-        state = State.SUCCESS;
-        yield return null;
-    }
+   
 
     private bool CheckTile(Vector2 dir)
     {
@@ -114,7 +123,7 @@ public class EnemyArcherControl : EnemyCharacter
 
     protected override void Death()
     {
-        base.Death();
-        Destroy(gameObject);
+        anim.StringTrigger("death");
+        gameObject.SetActive(false);
     }
 }
