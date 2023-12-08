@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5415526385945227353}
   - component: {fileID: 2080311139203343036}
   - component: {fileID: 3056681724442440447}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 6495197474151345766}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8834677037730149300
 SpriteRenderer:
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -926048052, guid: 18e6d971025d9054d8abb92dac9d0c13, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

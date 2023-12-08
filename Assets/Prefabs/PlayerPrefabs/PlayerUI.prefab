@@ -1300,7 +1300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8445ecc21deb4643aebe65923fe7cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatusHandler: {fileID: 0}
   healthText: {fileID: 3509723699448283038}
   healthSlider: {fileID: 3911901761150695551}
   staminaSlider: {fileID: 752977664086163536}
@@ -1308,7 +1307,6 @@ MonoBehaviour:
   manaSlider: {fileID: 1571966542950867389}
   manaText: {fileID: 7057047196091813141}
   soulText: {fileID: 4013515539289340521}
-  soul: 0
 --- !u!1 &4240814143850083116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,8 +1558,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 85.55, y: -65}
-  m_SizeDelta: {x: 149.08, y: 30}
+  m_AnchoredPosition: {x: 5.5051, y: -65}
+  m_SizeDelta: {x: 309.17, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2997679504640455751
 CanvasRenderer:

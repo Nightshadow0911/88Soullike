@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class FTravelUI : MonoBehaviour
-{
-    public static FTravelUI instance;
+//public class FTravelUI : MonoBehaviour
+//{
+//    public static FTravelUI instance;
 
-    public 
+//    public 
 
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-    }
-}
+//    private void Awake()
+//    {
+//        if (instance != null)
+//        {
+//            Destroy(gameObject);
+//            return;
+//        }
+//        instance = this;
+//    }
+//}
