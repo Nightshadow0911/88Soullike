@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class MapGimmickInteraction : MonoBehaviour
 {
+    Vector3 boxSize = new Vector3(2f, 2f, 0f);
+    
     public bool CollisionChecktoTagBased(string tag, Vector2 position) //체크를 위해 bool로 설정
     {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(position, transform.localScale, 0f); //콜라이더 가져옴
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(position, boxSize, 0f); //콜라이더 가져옴
         foreach (Collider2D collider in colliders)
         {
 
