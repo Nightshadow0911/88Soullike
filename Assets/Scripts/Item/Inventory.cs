@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(StartItem());
+        StartItem();
     }
 
     public bool AddItem(Item item)
@@ -100,10 +100,8 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public IEnumerator StartItem()
+    public void StartItem()
     {
-        yield return new WaitForEndOfFrame();
-
         ItemDatabase Ib = ItemDatabase.instance;
         Item newItem = new Item();
 

@@ -39,7 +39,7 @@ public class FInventoryUI : MonoBehaviour
     }
     private void SlotChange(int val)
     {
-        if (inven.items.Count <= 0) return;
+       
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].slotnum = i;
