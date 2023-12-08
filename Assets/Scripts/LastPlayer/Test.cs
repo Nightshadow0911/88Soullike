@@ -12,5 +12,6 @@ public class Test : MonoBehaviour
     public AudioClip attackSound;
     public AudioClip Block;
     public AudioClip comboAttackSound;
+    public AudioClip parrySound;
     //public AudioClip deathSound;
 }

@@ -50,6 +50,10 @@ public class PlayerUI : MonoBehaviour
     {
         int currentHealth = playerStatusHandler.currentHp;// current값 
         int maxHealth = maxStat.hp; // max 값
+        if (currentHealth>100)
+        {
+            currentHealth = 100;
+        }
         healthText.text = "HP: " + currentHealth + " / " + maxHealth;
         healthSlider.value = calculateHealthPercentage(currentHealth, maxHealth);
     }

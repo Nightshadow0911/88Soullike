@@ -64,7 +64,7 @@ public class PlayerAttack : MonoBehaviour
         {
             isParrying = true;
             transform.Find("Parrying").gameObject.SetActive(true);
-            parryWindowEndTime = Time.time + playerStatusHandler.currentParryTime;
+            parryWindowEndTime = Time.time + 0.5f;// playerStatusHandler.currentParryTime;
 
             Debug.Log("Parry Start"+ playerStatusHandler.currentParryTime);
         }
@@ -188,6 +188,7 @@ public class PlayerAttack : MonoBehaviour
                 EnemyStatusHandler enemyhandler = enemyCollider.GetComponent<EnemyStatusHandler>();
                 enemyhandler.TakeDamage(damage);
                 RegainHp(damage);
+
             }
         }
     }

@@ -37,6 +37,7 @@ public class EnemyStatusHandler :StatHandler
             OnRage?.Invoke();
         if (currentHp <= 0)
             OnDeath?.Invoke();
+        PlayerEvents.enemyDamaged.Invoke(gameObject, damage);
     }
 
     public void ResetHealth()
