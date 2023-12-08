@@ -30,7 +30,6 @@ public class NPCSentence : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log(FItemInformationUI.instance.selectedItem.ItemName);
             isInteractable = true;
             collision.GetComponent<Inventory>().currentNPC = this;
             TalkNpc();
