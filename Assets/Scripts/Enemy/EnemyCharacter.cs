@@ -77,10 +77,11 @@ public abstract class EnemyCharacter : MonoBehaviour
 
     protected virtual void DetectPlayer()
     {
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position - (Vector2.right * characterStat.detectRange),
-            Vector2.right, characterStat.detectRange * 2, characterStat.target);
+        RaycastHit2D hit = Physics2D.Raycast(((Vector2)transform.position + Vector2.up) + (Vector2.right * characterStat.detectRange),
+            Vector2.left, characterStat.detectRange * 2);
         if (hit.collider != null)
         {
+            Debug.Log(hit.collider);
             targetTransform = GameManager.instance.player.transform;
             detected = true;
         }

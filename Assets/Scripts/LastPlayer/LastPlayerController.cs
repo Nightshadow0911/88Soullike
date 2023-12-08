@@ -360,7 +360,7 @@ public class LastPlayerController : MonoBehaviour
         {
             float verticalInput = Input.GetAxis("Vertical");
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.currentStemina);
+            rb.velocity = new Vector2(rb.velocity.x, verticalInput * playerStatusHandler.currentSpeed);
             isGrounded = false;
             canWallSlide = false;
         }

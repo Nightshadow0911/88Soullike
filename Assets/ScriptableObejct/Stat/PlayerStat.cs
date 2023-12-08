@@ -59,7 +59,7 @@ public class PlayerStat : BaseStat
         
        hp = stat.healthStat * 10;
        stemina = stat.steminaStat * 5;
-       defense = stat.healthStat * 2;
+       defense = stat.healthStat * 1;
        stemina = stat.steminaStat * 5; 
        weight = stat.steminaStat * 3;
        parryTime = stat.strStat * 0.01f;

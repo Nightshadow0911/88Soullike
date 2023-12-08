@@ -269,7 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainSprite: {fileID: 4098110391875240276}
   flashMaterial: {fileID: 2100000, guid: d3caa2290fa00d74cab618bbaef04cd7, type: 2}
-  originalMaterial: {fileID: 0}
+  originalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &6154355871352643499
 GameObject:
   m_ObjectHideFlags: 0
