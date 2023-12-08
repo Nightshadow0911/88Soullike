@@ -140,7 +140,7 @@ public class FLevelUpUI : MonoBehaviour
     public void SubmitLevelUp()
     {
 
-        if(inven.SoulCount < needSoul)
+        if(inven.SoulCount >= needSoul)
         {
             playerStatusHandler.currentLevel += sumPoint;
             inven.SoulCount -= needSoul;
