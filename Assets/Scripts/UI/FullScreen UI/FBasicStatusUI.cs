@@ -29,7 +29,10 @@ public class FBasicStatusUI : FStatus
         manaValue.text = $"{playerStatusHandler.currentMana} / {playerMaxStat.mana}";
         steminaValue.text = $"{playerStatusHandler.currentStemina:F0} / {playerMaxStat.stemina}";
         weightValue.text = $"{playerStatusHandler.currentWeight} / {playerMaxStat.weight}" +
-            $"({(playerStatusHandler.currentWeight / playerMaxStat.weight * 100):F0}%)";
+            $"({((playerStatusHandler.currentWeight * 100f) / playerMaxStat.weight):F0}%)";
+        Debug.Log(playerStatusHandler.currentWeight);
+        Debug.Log(playerMaxStat.weight);
+        Debug.Log((playerStatusHandler.currentWeight / (playerMaxStat.weight)));
         regainValue.text = $"{playerStatusHandler.currentRegainHp}";
         moveSpeedValue.text = $"{playerStatusHandler.currentSpeed}";
 
