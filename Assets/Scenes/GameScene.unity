@@ -1664,6 +1664,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!4 &477683169 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8326188666562159080, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
+  m_PrefabInstance: {fileID: 1369542733}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &490850818 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8347643657052504918, guid: 244f7a5c538a974489307e58b0fc19ac, type: 3}
@@ -1684,6 +1689,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8252238226503710987, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
   m_PrefabInstance: {fileID: 1369542733}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &529891733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 529891734}
+  m_Layer: 7
+  m_Name: AttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &529891734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529891733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 477683169}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &553217205 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7375162987284541612, guid: 9f558fd6684254c1bb0501b5ba8c2439, type: 3}
@@ -39038,6 +39074,18 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 4.65625
       objectReference: {fileID: 0}
+    - target: {fileID: 6172675967778349493, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
+      propertyPath: attackPosition
+      value: 
+      objectReference: {fileID: 529891734}
+    - target: {fileID: 6172675967778349493, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
+      propertyPath: meleeAttackRange.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172675967778349493, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
+      propertyPath: meleeAttackRange.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6195944734141141996, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -60702,6 +60750,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8330273470947643028, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
       insertIndex: -1
       addedObject: {fileID: 304433722}
+    - targetCorrespondingSourceObject: {fileID: 8326188666562159080, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 529891734}
     - targetCorrespondingSourceObject: {fileID: 486266714220514580, guid: d34f139e2c2e0d740bca2b4ec69fcd35, type: 3}
       insertIndex: 0
       addedObject: {fileID: 2032236563}
