@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class FMapUI : MonoBehaviour
 {
-    public FMapUI instance;
+    public static FMapUI instance;
+
+
     private void Awake()
     {
         if (instance != null)

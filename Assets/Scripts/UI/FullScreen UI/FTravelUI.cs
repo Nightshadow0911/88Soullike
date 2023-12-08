@@ -6,6 +6,8 @@ public class FTravelUI : MonoBehaviour
 {
     public static FTravelUI instance;
 
+    public 
+
     private void Awake()
     {
         if (instance != null)
