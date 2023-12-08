@@ -103,9 +103,4 @@ public class SkeletonEnemy : EnemyCharacter
             return true;
         return false;
     }
-
-    protected override void Death()
-    {
-        anim.StringTrigger("death");
-    }
 }
