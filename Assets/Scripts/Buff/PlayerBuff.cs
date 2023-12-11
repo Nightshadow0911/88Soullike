@@ -29,10 +29,8 @@ public class PlayerBuff : MonoBehaviour
             buff.Activated(playerStatusHandler, () =>
             { //���ݷ� ������ ���� PlayerAttack���� �ϴ°� �´°�? ������ �����Ǵ� ��� ������ �ϳ��� ��ũ��Ʈ�� ���־�� ������
                 buffs.Remove(buff);
-                Destroy(buff.gameObject);
-                Debug.Log(buff.buff.name + " : ���� ���ŵ�");
+                Destroy(buff.gameObject); 
             });
-            Debug.Log(buff.buff.name + " : ���� ����");
         }
         AddBuffUI(buff.buff);
     }
