@@ -38,7 +38,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7651277435799159720
 SpriteRenderer:
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 5048235138083051449}
-  meleeAttackRange: {x: 0, y: 0}
+  meleeAttackRange: {x: 3, y: 3}
   tileLayer:
     serializedVersion: 2
     m_Bits: 1536

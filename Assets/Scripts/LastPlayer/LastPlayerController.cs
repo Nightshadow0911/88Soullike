@@ -16,7 +16,7 @@ public class LastPlayerController : MonoBehaviour
     public PlayerUI playerUI;
     [SerializeField] private float jumpForce = 10;
 
-    private bool canMove = true;
+    public bool canMove = true;
 
     private bool canWallSlide;
     private bool isWallSliding;
@@ -131,13 +131,13 @@ public class LastPlayerController : MonoBehaviour
             {
                 if (rb.velocity.y < 0)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * 5f));
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * 2f));
                     canPressS = false;
                     StartCoroutine(EnablePressAfterCooldown());
                 }
                 else
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * -5f));
+                    rb.velocity = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y * -2f));
                     canPressS = false;
                     StartCoroutine(EnablePressAfterCooldown());
                 }
@@ -159,9 +159,6 @@ public class LastPlayerController : MonoBehaviour
         sk.CurSkill = transform.GetComponent<Equipment>().skillSlotList[skillIndex];
         sk.Init();
         sk.Use();
-        
-
-
     }
     public void ChangeSkill()
     {

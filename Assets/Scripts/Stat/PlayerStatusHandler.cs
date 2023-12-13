@@ -62,11 +62,13 @@ public class PlayerStatusHandler :StatHandler
 
     private void Awake()
     {
-        playerCurrentStat = currentStatSO as PlayerStat;
+        playerCurrentStat = currentStatSO as PlayerStat; 
+        growStatSO.ResetStat();
+        playerCurrentStat.ResetStat();
         SetStat();
         playerAttack = GetComponent<PlayerAttack>();
         test = GetComponent<Test>();
-
+       
     }
 
     
@@ -115,7 +117,7 @@ public class PlayerStatusHandler :StatHandler
         currentpropertyDamage = playerCurrentStat.propertyDamage;
         currentpropertyDefense = playerCurrentStat.propertyDefense;
         currentWeight = 0;
-        currentRegainHp = currentHp;
+        currentRegainHp = currentHp+(currentHp/20);
         currentMana = playerCurrentStat.mana;
         currentSpeed = playerCurrentStat.speed;
         currentCritical = playerCurrentStat.criticalChance;
