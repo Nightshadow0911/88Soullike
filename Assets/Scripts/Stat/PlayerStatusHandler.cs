@@ -115,7 +115,7 @@ public class PlayerStatusHandler :StatHandler
         currentpropertyDamage = playerCurrentStat.propertyDamage;
         currentpropertyDefense = playerCurrentStat.propertyDefense;
         currentWeight = 0;
-        currentRegainHp = currentHp;
+        currentRegainHp = currentHp+(currentHp/20);
         currentMana = playerCurrentStat.mana;
         currentSpeed = playerCurrentStat.speed;
         currentCritical = playerCurrentStat.criticalChance;

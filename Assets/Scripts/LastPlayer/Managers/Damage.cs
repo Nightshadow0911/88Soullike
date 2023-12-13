@@ -5,16 +5,15 @@ using UnityEngine;
 /// <summary>
 /// 데미지 출력
 /// </summary>
-public class UiManager : MonoBehaviour
+public class Damage : MonoBehaviour
 {
     public GameObject damageTextPrefab;
     public GameObject healthTextPrefab;
     public Canvas gameCanvas;
-
+    public GameObject playerUI;
     private void Awake()
     {
-        gameCanvas = FindObjectOfType<Canvas>();
-
+        playerUI = FindObjectOfType<Canvas>().gameObject;
     }
 
     private void OnEnable()
