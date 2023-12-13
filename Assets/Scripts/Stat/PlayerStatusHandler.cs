@@ -62,11 +62,13 @@ public class PlayerStatusHandler :StatHandler
 
     private void Awake()
     {
-        playerCurrentStat = currentStatSO as PlayerStat;
+        playerCurrentStat = currentStatSO as PlayerStat; 
+        growStatSO.ResetStat();
+        playerCurrentStat.ResetStat();
         SetStat();
         playerAttack = GetComponent<PlayerAttack>();
         test = GetComponent<Test>();
-
+       
     }
 
     
