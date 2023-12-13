@@ -39,7 +39,7 @@ public class FBasicStatusUI : FStatus
         attackDamageValue.text = $"{playerStatusHandler.currentDamage}";
         spellPowerValue.text = $"{playerStatusHandler.currentSpellPower}";
         propertyDamageValue.text = $"{playerStatusHandler.currentpropertyDamage}";
-        criticalRateValue.text = $"{playerStatusHandler.currentCritical*100:F0}%";
+        criticalRateValue.text = $"{playerStatusHandler.currentCritical:F0}%";
         attackSpeed.text = $"{playerStatusHandler.currentDelay}";
 
     }
