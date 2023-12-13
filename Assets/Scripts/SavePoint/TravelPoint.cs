@@ -1,62 +1,53 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
-using Image = UnityEngine.UI.Image;
 
-public class TravelPoint : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class TravelPoint : MonoBehaviour
 {
-    private Vector3 position;
-    private Color changeColor;
-    private bool isReady;
-    [SerializeField] private TextMeshProUGUI textUI;
-    [SerializeField] private Image imageUI;
-
+    private Travel travel;
+    private Color activeColor;
+    [SerializeField] private Image point;
 
     private void Awake()
     {
-        changeColor = imageUI.color;
-        CloseText();
+        activeColor = point.color;
+        gameObject.SetActive(false);
     }
 
-    public void SetTravel(string name, Vector3 position)
+    private void SelectPoint(Travel travel)
     {
-        this.position = position + (Vector3.left * 2);
-        textUI.text = name;
-        gameObject.SetActive(true);
+        if (travel.travelName == this.travel.travelName)
+            point.rectTransform.sizeDelta = new Vector2(50, 50);
+        else
+            ResetPoint();
     }
 
-    public void ChangeReady(bool state)
+    public void SetTravel(Travel travel)
     {
-        changeColor.a = state ? 1f : 0.3f;
-        imageUI.color = changeColor;
-        isReady = state;
+        this.travel = travel;
+        FTravelUI.instance.OnTravel += SelectPoint;
+        FTravelUI.instance.OnSavePoint += ReadyTravel;
+        FTravelUI.instance.OnReset += ResetPoint;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void ReadyTravel(bool savePoint)
     {
-        if (isReady)
+        if (savePoint)
         {
-            GameManager.instance.player.transform.position = position;
+            point.color = activeColor;
+        }
+        else
+        {
+            Color inActiveColor = activeColor;
+            inActiveColor.a = 0.5f;
+            point.color = inActiveColor;
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void ResetPoint()
     {
-        textUI.gameObject.SetActive(true);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        CloseText();
-    }
-
-    public void CloseText()
-    {
-        textUI.gameObject.SetActive(false);
+        point.rectTransform.sizeDelta = new Vector2(30, 30);
     }
 }

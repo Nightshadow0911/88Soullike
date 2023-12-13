@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,6 @@ using UnityEngine;
 public class FMapUI : MonoBehaviour
 {
     public static FMapUI instance;
-
 
     private void Awake()
     {
@@ -15,5 +15,6 @@ public class FMapUI : MonoBehaviour
             return;
         }
         instance = this;
+
     }
 }
