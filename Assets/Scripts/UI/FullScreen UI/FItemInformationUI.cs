@@ -136,11 +136,11 @@ public class FItemInformationUI : MonoBehaviour
     }
     public void ClearInform()
     {
-        /*        foreach (GameObject panel in itemPanel)
-                {
-                    panel.SetActive(false);
-                }*/
-       // centerPanel.SetActive(true);
+       foreach (GameObject panel in itemPanel)
+       {
+            panel.SetActive(false);
+       }
+       //centerPanel.SetActive(true);
     }
 
 
