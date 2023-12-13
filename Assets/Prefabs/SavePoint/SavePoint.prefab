@@ -156,6 +156,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alert: {fileID: 4089610259432906263}
   awakeEffect: {fileID: 3563074450136211953}
+  travel:
+    travelName: 
+    point: {fileID: 0}
+    position: {x: 0, y: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -192,7 +196,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.01177007, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -203,7 +207,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8413876, y: 3.4690604}
+  m_Size: {x: 2.8065367, y: 3.4690604}
   m_EdgeRadius: 0
 --- !u!212 &3876384429283840839
 SpriteRenderer:
