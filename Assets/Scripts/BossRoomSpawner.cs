@@ -17,6 +17,8 @@ public class BossRoomSpawner : BaseGimmick
     private Coroutine currentCoroutine;
     public GameObject bossUI;
 
+    public AudioClip bossClip;
+
     protected override void Start()
     {
         GameManager.instance.PlayerDeath += ResetBoss;
@@ -44,6 +46,16 @@ public class BossRoomSpawner : BaseGimmick
             bossUI.SetActive(true);
             dBSpawnCount++;
             DoorClose();
+
+            SoundManager.instance.ChangeBGMAudio(bossClip);
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) //플레이어가 입장하면 보스 활성화
+        {
+            SoundManager.instance.ChangeOriginalBGMAudio();
         }
     }
 
@@ -60,5 +72,7 @@ public class BossRoomSpawner : BaseGimmick
         mapGimmickAction.ToggleSpriteAndCollider(door1sprite, door1Collider , false);
         mapGimmickAction.ToggleSpriteAndCollider(door2sprite, door2Collider , false);
         dBSpawnCount = 0;
+
+        SoundManager.instance.ChangeOriginalBGMAudio();
     }
 }

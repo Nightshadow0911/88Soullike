@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MapGimmickInteraction : MonoBehaviour
 {
-    Vector3 boxSize = new Vector3(2f, 2f, 0f);
+    Vector3 boxSize = new Vector3(2.5f, 2.5f, 0f);
     
     public bool CollisionChecktoTagBased(string tag, Vector2 position) //체크를 위해 bool로 설정
     {
