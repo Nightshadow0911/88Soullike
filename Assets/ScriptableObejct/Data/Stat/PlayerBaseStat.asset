@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PlayerBaseStat
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStat
   hp: 100
-  damage: 1
+  damage: 4
   defense: 0
-  speed: 8
+  speed: 6
   delay: 1.5
   attackRange: 1
   propertyDamage: 0
