@@ -14,8 +14,8 @@ public class FEquipmentUI : MonoBehaviour
     public EquipmentSlot[] skillSlot = new EquipmentSlot[2];
     public GameObject itemSlots; 
 
-    private Equipment equipment;
-    private Inventory inven;
+    [SerializeField] private Equipment equipment;
+    [SerializeField] private Inventory inven;
 
     private void Awake()
     {
@@ -28,9 +28,6 @@ public class FEquipmentUI : MonoBehaviour
     }
     private void Start()
     {
-        equipment = Equipment.instance;
-        inven = Inventory.instance;
-
         DrawEquipSlot();
         DrawSkillSlot();
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class SavePoint : MonoBehaviour
@@ -13,7 +14,8 @@ public class SavePoint : MonoBehaviour
 
     private Animator anim;
     private bool isAwake = false;
-    
+    private Item playerPotion;
+
     private void Awake()
     {
         alert.SetActive(false);
@@ -28,10 +30,16 @@ public class SavePoint : MonoBehaviour
         {
             if (!isAwake)
             {
+                List<Item> invenItems = Inventory.instance.items;
+                for (int i = 0; i < invenItems.Count; i++)
+                {
+                    if (invenItems[i].Type == ItemType.Potion && !invenItems[i].CurItem.Buyable())
+                    {
+                        playerPotion = invenItems[i];
+                    }
+                }
                 awakeEffect.SetActive(true);
-                anim.SetTrigger("Save");
-                SoundManager.instance.PlayClip(soundData);
-                FTravelUI.instance.SetTravel(travel);
+                    FTravelUI.instance.SetTravel(travel);
                 FTravelUI.instance.OnSavePoint?.Invoke(true);
                 isAwake = true;
             }
@@ -39,7 +47,9 @@ public class SavePoint : MonoBehaviour
             SoundManager.instance.PlayClip(soundData);
             GameObject player = GameManager.instance.player;
             player.GetComponent<PlayerStatusHandler>().FullCondition();          
-            player.GetComponent<LastPlayerController>().SetPosition(transform.position);          
+            player.GetComponent<LastPlayerController>().SetPosition(transform.position);
+            playerPotion.Amount = playerPotion.CurItem.Amount;
+            FInventoryUI.instance.RedrawSlotUI();
         }
     }
 

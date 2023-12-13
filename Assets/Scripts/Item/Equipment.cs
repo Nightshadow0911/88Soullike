@@ -40,7 +40,7 @@ public class Equipment : MonoBehaviour
     private void Start()
     {
         fManager = FullScreenUIManager.instance;
-        //fEquipUI = FEquipmentUI.instance; 초기화가 안됨... 끄고 에디터에서 직접 넣으면 됨.. 왜??
+        //fEquipUI = FEquipmentUI.instance; //초기화가 안됨... 끄고 에디터에서 직접 넣으면 됨.. 왜??
 
         skillSlotList[0] = SkillDatabase.instance.skillDB[0];
         skillSlotList[1] = SkillDatabase.instance.skillDB[1];
