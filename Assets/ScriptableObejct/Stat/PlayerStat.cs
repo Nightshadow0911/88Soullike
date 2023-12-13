@@ -104,7 +104,17 @@ public class PlayerStat : BaseStat
             criticalChance = baseStat.criticalChance + growStat.criticalChance;
             mana = baseStat.mana + growStat.mana;
     }
-    
+
+    public void ResetStat()
+    {
+        healthStat = 0;
+        steminaStat = 0;
+        strStat = 0;
+        dexStat = 0;
+        intStat = 0;
+        luxStat = 0;
+    }
+
 }
 
 
