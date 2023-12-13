@@ -18,14 +18,12 @@ public class PlayerDeathToOutOfMap : MonoBehaviour
 
     private void death()
     {
-        PlayerStatusHandler playerHandler = new PlayerStatusHandler();
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxSize, 0f);
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Player"))
             {
-                playerHandler = collider.GetComponent<PlayerStatusHandler>();
-                playerHandler.currentHp = 0;
+                collider.GetComponent<PlayerStatusHandler>().currentHp = 0;
             }
         }
     }
