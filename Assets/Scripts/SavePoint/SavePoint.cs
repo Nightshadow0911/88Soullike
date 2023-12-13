@@ -53,18 +53,18 @@ public class SavePoint : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
+        if (playerLayer == (playerLayer | (1 << collision.gameObject.layer)))
         {
             alert.SetActive(true);
             FTravelUI.instance.OnSavePoint?.Invoke(isAwake);
         }
     }
     
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (playerLayer == (playerLayer | (1 << other.gameObject.layer)))
+        if (playerLayer == (playerLayer | (1 << collision.gameObject.layer)))
         {
             alert.SetActive(false);
             FTravelUI.instance.OnSavePoint?.Invoke(false);
