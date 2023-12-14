@@ -120,11 +120,10 @@ public abstract class EnemyCharacter : MonoBehaviour
 
     private void StopEnemy()
     {
+        state = State.RUNNING;
         if (currentPattern != null)
             StopCoroutine(currentPattern);
-        currentPattern = null;
         rigid.velocity = Vector2.zero;
-        state = State.FAILURE;
         currentTime = 0f;
     } 
 }

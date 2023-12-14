@@ -25,6 +25,7 @@ public class Boss_NightBorn : EnemyCharacter
         #region CloseRangedPattern
         pattern.AddPattern(Distance.CloseRange, Slash);
         pattern.AddPattern(Distance.CloseRange, ForwardDashSlash);
+        pattern.AddPattern(Distance.CloseRange, BlinkExplosion);
         pattern.AddPattern(Distance.CloseRange, SpwanMonster);
         #endregion
 
@@ -235,6 +236,10 @@ public class Boss_NightBorn : EnemyCharacter
     protected override void Death()
     {
         base.Death();
+        foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
+        {
+            ProjectileManager.instance.DeleteObjectPool(projectile.tag);
+        }
         ResetDarkSpirit();
     }
     public void DestroyThis()

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1de27153f742b1144a0ca56f872c019d
+guid: 0d0cabd26ea557246aa7e30f5e8fc5c1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,9 +106,85 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: _WallSlide_Flip_0
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 3
+        width: 22
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 853340c9d7392ad4586d32e297fc068c
+      internalID: 474027277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _WallSlide_Flip_1
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 3
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 0.52, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c5014ad073874148ac7a49bebd90a4e
+      internalID: 1290734383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _WallSlide_Flip_2
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 3
+        width: 22
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a25294ab4cf1e3842904723ce7afee61
+      internalID: 726994034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +195,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      _WallSlide_Flip_0: 474027277
+      _WallSlide_Flip_1: 1290734383
+      _WallSlide_Flip_2: 726994034
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
