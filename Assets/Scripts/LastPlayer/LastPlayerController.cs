@@ -9,7 +9,7 @@ public class LastPlayerController : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private PlayerAttack playerAttack;
-
+    private PlayerStat maxStat;
     public FadeOut fadeOut;
     public LedgeCheck ledgeCheck;
 
@@ -77,7 +77,7 @@ public class LastPlayerController : MonoBehaviour
     [SerializeField] private float playAudioTime;
 
     private Vector2 savePosition = Vector2.zero;
-    
+
     private void Awake()
     {
 
@@ -86,12 +86,13 @@ public class LastPlayerController : MonoBehaviour
         playerStatusHandler = GetComponent<PlayerStatusHandler>();
         test = GetComponent<Test>();
     }
-    
+
     void Start()
     {
         soundManager = SoundManager.instance;
         if (savePosition == Vector2.zero)
             savePosition = transform.position;
+        maxStat = playerStatusHandler.GetStat();
     }
 
     void Update()
@@ -232,7 +233,7 @@ public class LastPlayerController : MonoBehaviour
     private void Move()
     {
         if (canMove)
-        { 
+        {
             Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
             rb.velocity = new Vector2(movingInput * playerStatusHandler.currentSpeed, rb.velocity.y);
             if (isSitting)
@@ -287,7 +288,7 @@ public class LastPlayerController : MonoBehaviour
     private void RegenStamina()
     {
         playerStatusHandler.currentStemina += staminaRegenRate * Time.deltaTime;
-        playerStatusHandler.currentStemina = Mathf.Clamp(playerStatusHandler.currentStemina, 0f, 100f);
+        playerStatusHandler.currentStemina = Mathf.Clamp(playerStatusHandler.currentStemina, 0f, maxStat.stemina);
     }
 
     private void Death()
