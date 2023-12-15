@@ -18,14 +18,14 @@ public class SelectItemUI : MonoBehaviour
     private int slotNum;
 
     private Inventory inven;
-    private FInventoryUI fInvenUI;
+    [SerializeField]private FInventoryUI fInvenUI;
     private FItemInformationUI fInformUI;
     //public Action anyAction;
 
     private void Start()
     {
         inven = Inventory.instance;
-        fInvenUI = FInventoryUI.instance;
+        //fInvenUI = FInventoryUI.instance;
         fInformUI = FItemInformationUI.instance;
         slotNum = 0;
 

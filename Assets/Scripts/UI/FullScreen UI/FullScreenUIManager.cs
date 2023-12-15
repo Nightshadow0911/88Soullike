@@ -99,6 +99,7 @@ public class FullScreenUIManager : MonoBehaviour
             {
                 CloseUIList(allFullScreenUIList);
                 uiSwitch.ClearSwitch();
+                itemSelectUI.SetActive(false);
             }
             else
             {
