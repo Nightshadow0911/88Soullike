@@ -142,6 +142,10 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
     protected override void Death()
     {
         anim.StringTrigger("death");
+        foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
+        {
+            ProjectileManager.instance.DeleteObjectPool(projectile.tag);
+        }
         Invoke("DestroyThis",1.5f);
 
     }

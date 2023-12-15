@@ -57,6 +57,6 @@ public class ObjectPool : MonoBehaviour
     
     public void DeleteToPool(string tag)
     {
-        poolDict.Remove(tag); 
+        poolDict.Remove(tag);
     }
 }

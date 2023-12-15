@@ -463,6 +463,15 @@ public class Boss_Hawkeye : EnemyCharacter
             type.SetActive(false);
     }
 
+    protected override void Death()
+    {
+        base.Death();
+        foreach (ObjectPool.Pool projectile in uniqueStats.projectiles)
+        {
+            ProjectileManager.instance.DeleteObjectPool(projectile.tag);
+        }
+    }
+
     public void DestroyThis()
     {
         Destroy(gameObject);

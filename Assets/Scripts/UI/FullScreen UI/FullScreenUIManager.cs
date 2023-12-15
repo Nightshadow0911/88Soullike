@@ -99,6 +99,7 @@ public class FullScreenUIManager : MonoBehaviour
             {
                 CloseUIList(allFullScreenUIList);
                 uiSwitch.ClearSwitch();
+                itemSelectUI.SetActive(false);
             }
             else
             {
@@ -125,13 +126,14 @@ public class FullScreenUIManager : MonoBehaviour
             if (inven.currentNPC.npcName.Equals("Shop"))
             {
                 ToggleKeyDownAction(npcKey, shopList);
-            } else if(inven.currentNPC.npcName.Equals("Stat"))
+            }
+            else if (inven.currentNPC.npcName.Equals("Stat"))
             {
                 ToggleKeyDownAction(npcKey, levelUpList);
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             if(activeFullScreenUILList.Count > 0)
             {
@@ -169,7 +171,7 @@ public class FullScreenUIManager : MonoBehaviour
 
     }
 
-    private void InitCloseAll() // 시작시 모든 팝업 닫기
+    public void InitCloseAll() // 시작시 모든 팝업 닫기
     {
         CloseUIList(allFullScreenUIList);
     }
@@ -185,8 +187,8 @@ public class FullScreenUIManager : MonoBehaviour
             if (fScreens != null) {
                 SetBase(key);
                 SetPosition(fScreens);
-            } 
-
+            }
+            fInform.ClearInform();
         }
         if (activeFullScreenUILList.Count > 0)
         {
@@ -204,9 +206,6 @@ public class FullScreenUIManager : MonoBehaviour
             fullScreenBase.gameObject.SetActive(false);
         }
         uiSwitch.Init();
-        fInform.ClearInform();
-
-
     }
 
     // 팝업의 상태에 따라 열거나 닫기(opened / closed)

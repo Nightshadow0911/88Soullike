@@ -106,9 +106,169 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: _WallClimbNoMovement_0
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 19
+        height: 32
+      alignment: 9
+      pivot: {x: 0.6, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00f5c741698dbde4cb1f5128668fff0a
+      internalID: 376109788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _WallClimbNoMovement_1
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 1
+        width: 21
+        height: 27
+      alignment: 9
+      pivot: {x: 0.6, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db53626d72765d4cbd81a2d5e424f82
+      internalID: -479543503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _WallClimbNoMovement_2
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 2
+        width: 25
+        height: 26
+      alignment: 9
+      pivot: {x: 0.6, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bc1f54985c49294e9588a2e3d1e75c8
+      internalID: -1471464201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _WallClimbNoMovement_3
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 6
+        width: 29
+        height: 24
+      alignment: 9
+      pivot: {x: 0.6, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a680f070cb5b704dac8187f027dd84f
+      internalID: -1918999863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _WallClimbNoMovement_4
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 5
+        width: 25
+        height: 26
+      alignment: 9
+      pivot: {x: 0.6, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdf3ccab60c29a64493e0b39862df8cd
+      internalID: 879792757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _WallClimbNoMovement_5
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 3
+        width: 20
+        height: 30
+      alignment: 9
+      pivot: {x: 0.6, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fce97fdab367d04b985e0a0c2d2c1fa
+      internalID: -1100387583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _WallClimbNoMovement_6
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 1
+        width: 22
+        height: 34
+      alignment: 9
+      pivot: {x: 0.6, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40459a509c144284f9bcf47a285023a8
+      internalID: -770712948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +279,14 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      _WallClimbNoMovement_0: 376109788
+      _WallClimbNoMovement_1: -479543503
+      _WallClimbNoMovement_2: -1471464201
+      _WallClimbNoMovement_3: -1918999863
+      _WallClimbNoMovement_4: 879792757
+      _WallClimbNoMovement_5: -1100387583
+      _WallClimbNoMovement_6: -770712948
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

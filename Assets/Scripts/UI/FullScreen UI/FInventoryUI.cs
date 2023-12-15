@@ -72,7 +72,7 @@ public class FInventoryUI : MonoBehaviour
 
     }
 
-    private void RedrawSlotUI()
+    public void RedrawSlotUI()
     {
         //if (inven.items.Count <= 0) return;
 

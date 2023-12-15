@@ -49,9 +49,9 @@ public class FTravelUI : MonoBehaviour
 
     public void GoTravel()
     {
-        GameManager.instance.player.transform.position = currentTravel.position;
-        OnSavePoint?.Invoke(false);
+        GameManager.instance.player.transform.position = currentTravel.position + Vector2.up;
         OnReset?.Invoke();
+        FullScreenUIManager.instance.InitCloseAll();
     }
 
     private void OnDisable()
