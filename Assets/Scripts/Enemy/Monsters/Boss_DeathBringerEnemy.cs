@@ -143,6 +143,7 @@ public class Boss_DeathBringerEnemy : EnemyCharacter
     {
         anim.StringTrigger("death");
         Invoke("DestroyThis",1.5f);
+
     }
 
     private void DestroyThis()
