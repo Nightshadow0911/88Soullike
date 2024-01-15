@@ -27,7 +27,8 @@ public class PlayerAttack : MonoBehaviour
     public bool comboAttack;
     private Test test;
     private int comboCount=1;
-
+    public GameObject parryingObject;
+    public GameObject shieldObject;
     // Start is called before the first frame update
 
     void Start()
@@ -35,6 +36,8 @@ public class PlayerAttack : MonoBehaviour
         canAttack = true;
         max = playerStatusHandler.GetStat();
         soundManager = SoundManager.instance;
+        parryingObject.SetActive(false);
+        shieldObject.SetActive(false);
     }
     private void Awake()
     {
@@ -47,62 +50,56 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckDeffense();
+        CheckDefense();
         CheckAttackTime();
         ResetClickCount();
     }
 
 
-    public void CheckDeffense()
+    public void CheckDefense()
     {
         if (isGuarding)
         {
-            monsterToPlayerDamage = true;// 몬스터가 플레이어한테 데미지를 줌 
+            monsterToPlayerDamage = true;
         }
 
-        // 패링 가능한 상태에서만 패링이 가능하도록 체크
+        // 패링 체크
         if (Input.GetMouseButtonDown(1) && !isParrying)
         {
             isParrying = true;
-            transform.Find("Parrying").gameObject.SetActive(true);
-            parryWindowEndTime = Time.time + 0.5f;// playerStatusHandler.currentParryTime;
-
-            //Debug.Log("Parry Start"+ playerStatusHandler.currentParryTime);
+            parryingObject.SetActive(true);
+            parryWindowEndTime = Time.time + 0.5f;
         }
         else if (Input.GetMouseButtonUp(1) && isParrying)
         {
             isParrying = false;
-            transform.Find("Parrying").gameObject.SetActive(false);
-            //Debug.Log("Parry Success");
+            parryingObject.SetActive(false);
         }
 
-        // 가드가 활성화되지 않은 상태에서 가드 가능한지 체크
+        // 가드 체크
         if (Input.GetMouseButtonDown(1) && !isGuarding)
         {
             canAttack = false;
             isGuarding = true;
-            //Debug.Log("Guard Start");
-            transform.Find("Shield").gameObject.SetActive(true);
+            shieldObject.SetActive(true);
         }
         else if (Input.GetMouseButtonUp(1) && isGuarding)
         {
             canAttack = true;
             isGuarding = false;
-            //Debug.Log("Guard End");
-            transform.Find("Shield").gameObject.SetActive(false);
+            shieldObject.SetActive(false);
         }
 
-        // 패링 윈도우 종료 체크
+        // 패링 윈도우 만료 체크
         if (Time.time > parryWindowEndTime)
         {
             isParrying = false;
-            transform.Find("Parrying").gameObject.SetActive(false);
-            //Debug.Log("Parry Failed");
+            parryingObject.SetActive(false);
         }
     }
 
 
-    private void ManaPlus()
+private void ManaPlus()
     {
         //Debug.Log("comboCount:" + comboCount);
         if (comboCount %3 ==0)
