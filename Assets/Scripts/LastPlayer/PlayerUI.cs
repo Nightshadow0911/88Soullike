@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-
     private PlayerStatusHandler playerStatusHandler;
     private PlayerStat PlayerStat;
     private PlayerStat maxStat;
@@ -31,30 +30,40 @@ public class PlayerUI : MonoBehaviour
         manaSlider.value = 1;
         maxStat = playerStatusHandler.GetStat();
     }
- 
+
     void Update()
     {
-
         UpdateHpUI();
         UpdateStaminaUI();
         UpdateRegainHpUI();
         UpdateManaUI();
         SoulText();
     }
-    //gameManager.playerStats.characterStamina
 
     private void SoulText()
     {
-        soulText.text = $"SOUL : {inven.SoulCount:N0}";
-
+        StringBuilder soulStringBuilder = CreateStringBuilder("SOUL : ", inven.SoulCount.ToString("N0"));
+        soulText.text = soulStringBuilder.ToString();
     }
+
+    private StringBuilder CreateStringBuilder(params string[] values)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        foreach (string value in values)
+        {
+            stringBuilder.Append(value);
+        }
+        return stringBuilder;
+    }
+
     private void UpdateHpUI()
     {
-        int currentHealth = playerStatusHandler.currentHp;// current값 
-        int maxHealth = maxStat.hp; // max 값
-        healthText.text = "HP: " + currentHealth + " / " + maxHealth;
-        healthSlider.value = calculateHealthPercentage(currentHealth, maxHealth);
+        int currentHealth = playerStatusHandler.currentHp;
+        int maxHealth = maxStat.hp;
+        healthText.text = CreateString($"HP: {currentHealth} / {maxHealth}");
+        healthSlider.value = CalculatePercentage(currentHealth, maxHealth);
     }
+
     private void UpdateStaminaUI()
     {
         float currentStamina = playerStatusHandler.currentStemina;
@@ -66,18 +75,17 @@ public class PlayerUI : MonoBehaviour
     {
         int currentMana = playerStatusHandler.currentMana;
         int maxMana = maxStat.mana;
-        manaText.text = currentMana + " / " + maxMana;
-        //Debug.Log("maxMana ::" + maxMana);
-        manaSlider.value = calculaterManaPercentage(currentMana, maxMana);
+        manaText.text = CreateString($"{currentMana} / {maxMana}");
+        manaSlider.value = CalculatePercentage(currentMana, maxMana);
     }
 
     public void UpdateRegainHpUI()
     {
-        int characterRegainHp = playerStatusHandler.currentRegainHp; //(현재값 )
-        int maxHealth = maxStat.hp; // max 값
-        int currentHealth = playerStatusHandler.currentHp;//(현재값 )
-        //Debug.Log("currentRegainHp:" + characterRegainHp);
-        if (characterRegainHp < currentHealth) 
+        int characterRegainHp = playerStatusHandler.currentRegainHp;
+        int maxHealth = maxStat.hp;
+        int currentHealth = playerStatusHandler.currentHp;
+
+        if (characterRegainHp < currentHealth)
         {
             characterRegainHp = currentHealth;
         }
@@ -85,19 +93,16 @@ public class PlayerUI : MonoBehaviour
         {
             characterRegainHp = 0;
         }
-        regainSlider.value = calculateGuardPercentage(characterRegainHp, maxHealth);
+        regainSlider.value = CalculatePercentage(characterRegainHp, maxHealth);
     }
 
-    float calculateHealthPercentage(int currentHealth, int maxHealth)
+    private string CreateString(params string[] values)
     {
-        return (float)currentHealth / maxHealth; // Convert to float for accurate percentage
+        return string.Concat(values);
     }
-    float calculateGuardPercentage(int characterRegainHp, int maxHealth)
+
+    private float CalculatePercentage(float currentValue, float maxValue)
     {
-        return (float)characterRegainHp / maxHealth; // Convert to float for accurate percentage
-    }
-    float calculaterManaPercentage(int currentMana, int maxMana)
-    {
-        return (float)currentMana / maxMana;
+        return currentValue / maxValue;
     }
 }
